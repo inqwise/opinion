@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+
+		
+		<div id="feedback"></div>
+		<button id="button_load_feedback">Load Feedback</button>
+		
+
+		<!-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+		
+		<!--
+		<script type="text/javascript" src="http://c7.inqwise.com/scripts/widget/1.0.4/survey.js">
+		{
+		    "guid" : "6c02b697-dbfc-4981-8fe6-4b2d9f5d1960",
+		    "collectorUrl" : "http://c7.inqwise.com",
+		    "url" : "http://c7.inqwise.com/c/1/6c02b697-dbfc-4981-8fe6-4b2d9f5d1960/1"
+		}
+		</script>
+		<noscript>
+		    <p><a href="http://c7.inqwise.com/c/1/6c02b697-dbfc-4981-8fe6-4b2d9f5d1960/1" title="Leave your feedback:">Online Survey @ Inqwise.com</a></p>
+		    <p><a href="http://www.inqwise.com" title="Online surveys and polls" target="_blank">Online Survey Tool</a> by Inqwise</p>
+		</noscript>
+		-->
+		
+		
+		
+		
+		<!--
+		<script type="text/javascript">
+		var ref = location.href;
+		</script>
+		
+		<script type="text/javascript" src="http://localhost:8080/opinion-opinion-collector/scripts/widget/1.0.5/survey.js">
+		{
+			"guid" : "6c02b697-dbfc-4981-8fe6-4b2d9f5d1960",
+		    "collectorUrl" : "http://c7.inqwise.com",
+		    "url" : "http://c7.inqwise.com/c/1/6c02b697-dbfc-4981-8fe6-4b2d9f5d1960/1",
+		    "showPaging" : "false",
+		    "params" : { 
+		    	referrer : ref
+		    }
+		}
+		</script>
+		-->
+		
+		
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://c7.inqwise.com/scripts/widget/1.0.5/survey.js"></script>
+		<script type="text/javascript">
+		
+		$(function() {
+			
+			$('#button_load_feedback').click(function() {
+				
+				var ref = location.href;
+				
+				inqwise.surveys.push({
+					guid : "6c02b697-dbfc-4981-8fe6-4b2d9f5d1960",
+				    collectorUrl : "//c7.inqwise.com",
+				    url : "//c7.inqwise.com/c/1/6c02b697-dbfc-4981-8fe6-4b2d9f5d1960/1",
+				    showPaging : false,
+				    params : { 
+				    	referrer : ref
+				    },
+				    ready : function(el) {
+				    	
+				    	el.appendTo('#feedback');
+				    	
+				    },
+				    resize : function() {
+				    	//modal.resize();
+				    }
+				});
+				inqwise.load(0);
+				
+			});
+			
+		});
+		</script>
+		
+
+	</body>
+</html>

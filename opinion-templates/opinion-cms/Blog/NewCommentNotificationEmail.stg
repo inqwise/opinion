@@ -1,0 +1,12 @@
+subject(data)::="<data.FeedbackCaption> Blog - New comment notification"
+body(data)::=<<
+
+CommentId: <data.CommentId>
+Autor: <data.AutorName>
+Email: <data.AutorEmail>
+Url: <data.AutorUrl>
+
+----
+Content:
+<data.Content>
+>>

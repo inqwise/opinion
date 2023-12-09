@@ -1,0 +1,21 @@
+#notification_box{color:#000 !important;border-bottom:1px solid #E2C822;background:none repeat scroll 0 0 #FFF9D7;padding:3px 8px;display:none;Xposition:fixed;Xtop:0;Xleft:0;Xwidth:100%;font:11px "lucida grande",tahoma,arial,verdana,sans-serif;}
+.lightloader-control .lightloader-message { Xbackground-color:#CF4342;background:url(../images/loader_red.gif) no-repeat scroll 100% 5px #CF4342;display:none;font:11px "lucida grande",tahoma,arial,verdana,sans-serif;padding:0;position:fixed;top:0px;right:0px;z-index:105;height:22px;padding-left:14px;padding-right:14px;line-height:22px;color:#fff;font-weight:normal; }
+.lightloader-control .lightloader-overlay { background-color:#fcfcfc;display:none;height:100%;left:0;margin:0;opacity:0.75;filter:alpha(opacity=75);padding:0;position:fixed;top:0;width:100%;z-index:104;_position:absolute;_height:expression(document.documentElement.clientHeight);_width:expression(document.documentElement.clientWidth);_top:expression(eval(document.documentElement.scrollTop)) }
+
+.inspector-highlight {
+	border : 1px solid #52a4f7;
+}
+.inspector-highlight .inspector-highlight-wrap {
+	position: relative;
+}
+.inspector-highlight 
+.inspector-highlight-wrap 
+.inspector-highlight-label {
+	font-family:"lucida grande", tahoma, arial, verdana, sans-serif;
+	font-size:11px;
+	color: #fff;
+	display: inline-block;
+	padding: 3px;
+	background-color: #52a4f7;
+	cursor: default;
+}

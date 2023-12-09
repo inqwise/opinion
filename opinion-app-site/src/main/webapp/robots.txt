@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /servlet/DataPostmaster
+Disallow: /frontdoor
+Sitemap: http://www.inqwise.com/sitemap.xml

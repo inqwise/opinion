@@ -1,0 +1,22 @@
+
+@font-face {
+	font-family: 'Helvetica-LT-Std';
+	src: url('../fonts/HelveticaLTStd-Roman.otf.eot');
+	src: url('../fonts/HelveticaLTStd-Roman.otf.eot?iefix') format('eot'),
+	     url('../fonts/HelveticaLTStd-Roman.otf.woff') format('woff'),
+	     url('../fonts/HelveticaLTStd-Roman.otf.ttf') format('truetype'),
+	     url('../fonts/HelveticaLTStd-Roman.otf.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Helvetica-LT-Std-Light';
+	src: url('../fonts/HelveticaLTStd-Light.otf.eot');
+	src: url('../fonts/HelveticaLTStd-Light.otf.eot?iefix') format('eot'),
+	     url('../fonts/HelveticaLTStd-Light.otf.woff') format('woff'),
+	     url('../fonts/HelveticaLTStd-Light.otf.ttf') format('truetype'),
+	     url('../fonts/HelveticaLTStd-Light.otf.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}

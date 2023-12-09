@@ -1,0 +1,12 @@
+import "../../general/GeneralEmailParts.stg"
+subject(data)::="<data.FeedbackCaption> - Unpaid invoice #<data.InvoiceId>"
+body(data)::=<<
+
+Our records show that you <data.FeedbackShortCaption> account have unpaid invoice for amount $<data.dueAmount>. 
+As such, we would appreciate you making this payment<if(data.DueDate)> until <data.DueDate; format="dd-MMM-yyyy">.
+In case of non-payment before above date, we will have to cancel all orders listed in invoice<endif>.
+The invoice details located here:
+<data.invoiceUrl>
+
+<signature(data)>
+>>

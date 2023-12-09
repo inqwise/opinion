@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="description" content="">
+		<title></title>
+		
+		<link rel="stylesheet" type="text/css" href="https://localhost:8443/opinion-opinion/css/global.css" />
+	</head>
+	<body>
+	
+		<div>
+		
+			<textarea id="text" maxlength="100" cols="50" rows="5" placeholder="Enter Text"></textarea>
+			<div id="chars">100</div>
+		
+		</div>
+		
+		
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script>
+		(function($) {
+		    $.fn.extend( {
+		        limiter: function(limit, elem) {
+		            $(this).on("keyup focus", function() {
+		                setCount(this, elem);
+		            });
+		            function setCount(src, elem) {
+		                var chars = src.value.length;
+		                if (chars > limit) {
+		                    src.value = src.value.substr(0, limit);
+		                    chars = limit;
+		                }
+		                elem.html( limit - chars );
+		            }
+		            setCount($(this)[0], elem);
+		        }
+		    });
+		})(jQuery);
+		
+		$(document).ready( function() {
+		    var elem = $("#chars");
+		    $("#text").limiter(100, elem);
+		});
+		</script>
+		
+	
+	</body>
+</html>

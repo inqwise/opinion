@@ -1,0 +1,16 @@
+subject(data)::="<data.FeedbackCaption> - Follow up"
+body(data)::=<<
+<\n>Hello,
+
+I would like to check how your evaluation of <data.FeedbackCaption> is progressing.
+If you need any assistance, please let me know. 
+
+
+Best regards,
+Basil Goldman
+basil@inqwise.com
+
+Inqwise - Online survey & questionnaire tool
+www.inqwise.com
+Technical Support: support@inqwise.com 
+>>

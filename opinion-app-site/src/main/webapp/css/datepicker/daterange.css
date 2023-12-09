@@ -1,0 +1,43 @@
+
+.datepicker-text {
+	padding: 5px;
+	border: 1px solid #ccc;
+}
+.datepicker-date-range-container {
+	padding-right: 12px;
+	cursor: pointer;
+	background: url(../images/arrow_down.png) no-repeat scroll 100% 50% transparent;
+}
+.datepicker-date-range-container.active {
+	background: url(../images/arrow_up.png) no-repeat scroll 100% 50% transparent;
+}
+/* date range */
+#datepicker_date_range_description { color: #666; }
+#datepicker_date_range_value {
+	font-weight: bold;
+}
+
+#datepicker_editor {
+	border:1px solid #8c8c8c;
+	border:1px solid rgba(0, 0, 0, .45);
+	border-bottom:1px solid #666;
+	box-shadow:0 3px 8px rgba(0, 0, 0, .3);
+	clear: both; 
+	display: none; 
+	position: absolute; 
+	z-index: 100; 
+	background: #fff; 
+	right:10px; 
+	Xmargin-right: -1px;
+}
+#datepicker_editor ul li {
+	display: block;
+	padding-bottom: 2px;
+    padding-left: 6px;
+    padding-top: 2px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+#datepicker_editor ul li.selected {
+	background-color: #f1f1f1;
+}

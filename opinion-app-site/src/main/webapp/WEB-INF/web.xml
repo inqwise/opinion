@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>opinion-opinion</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>DataPostmaster</servlet-name>
+    <servlet-class>com.opinion.handlers.DataPostmaster</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DataPostmaster</servlet-name>
+    <url-pattern>/servlet/DataPostmaster/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>QRCode</servlet-name>
+    <servlet-class>com.google.code.QRCode</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QRCode</servlet-name>
+    <url-pattern>/servlet/QRCode</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Index</servlet-name>
+    <servlet-class>com.opinion.handlers.Index</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Index</servlet-name>
+    <url-pattern>/go/index.jsp</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <filter-name>UrlRewriteFilter</filter-name>
+    <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+    <init-param>
+      <param-name>logLevel</param-name>
+      <param-value>WARN</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>UrlRewriteFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  <listener>
+    <listener-class>com.opinion.services.Initializer</listener-class>
+  </listener>
+  <!-- servlet>
+    <servlet-name>PaypalIPN</servlet-name>
+    <servlet-class>com.opinion.payments.processors.paypal.PaypalIpnListener</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PaypalIPN</servlet-name>
+    <url-pattern>/notifiers/paypalIpn/*</url-pattern>
+  </servlet-mapping-->
+  <servlet>
+    <description></description>
+    <display-name>Frontdoor</display-name>
+    <servlet-name>Frontdoor</servlet-name>
+    <servlet-class>com.opinion.handlers.Frontdoor</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Frontdoor</servlet-name>
+    <url-pattern>/frontdoor</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>Export</display-name>
+    <servlet-name>Export</servlet-name>
+    <servlet-class>com.opinion.handlers.ExportHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Export</servlet-name>
+    <url-pattern>/servlet/export</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>Import</display-name>
+    <servlet-name>Import</servlet-name>
+    <servlet-class>com.opinion.handlers.ImportHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Import</servlet-name>
+    <url-pattern>/servlet/import</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SociaAuthLogin</servlet-name>
+    <servlet-class>com.opinion.handlers.SocialAuthLoginHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SociaAuthLogin</servlet-name>
+    <url-pattern>/socialAuthLogin/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Opinions</display-name>
+    <servlet-name>Opinions</servlet-name>
+    <servlet-class>com.opinion.handlers.OpinionsHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Opinions</servlet-name>
+    <url-pattern>/servlet/opinions</url-pattern>
+  </servlet-mapping>
+  
+  	<!-- Don't force SSL on notify.jsp -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Notify page, accessed internally by application</web-resource-name>
+			<url-pattern>/en-us/login</url-pattern>
+			<url-pattern>/en-us/register</url-pattern>
+			<url-pattern>/en-us/forgot-password</url-pattern>
+			<url-pattern>/en-us/change-password</url-pattern>
+			<url-pattern>/en-us/reset-password</url-pattern>
+			<url-pattern>/en-us/dashboard</url-pattern>
+			<url-pattern>/en-us/surveys</url-pattern>
+			<url-pattern>/en-us/surveys/*</url-pattern>
+			<url-pattern>/en-us/support</url-pattern>
+			<url-pattern>/en-us/support/*</url-pattern>
+			<url-pattern>/en-us/bugs</url-pattern>
+			<url-pattern>/en-us/bugs/*</url-pattern>
+			<url-pattern>/en-us/account</url-pattern>
+			<url-pattern>/en-us/billing-profile</url-pattern>
+			<url-pattern>/en-us/make-payment</url-pattern>
+			<url-pattern>/en-us/transaction-history</url-pattern>
+			<url-pattern>/en-us/invoices</url-pattern>
+			<url-pattern>/en-us/invoices/*</url-pattern>
+			<url-pattern>/en-us/upgrade</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	
+	<!-- Force SSL for entire site -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Entire Site</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	
+	
+	<!-- 
+	<session-config>
+    	<cookie-config>
+        	<http-only>true</http-only>
+        	<secure>true</secure>
+    	</cookie-config>
+	</session-config>
+	 -->
+  
+</web-app>

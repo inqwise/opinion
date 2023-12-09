@@ -1,0 +1,11 @@
+import "../../general/GeneralEmailParts.stg"
+subject(data)::="<data.FeedbackCaption> - New Response Notification"
+body(data)::=<<
+<\n>Hello,
+<\n><\n>You have received a new response for <data.OpinionType> <data.Opinion.Name>.
+
+To view response, follow the link below:
+<data.Url>
+
+<signature(data)>
+>>

@@ -1,0 +1,646 @@
+/*
+* Inqwise Git Build: SHA1: 9130927464f2d3e0300a9fb36ebfd69448cf3675 <> Date: Wed Feb 20 11:08:42 2013 -0800
+* http://www.inqwise.com
+*
+* Copyright 2011, 2013 Inqwise, Corp. and other contributors
+* Released under the MIT license.
+*
+*/
+
+.theme-body { 
+	background: #7799BB /*{a-body-background-color}*/; 
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #7799bb /*{a-body-background-start}*/), to( #7799bb /*{a-body-background-end}*/)); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #7799bb /*{a-body-background-start}*/, #7799bb /*{a-body-background-end}*/); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #7799bb /*{a-body-background-start}*/, #7799bb /*{a-body-background-end}*/); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #7799bb /*{a-body-background-start}*/, #7799bb /*{a-body-background-end}*/); /* IE10 */ 
+	background-image:      -o-linear-gradient( #7799bb /*{a-body-background-start}*/, #7799bb /*{a-body-background-end}*/); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #7799bb /*{a-body-background-start}*/, #7799bb /*{a-body-background-end}*/); 
+	font-family: arial,sans-serif /*{a-body-font-family}*/; 
+	color: #e8eef7 /*{a-body-color}*/; 
+	font-size: 11px /*{a-body-font-size}*/; 
+	font-weight: normal /*{a-body-font-weight}*/;
+	margin: 0px /*{a-body-margin-top}*/ 0px /*{a-body-margin-right}*/ 0px /*{a-body-margin-bottom}*/ 0px /*{a-body-margin-left}*/;
+	padding: 0px /*{a-body-padding-top}*/ 0px /*{a-body-padding-right}*/ 0px /*{a-body-padding-bottom}*/ 0px /*{a-body-padding-left}*/; 
+	line-height: 16px /*{a-body-line-height}*/; 
+	width: auto /*{a-body-width}*/;
+	border-width: 0px /*{a-body-border-width}*/; 
+	border-style: none /*{a-body-border-style}*/; 
+	border-color: #000000 /*{a-body-border-color}*/;
+	-webkit-border-radius: 0px /*{a-body-border-radius-top-left}*/ 0px /*{a-body-border-radius-top-right}*/ 0px /*{a-body-border-radius-bottom-right}*/ 0px /*{a-body-border-radius-bottom-left}*/;
+	-moz-border-radius: 0px /*{a-body-border-radius-top-left}*/ 0px /*{a-body-border-radius-top-right}*/ 0px /*{a-body-border-radius-bottom-right}*/ 0px /*{a-body-border-radius-bottom-left}*/;
+	border-radius: 0px /*{a-body-border-radius-top-left}*/ 0px /*{a-body-border-radius-top-right}*/ 0px /*{a-body-border-radius-bottom-right}*/ 0px /*{a-body-border-radius-bottom-left}*/;	
+	text-shadow: 0px /*{a-body-text-shadow-x}*/ 0px /*{a-body-text-shadow-y}*/ 0px /*{a-body-text-shadow-radius}*/ #000000 /*{a-body-text-shadow-color}*/;
+	-moz-box-shadow: 0 1px 0px /*{a-body-box-shadow-size}*/ rgba(0,0,0,0) /*{a-body-box-shadow-color}*/;
+	-webkit-box-shadow: 0 1px 0px /*{a-body-box-shadow-size}*/ rgba(0,0,0,0) /*{a-body-box-shadow-color}*/;
+	box-shadow: 0 1px 0px /*{a-body-box-shadow-size}*/ rgba(0,0,0,0) /*{a-body-box-shadow-color}*/; 
+}
+.theme-body.oposite-direction { direction: rtl; }
+.theme-body ul {
+    list-style: none outside none;
+} 
+.theme-body ul, 
+.theme-body ol, 
+.theme-body li, 
+.theme-body form, 
+.theme-body input, 
+.theme-body button, 
+.theme-body textarea, 
+.theme-body p {
+    margin: 0;
+    padding: 0;
+}
+.theme-body a { 
+	color: #ffffff /*{a-link-color}*/;
+	text-shadow: 0px /*{a-link-text-shadow-x}*/ 0px /*{a-link-text-shadow-y}*/ 0px /*{a-link-text-shadow-radius}*/ #000000 /*{a-link-text-shadow-color}*/;
+	outline-style: none;
+}
+.theme-body a:hover { 
+	text-decoration:underline; 
+	color: #f7931e /*{a-link-hover-color}*/;
+	text-shadow: 0px /*{a-link-hover-text-shadow-x}*/ 0px /*{a-link-hover-text-shadow-y}*/ 0px /*{a-link-hover-text-shadow-radius}*/ #000000 /*{a-link-hover-text-shadow-color}*/; 
+}
+.theme-body .asterisk {
+	color: #ffff00 /*{a-asterisk-color}*/;
+	text-shadow: 0px /*{a-asterisk-text-shadow-x}*/ 0px /*{a-asterisk-text-shadow-y}*/ 0px /*{a-asterisk-text-shadow-radius}*/ #000000 /*{a-asterisk-text-shadow-color}*/;
+} 
+.theme-body .status { 
+	color: #ffff00 /*{a-status-color}*/;
+	text-shadow: 0px /*{a-status-text-shadow-x}*/ 0px /*{a-status-text-shadow-y}*/ 0px /*{a-status-text-shadow-radius}*/ #000000 /*{a-status-text-shadow-color}*/;
+}
+.theme-button {
+	margin: 0px /*{a-button-margin-top}*/ 0px /*{a-button-margin-right}*/ 0px /*{a-button-margin-bottom}*/ 0px /*{a-button-margin-left}*/; 
+	padding: 1px /*{a-button-padding-top}*/ 6px /*{a-button-padding-right}*/ 1px /*{a-button-padding-bottom}*/ 6px /*{a-button-padding-left}*/; 
+	background: #e5e5e5 /*{a-button-background-color}*/; 
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #f9f9f9 /*{a-button-background-start}*/), to( #e5e5e5 /*{a-button-background-end}*/)); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #f9f9f9 /*{a-button-background-start}*/, #e5e5e5 /*{a-button-background-end}*/); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #f9f9f9 /*{a-button-background-start}*/, #e5e5e5 /*{a-button-background-end}*/); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #f9f9f9 /*{a-button-background-start}*/, #e5e5e5 /*{a-button-background-end}*/); /* IE10 */ 
+	background-image:      -o-linear-gradient( #f9f9f9 /*{a-button-background-start}*/, #e5e5e5 /*{a-button-background-end}*/); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #f9f9f9 /*{a-button-background-start}*/, #e5e5e5 /*{a-button-background-end}*/); 
+	border-width: 1px /*{a-button-border-width}*/; 
+	border-style: solid /*{a-button-border-style}*/; 
+	border-color: #999999 /*{a-button-border-color}*/;
+	-webkit-border-radius: 0px /*{a-button-border-radius-top-left}*/ 0px /*{a-button-border-radius-top-right}*/ 0px /*{a-button-border-radius-bottom-right}*/ 0px /*{a-button-border-radius-bottom-left}*/;
+	-moz-border-radius: 0px /*{a-button-border-radius-top-left}*/ 0px /*{a-button-border-radius-top-right}*/ 0px /*{a-button-border-radius-bottom-right}*/ 0px /*{a-button-border-radius-bottom-left}*/;
+	border-radius: 0px /*{a-button-border-radius-top-left}*/ 0px /*{a-button-border-radius-top-right}*/ 0px /*{a-button-border-radius-bottom-right}*/ 0px /*{a-button-border-radius-bottom-left}*/;
+	font-family: arial,sans-serif /*{a-button-font-family}*/;
+	font-size: 11px /*{a-button-font-size}*/;
+	font-weight: bold /*{a-button-font-weight}*/;
+	line-height: 16px /*{a-button-line-height}*/;
+	text-shadow: 0px /*{a-button-text-shadow-x}*/ 1px /*{a-button-text-shadow-y}*/ 0px /*{a-button-text-shadow-radius}*/ #ffffff /*{a-button-text-shadow-color}*/ !important;
+	display:inline-block;
+	text-decoration:none;
+	text-align:center;
+	cursor:pointer;
+}
+.theme-button:hover {
+	background: #dddddd /*{a-button-hover-background-color}*/; 
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #e5e5e5 /*{a-button-hover-background-start}*/), to( #dddddd /*{a-button-hover-background-end}*/)); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #e5e5e5 /*{a-button-hover-background-start}*/, #dddddd /*{a-button-hover-background-end}*/); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #e5e5e5 /*{a-button-hover-background-start}*/, #dddddd /*{a-button-hover-background-end}*/); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #e5e5e5 /*{a-button-hover-background-start}*/, #dddddd /*{a-button-hover-background-end}*/); /* IE10 */ 
+	background-image:      -o-linear-gradient( #e5e5e5 /*{a-button-hover-background-start}*/, #dddddd /*{a-button-hover-background-end}*/); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #e5e5e5 /*{a-button-hover-background-start}*/, #dddddd /*{a-button-hover-background-end}*/); 
+	border-width: 1px /*{a-button-hover-border-width}*/; 
+	border-style: solid /*{a-button-hover-border-style}*/; 
+	border-color: #999999 /*{a-button-hover-border-color}*/;
+	-webkit-border-radius: 0px /*{a-button-hover-border-radius-top-left}*/ 0px /*{a-button-hover-border-radius-top-right}*/ 0px /*{a-button-hover-border-radius-bottom-right}*/ 0px /*{a-button-hover-border-radius-bottom-left}*/;
+	-moz-border-radius: 0px /*{a-button-hover-border-radius-top-left}*/ 0px /*{a-button-hover-border-radius-top-right}*/ 0px /*{a-button-hover-border-radius-bottom-right}*/ 0px /*{a-button-hover-border-radius-bottom-left}*/;
+	border-radius: 0px /*{a-button-hover-border-radius-top-left}*/ 0px /*{a-button-hover-border-radius-top-right}*/ 0px /*{a-button-hover-border-radius-bottom-right}*/ 0px /*{a-button-hover-border-radius-bottom-left}*/;
+	text-shadow: 0px /*{a-button-hover-text-shadow-x}*/ 1px /*{a-button-hover-text-shadow-y}*/ 0px /*{a-button-hover-text-shadow-radius}*/ #ffffff /*{a-button-hover-text-shadow-color}*/ !important;
+	text-decoration:none;
+}
+.theme-button span {
+	text-decoration: none;
+	padding: 1px 0 2px;
+	display: inline-block;
+	margin: 0;
+	line-height: 13px;
+}
+.theme-button,
+.theme-button span {
+	color: #333333 /*{a-button-color}*/;
+}
+.theme-button:hover span {
+	color: #333333 /*{a-button-hover-color}*/;
+	text-decoration:none;
+}
+.theme-wrapper { 
+	width: auto /*{a-wrapper-width}*/;
+	margin: 0px /*{a-wrapper-margin-top}*/ 0px /*{a-wrapper-margin-right}*/ 0px /*{a-wrapper-margin-bottom}*/ 0px /*{a-wrapper-margin-left}*/; 
+	padding: 0px /*{a-wrapper-padding-top}*/ 10px /*{a-wrapper-padding-right}*/ 0px /*{a-wrapper-padding-bottom}*/ 10px /*{a-wrapper-padding-left}*/; 
+	background: #7799BB /*{a-wrapper-background-color}*/; 
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #7799bb /*{a-wrapper-background-start}*/), to( #7799bb /*{a-wrapper-background-end}*/)); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #7799bb /*{a-wrapper-background-start}*/, #7799bb /*{a-wrapper-background-end}*/); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #7799bb /*{a-wrapper-background-start}*/, #7799bb /*{a-wrapper-background-end}*/); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #7799bb /*{a-wrapper-background-start}*/, #7799bb /*{a-wrapper-background-end}*/); /* IE10 */ 
+	background-image:      -o-linear-gradient( #7799bb /*{a-wrapper-background-start}*/, #7799bb /*{a-wrapper-background-end}*/); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #7799bb /*{a-wrapper-background-start}*/, #7799bb /*{a-wrapper-background-end}*/); 
+	border-width: 0px /*{a-wrapper-border-width}*/; 
+	border-style: none /*{a-wrapper-border-style}*/; 
+	border-color: #000000 /*{a-wrapper-border-color}*/;
+	-webkit-border-radius: 0px /*{a-wrapper-border-radius-top-left}*/ 0px /*{a-wrapper-border-radius-top-right}*/ 0px /*{a-wrapper-border-radius-bottom-right}*/ 0px /*{a-wrapper-border-radius-bottom-left}*/;
+	-moz-border-radius: 0px /*{a-wrapper-border-radius-top-left}*/ 0px /*{a-wrapper-border-radius-top-right}*/ 0px /*{a-wrapper-border-radius-bottom-right}*/ 0px /*{a-wrapper-border-radius-bottom-left}*/;
+	border-radius: 0px /*{a-wrapper-border-radius-top-left}*/ 0px /*{a-wrapper-border-radius-top-right}*/ 0px /*{a-wrapper-border-radius-bottom-right}*/ 0px /*{a-wrapper-border-radius-bottom-left}*/;
+	-moz-box-shadow: 0 1px 0px /*{a-wrapper-box-shadow-size}*/ rgba(0,0,0,0) /*{a-wrapper-box-shadow-color}*/;
+	-webkit-box-shadow: 0 1px 0px /*{a-wrapper-box-shadow-size}*/ rgba(0,0,0,0) /*{a-wrapper-box-shadow-color}*/;
+	box-shadow: 0 1px 0px /*{a-wrapper-box-shadow-size}*/ rgba(0,0,0,0) /*{a-wrapper-box-shadow-color}*/;
+}
+.theme-logo {
+	margin: 0px /*{a-logo-margin-top}*/ 0px /*{a-logo-margin-right}*/ 0px /*{a-logo-margin-bottom}*/ 0px /*{a-logo-margin-left}*/;
+	padding: 10px /*{a-logo-padding-top}*/ 0px /*{a-logo-padding-right}*/ 0px /*{a-logo-padding-bottom}*/ 0px /*{a-logo-padding-left}*/;
+}
+.theme-header { 
+	min-height: 80px /*{a-header-min-height}*/; 
+	margin: 0px /*{a-header-margin-top}*/ 0px /*{a-header-margin-right}*/ 0px /*{a-header-margin-bottom}*/ 0px /*{a-header-margin-left}*/; 
+	padding: 0px /*{a-header-padding-top}*/ 0px /*{a-header-padding-right}*/ 0px /*{a-header-padding-bottom}*/ 0px /*{a-header-padding-left}*/; 
+	background: #7799BB /*{a-header-background-color}*/; 
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #7799bb /*{a-header-background-start}*/), to( #7799bb /*{a-header-background-end}*/)); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #7799bb /*{a-header-background-start}*/, #7799bb /*{a-header-background-end}*/); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #7799bb /*{a-header-background-start}*/, #7799bb /*{a-header-background-end}*/); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #7799bb /*{a-header-background-start}*/, #7799bb /*{a-header-background-end}*/); /* IE10 */ 
+	background-image:      -o-linear-gradient( #7799bb /*{a-header-background-start}*/, #7799bb /*{a-header-background-end}*/); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #7799bb /*{a-header-background-start}*/, #7799bb /*{a-header-background-end}*/); 
+	border-width: 0px /*{a-header-border-width}*/; 
+	border-style: none /*{a-header-border-style}*/; 
+	border-color: #000000 /*{a-header-border-color}*/;
+	-webkit-border-radius: 0px /*{a-header-border-radius-top-left}*/ 0px /*{a-header-border-radius-top-right}*/ 0px /*{a-header-border-radius-bottom-right}*/ 0px /*{a-header-border-radius-bottom-left}*/;
+	-moz-border-radius: 0px /*{a-header-border-radius-top-left}*/ 0px /*{a-header-border-radius-top-right}*/ 0px /*{a-header-border-radius-bottom-right}*/ 0px /*{a-header-border-radius-bottom-left}*/;
+	border-radius: 0px /*{a-header-border-radius-top-left}*/ 0px /*{a-header-border-radius-top-right}*/ 0px /*{a-header-border-radius-bottom-right}*/ 0px /*{a-header-border-radius-bottom-left}*/;	
+	-moz-box-shadow: 0 1px 0px /*{a-header-box-shadow-size}*/ rgba(0,0,0,0) /*{a-header-box-shadow-color}*/;
+	-webkit-box-shadow: 0 1px 0px /*{a-header-box-shadow-size}*/ rgba(0,0,0,0) /*{a-header-box-shadow-color}*/;
+	box-shadow: 0 1px 0px /*{a-header-box-shadow-size}*/ rgba(0,0,0,0) /*{a-header-box-shadow-color}*/;
+}
+.theme-content { 
+	margin: 0px /*{a-content-margin-top}*/ 0px /*{a-content-margin-right}*/ 0px /*{a-content-margin-bottom}*/ 0px /*{a-content-margin-left}*/; 
+	padding: 0px /*{a-content-padding-top}*/ 0px /*{a-content-padding-right}*/ 0px /*{a-content-padding-bottom}*/ 0px /*{a-content-padding-left}*/; 
+	background: #7799BB /*{a-content-background-color}*/; 
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #7799bb /*{a-content-background-start}*/), to( #7799bb /*{a-content-background-end}*/)); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #7799bb /*{a-content-background-start}*/, #7799bb /*{a-content-background-end}*/); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #7799bb /*{a-content-background-start}*/, #7799bb /*{a-content-background-end}*/); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #7799bb /*{a-content-background-start}*/, #7799bb /*{a-content-background-end}*/); /* IE10 */ 
+	background-image:      -o-linear-gradient( #7799bb /*{a-content-background-start}*/, #7799bb /*{a-content-background-end}*/); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #7799bb /*{a-content-background-start}*/, #7799bb /*{a-content-background-end}*/); 
+	border-width: 0px /*{a-content-border-width}*/; 
+	border-style: none /*{a-content-border-style}*/; 
+	border-color: #000000 /*{a-content-border-color}*/;
+	-webkit-border-radius: 0px /*{a-content-border-radius-top-left}*/ 0px /*{a-content-border-radius-top-right}*/ 0px /*{a-content-border-radius-bottom-right}*/ 0px /*{a-content-border-radius-bottom-left}*/;
+	-moz-border-radius: 0px /*{a-content-border-radius-top-left}*/ 0px /*{a-content-border-radius-top-right}*/ 0px /*{a-content-border-radius-bottom-right}*/ 0px /*{a-content-border-radius-bottom-left}*/;
+	border-radius: 0px /*{a-content-border-radius-top-left}*/ 0px /*{a-content-border-radius-top-right}*/ 0px /*{a-content-border-radius-bottom-right}*/ 0px /*{a-content-border-radius-bottom-left}*/;
+	-moz-box-shadow: 0 1px 0px /*{a-content-box-shadow-size}*/ rgba(0,0,0,0) /*{a-content-box-shadow-color}*/;
+	-webkit-box-shadow: 0 1px 0px /*{a-content-box-shadow-size}*/ rgba(0,0,0,0) /*{a-content-box-shadow-color}*/;
+	box-shadow: 0 1px 0px /*{a-content-box-shadow-size}*/ rgba(0,0,0,0) /*{a-content-box-shadow-color}*/;
+}
+.theme-survey-heading { 
+	margin: 0px /*{a-survey-heading-margin-top}*/ 0px /*{a-survey-heading-margin-right}*/ 0px /*{a-survey-heading-margin-bottom}*/ 0px /*{a-survey-heading-margin-left}*/; 
+	padding: 0px /*{a-survey-heading-padding-top}*/ 0px /*{a-survey-heading-padding-right}*/ 0px /*{a-survey-heading-padding-bottom}*/ 0px /*{a-survey-heading-padding-left}*/; 
+	background: #7799BB /*{a-survey-heading-background-color}*/; 
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #7799bb /*{a-survey-heading-background-start}*/), to( #7799bb /*{a-survey-heading-background-end}*/)); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #7799bb /*{a-survey-heading-background-start}*/, #7799bb /*{a-survey-heading-background-end}*/); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #7799bb /*{a-survey-heading-background-start}*/, #7799bb /*{a-survey-heading-background-end}*/); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #7799bb /*{a-survey-heading-background-start}*/, #7799bb /*{a-survey-heading-background-end}*/); /* IE10 */ 
+	background-image:      -o-linear-gradient( #7799bb /*{a-survey-heading-background-start}*/, #7799bb /*{a-survey-heading-background-end}*/); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #7799bb /*{a-survey-heading-background-start}*/, #7799bb /*{a-survey-heading-background-end}*/); 
+	border-width: 0px /*{a-survey-heading-border-width}*/; 
+	border-style: none /*{a-survey-heading-border-style}*/; 
+	border-color: #000000 /*{a-survey-heading-border-color}*/;
+	-webkit-border-radius: 0px /*{a-survey-heading-border-radius-top-left}*/ 0px /*{a-survey-heading-border-radius-top-right}*/ 0px /*{a-survey-heading-border-radius-bottom-right}*/ 0px /*{a-survey-heading-border-radius-bottom-left}*/;
+	-moz-border-radius: 0px /*{a-survey-heading-border-radius-top-left}*/ 0px /*{a-survey-heading-border-radius-top-right}*/ 0px /*{a-survey-heading-border-radius-bottom-right}*/ 0px /*{a-survey-heading-border-radius-bottom-left}*/;
+	border-radius: 0px /*{a-survey-heading-border-radius-top-left}*/ 0px /*{a-survey-heading-border-radius-top-right}*/ 0px /*{a-survey-heading-border-radius-bottom-right}*/ 0px /*{a-survey-heading-border-radius-bottom-left}*/;
+	font-family: arial,sans-serif /*{a-survey-heading-font-family}*/; 
+	color: #ffffff /*{a-survey-heading-color}*/; 
+	font-size: 16px /*{a-survey-heading-font-size}*/; 
+	font-weight: bold /*{a-survey-heading-font-weight}*/;
+	line-height: 22px /*{a-survey-heading-line-height}*/;
+	text-shadow: 0px /*{a-survey-heading-text-shadow-x}*/ 0px /*{a-survey-heading-text-shadow-y}*/ 0px /*{a-survey-heading-text-shadow-radius}*/ #000000 /*{a-survey-heading-text-shadow-color}*/;
+}
+.theme-page {
+	margin: 0px /*{a-page-margin-top}*/ 0px /*{a-page-margin-right}*/ 0px /*{a-page-margin-bottom}*/ 0px /*{a-page-margin-left}*/; 
+	padding: 24px /*{a-page-padding-top}*/ 0px /*{a-page-padding-right}*/ 24px /*{a-page-padding-bottom}*/ 0px /*{a-page-padding-left}*/; 
+	background: #7799BB /*{a-page-background-color}*/; 
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #7799bb /*{a-page-background-start}*/), to( #7799bb /*{a-page-background-end}*/)); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #7799bb /*{a-page-background-start}*/, #7799bb /*{a-page-background-end}*/); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #7799bb /*{a-page-background-start}*/, #7799bb /*{a-page-background-end}*/); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #7799bb /*{a-page-background-start}*/, #7799bb /*{a-page-background-end}*/); /* IE10 */ 
+	background-image:      -o-linear-gradient( #7799bb /*{a-page-background-start}*/, #7799bb /*{a-page-background-end}*/); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #7799bb /*{a-page-background-start}*/, #7799bb /*{a-page-background-end}*/); 
+	border-width: 0px /*{a-page-border-width}*/; 
+	border-style: none /*{a-page-border-style}*/; 
+	border-color: #000000 /*{a-page-border-color}*/;
+	-webkit-border-radius: 0px /*{a-page-border-radius-top-left}*/ 0px /*{a-page-border-radius-top-right}*/ 0px /*{a-page-border-radius-bottom-right}*/ 0px /*{a-page-border-radius-bottom-left}*/;
+	-moz-border-radius: 0px /*{a-page-border-radius-top-left}*/ 0px /*{a-page-border-radius-top-right}*/ 0px /*{a-page-border-radius-bottom-right}*/ 0px /*{a-page-border-radius-bottom-left}*/;
+	border-radius: 0px /*{a-page-border-radius-top-left}*/ 0px /*{a-page-border-radius-top-right}*/ 0px /*{a-page-border-radius-bottom-right}*/ 0px /*{a-page-border-radius-bottom-left}*/;
+}
+.theme-page-heading { 
+	margin: 0px /*{a-page-heading-margin-top}*/ 0px /*{a-page-heading-margin-right}*/ 0px /*{a-page-heading-margin-bottom}*/ 0px /*{a-page-heading-margin-left}*/; 
+	padding: 0px /*{a-page-heading-padding-top}*/ 0px /*{a-page-heading-padding-right}*/ 0px /*{a-page-heading-padding-bottom}*/ 0px /*{a-page-heading-padding-left}*/; 
+	background: #7799BB /*{a-page-heading-background-color}*/; 
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #7799bb /*{a-page-heading-background-start}*/), to( #7799bb /*{a-page-heading-background-end}*/)); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #7799bb /*{a-page-heading-background-start}*/, #7799bb /*{a-page-heading-background-end}*/); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #7799bb /*{a-page-heading-background-start}*/, #7799bb /*{a-page-heading-background-end}*/); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #7799bb /*{a-page-heading-background-start}*/, #7799bb /*{a-page-heading-background-end}*/); /* IE10 */ 
+	background-image:      -o-linear-gradient( #7799bb /*{a-page-heading-background-start}*/, #7799bb /*{a-page-heading-background-end}*/); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #7799bb /*{a-page-heading-background-start}*/, #7799bb /*{a-page-heading-background-end}*/); 
+	border-width: 0px /*{a-page-heading-border-width}*/; 
+	border-style: none /*{a-page-heading-border-style}*/; 
+	border-color: #000000 /*{a-page-heading-border-color}*/;
+	-webkit-border-radius: 0px /*{a-page-heading-border-radius-top-left}*/ 0px /*{a-page-heading-border-radius-top-right}*/ 0px /*{a-page-heading-border-radius-bottom-right}*/ 0px /*{a-page-heading-border-radius-bottom-left}*/;
+	-moz-border-radius: 0px /*{a-page-heading-border-radius-top-left}*/ 0px /*{a-page-heading-border-radius-top-right}*/ 0px /*{a-page-heading-border-radius-bottom-right}*/ 0px /*{a-page-heading-border-radius-bottom-left}*/;
+	border-radius: 0px /*{a-page-heading-border-radius-top-left}*/ 0px /*{a-page-heading-border-radius-top-right}*/ 0px /*{a-page-heading-border-radius-bottom-right}*/ 0px /*{a-page-heading-border-radius-bottom-left}*/;
+	font-family: arial,sans-serif /*{a-page-heading-font-family}*/; 
+	color: #ffffff /*{a-page-heading-color}*/; 
+	font-size: 11px /*{a-page-heading-font-size}*/; 
+	font-weight: bold /*{a-page-heading-font-weight}*/;
+	line-height: 16px /*{a-page-heading-line-height}*/;
+	text-shadow: 0px /*{a-page-heading-text-shadow-x}*/ 0px /*{a-page-heading-text-shadow-y}*/ 0px /*{a-page-heading-text-shadow-radius}*/ #000000 /*{a-page-heading-text-shadow-color}*/;
+}
+.theme-page-description { 
+	margin: 0px /*{a-page-description-margin-top}*/ 0px /*{a-page-description-margin-right}*/ 0px /*{a-page-description-margin-bottom}*/ 0px /*{a-page-description-margin-left}*/; 
+	padding: 0px /*{a-page-description-padding-top}*/ 0px /*{a-page-description-padding-right}*/ 24px /*{a-page-description-padding-bottom}*/ 0px /*{a-page-description-padding-left}*/; 
+	background: #7799BB /*{a-page-description-background-color}*/; 
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #7799bb /*{a-page-description-background-start}*/), to( #7799bb /*{a-page-description-background-end}*/)); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #7799bb /*{a-page-description-background-start}*/, #7799bb /*{a-page-description-background-end}*/); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #7799bb /*{a-page-description-background-start}*/, #7799bb /*{a-page-description-background-end}*/); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #7799bb /*{a-page-description-background-start}*/, #7799bb /*{a-page-description-background-end}*/); /* IE10 */ 
+	background-image:      -o-linear-gradient( #7799bb /*{a-page-description-background-start}*/, #7799bb /*{a-page-description-background-end}*/); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #7799bb /*{a-page-description-background-start}*/, #7799bb /*{a-page-description-background-end}*/); 
+	border-width: 0px /*{a-page-description-border-width}*/; 
+	border-style: none /*{a-page-description-border-style}*/; 
+	border-color: #000000 /*{a-page-description-border-color}*/;
+	-webkit-border-radius: 0px /*{a-page-description-border-radius-top-left}*/ 0px /*{a-page-description-border-radius-top-right}*/ 0px /*{a-page-description-border-radius-bottom-right}*/ 0px /*{a-page-description-border-radius-bottom-left}*/;
+	-moz-border-radius: 0px /*{a-page-description-border-radius-top-left}*/ 0px /*{a-page-description-border-radius-top-right}*/ 0px /*{a-page-description-border-radius-bottom-right}*/ 0px /*{a-page-description-border-radius-bottom-left}*/;
+	border-radius: 0px /*{a-page-description-border-radius-top-left}*/ 0px /*{a-page-description-border-radius-top-right}*/ 0px /*{a-page-description-border-radius-bottom-right}*/ 0px /*{a-page-description-border-radius-bottom-left}*/;
+	font-family: arial,sans-serif /*{a-page-description-font-family}*/; 
+	color: #e8eef7 /*{a-page-description-color}*/; 
+	font-size: 11px /*{a-page-description-font-size}*/; 
+	font-weight: normal /*{a-page-description-font-weight}*/;
+	line-height: 16px /*{a-page-description-line-height}*/;
+	text-shadow: 0px /*{a-page-description-text-shadow-x}*/ 0px /*{a-page-description-text-shadow-y}*/ 0px /*{a-page-description-text-shadow-radius}*/ #000000 /*{a-page-description-text-shadow-color}*/;
+}
+.theme-page-actions { 
+	margin: 0px /*{a-page-actions-margin-top}*/ 0px /*{a-page-actions-margin-right}*/ 0px /*{a-page-actions-margin-bottom}*/ 0px /*{a-page-actions-margin-left}*/; 
+	padding: 0px /*{a-page-actions-padding-top}*/ 0px /*{a-page-actions-padding-right}*/ 0px /*{a-page-actions-padding-bottom}*/ 0px /*{a-page-actions-padding-left}*/; 
+	overflow: auto; 
+}
+.theme-page-actions .page-actions {float: left}
+.theme-page-actions .page-progress {float: right;text-align : right;}
+.oposite-direction .theme-page-actions .page-actions {float: right}
+.oposite-direction .theme-page-actions .page-progress {float: left;text-align : left;} 
+.theme-progress-bar {
+	width: 100px;
+	background: #ffffff /*{a-progress-bar-background-color}*/; 
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #ffffff /*{a-progress-bar-background-start}*/), to( #ffffff /*{a-progress-bar-background-end}*/)); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #ffffff /*{a-progress-bar-background-start}*/, #ffffff /*{a-progress-bar-background-end}*/); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #ffffff /*{a-progress-bar-background-start}*/, #ffffff /*{a-progress-bar-background-end}*/); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #ffffff /*{a-progress-bar-background-start}*/, #ffffff /*{a-progress-bar-background-end}*/); /* IE10 */ 
+	background-image:      -o-linear-gradient( #ffffff /*{a-progress-bar-background-start}*/, #ffffff /*{a-progress-bar-background-end}*/); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #ffffff /*{a-progress-bar-background-start}*/, #ffffff /*{a-progress-bar-background-end}*/); 
+	border-width: 1px /*{a-progress-bar-border-width}*/; 
+	border-style: solid /*{a-progress-bar-border-style}*/; 
+	border-color: #999999 /*{a-progress-bar-border-color}*/;
+	-webkit-border-radius: 0px /*{a-progress-bar-border-radius-top-left}*/ 0px /*{a-progress-bar-border-radius-top-right}*/ 0px /*{a-progress-bar-border-radius-bottom-right}*/ 0px /*{a-progress-bar-border-radius-bottom-left}*/;
+	-moz-border-radius: 0px /*{a-progress-bar-border-radius-top-left}*/ 0px /*{a-progress-bar-border-radius-top-right}*/ 0px /*{a-progress-bar-border-radius-bottom-right}*/ 0px /*{a-progress-bar-border-radius-bottom-left}*/;
+	border-radius: 0px /*{a-progress-bar-border-radius-top-left}*/ 0px /*{a-progress-bar-border-radius-top-right}*/ 0px /*{a-progress-bar-border-radius-bottom-right}*/ 0px /*{a-progress-bar-border-radius-bottom-left}*/;
+}
+.theme-progress-bar .outer-bar {
+	height: 16px;
+	position: relative;
+	margin: 0 1px;
+}
+.theme-progress-bar .bar {
+	bottom: 1px; 
+	position: absolute; 
+	top: 1px;
+}
+.theme-progress-bar .bar-inner {
+	background: #3b5998 /*{a-progress-indicator-background-color}*/; 
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #3b5998 /*{a-progress-indicator-background-start}*/), to( #3b5998 /*{a-progress-indicator-background-end}*/)); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #3b5998 /*{a-progress-indicator-background-start}*/, #3b5998 /*{a-progress-indicator-background-end}*/); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #3b5998 /*{a-progress-indicator-background-start}*/, #3b5998 /*{a-progress-indicator-background-end}*/); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #3b5998 /*{a-progress-indicator-background-start}*/, #3b5998 /*{a-progress-indicator-background-end}*/); /* IE10 */ 
+	background-image:      -o-linear-gradient( #3b5998 /*{a-progress-indicator-background-start}*/, #3b5998 /*{a-progress-indicator-background-end}*/); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #3b5998 /*{a-progress-indicator-background-start}*/, #3b5998 /*{a-progress-indicator-background-end}*/);
+	-webkit-border-radius: 0px /*{a-progress-indicator-border-radius-top-left}*/ 0px /*{a-progress-indicator-border-radius-top-right}*/ 0px /*{a-progress-indicator-border-radius-bottom-right}*/ 0px /*{a-progress-indicator-border-radius-bottom-left}*/;
+	-moz-border-radius: 0px /*{a-progress-indicator-border-radius-top-left}*/ 0px /*{a-progress-indicator-border-radius-top-right}*/ 0px /*{a-progress-indicator-border-radius-bottom-right}*/ 0px /*{a-progress-indicator-border-radius-bottom-left}*/;
+	border-radius: 0px /*{a-progress-indicator-border-radius-top-left}*/ 0px /*{a-progress-indicator-border-radius-top-right}*/ 0px /*{a-progress-indicator-border-radius-bottom-right}*/ 0px /*{a-progress-indicator-border-radius-bottom-left}*/;
+	height: 100%;
+	width: 100%;
+}
+.bar-label { padding-top: 5px; }
+.theme-page-actions .container-previous,
+.theme-page-actions .container-next,
+.theme-page-actions .container-finish,
+.theme-page-actions .container-paging {
+	display: table-cell;
+}
+.theme-page-actions .container-previous { padding-right: 5px; }
+.theme-body.oposite-direction .theme-page-actions .container-previous { padding-right: 0; padding-left: 5px; }
+.theme-page-actions .container-paging { padding-left: 5px; }
+.theme-body.oposite-direction .container-paging { padding-left: 0; padding-right: 5px; }
+.theme-question { 
+	margin: 0px /*{a-question-margin-top}*/ 0px /*{a-question-margin-right}*/ 0px /*{a-question-margin-bottom}*/ 0px /*{a-question-margin-left}*/ !important; 
+	padding: 0px /*{a-question-padding-top}*/ 0px /*{a-question-padding-right}*/ 24px /*{a-question-padding-bottom}*/ 0px /*{a-question-padding-left}*/ !important; 
+	background: #7799BB /*{a-question-background-color}*/; 
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #7799bb /*{a-question-background-start}*/), to( #7799bb /*{a-question-background-end}*/)); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #7799bb /*{a-question-background-start}*/, #7799bb /*{a-question-background-end}*/); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #7799bb /*{a-question-background-start}*/, #7799bb /*{a-question-background-end}*/); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #7799bb /*{a-question-background-start}*/, #7799bb /*{a-question-background-end}*/); /* IE10 */ 
+	background-image:      -o-linear-gradient( #7799bb /*{a-question-background-start}*/, #7799bb /*{a-question-background-end}*/); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #7799bb /*{a-question-background-start}*/, #7799bb /*{a-question-background-end}*/); 
+	border-width: 0px /*{a-question-border-width}*/; 
+	border-style: none /*{a-question-border-style}*/; 
+	border-color: #000000 /*{a-question-border-color}*/;
+	-webkit-border-radius: 0px /*{a-question-border-radius-top-left}*/ 0px /*{a-question-border-radius-top-right}*/ 0px /*{a-question-border-radius-bottom-right}*/ 0px /*{a-question-border-radius-bottom-left}*/;
+	-moz-border-radius: 0px /*{a-question-border-radius-top-left}*/ 0px /*{a-question-border-radius-top-right}*/ 0px /*{a-question-border-radius-bottom-right}*/ 0px /*{a-question-border-radius-bottom-left}*/;
+	border-radius: 0px /*{a-question-border-radius-top-left}*/ 0px /*{a-question-border-radius-top-right}*/ 0px /*{a-question-border-radius-bottom-right}*/ 0px /*{a-question-border-radius-bottom-left}*/;
+	clear: both;
+}
+.theme-question:before,
+.theme-question:after { content: ""; display: table; }
+.theme-question:after { clear: both; }
+.theme-question ul.list-date { float: left; }
+.theme-question ul.list-date li { float: left; padding-right: 5px; }
+.theme-body.oposite-direction .theme-question ul.list-date { float: right; }
+.theme-body.oposite-direction .theme-question ul.list-date li { float: right; padding-left: 5px; padding-right:0;}
+.theme-question ul.list-time { direction : ltr; float: left; padding-left: 5px; }
+.theme-question ul.list-time li { float: left; padding-right: 5px; }
+.theme-body.oposite-direction .theme-question ul.list-time { float: right; text-align: right; }
+.theme-body.oposite-direction .theme-question ul.list-time select { direction: rtl; }
+.theme-question input, 
+.theme-question select, 
+.theme-question textarea, 
+.theme-question option {
+    outline-style: none;
+}
+.theme-question input[type="email"], 
+.theme-question input[type="text"], 
+.theme-question input[type="password"], 
+.theme-question textarea {
+	border-color: #666666 #cccccc #cccccc;
+    border-style: solid;
+    border-width: 1px;
+    margin: 0;
+    outline-style: none;
+    padding: 2px;
+}
+.theme-question input[type="email"], 
+.theme-question input[type="text"], 
+.theme-question input[type="password"], 
+.theme-question textarea,
+.theme-question select {
+	font-family: arial,sans-serif /*{a-body-font-family}*/;
+	font-size: 11px /*{a-body-font-size}*/; 
+}
+.theme-question textarea {
+	height: 64px;
+    width: 314px;
+}
+.theme-question label {
+    color: #ffffff /*{a-question-color}*/;
+}
+.theme-question label span {
+	Xdisplay: table-cell;
+	width: 20px;
+}
+.theme-question label input[type="radio"],
+.theme-question label input[type="checkbox"] {
+	margin:0;
+    padding: 0;
+    vertical-align: text-top;
+}
+.theme-question .choice .choice-image {}
+.theme-question .choice .choice-text {}
+.theme-question .choice .choice-text span {
+	display: table-cell;
+}
+.theme-question .choice .choice-text strong {
+	display: table-cell;
+}
+.theme-question .choice-other label span { 
+	display: table-cell;
+}
+.theme-question .choice-other label strong { 
+	display: table-cell; 
+}
+.theme-question .choice, 
+.theme-question .choice-other {
+	padding: 3px 0;
+}
+.theme-question .choice strong,
+.theme-question .choice-other strong { 
+	font-weight: normal; 
+}
+.theme-question .choice label,
+.theme-question .choice-other label {
+	display: table;
+	cursor: pointer;
+}
+.theme-question .container-other, 
+.theme-question .container-additional-details-or-comments {
+	padding: 5px 0 0 20px;
+}
+.theme-body.oposite-direction .theme-question .container-other,
+.theme-body.oposite-direction .theme-question .container-additional-details-or-comments {
+	padding: 5px 20px 0 0px;
+}
+.theme-body.oposite-direction .theme-question label input[type="radio"],
+.theme-body.oposite-direction .theme-question label input[type="checkbox"] {
+	Xmargin: 0px 0px 0px 6px;
+}
+.theme-question table.table-matrix {
+	border-collapse:separate;
+	border-spacing:1px;
+	color: #ffffff /*{a-question-color}*/;
+}
+.theme-question table.table-matrix th {
+	font-weight:normal;
+	padding: 5px 5px 5px 5px;
+	text-align:left;
+}
+.theme-body.oposite-direction .theme-question table.table-matrix th {
+	text-align:right;
+}
+.theme-question table.table-matrix td {
+	text-align:center;
+	padding: 5px 5px 5px 5px;
+}
+.theme-question table.table-matrix tr.active, 
+.theme-question table.table-matrix tr.table-matrix-header th {
+	background: #99B3CC /*{a-question-alternative-background-color}*/; 
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #99b3cc /*{a-question-alternative-background-start}*/), to( #99b3cc /*{a-question-alternative-background-end}*/)); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #99b3cc /*{a-question-alternative-background-start}*/, #99b3cc /*{a-question-alternative-background-end}*/); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #99b3cc /*{a-question-alternative-background-start}*/, #99b3cc /*{a-question-alternative-background-end}*/); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #99b3cc /*{a-question-alternative-background-start}*/, #99b3cc /*{a-question-alternative-background-end}*/); /* IE10 */ 
+	background-image:      -o-linear-gradient( #99b3cc /*{a-question-alternative-background-start}*/, #99b3cc /*{a-question-alternative-background-end}*/); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #99b3cc /*{a-question-alternative-background-start}*/, #99b3cc /*{a-question-alternative-background-end}*/);
+	color: #ffffff /*{a-question-alternative-color}*/;
+}
+.theme-question table.table-matrix tr.table-matrix-header th {
+	text-align: center;
+}
+.theme-question table.table-scale {
+	border-collapse: separate;
+	border-spacing: 1px;
+	color: #ffffff /*{a-question-color}*/;
+}
+.theme-question table.table-scale th {
+	font-weight: normal;
+	padding: 5px;
+	Xtext-align: left;
+}
+.theme-body.oposite-direction .theme-question table.table-scale th { 
+	Xtext-align: right;
+}
+.theme-question table.table-scale td {
+	text-align: center;
+	padding: 5px;
+}
+.theme-question table.table-scale td label {
+	margin: 0px;
+}
+.theme-question table.table-scale td label input {
+	margin: 0px;
+}
+.theme-question table.table-scale tr.table-scale-header th {
+	text-align: center;
+	vertical-align: bottom;
+}
+.theme-question table.table-scale tr.table-scale-row td {
+	vertical-align: top;
+}
+.theme-question table.table-scale tr.table-scale-row th {
+	vertical-align: top;
+}
+.theme-question .q-label {
+	padding: 0 0 5px 0;
+}
+.theme-question .q-help {
+	padding: 0 0 5px 0;
+}
+.theme-question .q-image {
+	padding: 0 0 5px 0;
+}
+.theme-question .q-comment {
+	padding: 0 0 5px 0;
+}
+.theme-question .q-comment-container {
+	padding: 5px 0 0 0;
+}
+.theme-question-heading { 
+	margin: 0px /*{a-question-heading-margin-top}*/ 0px /*{a-question-heading-margin-right}*/ 0px /*{a-question-heading-margin-bottom}*/ 0px /*{a-question-heading-margin-left}*/; 
+	padding: 0px /*{a-question-heading-padding-top}*/ 0px /*{a-question-heading-padding-right}*/ 0px /*{a-question-heading-padding-bottom}*/ 0px /*{a-question-heading-padding-left}*/; 
+	background: #7799BB /*{a-question-heading-background-color}*/; 
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #7799bb /*{a-question-heading-background-start}*/), to( #7799bb /*{a-question-heading-background-end}*/)); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #7799bb /*{a-question-heading-background-start}*/, #7799bb /*{a-question-heading-background-end}*/); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #7799bb /*{a-question-heading-background-start}*/, #7799bb /*{a-question-heading-background-end}*/); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #7799bb /*{a-question-heading-background-start}*/, #7799bb /*{a-question-heading-background-end}*/); /* IE10 */ 
+	background-image:      -o-linear-gradient( #7799bb /*{a-question-heading-background-start}*/, #7799bb /*{a-question-heading-background-end}*/); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #7799bb /*{a-question-heading-background-start}*/, #7799bb /*{a-question-heading-background-end}*/); 
+	border-width: 0px /*{a-question-heading-border-width}*/; 
+	border-style: none /*{a-question-heading-border-style}*/; 
+	border-color: #000000 /*{a-question-heading-border-color}*/;
+	-webkit-border-radius: 0px /*{a-question-heading-border-radius-top-left}*/ 0px /*{a-question-heading-border-radius-top-right}*/ 0px /*{a-question-heading-border-radius-bottom-right}*/ 0px /*{a-question-heading-border-radius-bottom-left}*/;
+	-moz-border-radius: 0px /*{a-question-heading-border-radius-top-left}*/ 0px /*{a-question-heading-border-radius-top-right}*/ 0px /*{a-question-heading-border-radius-bottom-right}*/ 0px /*{a-question-heading-border-radius-bottom-left}*/;
+	border-radius: 0px /*{a-question-heading-border-radius-top-left}*/ 0px /*{a-question-heading-border-radius-top-right}*/ 0px /*{a-question-heading-border-radius-bottom-right}*/ 0px /*{a-question-heading-border-radius-bottom-left}*/;
+	font-family: arial,sans-serif /*{a-question-heading-font-family}*/; 
+	color: #ffffff /*{a-question-heading-color}*/; 
+	font-size: 11px /*{a-question-heading-font-size}*/; 
+	font-weight: bold /*{a-question-heading-font-weight}*/;
+	line-height: 16px /*{a-question-heading-line-height}*/;
+	text-shadow: 0px /*{a-question-heading-text-shadow-x}*/ 0px /*{a-question-heading-text-shadow-y}*/ 0px /*{a-question-heading-text-shadow-radius}*/ #000000 /*{a-question-heading-text-shadow-color}*/;
+}
+.theme-question-content { 
+	margin: 10px /*{a-question-content-margin-top}*/ 0px /*{a-question-content-margin-right}*/ 0px /*{a-question-content-margin-bottom}*/ 0px /*{a-question-content-margin-left}*/; 
+	padding: 0px /*{a-question-content-padding-top}*/ 0px /*{a-question-content-padding-right}*/ 0px /*{a-question-content-padding-bottom}*/ 0px /*{a-question-content-padding-left}*/; 
+	background: #7799BB /*{a-question-content-background-color}*/; 
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #7799bb /*{a-question-content-background-start}*/), to( #7799bb /*{a-question-content-background-end}*/)); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #7799bb /*{a-question-content-background-start}*/, #7799bb /*{a-question-content-background-end}*/); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #7799bb /*{a-question-content-background-start}*/, #7799bb /*{a-question-content-background-end}*/); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #7799bb /*{a-question-content-background-start}*/, #7799bb /*{a-question-content-background-end}*/); /* IE10 */ 
+	background-image:      -o-linear-gradient( #7799bb /*{a-question-content-background-start}*/, #7799bb /*{a-question-content-background-end}*/); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #7799bb /*{a-question-content-background-start}*/, #7799bb /*{a-question-content-background-end}*/); 
+	border-width: 0px /*{a-question-content-border-width}*/; 
+	border-style: none /*{a-question-content-border-style}*/; 
+	border-color: #000000 /*{a-question-content-border-color}*/;
+	-webkit-border-radius: 0px /*{a-question-content-border-radius-top-left}*/ 0px /*{a-question-content-border-radius-top-right}*/ 0px /*{a-question-content-border-radius-bottom-right}*/ 0px /*{a-question-content-border-radius-bottom-left}*/;
+	-moz-border-radius: 0px /*{a-question-content-border-radius-top-left}*/ 0px /*{a-question-content-border-radius-top-right}*/ 0px /*{a-question-content-border-radius-bottom-right}*/ 0px /*{a-question-heading-border-radius-bottom-left}*/;
+	border-radius: 0px /*{a-question-content-border-radius-top-left}*/ 0px /*{a-question-content-border-radius-top-right}*/ 0px /*{a-question-content-border-radius-bottom-right}*/ 0px /*{a-question-content-border-radius-bottom-left}*/;
+}
+.theme-question-content:before,
+.theme-question-content:after { content: ""; display: table; }
+.theme-question-content:after { clear: both; }
+.label-placement-1 .theme-question-heading,
+.label-placement-1 .theme-question-content {
+	Xfloat: left;
+	display: table-cell;
+	vertical-align: top;
+}
+.label-placement-1 .theme-question-heading {
+	width: 120px;
+	padding-right: 10px;
+	text-align: left;
+}
+.oposite-direction .label-placement-1 .theme-question-heading {
+	width: 120px;
+	padding-left: 10px;
+	padding-right: 0px;
+	text-align: right;
+}
+.label-placement-1 .theme-question-content {
+	margin-top: 0px;
+}
+.label-placement-1 .theme-page-actions {
+	margin-left: 130px;
+}
+.oposite-direction .label-placement-1 .theme-page-actions {
+	margin-right: 130px;
+	margin-left: 0px;
+}
+.label-placement-2 .theme-question-heading,
+.label-placement-2 .theme-question-content {
+	Xfloat: left;
+	display: table-cell;
+	vertical-align: top;
+}
+.label-placement-2 .theme-question-heading {
+	width: 120px;
+	padding-right: 10px;
+	text-align: right;
+}
+.oposite-direction .label-placement-2 .theme-question-heading {
+	width: 120px;
+	padding-left: 10px;
+	padding-right: 0px;
+	text-align: left;
+}
+.label-placement-2 .theme-question-content {
+	margin-top: 0px;
+}
+.label-placement-2 .theme-page-actions {
+	margin-left: 130px;
+}
+.oposite-direction .label-placement-2 .theme-page-actions {
+	margin-right: 130px;
+	margin-left: 0px;
+}
+.theme-footer { 
+	min-height: 80px /*{a-footer-min-height}*/; 
+	margin: 0px /*{a-footer-margin-top}*/ 0px /*{a-footer-margin-right}*/ 0px /*{a-footer-margin-bottom}*/ 0px /*{a-footer-margin-left}*/; 
+	padding: 0px /*{a-footer-padding-top}*/ 0px /*{a-footer-padding-right}*/ 0px /*{a-footer-padding-bottom}*/ 0px /*{a-footer-padding-left}*/; 
+	background: #7799BB /*{a-footer-background-color}*/; 
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #7799bb /*{a-footer-background-start}*/), to( #7799bb /*{a-footer-background-end}*/)); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #7799bb /*{a-footer-background-start}*/, #7799bb /*{a-footer-background-end}*/); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #7799bb /*{a-footer-background-start}*/, #7799bb /*{a-footer-background-end}*/); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #7799bb /*{a-footer-background-start}*/, #7799bb /*{a-footer-background-end}*/); /* IE10 */ 
+	background-image:      -o-linear-gradient( #7799bb /*{a-footer-background-start}*/, #7799bb /*{a-footer-background-end}*/); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #7799bb /*{a-footer-background-start}*/, #7799bb /*{a-footer-background-end}*/); 
+	border-width: 0px /*{a-footer-border-width}*/; 
+	border-style: none /*{a-footer-border-style}*/; 
+	border-color: #000000 /*{a-footer-border-color}*/;
+	-webkit-border-radius: 0px /*{a-footer-border-radius-top-left}*/ 0px /*{a-footer-border-radius-top-right}*/ 0px /*{a-footer-border-radius-bottom-right}*/ 0px /*{a-footer-border-radius-bottom-left}*/;
+	-moz-border-radius: 0px /*{a-footer-border-radius-top-left}*/ 0px /*{a-footer-border-radius-top-right}*/ 0px /*{a-footer-border-radius-bottom-right}*/ 0px /*{a-footer-border-radius-bottom-left}*/;
+	border-radius: 0px /*{a-footer-border-radius-top-left}*/ 0px /*{a-footer-border-radius-top-right}*/ 0px /*{a-footer-border-radius-bottom-right}*/ 0px /*{a-footer-border-radius-bottom-left}*/;
+	-moz-box-shadow: 0 1px 0px /*{a-footer-box-shadow-size}*/ rgba(0,0,0,0) /*{a-footer-box-shadow-color}*/;
+	-webkit-box-shadow: 0 1px 0px /*{a-footer-box-shadow-size}*/ rgba(0,0,0,0) /*{a-footer-box-shadow-color}*/;
+	box-shadow: 0 1px 0px /*{a-footer-box-shadow-size}*/ rgba(0,0,0,0) /*{a-footer-box-shadow-color}*/;
+}

@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <!DOCTYPE urlrewrite
+        PUBLIC "-//tuckey.org//DTD UrlRewrite 3.2//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite3.2.dtd">
+
+<!--
+
+    Configuration file for UrlRewriteFilter
+    http://tuckey.org/urlrewrite/
+
+-->
+
+<urlrewrite>
+    
+     <rule>
+    	<name>Gateway Id</name>
+    	<condition type="parameter" name="gid" operator="equal">^.+$</condition>
+    	<from>^/(.*)$</from>
+    	<set type="cookie" name="gid">%{parameter:gid}:.%{server-name}:43200:/</set>
+    </rule>
+    
+    <rule>
+        <note>
+            The rule means that requests to /test/status/ will be redirected to /rewrite-status
+            the url will be rewritten.
+        </note>
+        <from>/test/status/</from>
+        <to type="redirect">%{context-path}/rewrite-status</to>
+    </rule>
+    
+   
+    <!--
+    <rule>
+        <name>Domain Name Check</name>
+        <condition name="host" operator="notequal">www.inqwise.com</condition>
+        <from>^/(.*)$</from>
+        <to type="redirect">http://www.inqwise.com/$1</to>
+    </rule>
+    -->
+    
+    <!-- /go/index.jsp?lang=$1&amp;page=$3 -->
+    
+    <rule>
+    	<from>^/$</from>
+    	<to>/go/index.jsp?lang=en-us&amp;page=index</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=index</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=index</to>
+    </rule>
+    
+    <!--
+  	<rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)$</from>
+    	<to>/index.jsp?lang=$1</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/$</from>
+    	<to>/index.jsp?lang=$1</to>
+    </rule>
+     
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/index$</from>
+    	<to>/index.jsp?lang=$1</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/index/$</from>
+    	<to>/index.jsp?lang=$1</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/index.jsp$</from>
+    	<to>/index.jsp?lang=$1</to>
+    </rule>
+    -->
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/logout$</from>
+    	<to>/logout.jsp?lang=$1</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/logout/$</from>
+    	<to>/logout.jsp?lang=$1</to>
+    </rule>
+    
+    <!-- 
+    	/en-us/page
+     -->
+     
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/([a-zA-Z0-9_.-]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=$3</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/([a-zA-Z0-9_.-]+)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=$3</to>
+    </rule>
+    
+    
+    
+    
+    
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/surveys$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=survey-templates</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/surveys/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=survey-templates</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/surveys/([a-zA-Z0-9_.-]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=survey-templates&amp;template_name=$3</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/surveys/([a-zA-Z0-9_.-]+)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=survey-templates&amp;template_name=$3</to>
+    </rule>
+    
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/forms$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=form-templates</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/forms/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=form-templates</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/forms/([a-zA-Z0-9_.-]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=form-templates&amp;template_name=$3</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/forms/([a-zA-Z0-9_.-]+)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=form-templates&amp;template_name=$3</to>
+    </rule>
+    
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/invitations$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=invitation-templates</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/invitations/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=invitation-templates</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/invitations/([a-zA-Z0-9_.-]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=invitation-templates&amp;template_name=$3</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/invitations/([a-zA-Z0-9_.-]+)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=invitation-templates&amp;template_name=$3</to>
+    </rule>
+    
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/registrations$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=registration-templates</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/registrations/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=registration-templates</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/registrations/([a-zA-Z0-9_.-]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=registration-templates&amp;template_name=$3</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/registrations/([a-zA-Z0-9_.-]+)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=registration-templates&amp;template_name=$3</to>
+    </rule>
+    
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/lead-generation$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=lead-generation-templates</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/lead-generation/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=lead-generation-templates</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/lead-generation/([a-zA-Z0-9_.-]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=lead-generation-templates&amp;template_name=$3</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/lead-generation/([a-zA-Z0-9_.-]+)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=lead-generation-templates&amp;template_name=$3</to>
+    </rule>
+    
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/tracking$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=tracking-templates</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/tracking/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=tracking-templates</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/tracking/([a-zA-Z0-9_.-]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=tracking-templates&amp;template_name=$3</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/templates/tracking/([a-zA-Z0-9_.-]+)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=tracking-templates&amp;template_name=$3</to>
+    </rule>
+    
+    
+    
+    
+    
+    
+    
+    
+     
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/polls/create$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=create-poll</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/polls/create/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=create-poll</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/polls/([0-9]+)/([a-zA-Z0-9_.-]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=poll-$4&amp;opinion_id=$3</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/polls/([0-9]+)/collectors/create$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=poll-create-collector&amp;opinion_id=$3</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/polls/([0-9]+)/collectors/create/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=poll-create-collector&amp;opinion_id=$3</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/polls/([0-9]+)/collectors/([0-9]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=poll-collector-details&amp;opinion_id=$3&amp;collector_id=$4</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/polls/([0-9]+)/collectors/([0-9]+)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=poll-collector-details&amp;opinion_id=$3&amp;collector_id=$4</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/polls/([0-9]+)/collectors/([0-9]+)/([a-zA-Z0-9_.-]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=poll-collector-$5&amp;opinion_id=$3&amp;collector_id=$4</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/polls/([0-9]+)/collectors/([0-9]+)/([a-zA-Z0-9_.-]+)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=poll-collector-$5&amp;opinion_id=$3&amp;collector_id=$4</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/polls/([0-9]+)/responses/([a-zA-Z0-9_.-]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=poll-response&amp;opinion_id=$3&amp;response_id=$4</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/polls/([0-9]+)/responses/([a-zA-Z0-9_.-]+)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=poll-response&amp;opinion_id=$3&amp;response_id=$4</to>
+    </rule>
+    
+    
+    
+    
+    
+    
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/invoices/([0-9]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=invoice&amp;invoice_id=$3</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/invoices/([0-9]+)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=invoice&amp;invoice_id=$3</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/receipts/([0-9]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=receipt&amp;receipt_id=$3</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/invoices/([0-9]+)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=invoice&amp;invoice_id=$3</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/charges/([0-9]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=charge&amp;charge_id=$3</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/charges/([0-9]+)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=charge&amp;charge_id=$3</to>
+    </rule>
+    
+    
+    
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/surveys/create$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=create-survey</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/surveys/create/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=create-survey</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/surveys/([0-9]+)/([a-zA-Z0-9_.-]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=survey-$4&amp;opinion_id=$3</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/surveys/([0-9]+)/([a-zA-Z0-9_.-]+)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=survey-$4&amp;opinion_id=$3</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/surveys/([0-9]+)/collectors/create$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=survey-create-collector&amp;opinion_id=$3</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/surveys/([0-9]+)/collectors/create/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=survey-create-collector&amp;opinion_id=$3</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/surveys/([0-9]+)/collectors/([0-9]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=survey-collector-details&amp;opinion_id=$3&amp;collector_id=$4</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/surveys/([0-9]+)/collectors/([0-9]+)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=survey-collector-details&amp;opinion_id=$3&amp;collector_id=$4</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/surveys/([0-9]+)/collectors/([0-9]+)/([a-zA-Z0-9_.-]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=survey-collector-$5&amp;opinion_id=$3&amp;collector_id=$4</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/surveys/([0-9]+)/collectors/([0-9]+)/([a-zA-Z0-9_.-]+)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=survey-collector-$5&amp;opinion_id=$3&amp;collector_id=$4</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/surveys/([0-9]+)/responses/([a-zA-Z0-9_.-]+)$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=survey-response&amp;opinion_id=$3&amp;response_id=$4</to>
+    </rule>
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/surveys/([0-9]+)/responses/([a-zA-Z0-9_.-]+)/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=survey-response&amp;opinion_id=$3&amp;response_id=$4</to>
+    </rule>
+    
+    
+    
+    
+
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/careers/(.*)</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=$3</to>
+    </rule>
+
+
+
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/blog/search/(.*)</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=blog-search&amp;search_word=$3</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/blog/rss$</from>
+    	<to>/rss/index.jsp?lang=$1</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/blog/rss/$</from>
+    	<to>/rss/index.jsp?lang=$1</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/blog/rss/(.*)</from>
+    	<to>/rss/index.jsp?lang=$1&amp;feed=$3</to>
+    </rule>
+   
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/blog/tags$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=tags</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/blog/tags/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=tags</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/blog/tags/(.*)</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=tags&amp;tag_name=$3</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/blog/categories$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=categories</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/blog/categories/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=categories</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/blog/categories/(.*)</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=categories&amp;category_name=$3</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/blog/([0-9]{4}/[0-9]{2})(/)?$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=posts&amp;date=$3</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/blog/([0-9]{4}/[0-9]{2}/[0-9]{2})/(.*)</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=post&amp;date=$3&amp;name=$4</to>
+    </rule>
+    
+    
+    
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/kb/articles$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=articles</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/kb/articles/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=articles</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/kb/articles/(.*)</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=articles&amp;article_uri=$3</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/kb/topics$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=topics</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/kb/topics/$</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=topics</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/kb/topics/(.*)</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=topics&amp;topic_uri=$3</to>
+    </rule>
+    
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/faq/search/(.*)</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=faq-search&amp;search_word=$3</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/support/search/(.*)</from>
+    	<to>/go/index.jsp?lang=$1&amp;page=support-search&amp;search_word=$3</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/servlet/(.*)</from>
+    	<to>/servlet/$3?%{query-string}&amp;lang=$1</to>
+    </rule>
+    
+    <!--
+
+    INSTALLATION
+
+        in your web.xml add...
+
+        <filter>
+            <filter-name>UrlRewriteFilter</filter-name>
+            <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+            <init-param>
+                <param-name>logLevel</param-name>
+                <param-value>WARN</param-value>
+            </init-param>
+        </filter>
+        <filter-mapping>
+            <filter-name>UrlRewriteFilter</filter-name>
+            <url-pattern>/*</url-pattern>
+        </filter-mapping>
+
+     EXAMPLES
+
+     Redirect one url
+        <rule>
+            <from>/some/old/page.html</from>
+            <to type="redirect">/very/new/page.html</to>
+        </rule>
+
+    Redirect a directory
+        <rule>
+            <from>/some/olddir/(.*)</from>
+            <to type="redirect">/very/newdir/$1</to>
+        </rule>
+
+    Clean a url
+        <rule>
+            <from>/products/([0-9]+)</from>
+            <to>/products/index.jsp?product_id=$1</to>
+        </rule>
+    eg, /products/1234 will be passed on to /products/index.jsp?product_id=1234 without the user noticing.
+
+    Browser detection
+        <rule>
+            <condition name="user-agent">Mozilla/[1-4]</condition>
+            <from>/some/page.html</from>
+            <to>/some/page-for-old-browsers.html</to>
+        </rule>
+    eg, will pass the request for /some/page.html on to /some/page-for-old-browsers.html only for older
+    browsers whose user agent srtings match Mozilla/1, Mozilla/2, Mozilla/3 or Mozilla/4.
+
+    Centralised browser detection
+        <rule>
+            <condition name="user-agent">Mozilla/[1-4]</condition>
+            <set type="request" name="browser">moz</set>
+        </rule>
+    eg, all requests will be checked against the condition and if matched
+    request.setAttribute("browser", "moz") will be called.
+
+    -->
+
+</urlrewrite>
+

@@ -1,0 +1,7 @@
+import "../../general/GeneralEmailParts.stg"
+subject(data)::="<data.FeedbackCaption> - Invite"
+body(data)::=<<
+
+
+<signature(data)>
+>>

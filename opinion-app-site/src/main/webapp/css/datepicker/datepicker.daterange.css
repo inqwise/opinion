@@ -1,0 +1,136 @@
+
+div.datepicker {
+	position: relative;
+	Xfont-size: 11px;
+	width: 196px;
+	height: 147px;
+	position: absolute;
+	cursor: default;
+	top: 0;
+	left: 0;
+	z-index: 20;
+	display: none;
+	-moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-color: rgba(0, 0, 0, 0.45) rgba(0, 0, 0, 0.45) #666666;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+.datepickerContainer {
+	background: #fff; /* #121212; */
+	position: absolute;
+	top: 10px;
+	left: 10px;
+}
+
+#dpd1, #dpd2 {
+	width: 82px;	
+}
+
+.datepicker-text {
+    Xborder: 1px solid #CCCCCC;
+    border-color: #999999 #999999 #888888;
+    padding-right: 6px;
+    
+    background-color:#e5e5e5;
+	text-shadow:0 1px 0 #fff;
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #f9f9f9 ), to( #e5e5e5 )); /* Saf4+, Chrome */ 
+	background-image: -webkit-linear-gradient( #f9f9f9, #e5e5e5 ); /* Chrome 10+, Saf5.1+ */ 
+	background-image:    -moz-linear-gradient( #f9f9f9, #e5e5e5 ); /* FF3.6 */ 
+	background-image:     -ms-linear-gradient( #f9f9f9, #e5e5e5 ); /* IE10 */ 
+	background-image:      -o-linear-gradient( #f9f9f9, #e5e5e5 ); /* Opera 11.10+ */ 
+	background-image:         linear-gradient( #f9f9f9, #e5e5e5 );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e5e5e5');
+	cursor:pointer;
+	
+}
+.datepicker-date-range-container {
+    background: url(../../images/arrow_down.png) no-repeat scroll 100% 0 transparent;
+    cursor: pointer;
+    padding: 1px 12px 1px 6px;
+}
+.datepicker-date-range-container.active {
+    background: url(../../images/arrow_up.png) no-repeat scroll 100% 0 transparent;
+}
+#datepicker_date_range_description {
+    color: #333333;
+    font-weight: bold;
+}
+#datepicker_date_range_value {
+    font-weight: bold;
+    color: #333;
+}
+#datepicker_editor {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-color: rgba(0, 0, 0, 0.45) rgba(0, 0, 0, 0.45) #666666;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    clear: both;
+    display: none;
+    padding: 5px;
+    position: absolute;
+    right: 0;
+    width: 210px;
+    z-index: 10;
+    color: #333;
+}
+#datepicker_editor ul li {
+    cursor: pointer;
+    display: block;
+    padding-bottom: 3px;
+    padding-left: 20px;
+    padding-top: 3px;
+    vertical-align: middle;
+}
+#datepicker_editor ul li.selected {
+    background: url(../../images/6NgdP4PZyfY.png) no-repeat scroll 0 5px #F1F1F1;
+}
+#datepicker_editor ul li.selected .datepicker-custom {
+    display: block;
+}
+.datepicker-custom {
+    display: none;
+}
+.datepicker-custom-fields {
+    clear: both;
+    height: 20px;
+    padding-bottom: 3px;
+}
+.datepicker-custom-from, .datepicker-custom-to {
+    float: left;
+}
+.datepicker-custom-from input, .datepicker-custom-to input {
+    width: 64px;
+}
+.datepicker-actions {
+    clear: both;
+    padding: 10px 0 5px 20px;
+}
+
+.dropdown-menu {
+    background-clip: padding-box;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: #333333;
+    display: none;
+    float: left;
+    left: 0;
+    list-style: none outside none;
+    margin: 2px 0 0;
+    min-width: 160px;
+    padding: 5px 0;
+    position: absolute;
+    top: 100%;
+    z-index: 1000;
+}

@@ -1,0 +1,11 @@
+subject(data)::="<data.FeedbackCaption> Faq - Submit a question"
+body(data)::=<<
+
+Autor: <data.AutorName>
+Email: <data.AutorEmail>
+UserId: <data.UserId>
+
+----
+Question:
+<data.Question>
+>>

@@ -1,0 +1,15 @@
+signature(data)::=<<
+
+We hope you have enjoyed our service.
+
+
+Best regards,
+The <data.FeedbackShortCaption> Team
+<data.ApplicationUrl>
+
+
+This e-mail was sent to <data.Email> and contains information directly related to your account with us.
+Please do not reply to this email. If you want to contact us, please contact our Customer Support <data.SupportEmail>.
+
+<\u00A9> Copyright <data.CurrentYear> <data.FeedbackCaption>. All rights reserved.
+>>

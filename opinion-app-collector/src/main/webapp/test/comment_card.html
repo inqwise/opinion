@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html> 
+	<head>
+		<meta charset="utf-8" />
+		
+		
+		<style type="text/css">
+		.lightface {margin: 0;padding:0;border-collapse: collapse;position: absolute;top: -9000px;left: -9000px;z-index: 9001;}
+		.lightface table { color: #333; }
+		.lightface td {margin: 0;padding: 0;background-color: transparent;vertical-align: top;}
+		.lightface .top-center, .lightface .bottom-center {height: 10px;width: auto;}
+		.lightface .top-left, .lightface .top-right, .lightface .bottom-left, .lightface .bottom-right {background-repeat: no-repeat;height: 10px;width: 10px;}
+		.lightface .middle-left, .lightface .middle-right {height: auto;width: 10px;}
+		.lightface .lightface-content {background-color: #fff;border: 1px solid #555;position: relative;min-width: 300px; -webkit-border-radius:4px; -moz-border-radius:4px; border-radius:4px; -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3); -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3); box-shadow:0 1px 4px rgba(0, 0, 0, 0.3); }
+		.lightface .lightface-content .lightface-close { display: block; width: 20px; height: 20px; background: red; position: absolute; top: 5px; right: 5px; cursor: pointer; z-index: 1; overflow: hidden; text-indent: -9999px; }
+		.lightface .lightface-content .lightface-title {background-color: #6d84b4;border: 1px solid #3b5998;color: #fff;font-size: 11px;font-weight: bold;margin: -1px -1px 0;padding: 4px 10px;display: none;}
+		.lightface .lightface-content .lightface-message {min-height: 20px;overflow: auto;padding: 10px;position: relative;Xcolor: #333;}
+		.lightface .lightface-content .lightface-actions {background-color: #f2f2f2;border-top: 1px solid #ccc;padding: 6px 10px;text-align: right;}
+		.lightface .lightface-content .lightface-actions a {margin-left: 6px;}
+		.lightface .lightface-content .lightface-content-overlay {bottom: 0;left: 0;position: absolute;right: 0;top: 0;}
+		.lightface-overlay {background-color:#fcfcfc;display:none;height:100%;left:0;margin:0;opacity:0.75;filter: alpha(opacity=75);padding:0;position:fixed;top:0;width:100%;z-index:104;_position:absolute;_height:expression(document.documentElement.clientHeight);_width:expression(document.documentElement.clientWidth);_top:expression(eval(document.documentElement.scrollTop))}
+		</style>
+		
+		
+	</head>
+	<body>
+	
+	
+		<!--
+		<script type="text/javascript" src="http://localhost:8080/opinion-opinion-collector/scripts/widget/1.0.5/survey.js">
+		{
+		    "guid" : "6c02b697-dbfc-4981-8fe6-4b2d9f5d1960",
+		    "collectorUrl" : "//c7.inqwise.com",
+		    "url" : "//c7.inqwise.com/c/1/6c02b697-dbfc-4981-8fe6-4b2d9f5d1960/1",
+		    "showPaging" : false
+		}
+		</script>
+		-->
+		
+		<!--
+		<div id="survey1"></div>
+		<div id="survey2"></div>
+		-->
+		
+		<a href="#" id="button_feedback" title="Feedback">Feedback</a>
+		
+		
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script type="text/javascript">window.jQuery || document.write("<script type=\"text/javascript\" src=\"http://www.inqwise.com/scripts/jquery/1.8.2/jquery.min.js\"><\/script>")</script>
+		<script type="text/javascript" src="//www.inqwise.com/scripts/utils/utils.js?ver=201309152247"></script>
+		<!--[if lt IE 8]>
+		<script type="text/javascript" src="//www.inqwise.com/scripts/utils/json2.js"></script>
+		<![endif]-->
+		
+		<script type="text/javascript" src="//localhost:8443/opinion-opinion-collector/scripts/widget/1.0.5/survey.js"></script>
+		
+		<script type="text/javascript">
+		(function (jQuery) {
+            lightFace = function (a) {
+                var d = jQuery(this),
+                    r = jQuery.extend({
+                            width: 'auto',
+                            height: 'auto',
+                            title: "",
+                            message: "<p>Message not specified.</p>",
+                            errorMessage: "<p>The requested file could not be found.</p>",
+                            actions: [],
+                            fadeDelay: 400,
+                            fadeDuration: 400,
+                            zIndex: 9001,
+                            pad: 100,
+                            overlayAll: false,
+                            constrain: false,
+                            resetOnScroll: true,
+                            resizeOnOpen: true,
+                            complete: null,
+                            abort: null
+                        }, a);
+                var f = null;
+                var g = null;
+                var h = null;
+                var i = function () {
+                    if (r.complete != undefined && typeof r.complete == 'function') r.complete()
+                };
+                var j = function () {
+                    if (r.overlayAll) {
+                        g.show();
+                        g.click(function () {
+                                if (r.abort != undefined && typeof r.abort == 'function') {
+                                    r.abort()
+                                }
+                                l()
+                            })
+                    }
+                    jQuery('.lightface-content-overlay').hide();
+                    var E = f.find('.lightface-actions');
+                    if (r.actions.length > 0) {
+                        E.show().empty();
+                        for (var t = 0; t < r.actions.length; t++) {
+                            var c = jQuery("<a href=\"javascript:;\" action=\"" + t + "\" title=\"" + (r.actions[t].label ? r.actions[t].label : "Action" + t) + "\" class=\"button-" + (r.actions[t].color != undefined ? r.actions[t].color : "blue") + "\"><span>" + (r.actions[t].label ? r.actions[t].label : "Action" + t) + "</span></a>").click(function () {
+                                    var o = jQuery(this);
+                                    var b = o.attr('action');
+                                    if (r.actions[b].fire != undefined && typeof r.actions[b].fire == 'function') {
+                                        r.actions[b].fire()
+                                    }
+                                }).appendTo(E)
+                        }
+                    } else {
+                        E.hide().empty()
+                    }
+                    f.find(".lightface-close").click(function () {
+                            l()
+                        });
+                    jQuery('.lightface-message').empty().html(r.message);
+                    h.css({
+                            'top': jQuery(window).scrollTop() + (jQuery(window).height() - (h.height())) / 2 + 'px',
+                            'left': jQuery(window).scrollLeft() + (jQuery(window).width() - (h.width())) / 2 + 'px'
+                        });
+                    i()
+                };
+                var k = function () {};
+                var l = function () {
+                    g.hide();
+                    h.css({
+                            "top": "-9000px",
+                            "left": "-9000px"
+                        });
+                    jQuery('.lightface-control').remove()
+                };
+                var m = function () {
+                    this.state = false;
+                    this.resizeOnOpen = true;
+                    this.ie6 = typeof document.body.style.maxHeight == "undefined";
+                    jQuery('.lightface-control').remove();
+                    f = jQuery("<div class=\"lightface-control\">" + "<div class=\"lightface\">" + "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"table-layout:fixed;\">" + "<tbody>" + "<tr>" + "<td class=\"top-left\"></td>" + "<td class=\"top-center\"></td>" + "<td class=\"top-right\"></td>" + "</tr>" + "<tr>" + "<td class=\"middle-left\"></td>" + "<td class=\"middle-center\">" + "<div class=\"lightface-content\"><a class=\"lightface-close\" title=\"Close\">X</a>" + "<h2 class=\"lightface-title\"></h2>" + "<div class=\"lightface-message\"></div>" + "<div class=\"lightface-actions\"></div>" + "<div class=\"lightface-content-overlay\"></div>" + "</div>" + "</td>" + "<td class=\"middle-right\"></td>" + "</tr>" + "<tr>" + "<td class=\"bottom-left\"></td>" + "<td class=\"bottom-center\"></td>" + "<td class=\"bottom-right\"></td>" + "</tr>" + "</tbody>" + "</table>" + "</div>" + "<div class=\"lightface-overlay\"></div>" + "</div>").appendTo(document.body);
+                    h = f.find('.lightface');
+                    g = f.find('.lightface-overlay');
+                    
+                    if(r.width != "auto") {
+                    	f.find(".lightface-content").css({ "width" : r.width });
+                    }
+                    
+                    if(r.height != "auto") {
+                    	f.find(".lightface-content").css({ "height" : r.height });
+                    }
+                    
+                    jQuery(window).resize(function () {
+                            h.css({
+                                'top': jQuery(window).scrollTop() + (jQuery(window).height() - (h.height())) / 2 + 'px',
+                                'left': jQuery(window).scrollLeft() + (jQuery(window).width() - (h.width())) / 2 + 'px'
+                            })
+                        });
+                    jQuery(window).scroll(function () {
+                            h.css({
+                                'top': jQuery(window).scrollTop() + (jQuery(window).height() - (h.height())) / 2 + 'px',
+                                'left': jQuery(window).scrollLeft() + (jQuery(window).width() - (h.width())) / 2 + 'px'
+                            })
+                        });
+                    document.onkeyup = function (e) {
+                        if (e == null) {
+                            keycode = event.keyCode
+                        } else {
+                            keycode = e.which
+                        } if (keycode == 27) {
+                            if (r.abort != undefined && typeof r.abort == 'function') {
+                                r.abort()
+                            }
+                            l()
+                        }
+                    };
+                    j()
+                };
+                m();
+                return {
+                    open: function () {
+                        k()
+                    },
+                    close: function () {
+                        l()
+                    },
+                    reset: function () {},
+                    load: function (o) {},
+                    destroy: function () {},
+                    resize : function() {
+                    	if(h != null) {
+                    		h.css({
+                                'top': jQuery(window).scrollTop() + (jQuery(window).height() - (h.height())) / 2 + 'px',
+                                'left': jQuery(window).scrollLeft() + (jQuery(window).width() - (h.width())) / 2 + 'px'
+                            })
+                    	}
+                    }
+                }
+            }
+        })(jQuery);
+		
+		
+		
+		
+		
+		var inqwise = inqwise || {};
+		/*
+		inqwise.surveys.push({
+			guid : "6c02b697-dbfc-4981-8fe6-4b2d9f5d1960",
+		    collectorUrl : "//c7.inqwise.com",
+		    url : "//c7.inqwise.com/c/1/6c02b697-dbfc-4981-8fe6-4b2d9f5d1960/1",
+		    paging : false,
+		    ready : function(el) {
+		    	el.appendTo('#survey1')
+		    }
+		});
+		
+		inqwise.surveys.push({
+			guid : "6c02b697-dbfc-4981-8fe6-4b2d9f5d1960",
+		    collectorUrl : "//c7.inqwise.com",
+		    url : "//c7.inqwise.com/c/1/6c02b697-dbfc-4981-8fe6-4b2d9f5d1960/1",
+		    paging : false,
+		    ready : function(el) {
+		    	el.appendTo('#survey2')
+		    }
+		});
+		*/
+		
+		$(function() {
+			
+			$('#button_feedback').click(function(e) {
+				
+				var modal = null;
+				
+				inqwise.surveys.push({
+					guid : "6c02b697-dbfc-4981-8fe6-4b2d9f5d1960",
+				    collectorUrl : "//c7.inqwise.com",
+				    url : "//c7.inqwise.com/c/1/6c02b697-dbfc-4981-8fe6-4b2d9f5d1960/1",
+				    showPaging : false,
+				    ready : function(el) {
+				    	
+				    	modal = new lightFace({
+		                    title: "Feedback",
+		                    message: el,
+		                    overlayAll: true
+		                });
+				    	
+				    },
+				    resize : function() {
+				    	modal.resize();
+				    }
+				});
+				inqwise.load(0);
+				
+				
+				e.preventDefault();
+				
+			});
+			
+		});
+		</script>
+
+	</body>
+</html>

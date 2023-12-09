@@ -1,0 +1,13 @@
+subject(data)::="<data.FeedbackCaption> - Custom plan request"
+body(data)::=<<
+
+Hi,
+
+I am a potential customer and I need a help to select a compatible plan for my needs.
+Please contact me by the following email: <data.Email>
+
+Thanks.
+
+Additional notes:
+<data.Notes>
+>>

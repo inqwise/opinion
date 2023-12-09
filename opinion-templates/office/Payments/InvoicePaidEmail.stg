@@ -1,0 +1,11 @@
+import "../../general/GeneralEmailParts.stg"
+subject(data)::="<data.FeedbackCaption> - Invoice #<data.invoiceId> paid"
+body(data)::=<<
+
+This e-mail confirms that Invoice #<data.invoiceId> was recently paid. The invoice details located here:
+<data.invoiceUrl>
+You can see a complete break down of all transactions on the Transactions History page located here:
+<data.transactionsHistoryUrl>
+
+<signature(data)>
+>>

@@ -1,0 +1,106 @@
+html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var,optgroup{font-style:inherit;font-weight:inherit;}del,ins{text-decoration:none;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:baseline;}sub{vertical-align:baseline;}legend{color:#000;}input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}input,button,textarea,select{*font-size:100%;}
+html, body{ background:none repeat scroll 0 0 #efefef;}
+body{font-family:Arial,sans-serif;font-size:12px;color:#000;margin:0;padding:0;line-height:16px;word-wrap:break-word;unicode-bidi:embed;}
+
+
+a{color:#245dc1;text-decoration:none;}
+a:hover{text-decoration:underline;color:#f7931e}
+a h3{color:#324E8D;display:inline;}
+a:hover h3{text-decoration:underline;color:#f7931e}
+em{font-style:italic}
+img{border:0px}
+strong { font-weight: bold; }
+
+ul.ld {list-style:none outside none;padding:0;margin:0px;}
+ul.ld li{display:inline;padding:0 7px;}
+ul.ld li:first-child{padding-left:0px;}
+ul.ld li:last-child{background:none;padding-right:0px;}
+
+
+.row {
+	display: table;
+	width: 100%;
+}
+.row
+.col-4 { float: left; width: 33% } 
+.row
+.col-6 { float: left; width: 50% }
+
+.text-align-right { text-align: right; }
+
+.promo-container{ 
+	position: relative;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #f3f4f5));
+	background:-webkit-linear-gradient(top, #ffffff 0%, #f3f4f5 100%);
+	background:  -moz-linear-gradient(top, #ffffff 0%, #f3f4f5 100%);
+	background:       linear-gradient(top, #ffffff 0%, #f3f4f5 100%);
+	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#ffffff', EndColorStr='#f3f4f5'); 
+}
+.promo {
+	height: 368px;	
+}
+
+h1 {
+    font-family: "Helvetica Neue",Helvetica,Arial;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 28px;
+    text-rendering: optimizelegibility;
+    padding-top: 40px;
+    padding-bottom: 24px;
+    
+}
+h3 {
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.button-yellow{
+	padding:1px 6px;
+	display:inline-block;
+	text-decoration:none;
+	font-weight:bold;
+	color:#000;
+	background-color:#FFBF4A;
+	border:1px solid #FF9F00;	
+	text-align:center;
+	text-shadow:0 1px 0 #FFF7A8;
+	background-image:-moz-linear-gradient(top, #FFE65F, #FFBF4A);
+	background-image:-webkit-gradient(linear, left top, left bottom, from(#FFE65F), to(#FFBF4A));
+	background-image:-webkit-linear-gradient(#FFE65F, #FFBF4A);
+	background-image:     -ms-linear-gradient(#FFE65F, #FFBF4A); /* IE10 */
+	background-image:-o-linear-gradient(#FFE65F, #FFBF4A);
+	background-image:linear-gradient(top, #FFE65F, #FFBF4A);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFE65F', endColorstr='#FFBF4A');
+	cursor:pointer;
+}
+.button-yellow:hover{
+	background-color:#FFBB3C;
+	background-image:-moz-linear-gradient(top, #FFBF4A, #FFBB3C);
+	background-image:-webkit-gradient(linear, left top, left bottom, from(#FFBF4A), to(#FFBB3C));
+	background-image:-webkit-linear-gradient(#FFBF4A, #FFBB3C);
+	background-image:     -ms-linear-gradient(#FFBF4A, #FFBB3C); /* IE10 */
+	background-image:-o-linear-gradient(#FFBF4A, #FFBB3C);
+	background-image:linear-gradient(top, #FFBF4A, #FFBB3C);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFBF4A', endColorstr='#FFBB3C');
+	text-decoration:none;
+	border-color:#EA9300;
+}
+.button-yellow span{color:#000 !important;text-decoration:none;padding:1px 0 2px;display:inline-block;margin:0;line-height:13px;}
+.button-yellow:hover span{color:#000 !important;text-decoration:none;}
+
+
+.wrapper-header {
+	background-color: #fff;
+	height: 80px;
+}
+.wrapper-header .inner { width:980px; margin: 0 auto;}
+.wrapper-content {
+	background-color: #fff
+}
+.wrapper-content .inner { width:980px; margin: 0 auto;}
+.wrapper-footer {
+	border-top: 1px solid #ddd;
+	color: #888;
+}
+.wrapper-footer .inner { width:980px; margin: 0 auto;}

@@ -1,0 +1,12 @@
+body  {
+	background-color: #fff;
+    color: #000;
+    margin: 2px 4px;
+    font-family:"lucida grande", tahoma, arial, verdana, sans-serif;
+    font-size:11px;
+    line-height:16px;
+    word-wrap:break-word;
+    unicode-bidi:embed;
+    border:medium none;
+    padding:0;
+}

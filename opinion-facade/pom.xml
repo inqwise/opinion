@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.inqwise.opinion</groupId>
+		<artifactId>opinion</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>opinion-facade</artifactId>
+	<dependencies>
+		<dependency>
+			<groupId>com.inqwise.opinion</groupId>
+			<artifactId>opinion-cint</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.inqwise.opinion</groupId>
+			<artifactId>opinion-payments</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.inqwise.opinion</groupId>
+			<artifactId>opinion-library</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- dependency>
+			<groupId>net.casper</groupId>
+			<artifactId>casperdatasets</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.casper</groupId>
+			<artifactId>casperdatasets-io</artifactId>
+		</dependency-->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.msgpack</groupId>
+			<artifactId>msgpack</artifactId>
+		</dependency>
+	</dependencies>
+</project>

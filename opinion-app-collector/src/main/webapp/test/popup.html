@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html> 
+	<head>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+	
+		
+		<!-- <script type="text/javascript" src="//dzap5fl97ni3h.cloudfront.net/scripts/popup/1.0.1/popup.min.js"></script> -->
+		<script type="text/javascript" src="http://localhost:8080/opinion-opinion-collector/scripts/popup/1.0.1/popup.min.js"></script>
+		<script type="text/javascript">
+		var pWin;
+		var surveyPopup = new popup({
+			id : document.location.href, // use document.location.href to separate count between pages
+			/*
+			popupHours : [8], // in GMT from 0 - 23
+			popupMinutes : [57], // from 0 - 59
+			*/
+			popupEvery : 3, // number of visitors
+			pop : function() {
+				
+				// here you can call to your own popup, lightbox or javascript
+				var name = "pWin";
+				if (pWin) 
+					pWin.close();
+				
+				// http://www.fattal.co.il/survey
+				pWin = window.open("http://c7.inqwise.com/c/1/aef60090-4f0a-4857-bbe9-74ad61d838d0/1", name, "height=700,width=500,scrollbars=yes,resizable=yes,status=yes");
+				
+			}
+		});
+		</script>
+		
+		
+	</body>
+</html>

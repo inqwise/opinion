@@ -1,0 +1,11 @@
+import "../../general/GeneralEmailParts.stg"
+subject(data)::="<data.FeedbackCaption> - You <data.ExpiredServicePackage.Name> account was expired"
+body(data)::=<<
+
+Just a friendly reminder that you '<data.ExpiredServicePackage.Name>' account was expired.
+
+You able to upgrade your account here:
+<data.BaseUrl>/<data.CultureCode>/upgrade
+
+<signature(data)>
+>>

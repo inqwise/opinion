@@ -1,0 +1,46 @@
+package com.inqwise.opinion.library.common.errorHandle;
+
+import com.inqwise.opinion.infrastructure.common.IErrorCode;
+
+public enum ErrorCode implements IErrorCode {
+	NoError,
+	GeneralError,
+	DatabaseError,
+	ArgumentNull,
+	ArgumentWrong,
+	ArgumentOutOfRange,
+	NoResults,
+	NotImplemented,
+	
+	//Authentication
+	InvalidUsernameOrPassword, 
+	PasswordExpiry, 
+	UsernameAlreadyExist, 
+	EmailAlreadyExist,
+	UnknownUsername,
+	UserNotExist,
+	NameAlreadyExist,
+	ParentIdNotExist,
+	RootIdNotExist,
+	NotExist,
+	SubItemsExits,
+	NotPermitted,
+	InvalidUsernameOrIntegration,
+	InvalidOperation,
+	NoPackageSelected,
+	UniqueUserIdIncorrect, 
+	NotAllowedForProduct,
+	NotAllowedToProductManagement,
+	AnswersAreFinished,
+	NotSignedIn,
+	MaxOpinionsReached,
+	MaxCollectorsReached,
+	MaxControlsReached,
+	MaxResponsesReached, 
+	MethodNotFound,
+	CaptchaTextWrong,
+	Expired,
+	ArgumentMandatory,
+	InvalidPassword,
+	InitializationError, UserWithoutAccount, NoEnoughFunds, InvalidAmount, AccountDisabled, InvalidAccount, InvalidSchema, InvalidEmail, InvalidInvite, MaxUsersReached,
+}

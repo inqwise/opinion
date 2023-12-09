@@ -1,0 +1,3 @@
+.sidebar-relative{min-height: 200px}
+.sidebar{height:200px;Xmin-height:200px; Xbackground: red}
+.sidebar.fixed{position:fixed}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <!DOCTYPE urlrewrite
+        PUBLIC "-//tuckey.org//DTD UrlRewrite 3.2//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite3.2.dtd">
+
+<!--
+
+    Configuration file for UrlRewriteFilter
+    http://tuckey.org/urlrewrite/
+
+-->
+
+<urlrewrite>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/logout$</from>
+    	<to>/logout.jsp?lang=$1</to>
+    </rule>
+    
+    <rule>
+    	<from>^/([a-z]{2}(-[a-z]{2})?)/([a-zA-Z0-9_.-]+)$</from>
+    	<to>/go/cms?lang=$1&amp;page=$3</to>
+    </rule>
+    
+</urlrewrite>
+

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+
+    <link rel="stylesheet" href="https://localhost:8443/opinion-opinion/css/global.css" />
+    <link rel="stylesheet" href="https://localhost:8443/opinion-opinion/css/datepicker/datepicker.css" />
+    <link rel="stylesheet" href="https://localhost:8443/opinion-opinion/css/datepicker/datepicker.daterange-1.0.2.css" />
+
+    <link rel="stylesheet" href="https://localhost:8443/opinion-opinion/css/datatable/datatable.css" />
+    
+    <style type="text/css">
+		html, 
+		body {
+			background-color: #fff;
+		}
+	</style>
+
+</head>
+<body>
+
+	<div style="margin: 10px;">
+		<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+			<tr>
+				<td>
+					<h1>Title</h1>
+				</td>
+				<td valign="top">
+					<div id="daterange" style="float: right; text-align: left; position: relative"></div>
+				</td>
+			</tr>
+		</table>
+		
+		<div style="margin-bottom: 10px; height: 20px;">
+		<div style="float: left">
+			<div style="float: left; margin-right: 5px;">
+				<div id="button_filter"></div>
+			</div>
+			<div style="float: left; margin-right: 5px;">
+				<div id="button_columns"></div>
+			</div>
+		</div>
+		<!-- 
+		<div style="border-left: 1px solid #ccc; padding-left: 5px; float: left">
+			<div style="float: left; margin-right: 5px;">
+				<a href="#" title="Show/hide graph" class="button-white" id="button_show_hide_graph"><span>Graph</span></a>
+			</div>
+			<div style="float: left; margin-right: 5px;">
+				<a href="#" class="button-white" title="Download report"><span><i class="icon-down">&nbsp;</i>Download report</span></a>
+			</div>
+		</div>
+		-->
+		<div style="border-left: 1px solid #ccc; padding-left: 5px; float: left; margin-right: 5px;">
+			<input type="text" placeholder="Search..." id="text_search" />
+			<a href="#" class="button-white" title="Search" id="button_search"><span>Search</span></a>
+		</div>
+	</div>
+	
+	<div id="form_filter" style="background: #fff6c3; border: 1px solid #ccc; padding: 10px; margin: 0 0 10px; display: none">
+		<h3>Filter</h3>
+		<div style="padding-top: 10px;">
+			<ul class="list-filter-conditions"></ul>
+		</div>
+		<div style="clear: both;">
+			<a href="#" id="button_filter_add_another">+ Add another</a>
+		</div>
+		<div style="clear: both; padding-top: 10px;">
+			<!-- 
+			<div class="params">
+				<div class="param-value">
+					<label><span><input type="checkbox" /></span>Save this set of columns</label>
+				</div>
+				<div class="param-value" style="margin-left: 6px;">
+					<input type="text" placeholder="Enter set name" />
+				</div>
+			</div>
+			-->
+			<div class="params" style="padding-bottom: 0px;">
+				<div class="param-value">
+					<a href="#" class="button-blue" title="Apply" id="button_filter_apply"><span>Apply</span></a>
+				</div>
+				<div class="param-value">
+					<a href="#" title="Cancel" style="margin-left: 5px;" id="button_filter_cancel">Cancel</a>
+				</div>
+				<div class="param-value ui-form " style="margin-left: 10px;">
+					<label><span><input type="checkbox" /></span>Save filter</label>
+				</div>
+				<div class="param-value" style="margin-left: 5px;">
+					<input type="text" placeholder="Enter filter name" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="form_graph" style="display: none">
+		<div id="chart" style="height: 110px;margin-bottom: 10px;">chart here</div>
+	</div>
+	<div id="form_customize_colums" style="background: #eee; border: 1px solid #ccc; padding: 10px; margin: 0 0 10px; display: none">
+		<h3>Customize columns</h3>
+		<div style="padding-top: 10px;">
+			<table cellspacing="0" cellpadding="0">
+				<tr>
+					<td valign="top">
+						<div style="font-weight: bold;">Select metrics</div>
+						<div style="margin-top: 10px; margin-right: 10px;">
+							<table>
+								<tr>
+									<td valign="top">
+										<ul class="list-metrics"></ul>
+									</td>
+									<td valign="top">
+										<ul class="list-metric-columns"></ul>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</td>
+					<td valign="top">
+						<div style="font-weight: bold;">Drag and drop to reorder</div>
+						<div style="margin-top: 10px">
+							<ul id="list_fixed_columns" class="list-fixed-columns"></ul>
+							<ul id="list_customize_columns" class="list-customize-columns"></ul>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div style="clear: both; padding-top: 10px;">
+			<!-- 
+			<div class="params">
+				<div class="param-value">
+					<label><span><input type="checkbox" /></span>Save this set of columns</label>
+				</div>
+				<div class="param-value" style="margin-left: 6px;">
+					<input type="text" placeholder="Enter set name" />
+				</div>
+			</div>
+			-->
+			<div class="params" style="padding-bottom: 0px;">
+				<div class="param-value">
+					<a href="#" class="button-blue" title="Apply" id="button_customize_columns_apply"><span>Apply</span></a>
+				</div>
+				<div class="param-value" style="line-height: 18px;">
+					<a href="#" title="Cancel" style="margin-left: 6px;" id="button_customize_columns_cancel">Cancel</a>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div id="table_surveys"></div>
+		
+	</div>
+    
+    
+    <script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/jqueryui/1.9.1/jquery-ui.min.js"></script>
+	
+	<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/utils/utils.js"></script>
+	<!--[if lt IE 8]>
+	<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/utils/json2.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/utils/date.min.js"></script>
+	<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/underscore/underscore-min.js"></script>
+	
+	<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/lightloader/1.0.1/lightloader.min.js"></script>
+	<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/buttons/menu_button.js"></script>
+	<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/datepicker/datepicker.js"></script>
+	
+	<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/highcharts/highcharts.js"></script>
+	<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/highcharts/modules/data.js"></script>
+
+	<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/datepicker/datepicker.daterange-1.0.2.js"></script>
+	<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/datatable/datatable-1.4.8.js"></script>
+    
+    <script>
+    var servletUrl = "https://localhost:8443/opinion-opinion/servlet/DataPostmaster/en_US";
+    var accountId = 3; //1034; // 3;
+    </script>
+    <script type="text/javascript" src="surveys.js"></script>
+
+</body>
+</html>

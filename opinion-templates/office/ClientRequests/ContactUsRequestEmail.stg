@@ -1,0 +1,13 @@
+subject(data)::="<data.FeedbackCaption> - Please contact me"
+body(data)::=<<
+
+Hi,
+
+I would like to get more information, Please contact me.
+
+Name: <data.Name>
+Email: <data.Email>
+Phone: <data.Phone>
+Comments:
+<data.Comments>
+>>

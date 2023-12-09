@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html> 
+	<head>
+		<meta charset="utf-8" />
+		
+		
+		<style type="text/css">
+		body {
+		    color: #606060;
+		    font-family: Arial,sans-serif;
+		    font-size: 11px;
+		    line-height: 16px;
+		    word-wrap: break-word;
+		}
+		</style>
+		<link rel="stylesheet" type="text/css" href="http://localhost:8080/opinion-opinion-collector/css/lightface/lightface.css" />
+		
+	</head>
+	<body>
+	
+	
+		<div id="_s1">...</div>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<div id="_s2">...</div>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		
+		<button id="feedback">Feedback</button>
+	
+	
+		<!--
+		<script type="text/javascript">
+		var _inq = _inq || [];
+		_inq.push({
+			guid : "036b6bbd-949e-4669-b880-26fac57963fd",
+			element : document.getElementById("_s1")
+		});
+    	(function() {
+		    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+		    po.src = 'http://localhost:8080/opinion-opinion-collector/scripts/widget/1.1.1/survey.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+		})();
+		</script>
+		-->
+		
+		
+		
+		
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://localhost:8080/opinion-opinion-collector/scripts/lightface/lightface.min.js"></script>
+		<script type="text/javascript">
+		
+		var _inq = _inq || [];
+		
+		
+		var ref = location.href;
+		
+		//var elS = $("<div></div>");
+		
+		/*
+		_inq.push({
+			guid : "036b6bbd-949e-4669-b880-26fac57963fd",
+			collectorUrl : "//api.inqwise.com",
+			element : document.body,
+			params : { 
+		    	referrer : ref
+		    }
+		});
+		*/
+		
+		_inq.push({
+			guid : "036b6bbd-949e-4669-b880-26fac57963fd",
+			/*collectorUrl : "//api.inqwise.com",*/
+			element : document.getElementById("_s1"),
+			params : { 
+		    	referrer : ref
+		    }
+		});
+		
+		_inq.push({
+			guid : "da73d779-6ca0-49f7-98de-067abc389310",
+			/*collectorUrl : "//api.inqwise.com",*/
+			element : document.getElementById("_s2"),
+			params : { 
+		    	referrer : ref
+		    }
+		});
+		
+		
+		
+		
+		/*
+		var Y = function() {
+			_inq.queue = [];
+			_inq.queue.inQueue = function(comparer) {
+				for(var i = 0; i < this.length; i++) { 
+			        if(comparer(this[i])) return true; 
+			    }
+			    return false;
+			};
+			_inq.queue.pushIfNotExist = function(element, comparer) { 
+				if (!this.inQueue(comparer)) {
+			        this.push(element);
+			        
+			        console.log("run ->" + element);
+			    }
+			};
+			_inq.push = function(element) {
+				_inq.queue.pushIfNotExist(element, function(e) {
+					return e.guid === element.guid;
+				});
+			};
+		};
+		*/
+		
+		
+		/*
+		function bind(config) {
+			console.log(config);
+		}
+		
+		if(typeof _inq != "undefined") {
+			
+			//console.log(_inq.length);
+			
+			var a = window._inq;
+			
+			
+			
+			window._inq = [];
+				
+			//console.log(a);
+			
+			
+			_inq.queue = [];
+			_inq.queue.inQueue = function(comparer) {
+				for(var i = 0; i < this.length; i++) { 
+			        if(comparer(this[i])) return true; 
+			    }
+			    return false;
+			};
+			_inq.queue.pushIfNotExist = function(element, comparer) { 
+				if (!this.inQueue(comparer)) {
+			        this.push(element);
+			        
+			        bind(element);
+			    }
+			};
+			_inq.push = function(element) {
+				_inq.queue.pushIfNotExist(element, function(e) {
+					return e.guid === element.guid;
+				});
+			};
+			
+			
+			
+			for(var i = 0; i < a.length; i++) {
+				_inq.push(a[i]);
+				
+			}
+			
+		}
+		*/
+		
+		
+		
+		
+		
+		(function() {
+		    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+		    po.src = 'http://localhost:8080/opinion-opinion-collector/scripts/widget/1.1.1/survey.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+		})();
+		
+		
+		
+		$(function() {
+			
+			
+			
+			
+			var elS = $("<div></div>");
+			
+			$("#feedback").click(function() {
+				
+				
+				var ref = location.href;
+				
+				
+				
+				// delete _inq; _inq = [];
+				_inq.push({
+	    			guid : "17e1ed39-db2e-49cd-9633-5f810f80eba0",
+	    			/*collectorUrl : "//api.inqwise.com",*/
+	    			element : elS,
+	    			params : { 
+				    	referrer : ref
+				    }
+	    		});
+				
+				
+            	var modal = new lightFace({
+	                message: elS,
+	                width : 540,
+	                height: 450,
+	                enableClose : true,
+	                enableOverlayClose : true,
+	                overlayAll: true
+	            });
+            	
+            	
+            	
+				
+			});
+			
+			
+			
+		});
+		
+		
+		
+		
+		
+		
+		
+		//////////////////////////////////////////////////
+		// THE FOLLOWING CODE IS TAKEN FROM THE EXAMPLE //
+		//////////////////////////////////////////////////
+
+		(function($){
+		  
+		  // A collection of elements to which the resize event is bound.
+		  var elems = $([]),
+		  
+		    // An id with which the polling loop can be canceled.
+		    timeout_id;
+		  
+		  // Special event definition.
+		  $.event.special.resize = {
+		    setup: function() {
+		      var elem = $(this);
+		      
+		      // Add this element to the internal collection.
+		      elems = elems.add( elem );
+		      
+		      // Initialize default plugin data on this element.
+		      elem.data( 'resize', { w: elem.width(), h: elem.height() } );
+		      
+		      // If this is the first element to which the event has been bound,
+		      // start the polling loop.
+		      if ( elems.length === 1 ) {
+		        poll();
+		      }
+		    },
+		    teardown: function() {
+		      var elem = $(this);
+		      
+		      // Remove this element from the internal collection.
+		      elems = elems.not( elem );
+		      
+		      // Remove plugin data from this element.
+		      elem.removeData( 'resize' );
+		      
+		      // If this is the last element to which the event was bound, cancel
+		      // the polling loop.
+		      if ( !elems.length ) {
+		        clearTimeout( timeout_id );
+		      }
+		    }
+		  };
+		  
+		  // As long as a "resize" event is bound, this function will execute
+		  // repeatedly.
+		  function poll() {
+		    
+		    // Iterate over all elements in the internal collection.
+		    elems.each(function(){
+		      var elem = $(this),
+		        width = elem.width(),
+		        height = elem.height(),
+		        data = elem.data( 'resize' );
+		      
+		      // If element size has changed since the last time, update the element
+		      // data store and trigger the "resize" event.
+		      if ( width !== data.w || height !== data.h ) {
+		        data.w = width;
+		        data.h = height;
+		        elem.triggerHandler( 'resize' );
+		      }
+		    });
+		    
+		    // Poll, setting timeout_id so the polling loop can be canceled.
+		    timeout_id = setTimeout( poll, 250 );
+		  };
+		  
+		})(jQuery);
+		</script>
+	
+	
+	</body>
+</html>

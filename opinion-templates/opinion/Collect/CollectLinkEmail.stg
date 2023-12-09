@@ -1,0 +1,9 @@
+import "../../general/GeneralEmailParts.stg"
+subject(data)::="<data.FeedbackCaption> - Direct link #<data.Collector.Id>"
+body(data)::=<<
+<\n>Please find below the direct link to the <data.Opinion.OpinionType> '<data.Opinion.Name>': 
+
+<data.Collector.CollectUrl>
+
+<signature(data)>
+>>

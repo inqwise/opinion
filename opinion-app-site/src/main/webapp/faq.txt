@@ -1,0 +1,86 @@
+What is Inqwise?
+
+Inqwise is an online survey software that helps anybody build amazing online surveys and forms.
+
+What can I build with this?
+
+Basically, the possibilities are endless. Here’s a short list of examples to give you an idea of Inqwise’s versatility:
+
+Survey
+Feedback Form
+Contact Form
+Mailing List
+Job Application
+Workshop Registration
+Event Calendar
+Bug Tracker
+Invitations / RSVP
+Wedding Planner
+Quizzes / Tests
+
+
+Definitely check out our examples page to see some of the more popular surveys and forms created in Inqwise.
+
+
+Why would I want to use Inqwise?
+
+We believe surveys and forms are the starting point for building anything useful on the web. Basically, they’re the most efficient mechanisms for collecting data from people.
+
+The process of creating a survey and all the database structures and scripts necessary to make it work (not to mention useful) is a really tedious process that makes what should be a simple task (collecting and understanding information), not really worth the time, effort or cost of the endeavor. With Inqwise, you can skip all the hard stuff (because it does it all for you), and start getting things done.
+
+
+Is Inqwise right for me?
+
+While we do have a list of features and a demo for you to look at, Inqwise is more of an experience than a checklist. The only real way to find out if Inqwise is right for you is to create a FREE account and find out for yourself. Usually, you’ll know the answer within a few minutes of playing around with our services. If you have any questions after that, please do contact us.
+
+What's required to use Inqwise?
+
+All you need is an Internet connection and a supported browser to use our services. Currently, we support all the major browsers, Firefox, Chrome, Safari and Internet Explorer 8 and above.
+
+Is my data safe and secure with Inqwise?
+
+Yes, your data is secure and private. We do our best to ensure the safe keeping of your data on Inqwise. Your collected data is yours and we never use it or share it any way shape or form. 128-bit SSL encryption for enhanced security during submission is featured for all plans. We also provide the ability to store information in an encrypted format in the database.
+
+
+How long do you keep my information?
+
+Inqwise will hold onto your information as long as you have a Inqwise account. When you delete an entry, or when you delete your account, the information is deleted from our servers.
+
+
+Can anyone access my surveys, forms and reports?
+
+That’s up to you. By default, all new surveys and forms are public. And by default, all new reports are private. You can also password protect any surveys, form or report in Inqwise.
+
+
+How much does Inqwise cost?
+
+Inqwise’s tiered monthly plans range from FREE to $29.95/month and the prices are based on the number of users that you can manage, the number of responses you can have collected per month, the amount of disk space you can use for handling files and various other factors. You can learn about our plans on our pricing page.
+
+
+What are the benefits of upgrading to a paid plan?
+
+Well, you'll be able to collect more responses based on the plan that you select. Additionally, all paid plans allow you to do the following on Inqwise, which are not available to free accounts:
+
+    You can upload file attachments through your form.
+    You can redirect to a specific web page after submission.
+
+Additionally, on PRO ($7.95/month) plans and higher, the following features are also available:
+
+    Unlimited Responses
+    The ability to create additional user profiles to provide others controlled access to Inqwise.
+
+
+Are there any long term contracts?
+
+Nope. After creating an account, you can delete your data and leave at anytime from within the Inqwise application. No questions asked.
+
+
+Can I add Inqwise surveys, forms to my web site?
+
+Yes, we provide easy copy/paste code for those of you that want to have your surveys and forms integrated into your own web site. The data and the admin interface is still on our servers and you’ll have to login in to Inqwise to manage everything. For advanced users and developers, we’ve got an awesome API to help you tweak nearly everything to your heart’s content. 
+
+
+How can I get at the data collected by my survey, form?
+
+In so many ways. In addition to giving you the ability to design your own awesome reports, you can access your data within the admin interface, have Inqwise email you new entries, subscribe to them as via RSS feed or export them as an Excel, CSV document.
+

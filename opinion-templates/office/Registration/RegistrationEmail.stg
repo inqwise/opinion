@@ -1,0 +1,12 @@
+import "../../general/GeneralEmailParts.stg"
+subject(data)::="<data.FeedbackCaption> - Registration"
+body(data)::=<<
+<\n>Thank you for your interest in <data.FeedbackShortCaption>.
+
+Your <data.FeedbackShortCaption> account has been created successfully and is ready to use.
+
+This is your account information:
+Username: <data.UserName> 
+
+<signature(data)>
+>>

@@ -1,0 +1,11 @@
+import "../../general/GeneralEmailParts.stg"
+subject(data)::="<data.FeedbackCaption> - You <data.ServicePackage.Name> account will expire on <data.ExpirationDate; format=\"MMM dd, yyyy\">"
+body(data)::=<<
+
+Just a friendly reminder that you <data.ServicePackage.Name> account will expire on <data.ExpirationDate; format="MMM dd, yyyy">.
+
+You able to prolong your account here:
+<data.BaseUrl>/<data.CultureCode>/upgrade
+
+<signature(data)>
+>>

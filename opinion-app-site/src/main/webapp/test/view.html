@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="description" content="">
+		<title></title>
+		
+		<link rel="stylesheet" type="text/css" href="https://localhost:8443/opinion-opinion/css/global.css" />
+		<link rel="stylesheet" type="text/css" href="https://localhost:8443/opinion-opinion/css/datepicker/datepicker.css" />
+		<link rel="stylesheet" type="text/css" href="https://localhost:8443/opinion-opinion/css/datepicker/datepicker.daterange-1.0.2.css" />
+		
+		<link rel="stylesheet" type="text/css" href="https://localhost:8443/opinion-opinion/css/datatable/datatable.css" />
+		<style type="text/css">
+		html, 
+		body {
+			background-color: #fff;
+		}
+		
+		.insights-label {
+			color: #333;
+    		font-size: 16px;
+    		font-weight: bold;
+    		line-height: 28px;
+		}
+		
+		.chart-hour-of-day td {
+			vertical-align: bottom;
+			height: 50px;
+			width : 5px;
+			border: 1px solid #fff;
+		}
+		.chart-hour-of-day td div {
+			background-color: #3b5998;
+			height: 1px;
+		}
+		.chart-hour-of-day-text td {
+			vertical-align: bottom;
+			border: 1px solid #fff;
+		}
+		
+		.chart-day-of-week td {
+			vertical-align: bottom;
+			height: 50px;
+			width : 20px;
+			border: 1px solid #fff;
+		}
+		.chart-day-of-week td div {
+			background-color: #3b5998;
+			height: 1px;
+		}
+		.chart-day-of-week-text td {
+			vertical-align: bottom;
+			width : 20px;
+			border: 1px solid #fff;
+			text-align: center;
+		}
+		</style>
+	</head>
+	<body>
+	
+	
+		<div style="margin: 10px;">
+			<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+				<tr>
+					<td>
+						<h1>Responses</h1>
+					</td>
+					<td valign="top">
+						<div id="daterange" style="float: right; text-align: left; position: relative"></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div style="margin: 10px;">
+	
+	
+			
+			<div style="margin-bottom: 10px; height: 20px;">
+				<div style="float: left">
+					<div style="float: left; margin-right: 6px;">
+						<div id="tabel_responses_button_filter"></div>
+					</div>
+					<div style="float: left; margin-right: 6px;">
+						<div id="tabel_responses_button_columns"></div>
+					</div>
+				</div>
+				<div style="border-left: 1px solid #ccc; padding-left: 5px; float: left">
+					<a href="#" class="button-white" title="Download report" style="display: none"><span><i class="icon-down">&nbsp;</i>Download report</span></a>
+					<input type="text" placeholder="Search..." id="text_search" />
+					<a href="#" class="button-white" title="Search" id="button_search"><span>Search</span></a>
+				</div>
+			</div>
+			
+			<div id="form_filter" style="background: #fff6c3; border: 1px solid #ccc; padding: 10px; margin: 0 0 10px; display: none">
+				<h3>Filter</h3>
+				<div style="padding-top: 12px; color: #333">
+					<ul class="list-filter-conditions"></ul>
+				</div>
+				<div style="clear: both; padding-top: 12px;">
+					<!-- 
+					<div class="params">
+						<div class="param-value">
+							<label><span><input type="checkbox" /></span>Save this set of columns</label>
+						</div>
+						<div class="param-value" style="margin-left: 6px;">
+							<input type="text" placeholder="Enter set name" />
+						</div>
+					</div>
+					-->
+					<div class="params" style="padding-bottom: 0px;">
+						<div class="param-value">
+							<a href="#" class="button-blue" title="Apply" id="button_filter_apply"><span>Apply</span></a>
+						</div>
+						<div class="param-value" style="line-height: 18px;">
+							<a href="#" title="Cancel" style="margin-left: 6px;" id="button_filter_cancel">Cancel</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div id="chart" style="height: 120px;margin-bottom: 10px;">chart here</div>
+			
+			<div id="form_customize_colums" style="background: #eee; border: 1px solid #ccc; padding: 10px; margin: 0 0 10px; display: none">
+				<h3>Customize columns</h3>
+				<div style="padding-top: 12px; color: #333">
+					<table cellspacing="0" cellpadding="0">
+						<tr>
+							<td valign="top">
+								<div style="font-weight: bold;">Select metrics</div>
+								<div style="margin-top: 10px; margin-right: 10px;">
+									<table>
+										<tr>
+											<td valign="top">
+												<ul class="list-metrics"></ul>
+											</td>
+											<td valign="top">
+												<ul class="list-metric-columns"></ul>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</td>
+							<td valign="top">
+								<div style="font-weight: bold;">Drag and drop to reorder</div>
+								<div style="margin-top: 10px">
+									<ul id="list_fixed_columns" class="list-fixed-columns"></ul>
+									<ul id="list_customize_columns" class="list-customize-columns"></ul>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div style="clear: both; padding-top: 12px;">
+					<!-- 
+					<div class="params">
+						<div class="param-value">
+							<label><span><input type="checkbox" /></span>Save this set of columns</label>
+						</div>
+						<div class="param-value" style="margin-left: 6px;">
+							<input type="text" placeholder="Enter set name" />
+						</div>
+					</div>
+					-->
+					<div class="params" style="padding-bottom: 0px;">
+						<div class="param-value">
+							<a href="#" class="button-blue" title="Apply" id="button_customize_columns_apply"><span>Apply</span></a>
+						</div>
+						<div class="param-value" style="line-height: 18px;">
+							<a href="#" title="Cancel" style="margin-left: 6px;" id="button_customize_columns_cancel">Cancel</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div id="table_responses"></div>
+			
+			<div style="clear: both; padding-top: 20px;">
+				<table>
+					<tr>
+						<td style="padding-right: 10px;">
+							<h3>Responses</h3>
+							<div class="insights-label label-responses">0</div>
+						</td>
+						<td style="padding-right: 10px;">
+							<h3>Completed</h3>
+							<div class="insights-label completed-count">0</div>
+						</td>
+						<td style="padding-right: 10px;">
+							<h3>Completion Rate</h3>
+							<div class="insights-label completion-rate">0.00%</div>
+						</td>
+						<td style="padding-right: 10px;">
+							<h3>Partial</h3>
+							<div class="insights-label partial-count">0</div>
+						</td>
+						<td>
+							<h3>Disqualified</h3>
+							<div class="insights-label disqualified-count">0</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+			<div style="clear: both; padding-top: 20px;">
+				<table>
+					<tr>
+						<td style="padding-right: 10px;">
+							<h3>Responses by hour of day</h3>
+							<div style="margin-top: 10px;">
+								<table class="chart-hour-of-day">
+									<tr>
+										<td><div></div></td>
+										<td><div></div></td>
+										<td><div></div></td>
+										<td><div></div></td>
+										<td><div></div></td>
+										<td><div></div></td>
+										
+										<td><div style="height: 10%"></div></td>
+										<td><div style="height: 30%"></div></td>
+										<td><div style="height: 100%"></div></td>
+										<td><div style="height: 80%"></div></td>
+										<td><div style="height: 50%"></div></td>
+										<td><div style="height: 30%"></div></td>
+										
+										<td><div style="height: 10%"></div></td>
+										<td><div style="height: 5%"></div></td>
+										<td><div></div></td>
+										<td><div></div></td>
+										<td><div></div></td>
+										<td><div></div></td>
+										
+										<td><div></div></td>
+										<td><div></div></td>
+										<td><div></div></td>
+										<td><div></div></td>
+										<td><div></div></td>
+										<td><div></div></td>
+									</tr>
+								</table>
+							</div>
+							<div>
+								<table class="chart-hour-of-day-text">
+									<tr>
+										<td>12am</td>
+										<td>6am</td>
+										<td>noon</td>
+										<td>6pm</td>
+										<td>11pm</td>
+									</tr>
+								</table>
+							</div>
+						</td>
+						<td>
+							<h3>Responses by day of week</h3>
+							<div style="margin-top: 10px;">
+								<table class="chart-day-of-week">
+									<tr>
+										<td><div></div></td>
+										<td><div style="height: 100%"></div></td>
+										<td><div style="height: 30%"></div></td>
+										<td><div style="height: 26%"></div></td>
+										<td><div style="height: 10%"></div></td>
+										<td><div></div></td>
+										<td><div></div></td>
+									</tr>
+								</table>
+							</div>
+							<div>
+								<table class="chart-day-of-week-text">
+									<tr>
+										<td>Su</td>
+										<td>Mo</td>
+										<td>Tu</td>
+										<td>We</td>
+										<td>Th</td>
+										<td>Fr</td>
+										<td>Sa</td>
+									</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+			<div><br/><br/></div>
+			
+		</div>
+		
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+		
+		<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/utils/utils.js"></script>
+		<!--[if lt IE 8]>
+		<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/utils/json2.js"></script>
+		<![endif]-->
+		<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/utils/date.min.js"></script>
+		
+		<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/buttons/menu_button.js"></script>
+		<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/datepicker/datepicker.js"></script>
+		
+		<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/highcharts/highcharts.js"></script>
+		<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/highcharts/modules/data.js"></script>
+
+		<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/datepicker/datepicker.daterange-1.0.2.js"></script>
+		<script type="text/javascript" src="https://localhost:8443/opinion-opinion/scripts/datatable/datatable-1.4.7.js"></script>
+		
+		<script type="text/javascript">
+		
+		var chart = null;
+		
+		var defaultState = {
+			fromDate : null,
+			toDate : null
+		};
+		
+		var responses = [];
+		var total = 0;
+		var tableResponses = null;
+
+		
+		
+		
+		var started = [];
+		var completed = [];
+		var partial = [];
+		
+		var buildChart = function() {
+			
+			//completed = [];
+			completed = [
+				[Date.parse("2014-02-03T23:59:59.000Z"), 0],
+				[Date.parse("2014-02-04T23:59:59.000Z"), 5],
+     			[Date.parse("2014-02-05T23:59:59.000Z"), 10]
+     		];
+			
+			createChart();
+			
+		};
+		
+		var createChart = function() {
+			
+			
+			//completed.push([Date.parse(data.charts.completed[i][0]), data.charts.completed[i][1]]);
+			
+			
+			var colors = Highcharts.getOptions().colors;
+			var options = {
+				chart: {
+					/*type : 'area',*/
+					renderTo: 'chart',
+					style: {
+						/*fontFamily: "open sans",*/
+						/*margin: "auto",*/
+						fontFamily: "arial,sans-serif",
+						fontSize: "11px"
+		           	}
+					/*,
+		           	events: {
+		                load: function(event) {
+		                    getChartData();
+		                }
+		            }
+					*/
+				},
+				credits: {
+				      enabled: false
+				},
+				title : {
+					text : null
+				},
+				subtitle : {
+					text : null
+				},
+				xAxis: {
+					type : 'datetime',
+					dateTimeLabelFormats: {
+						month: '%e. %b',
+						year: '%b'
+					},
+					labels : {
+						style : {
+							fontFamily: "arial,sans-serif"
+						},
+						y :24
+					}
+					/*lineColor: 'red',*/
+				    /*tickColor: 'red'*/
+		            /*tickInterval: 7 * 24 * 3600 * 1000, // one week*/
+		            /*
+		            tickWidth: 0,
+		            gridLineWidth: 1
+		            */
+				},
+				yAxis: [{ 
+					title: { 
+						text : null
+					},
+					labels : {
+						style : {
+							fontFamily: "arial,sans-serif"
+						},
+						formatter: function() {
+		                    return Highcharts.numberFormat(this.value, 0);
+		                }
+					},
+					min: 0,
+					gridLineColor: '#ccc'
+				    /*minorGridLineColor: 'rgba(255,255,255,0.07)'*/
+				},{
+					linkedTo :0,
+					gridLineWidth: 0,
+					opposite : true,
+					title: {
+						text: null
+					},
+					labels : {
+						style : {
+							fontFamily: "arial,sans-serif"
+						},
+						align : 'right',
+						/*x: -3,*/
+						/*y: 16,*/
+						formatter: function() {
+		                    return Highcharts.numberFormat(this.value, 0);
+		                }
+					}
+				}],
+				legend: {
+		            enabled: false
+		        },
+				tooltip: {
+					shared: true,
+					crosshairs: true,
+					style: {
+		                /*fontWeight: 'bold',*/
+		                fontFamily: "arial,sans-serif",
+		                fontSize: '11px'
+		            },
+		            borderRadius: 0
+					/*
+					formatter: function() {
+						return "<b>" + this.series.name + "</b><br/>" + Highcharts.dateFormat('%e. %b', this.x) + ": " + this.y + " m";
+					}
+					*/
+				},
+				/*
+				plotOptions: {
+					series: {
+		                fillOpacity: 0.3
+		            }
+		        },
+		        */
+				series:[{
+					name: "Started",
+					data: started,
+					color: '#a856a1',
+					marker: {
+		                symbol: 'circle',
+		                radius: 3
+		            }
+				},{
+					name: "Completed",
+					type : "area",
+		            /*fillColor : '#ebeef4',*/
+		            fillOpacity: 0.1,
+					data:completed,
+					color: '#3b5998', //'324E8D'
+					marker: {
+		                symbol: 'circle',
+		                radius: 3
+		            }
+				},{
+					name: "Partial (Incomplete)",
+					type : "area",
+					fillOpacity: 0.1,
+					data:partial,
+					color: '#8bbc21', //'#57a610'
+					marker: {
+		                symbol: 'circle',
+		                radius: 3
+		            }
+				}]
+			};
+			
+			chart = new Highcharts.Chart(options);
+			
+		};
+		
+		
+		/*
+		var fixedColumns = [
+			{ key: 'id', label: '#', sortable: true, width: 46, style : { header: { 'text-align' : 'right' }, cell : { 'text-align' : 'right' } } },
+		    { key: 'name', label: 'Participant', sortable: true, formatter : function(cell, value, record, source) {
+				return $("<a href=\"<%=absoluteURL %>/surveys/<%=opinionId %>/responses/" + record.sessionId + "\" title=\"Anonymous\">Anonymous</a>");
+		    }},
+		    { key: 'collectorId', label: 'Collector', sortable: true, formatter : function(cell, value, record, source) {
+		       	return record.collectorIsDeleted ? record.collectorName : "<a href=\"<%=absoluteURL %>/surveys/<%=opinionId %>/collectors/" + record.collectorId + "\" title=\"" + record.collectorName + "\">" + record.collectorName + "</a>";
+		    }},
+		    { key: 'status', label: 'Status', sortable: true, formatter : function(cell, value, record, source) {
+				return ( record.status == 0 ? "Partial" : "Completed" );
+		    }},
+			{ key: 'countryName', label: 'Location', sortable: true, formatter : function(cell, value, record, source) {
+		    	return (record.countryName != undefined ? record.countryName : "N/A");	
+		    }, added : true },
+		    { key: 'ipAddress', label: 'IP Address', sortable: true, added : true },
+		    { key: 'startDate', label: 'Start Date', sortable: true, sortBy : { dataType : "date" }, formatter: function(cell, value, record, source) {
+				if(record.startDate) {
+					var left = record.startDate.substring(record.startDate.lastIndexOf(" "), " ");
+					var right = record.startDate.replace(left, "");
+					return left + "<b class=\"hours\">" + right + "</b>";
+				} 
+		    }, added : true },
+		    { key: 'finishDate', label: 'Finish Date', sortable: true, sortBy : { dataType : "date" }, formatter: function(cell, value, record, source) {
+				if(record.finishDate) {
+					var left = record.finishDate.substring(record.finishDate.lastIndexOf(" "), " ");
+					var right = record.finishDate.replace(left, "");
+					return left + "<b class=\"hours\">" + right + "</b>";
+				} 
+		    }, added : true },
+		    { key: 'timeTaken', label: 'Time Taken', sortable: false, style : { header: { 'text-align' : 'right' }, cell : { 'text-align' : 'right' } }, formatter : function(cell, value, record, source) {
+		    	if(record.timeTaken != undefined) {
+		    		var timeTaken = (record.timeTaken.days != 0 ? record.timeTaken.days + (record.timeTaken.days > 1 ? " days, " : " day, ") : "") +
+		    		(record.timeTaken.hours != 0 ? record.timeTaken.hours + (record.timeTaken.hours > 1 ? " hours, " : " hour, ") : "") + 
+		    		(record.timeTaken.minutes != 0 ? record.timeTaken.minutes + (record.timeTaken.minutes > 1 ? " mins, " : " min, ") : "") +
+		    		(record.timeTaken.seconds != 0 ? record.timeTaken.seconds + (record.timeTaken.seconds > 1 ? " secs" : " sec") : "");
+		    		
+		    		if(record.timeTaken.days == 0 
+							&& record.timeTaken.hours == 0
+							&& record.timeTaken.minutes == 0
+							&& record.timeTaken.seconds == 0) {
+		       			timeTaken = "Less than sec";
+		       		}
+		    		
+		    		return timeTaken;
+		    	}
+		    }, added : true },
+			{ key : "os", label : "OS", added : false },
+			{ key : "browser", label : "Browser", added : false },
+			{ key : "targetUrl", label : "Referrer", formatter : function(cell, value, record, source) {
+				return $("<a href=\"" + record.targetUrl + "\" target=\"_blank\" title=\"" + record.targetUrl + "\">" + record.targetUrl + "</a>");
+			}, added : false }
+		];
+		*/
+		
+		
+		// default columns set
+		var customizedColumns = {
+			metrics : [
+				{
+					label : "Attributes",
+					key : "attributes"
+				},
+				{
+					label : "Questions",
+					key : "questions"
+				}
+			],
+			columns : [
+				{ key : "id", label : "Response Id", sortable : true, metric : "attributes", fixed : true },
+				{ key : "name", label : "Respondent", metric : "attributes", fixed : true, formatter : function(cell, value, record) { return "<a href=\"#" + record.id + "\">Anonymous</a>" } },
+				{ key : "collector_id", label : "Collector", sortable: true, metric : "attributes", fixed : true },
+				{ key : "status", label : "Status", sortable : true, filtered : true, metric : "attributes", fixed : true },
+				{ key : "country", label : "Location", metric : "attributes", added : true },
+				{ key : "ip_address", label : "IP Address", metric : "attributes", added : true },
+				{ key : "start_date", label : "Start Date", sortable: true, metric : "attributes", added : true }, // formatter: function(cell, value, record) { return new Date(record.start_date).format(); },
+				{ key : "finish_date", label : "Finish Date", metric : "attributes", added : true },
+				{ key : "time_taken", label : "Time Taken", metric : "attributes", added : true },
+				{ key : "os", label : "OS", metric : "attributes", added : true },
+				{ key : "browser", label : "Browser", metric : "attributes", added : true },
+				{ key : "referrer", label : "Referrer", metric : "attributes", added : true },
+				{ key : "123", label : "What is your name?", metric : "questions" },
+				{ key : "124", label : "What is your gender?", metric : "questions", added : true }
+			]
+		};
+
+		// saved columns set's
+		var customizedColumnsSets = [
+			{
+				name : "My Columns 1",
+				columns : [
+					{ key : "referrer" },
+					{ key : "ip_address" },
+					{ key : "start_date" }
+				]
+			},
+			{
+				name : "Test 2",
+				columns : [
+					{ key : "os" },
+					{ key : "browser" }
+				]
+			}
+		];
+
+		var currentColumns = [];
+		var currentFields = [];
+
+		var getTableResponsesColumns = function() {
+			
+			var columns = [];
+			var fields = [];
+			
+			/*
+			for(var f = 0; f < fixedColumns.length; f++) {
+				columns.push(fixedColumns[f]);
+			}
+			*/
+			
+			if(currentColumns.length != 0) {
+				for(var f = 0; f < customizedColumns.columns.length; f++) {
+					if(customizedColumns.columns[f].fixed != undefined && customizedColumns.columns[f].fixed == true) {
+						columns.push(customizedColumns.columns[f]);
+						fields.push(customizedColumns.columns[f].key);
+					}
+				}
+				for(var c = 0; c < currentColumns.length; c++) {
+					columns.push(currentColumns[c]);
+					fields.push(currentColumns[c].key);
+				}
+			} else {
+				
+				// currentColumns - empty
+				
+				for(var f = 0; f < customizedColumns.columns.length; f++) {
+					if(customizedColumns.columns[f].fixed != undefined && customizedColumns.columns[f].fixed == true) {
+						columns.push(customizedColumns.columns[f]);
+						fields.push(customizedColumns.columns[f].key);
+					}
+					if(customizedColumns.columns[f].added != undefined && customizedColumns.columns[f].added == true) {
+						columns.push(customizedColumns.columns[f]);
+						fields.push(customizedColumns.columns[f].key);
+					}
+				}
+				
+			}
+			
+			return {
+				columns : columns,
+				fields : fields
+			}
+		};
+
+		var renderTableResponses = function() {
+			
+			var columns = getTableResponsesColumns().columns;
+			
+			
+			// total : total, // new
+			
+			$('#table_responses').empty();
+			tableResponses = $('#table_responses').dataTable({ 
+				tableColumns : columns,
+				/*
+				dataSource : responses,
+				total : total,
+				*/
+				change : function(params, callback) {
+					
+					getResponses({
+						from : params.from,
+						size : params.size,
+						fromDate : defaultState.fromDate,
+						toDate : defaultState.toDate,
+						sort : params.sort,
+						ready : function() {
+							callback(responses, total);
+						}
+					});
+					
+				},
+				/*
+				totals : [
+				   [
+						{ key : "id", calculate : false, formatter : function(totals) {
+							return "Total - all responses";
+						}},
+						{ key : "status" },
+				    	{ key : "time_taken", calculate : false, formatter : function(totals) {
+				    		return "--";
+				    	}}
+				   ]
+				],
+				*/
+				pagingStart: 5,
+				selectable :  true,
+				actions : [
+					{ 
+						label : "Delete",
+						disabled : true,
+						fire : function(records, source) {
+							if(records.length > 0) {
+								
+								var list = [];
+								$(records).each(function(index) {
+									list.push(records[index].id);
+								});
+								
+								console.log("delete ->> " + list);
+								
+							}
+						}
+					}
+				]
+			});
+		};
+
+		
+		var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+		var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+		/*
+		var day = days[ now.getDay() ];
+		var month = months[ now.getMonth() ];
+		var _date = new Date("2014-02-05T05:53:02.000Z")
+		
+		console.log(day + "_____" + month);
+		*/
+		
+		function computeData() {
+			
+			var searchTerm = $( "#text_search" ).val();
+			
+			console.log(searchTerm);
+			
+			
+			//removeFilter("query_string");
+			//addQueryFilter("query_string", searchTerm);
+			
+			//renderTableResponses();
+			
+			/*
+			var searchTerm = $( "#searchterm" ).val();
+			var searchtype = $( "#searchtype" ).val();
+			// If user select query string without any values, we send him to
+			// match_all
+			if ((google == null || google == "") &&
+				searchtype == "query_string") {
+				searchtype = "match_all";
+				$("#searchtype").val(searchtype);
+			}
+			showLoading(google);
+			load_data(google, searchtype);
+			*/
+			
+			
+			
+		};
+		
+		$("#button_search").click(function(e) {
+			e.preventDefault();
+			computeData();
+		});
+		
+		
+		
+		
+		var sES = "http://localhost:9200/search"; //"https://localhost/search";
+		
+		var filters = { "match_all" : { } };
+		var es_from = 0;
+		var es_size = 10;
+		
+		var dtFilterLevel = 0;
+		var dtFilter=new Array();
+		var dtLabel=new Array();
+		var facetDate = 'month';
+
+		function addDateFilter(cle, from, to) {
+
+	    	// On vérifie si and existe ou non.
+			var obj = filters.match_all;
+			if (obj != null) {
+				filters = {	"and" : [ ] };
+			}
+
+			var i = 0;
+			for ( ; i < filters.and.length ; i++ ) {
+				for	(code in filters.and[i].range) {
+					if (code == cle) {
+						filters.and.splice(i, 1);
+						break;
+					}
+				}
+			}
+
+			var chaine = '{ "range": { "' + cle + '" : { "from" : "' + from + '", "to" : "' + to + '" } } }';
+
+			filters.and.push( JSON.parse(chaine) );
+		}
+		
+		function addFilter(cle, valeur) {
+			// On vérifie si and existe ou non.
+			var obj = filters.match_all;
+			if (obj != null) {
+				filters = {	"and" : [ ] };
+			}
+
+			var i = 0;
+			for ( ; i < filters.and.length ; i++ ) {
+				for	(code in filters.and[i].term) {
+					if (code == cle) {
+						filters.and.splice(i, 1);
+						break;
+					}
+				}
+			}
+
+			var chaine = '{ "term" : { "' + cle + '" : "' + valeur + '" } }';
+			filters.and.push( JSON.parse(chaine) );
+		}
+
+		function removeFilter(cle) {
+			// On vérifie si and existe ou non.
+			if (filters.and != null) {
+				
+				for (var i = 0 ; i < filters.and.length ; i++ ) {
+					for	(code in filters.and[i].term) {
+						if (code == cle) {
+							filters.and.splice(i, 1);
+							break;
+						}
+					}
+				}
+
+				for (var i = 0 ; i < filters.and.length ; i++ ) {
+					for	(code in filters.and[i].range) {
+						if (code == cle) {
+							filters.and.splice(i, 1);
+							break;
+						}
+					}
+				}
+
+				if (filters.and.length == 0) {
+					filters = { "match_all" : { } };
+				}
+			}
+		}
+		
+		var query = "";
+		var result;
+
+		var generateQuery = function(texte, type) {
+			switch(type) {
+				case "wildcard":
+					query = { "wildcard" : { "_all" : texte } };
+					break;
+
+				case "query_string":
+					query = { "query_string" : { "query" : texte } };
+					break;
+
+				case "text":
+					query = { "text" : { "_all" : texte } };
+					break;
+
+				case "prefix":
+					query = { "prefix" : { "_all" : texte } };
+					break;
+
+				default:
+					query = { "match_all" : { } };
+
+			}
+		}
+		
+		
+		
+		
+		
+		function updateResponse(params) {
+			
+			
+			
+			
+			
+			sES + "/1136/response/" + params._id + "/_update?pretty=true";
+			
+			var field = {};
+			field[params.field] = params.value;
+			
+			var doc = field;
+			
+			
+			
+			/*
+			"doc": { 
+					"" + field + "" : params.value 
+				}
+			*/
+			
+			var esCall = JSON.stringify({
+				"doc": doc
+			});
+			
+			
+			console.log(esCall);
+			
+			/*
+			$.ajax({
+				url: sES + "/1136/response/_search?pretty=true",
+				type: 'POST',
+				data : esCall,
+				dataType : 'json', 
+               	processData: false, 
+                success: function(json, statusText, xhr) {
+                	
+                	console.log(json);
+                	
+                },
+                error: function(xhr, message, error) {
+                	console.log(error);
+                }
+			});
+			*/
+			
+		}
+		
+		function getResponses(params) {
+				
+			
+			
+			
+			//var load_data = function(texte, searchtype) {
+				
+			
+			var texte = "";
+			var searchtype = "match_all"; // "query_string"
+			
+			//console.log(texte);
+			
+			generateQuery(texte, searchtype);
+			
+			
+			// fields
+			var fields = getTableResponsesColumns().fields;
+			
+			// filter date
+			addDateFilter("start_date", params.fromDate, params.toDate);
+			//addDateFilter("start_date", "2014-02-04T00:00:00.000Z", "2014-02-05T00:00:00.000Z");
+			
+			
+			
+			
+			var sort;
+			if(params.sort != undefined) {
+				sort = [
+					"_score",
+					params.sort
+					/*{ "id" : {"order" : "desc"} } // asc*/
+				];
+			}
+			/*
+			var sort = [];
+			if(params.sort != undefined) {
+				{ "sort" : [
+					"_score",
+					{ "id" : {"order" : "desc"} } // asc
+				],
+			}
+			*/
+			
+			
+			// fields
+			
+			
+			var esCall = JSON.stringify({
+				/*"from" : es_from, "size" : es_size,*/
+				"from" : params.from, "size" : params.size,
+				"sort" : sort,
+				"fields" : fields,
+				"query" : { 
+					"filtered" : {
+						"query" : query,
+						"filter" : filters
+					}
+				},
+				"aggregations" : {
+					"status" : {
+				    	"terms" : {
+				         	"field" : "status"
+				        }
+					}
+				}
+				/*
+				,
+				"aggs" : {
+					"count_count" : { "value_count" : { "field" : "id" }}
+				}
+				*/
+				/*
+				,
+				"facets":{
+					"text" : { "terms" : {"field" : "text", "size" : 5} },
+					"tweeters" : { "terms" : {"field" : "user.screen_name", "size" : 5} },
+					"hashtags" : { "terms" : {"field" : "hashtag.text", "size" : 5} },
+					"mention" : { "terms" : {"field" : "mention.screen_name", "size" : 5} },
+					"days" : { "date_histogram" : { "field" : "created_at", "interval" : facetDate} }
+				}
+				*/
+            }, null, 2);
+			
+			//$('#jsonin').html( "<pre>" + esCall + "</pre>" );
+   
+			$.ajax({
+				url: sES + "/1136/response/_search?pretty=true", /* '/twitter/status/_search?pretty=true', */
+				type: 'POST',
+				data : esCall,
+				dataType : 'json', 
+               	processData: false, 
+                success: function(json, statusText, xhr) {
+                	
+					result = json;
+                	
+					//return displayData();
+					
+					
+					//console.log("total: " + result.hits.total);	
+					
+					
+		
+					responses = [];
+					total = result.hits.total;
+				
+					if (result.hits.total == 0) {
+						
+						console.log("No data...");
+						
+					} else {
+						
+						if(result != null && result.hits != null && result.hits.hits != null && result.hits.hits.length > 0){
+						    for(var i = 0; i <= result.hits.hits.length; i++){
+		                        var hit = result.hits.hits[i];
+		                        if(hit){
+		                        	responses.push(hit.fields);
+		                        }
+		                    }
+		                }
+						
+						console.log(result);
+						// aggregations
+						if(result.aggregations != null) {
+							// status
+							if(result.aggregations.status.buckets.length > 0) {
+								
+								
+								var status = {
+									completed : 0,
+									partial : 0,
+									disqualified : 0
+								}
+								
+								for(var i = 0; i < result.aggregations.status.buckets.length; i++) {
+									
+									if(result.aggregations.status.buckets[i].key_as_string == 0) {
+										// partial
+										status.partial = result.aggregations.status.buckets[i].doc_count;
+									}
+									if(result.aggregations.status.buckets[i].key_as_string == 1) {
+										// completed
+										status.completed = result.aggregations.status.buckets[i].doc_count;
+									}
+									if(result.aggregations.status.buckets[i].key_as_string == 2) {
+										// disqualified
+										status.disqualified = result.aggregations.status.buckets[i].doc_count;
+									}
+									
+									/*
+									console.log(result.aggregations.status.buckets[i].key_as_string + "_____" + result.aggregations.status.buckets[i].doc_count);
+									*/
+								}
+								
+								
+								$(".partial-count").text(status.partial);
+								$(".completed-count").text(status.completed);
+								$(".disqualified-count").text(status.disqualified);
+								
+								
+								if((status.completed + status.partial + status.disqualified) != 0) {
+									// ((status.completed / (status.completed + status.partial + status.disqualified)) * 100).toFixed(2) + "%";
+									$('.completion-rate').text(((status.completed / (status.completed + status.partial + status.disqualified)) * 100).toFixed(2) + "%");
+								} else {
+									$('.completion-rate').text("0.00%");
+								}
+								
+								
+								
+							}
+							
+							
+						}
+						
+						
+					}
+					
+					
+					
+					$(".label-responses").text(result.hits.total);
+					
+					buildChart();
+					
+					
+					
+					if(params.ready != undefined 
+							&& typeof params.ready == 'function') {
+						params.ready();
+					}
+					
+					
+                }, 
+                error: function(xhr, message, error) {
+                	
+                	console.log("Error while loading data from ElasticSearch", message);
+					//showError(error);
+					//console.log(error);
+					
+					if(params.ready != undefined 
+							&& typeof params.ready == 'function') {
+						params.ready();
+					}
+					
+            	}
+            });
+			
+			
+		};
+		
+		// https://localhost/
+		$(function() {
+			
+			// daterange
+			$("#daterange").dateRange({
+				ranges : [
+				    { description: "Custom", value : { from : 0, to : 0 }, isCustom : true },
+					{ description: "Today", value : { from : 0 }, isDefault : true },
+					{ description: "Yesterday", value: { from : -1 } },
+					{ description: "Last 7 days", value : { from : -7, to : 0 } },
+					{ description: "Last 14 days", value : { from : -14, to : 0 } },
+					{ description: "Last 30 days", value: { from : -30, to : 0 } },
+					{ description: "All time", value : { from: -364, to : 0 } }
+				],
+				change : function(data) {
+				
+					defaultState.fromDate = (data.fromDate != null ? data.fromDate.format(dateFormat.masks.isoDate) + "T00:00:00.000Z" : undefined);
+					defaultState.toDate = data.toDate.format(dateFormat.masks.isoDate) + "T23:59:59.000Z";
+					
+					
+					/*
+					getResponses({
+						from : 0,
+						size: 10,
+						fromDate : defaultState.fromDate,
+						toDate : defaultState.toDate
+					});
+					*/
+					
+					renderTableResponses();
+					
+				},
+				ready : function(data) {
+					
+					defaultState.fromDate = (data.fromDate != null ? data.fromDate.format(dateFormat.masks.isoDate) + "T00:00:00.000Z" : undefined);
+					defaultState.toDate = data.toDate.format(dateFormat.masks.isoDate) + "T23:59:59.000Z";
+					
+					
+					
+					/*
+					getResponses({
+						from : 0,
+						size: 10,
+						fromDate : defaultState.fromDate,
+						toDate : defaultState.toDate,
+						ready : function() {
+						
+							renderTableResponses();
+							
+						}
+					});
+					*/
+					
+					renderTableResponses();
+				
+				}
+			});
+			
+			
+			
+			
+			
+			
+			var formFilter = $("#form_filter");
+			// filter
+			$("#tabel_responses_button_filter")
+			.menuButton({
+				label : "Filter",
+				disabled : false,
+				actions : [
+				    {
+				    	label : "Create filter",
+				    	value : 1,
+						click : function(button) {
+							//
+							if(!formFilter.is(":visible")) {
+								formFilter.show();
+							} else {
+								formFilter.hide();
+							}
+							
+							
+						}
+				    }
+				],
+				change : function(value) {
+					//
+				}
+	        });
+			
+			$("#button_filter_apply").click(function(e) {
+				e.preventDefault();
+				// TODO:
+				formFilter.hide();
+			});
+			$("#button_filter_cancel").click(function(e) {
+				e.preventDefault();
+				formFilter.hide();
+			});
+			
+			
+			
+			/*
+			// filters
+			var _fields = [];
+			for(var f = 0; f < customizedColumns.columns.length; f++) {
+				
+				
+				console.log(customizedColumns.columns[f].key);
+				
+				// filter label
+				// filter name
+				// filter operators
+				
+				
+			}
+			*/
+			
+			
+			var formCustomizeColumns = $("#form_customize_colums");
+			// columns
+			// -> with option to save customezitaions
+			$("#tabel_responses_button_columns")
+			.menuButton({
+				label : "Columns",
+				disabled : false,
+				actions : [
+				    {
+				    	label : "Customize columns",
+				    	value : 1,
+						click : function(button) {
+							//
+							if(!formCustomizeColumns.is(":visible")) {
+								formCustomizeColumns.show();
+								
+								//console.log("remove...... -->> " + $(this).attr("data-value"));
+								// update value added to false
+								// refresh -> columns -?
+								// after click on Apply -> close customize columns and refresh datatable
+								
+							} else {
+								formCustomizeColumns.hide();
+							}
+						}
+				    }
+				],
+				change : function(value) {
+					//
+				}
+	        });
+			
+			$("#button_customize_columns_apply").click(function(e) {
+				e.preventDefault();
+				
+				//console.log(showColumns);
+				
+				
+				currentColumns = showColumns;
+				
+				/*
+				getResponses({
+					from : 0,
+					size: 10,
+					fromDate : defaultState.fromDate,
+					toDate : defaultState.toDate,
+					ready : function() {
+					
+						renderTableResponses();
+						
+					}
+				});
+				*/
+				
+				formCustomizeColumns.hide();
+				
+				// rebuild table
+				renderTableResponses();
+				
+			});
+			$("#button_customize_columns_cancel").click(function(e) {
+				e.preventDefault();
+				formCustomizeColumns.hide();
+			});
+			
+			
+			
+			function removeFromArray(array, from, to) {
+		        var rest = array.slice((to || from) + 1 || array.length);
+		        array.length = from < 0 ? array.length + from : from;
+		        return array.push.apply(array, rest);
+			};
+			
+			function removeFromShowColumns(key, callback) {
+				
+				for(var d = 0; d < showColumns.length; d++) {
+					if(showColumns[d].key == key) {
+						
+						removeFromArray(showColumns, d);
+						
+						$("ul.list-metric-columns li").each(function(i, el) {
+							
+							if($(el).attr("data-value") == key) {
+								$(el).removeClass("added");
+							}
+							//console.log($(el).attr("data-value") + "________" + key);
+						
+						});
+						
+						//lastMetric.trigger("click");
+						
+						if(callback != undefined 
+								&& typeof callback == 'function')
+							callback();
+						
+						break;
+					}
+				}
+				
+			};
+			
+			function addToShowColumns(key) {
+				
+				for(var u = 0; u < customizedColumns.columns.length; u++) {
+					if(customizedColumns.columns[u].key == key) {
+						
+						showColumns.push(customizedColumns.columns[u]);
+						
+						$("ul.list-metric-columns li").each(function(i, el) {
+							if($(el).attr("data-value") == key) {
+								$(el).addClass("added");
+							}
+						});
+						
+						// ->>
+						var custCol = $("<li data-value=\"" + customizedColumns.columns[u].key + "\">" + customizedColumns.columns[u].label + "<a href=\"#\" title=\"Remove\">Remove</a></li>").appendTo("ul.list-customize-columns");
+						custCol.find("a").click(function(event) {
+							event.preventDefault();
+							
+							var _this = $(this).closest("li");
+							removeFromShowColumns(_this.attr("data-value"), function() {
+								_this.remove();
+							});
+							
+						});
+						
+						break;
+					}
+				}
+				
+			};
+			
+			function getColumnsByMetric(metric) {
+				
+				$("ul.list-metric-columns").empty();
+				
+				var isAdded = function(key) {
+					var found = false;
+					for(var n = 0; n < showColumns.length; n++) {
+						if(showColumns[n].key == key) {
+							found = true;
+							break;
+						}
+					}
+					return found;
+				};
+				
+				for(var c = 0; c < customizedColumns.columns.length; c++) {
+					if(customizedColumns.columns[c].metric == metric) {
+						
+						if(customizedColumns.columns[c].fixed == undefined) {
+							var metricColumn = $("<li " + (isAdded(customizedColumns.columns[c].key) ? "class=\"added\"" : "") + " data-value=\"" + customizedColumns.columns[c].key + "\">" + customizedColumns.columns[c].label + "<span>Added</span><a href=\"#\" title=\"Add\">Add</a></li>").appendTo("ul.list-metric-columns");
+							metricColumn.find("a").click(function(event) {
+								
+								event.preventDefault();
+								
+								//console.log("to add ->>" + $(this).closest("li").attr("data-value"));
+								
+								addToShowColumns($(this).closest("li").attr("data-value"));
+								
+							});
+						}
+					}
+				}
+			};
+			
+			// fixed
+			for(var h = 0; h < customizedColumns.columns.length; h++) {
+				if(customizedColumns.columns[h].fixed != undefined && customizedColumns.columns[h].fixed == true) {
+					var fixedColumn = $("<li>" + customizedColumns.columns[h].label + "</li>").appendTo("ul.list-fixed-columns");
+				}
+			}
+			
+			
+			
+			var showColumns = [];
+			function setColumns(columns) {
+				
+				
+				showColumns = [];
+				$("ul.list-customize-columns").empty();
+				
+				var getColumn = function(key) {
+					var col = null;
+					for(var x = 0; x < customizedColumns.columns.length; x++) {
+						if(customizedColumns.columns[x].key == key) {
+							col = customizedColumns.columns[x];
+							break;
+						}
+					}
+					return col;
+				};
+				
+				if(columns != undefined) {
+					// merge saved columns with defaultColumns
+					for(var a = 0; a < columns.length; a++) {
+						var col = getColumn(columns[a].key);
+						if(col != null) {
+							showColumns.push(col);
+						}
+					}
+				} else {
+					for(var x = 0; x < customizedColumns.columns.length; x++) {
+						if(customizedColumns.columns[x].added != undefined && customizedColumns.columns[x].added == true) {
+							showColumns.push(customizedColumns.columns[x]);
+						}
+					}
+				}
+				
+				
+				// show columns
+				if(showColumns.length != 0) {
+					for(var j = 0; j < showColumns.length; j++) {
+						var custCol = $("<li data-value=\"" + showColumns[j].key + "\">" + showColumns[j].label + "<a href=\"#\" title=\"Remove\">Remove</a></li>").appendTo("ul.list-customize-columns");
+						custCol.find("a").click(function(event) {
+							event.preventDefault();
+							
+							var _this = $(this).closest("li");
+							removeFromShowColumns(_this.attr("data-value"), function() {
+								_this.remove();
+							});
+							
+						});
+					}
+				}
+				
+				
+				
+				var reorderColumns = function(key) {
+					
+					for(var u = 0; u < customizedColumns.columns.length; u++) {
+						if(customizedColumns.columns[u].key == key) {
+							showColumns.push(customizedColumns.columns[u]);
+							break;
+						}
+					}
+					
+				};
+				
+				// sortable
+				$("ul.list-customize-columns").sortable({
+					placeholder: "list-customize-columns-drag",
+					axis: "y",
+            		cursor: "pointer",
+            		opacity: 0.7,
+            		stop : function(event, ui) {
+            			
+            			showColumns = [];
+            			
+            			$("ul.list-customize-columns li").each(function(i, el) {
+            				reorderColumns($(el).attr("data-value"));
+            			});
+            			
+            		}
+				});
+				
+				
+				// draw metrics
+				drawMetrics();
+				
+			};
+			
+			
+			// default columns
+			setColumns();
+			//setColumns(customizedColumnsSets[0].columns);
+			
+			
+			// metrics
+			function drawMetrics() {
+				
+				var lastMetric = null;
+				for(var g = 0; g < customizedColumns.metrics.length; g++) {
+					
+					// metrics
+					var itemMetric = $("<li data-value=\"" + customizedColumns.metrics[g].key + "\"><a href=\"#\" title=\"" + customizedColumns.metrics[g].label + "\">" + customizedColumns.metrics[g].label + "</a></li>").appendTo("ul.list-metrics");
+					itemMetric.click(function(event) {
+						event.preventDefault();
+						
+						if(lastMetric != null && lastMetric != $(this)) {
+							lastMetric.removeClass("active");
+						}
+						
+						$(this).addClass("active");
+						lastMetric = $(this);
+						
+						console.log("change metric to -> " + $(this).attr("data-value"));
+						getColumnsByMetric($(this).attr("data-value"));
+					});
+					
+				}
+				
+				// select first
+				$("ul.list-metrics li:first").trigger("click");
+			
+			}
+			
+		});
+		</script>
+	
+	</body>
+</html>

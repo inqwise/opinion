@@ -1,0 +1,125 @@
+.lightface {
+	margin: 0;
+	padding:0;
+	border-collapse: collapse;
+	position: absolute;
+	top: -9000px;
+	left: -9000px;
+	z-index: 9001;
+}
+.lightface table { Xcolor: #333; }
+.lightface td {
+	margin: 0;
+	padding: 0;
+	background-color: transparent;
+	vertical-align: top;
+}
+.lightface .top-left {
+	background-image: url(../../images/lightface/tl.png);
+	background-position: left top;
+	opacity: 0.4;
+	filter: alpha(opacity = 40);
+}
+.lightface .top-center, .lightface .bottom-center {
+	background-image: url(../../images/lightface/b.png);
+	background-repeat: repeat-x;
+	opacity: 0.4;
+	filter: alpha(opacity = 40);
+	height: 10px;
+	width: auto;
+}
+.lightface .top-right {
+	background-image: url(../../images/lightface/tr.png);
+	background-position: right top;
+	opacity: 0.4;
+	filter: alpha(opacity = 40);
+}
+.lightface .top-left, .lightface .top-right, .lightface .bottom-left, .lightface .bottom-right {
+	background-repeat: no-repeat;
+	height: 10px;
+	width: 10px;
+}
+.lightface .bottom-left {
+	background-image: url(../../images/lightface/bl.png);
+	background-position: left bottom;
+	opacity: 0.4;
+	filter: alpha(opacity = 40);
+}
+.lightface .bottom-right {
+	background-image: url(../../images/lightface/br.png);
+	background-position: right bottom;
+	opacity: 0.4;
+	filter: alpha(opacity = 40);
+}
+.lightface .middle-left, .lightface .middle-right {
+	background-image: url(../../images/lightface/b.png);
+	background-repeat: repeat-y;
+	opacity: 0.4;
+	filter: alpha(opacity = 40);
+	height: auto;
+	width: 10px;
+}
+
+
+
+.lightface .lightface-content {
+	background-color: #fff;
+	border: 1px solid #555;
+	position: relative;
+	min-width: 400px;
+}
+.lightface .lightface-content .lightface-title {
+	background-color: #6d84b4;
+	border: 1px solid #3b5998;
+	color: #fff;
+	Xfont-size: 11px;
+	font-weight: bold;
+	margin: -1px -1px 0;
+	padding: 4px 10px;
+}
+.lightface .lightface-content .lightface-message {
+	min-height: 20px;
+	overflow: auto;
+	padding: 10px;
+	position: relative;
+	Xcolor: #333;
+}
+.lightface .lightface-content .lightface-actions {
+	background-color: #f2f2f2;
+	border-top: 1px solid #ccc;
+	padding: 6px 10px;
+	text-align: right;
+}
+.lightface .lightface-content .lightface-actions a {
+	margin-left: 6px;
+}
+.lightface .lightface-content .lightface-content-overlay {
+	background: url(../../images/lightface/loader.gif) no-repeat scroll center center #fff;
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.lightface-overlay {
+	Xbackground-color:#fcfcfc;
+	background-color:rgba(0, 0, 0, .4);
+	display:none;
+	height:100%;
+	left:0;
+	margin:0;
+	/*
+	opacity:0.75;
+	filter: alpha(opacity=75);
+	*/
+	padding:0;
+	position:fixed;
+	top:0;
+	width:100%;
+	z-index:304;
+	_position:absolute;
+	_height:expression(document.documentElement.clientHeight);
+	_width:expression(document.documentElement.clientWidth);
+	_top:expression(eval(document.documentElement.scrollTop))
+}

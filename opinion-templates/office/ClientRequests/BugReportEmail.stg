@@ -1,0 +1,25 @@
+subject(data)::="<data.FeedbackCaption> - Bug report"
+body(data)::=<<
+
+User #<data.User.UserId>
+Email: <data.User.Email>
+Name: <data.User.DisplayName> 
+
+----
+Title: <data.Title>
+Description:
+<data.Description>
+
+----
+Tags: <data.Tags>
+Steps to Reproduce:
+<data.StepsToReproduce>
+
+----
+Expected Behavior:
+<data.ExpectedBehavior>
+
+----
+Actual Behavior:
+<data.ActualBehavior>
+>>

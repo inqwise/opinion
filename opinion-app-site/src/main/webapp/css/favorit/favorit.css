@@ -1,0 +1,10 @@
+a.favorit {
+	display: inline-block;
+	background: url(../../images/favorit/star_on_blue.png) no-repeat scroll -14px 0;
+	width: 14px;
+	height: 15px;
+	cursor: pointer;
+}
+a.favorit.selected {
+	background: url(../../images/favorit/star_on_blue.png) no-repeat scroll 0 0 !important;
+}
