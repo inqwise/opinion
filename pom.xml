@@ -32,7 +32,7 @@
 		<java.version>10</java.version>
 		<commons.lang.version>2.5</commons.lang.version>
 		<guava.version>15.0</guava.version>
-		<mysql.conector.version>5.1.18</mysql.conector.version>
+		<mysql.conector.version>8.0.28</mysql.conector.version>
 		<json.version>20131018</json.version>
 		<log4j.version>1.2.16</log4j.version>
 		<jaxb.version>2.3.0</jaxb.version>
