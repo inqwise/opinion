@@ -43,7 +43,7 @@ public class GeoIpManager {
 	}
 	
 	public String getCountryName(String ipAddress){
-		throw Throws.notImplemented("getCountryName");
+		return cl.getCountry(ipAddress).getName();
 	}
 
 	public String getCountryCode(String ipAddress) {
