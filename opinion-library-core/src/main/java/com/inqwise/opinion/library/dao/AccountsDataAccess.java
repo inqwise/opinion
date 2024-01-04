@@ -4,12 +4,12 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Date;
-import java.util.LinkedHashMap;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataCacheDBAdapter;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jooq.impl.DSL;
+import org.jooq.tools.json.JSONArray;
+import org.json.JSONObject;
 
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.DAOUtil;
@@ -66,7 +66,7 @@ public class AccountsDataAccess {
 	private static final String MAX_DEPOSIT_AMOUNT_PARAM = "$max_deposit_amount";
 	private static final String INCLUDE_DEPOSIT_BOUNDS_PARAM = "$include_deposit_bounds";
 
-	public static CDataCacheContainer getAccounts(Long userId, int productId,
+	public static JSONArray getAccounts(Long userId, int productId,
 			boolean includeNonActive, Integer top, Date fromDate,
 			Date toDate, Long[] accountIds) throws DAOException {
 		
@@ -89,8 +89,18 @@ public class AccountsDataAccess {
         	call = factory.GetProcedureCall("getAccounts", params);     
         	connection = call.getConnection();
             resultSet = call.executeQuery();
-            String[] primaryKeys = null;
-            return CDataCacheDBAdapter.loadData(resultSet, null, primaryKeys, new LinkedHashMap());
+            
+        	List<JSONObject> list = DSL.using(connection).fetch(resultSet)
+			.map(r -> {
+				JSONObject obj = new JSONObject();
+				
+				for(var field : r.fields()) {
+					obj.put(field.getName(), r.getValue(field));
+				}
+				return obj;
+			});
+        	
+            return new JSONArray(list);
 		
 		} catch (Exception e) {
 			throw null == call ? new DAOException(e) : new DAOException(call, e);
@@ -278,7 +288,7 @@ public class AccountsDataAccess {
 		
 	}
 
-	public static CDataCacheContainer getAccountsWithExpiredServicePackages(Date expiryDate) throws DAOException {
+	public static JSONArray getAccountsWithExpiredServicePackages(Date expiryDate) throws DAOException {
 		Connection connection = null;
 		CallableStatement call = null;
 		ResultSet resultSet = null;
@@ -292,8 +302,18 @@ public class AccountsDataAccess {
         	call = factory.GetProcedureCall("getAccountsWithExpiredServicePackages", params);     
         	connection = call.getConnection();
             resultSet = call.executeQuery();
-            String[] primaryKeys = null;
-            return CDataCacheDBAdapter.loadData(resultSet, null, primaryKeys, new LinkedHashMap());
+            
+            List<JSONObject> list = DSL.using(connection).fetch(resultSet)
+			.map(r -> {
+				JSONObject obj = new JSONObject();
+				
+				for(var field : r.fields()) {
+					obj.put(field.getName(), r.getValue(field));
+				}
+				return obj;
+			});
+        	
+            return new JSONArray(list);
 		
 		} catch (Exception e) {
 			throw null == call ? new DAOException(e) : new DAOException(call, e);
