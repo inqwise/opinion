@@ -4,15 +4,13 @@ import java.security.InvalidParameterException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.util.Hashtable;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.UUID;
 
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataCacheDBAdapter;
-
 import org.apache.commons.lang3.StringUtils;
+import org.jooq.impl.DSL;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.DAOUtil;
@@ -60,7 +58,7 @@ public class ChargesDataAccess {
 	private static final String POST_PAY_ACTION_DATA_PARAM = "$post_pay_action_data";
 
 	
-	public static CDataCacheContainer getCharges(int top, Long billId, Integer billTypeId, Long accountId, Integer statusId, boolean includeExpired, Boolean billed) throws DAOException{
+	public static JSONArray getCharges(int top, Long billId, Integer billTypeId, Long accountId, Integer statusId, boolean includeExpired, Boolean billed) throws DAOException{
 		Connection connection = null;
 		CallableStatement call = null;
 		ResultSet resultSet = null;
@@ -80,8 +78,18 @@ public class ChargesDataAccess {
         	call = factory.GetProcedureCall("pay_getCharges", params);     
         	connection = call.getConnection();
             resultSet = call.executeQuery();
-            String[] primaryKeys = new String[]{"charge_id"};
-            return CDataCacheDBAdapter.loadData(resultSet, null, primaryKeys, new Hashtable());
+            
+            List<JSONObject> list = DSL.using(connection).fetch(resultSet)
+			.map(r -> {
+				JSONObject obj = new JSONObject();
+				
+				for(var field : r.fields()) {
+					obj.put(field.getName(), r.getValue(field));
+				}
+				return obj;
+			});
+        	
+            return new JSONArray(list);
 		
 		} catch (Exception e) {
 			throw null == call ? new DAOException(e) : new DAOException(call, e);
@@ -218,7 +226,7 @@ public class ChargesDataAccess {
 		}
 	} 
 	
-	public static CDataCacheContainer getPostPayActions(Long chargeId, Long billId, Integer billTypeId) throws DAOException{
+	public static JSONArray getPostPayActions(Long chargeId, Long billId, Integer billTypeId) throws DAOException{
 		Connection connection = null;
 		CallableStatement call = null;
 		ResultSet resultSet = null;
@@ -234,8 +242,18 @@ public class ChargesDataAccess {
         	call = factory.GetProcedureCall("pay_getBillPostPayActions", params);     
         	connection = call.getConnection();
             resultSet = call.executeQuery();
-            String[] primaryKeys = new String[] {"charge_id"};
-            return CDataCacheDBAdapter.loadData(resultSet, null, primaryKeys, new LinkedHashMap());
+            
+            List<JSONObject> list = DSL.using(connection).fetch(resultSet)
+			.map(r -> {
+				JSONObject obj = new JSONObject();
+				
+				for(var field : r.fields()) {
+					obj.put(field.getName(), r.getValue(field));
+				}
+				return obj;
+			});
+        	
+            return new JSONArray(list);
 		
 		} catch (Exception e) {
 			throw null == call ? new DAOException(e) : new DAOException(call, e);
@@ -296,7 +314,7 @@ public class ChargesDataAccess {
 		}
 	}
 	
-	public static CDataCacheContainer getChargesByReferenceId(Long accountId,
+	public static JSONArray getChargesByReferenceId(Long accountId,
 			long referenceId, int referenceTypeId) throws DAOException {
 		Connection connection = null;
 		CallableStatement call = null;
@@ -313,8 +331,18 @@ public class ChargesDataAccess {
         	call = factory.GetProcedureCall("pay_getChargeByReferenceId", params);     
         	connection = call.getConnection();
             resultSet = call.executeQuery();
-            String[] primaryKeys = null;
-            return CDataCacheDBAdapter.loadData(resultSet, null, primaryKeys, new LinkedHashMap());
+            
+            List<JSONObject> list = DSL.using(connection).fetch(resultSet)
+			.map(r -> {
+				JSONObject obj = new JSONObject();
+				
+				for(var field : r.fields()) {
+					obj.put(field.getName(), r.getValue(field));
+				}
+				return obj;
+			});
+        	
+            return new JSONArray(list);
 		
 		} catch (Exception e) {
 			throw null == call ? new DAOException(e) : new DAOException(call, e);

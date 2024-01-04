@@ -4,18 +4,15 @@ import java.security.InvalidParameterException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataCacheDBAdapter;
+import org.jooq.impl.DSL;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.DAOUtil;
@@ -26,13 +23,11 @@ import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.library.common.pay.BillType;
 import com.inqwise.opinion.library.common.pay.ChargeStatus;
 import com.inqwise.opinion.library.common.pay.IInvoiceCreateRequest;
 import com.inqwise.opinion.library.common.pay.IOpenInvoiceRequest;
 import com.inqwise.opinion.library.common.pay.IUpdateInvoiceRequest;
 import com.inqwise.opinion.library.common.pay.InvoiceItemType;
-import com.inqwise.opinion.library.common.pay.InvoiceStatus;
 
 public class InvoicesDataAccess {
 
@@ -162,7 +157,7 @@ public class InvoicesDataAccess {
 		}
 	}
 	
-	public static CDataCacheContainer getInvoices(int top, Long accountId,
+	public static JSONArray getInvoices(int top, Long accountId,
 			Integer invoiceStatusId) throws DAOException {
 		Connection connection = null;
 		CallableStatement call = null;
@@ -179,8 +174,18 @@ public class InvoicesDataAccess {
         	call = factory.GetProcedureCall("pay_getInvoices", params);     
         	connection = call.getConnection();
             resultSet = call.executeQuery();
-            String[] primaryKeys = new String[]{"invoice_id"};
-            return CDataCacheDBAdapter.loadData(resultSet, null, primaryKeys, new LinkedHashMap());
+            
+            List<JSONObject> list = DSL.using(connection).fetch(resultSet)
+        			.map(r -> {
+        				JSONObject obj = new JSONObject();
+        				
+        				for(var field : r.fields()) {
+        					obj.put(field.getName(), r.getValue(field));
+        				}
+        				return obj;
+        			});
+                	
+                    return new JSONArray(list);
 		
 		} catch (Exception e) {
 			throw null == call ? new DAOException(e) : new DAOException(call, e);
@@ -285,7 +290,7 @@ public class InvoicesDataAccess {
 		}
 	}
 
-	public static Map<InvoiceItemType, CDataCacheContainer> getInvoiceItems(long billId, int billTypeId) throws DAOException {
+	public static Map<InvoiceItemType, JSONArray> getInvoiceItems(long billId, int billTypeId) throws DAOException {
 		Connection connection = null;
 		CallableStatement call = null;
 		ResultSet resultSet = null;
@@ -300,16 +305,15 @@ public class InvoicesDataAccess {
         	call = factory.GetProcedureCall("pay_getBillItems", params);     
         	connection = call.getConnection();
         	
-        	Map<InvoiceItemType, CDataCacheContainer> result = new HashMap<InvoiceItemType, CDataCacheContainer>();
+        	Map<InvoiceItemType, JSONArray> result = new HashMap<InvoiceItemType, JSONArray>();
         	
-            resultSet = call.executeQuery();
-            String[] primaryKeys = null;
-            result.put(InvoiceItemType.Charge, CDataCacheDBAdapter.loadData(resultSet, null, primaryKeys, new LinkedHashMap()));
+        	resultSet = call.executeQuery();
+        	result.put(InvoiceItemType.Charge, resultsetToJson(connection, resultSet));
             
             if(call.getMoreResults()){
             	resultSet.close();
-            	resultSet = call.getResultSet(); 
-            	result.put(InvoiceItemType.AccountOperation, CDataCacheDBAdapter.loadData(resultSet, null, primaryKeys, new LinkedHashMap()));
+            	resultSet = call.getResultSet();
+            	result.put(InvoiceItemType.AccountOperation, resultsetToJson(connection, resultSet));
             }
 		
             return result;
@@ -320,5 +324,19 @@ public class InvoicesDataAccess {
 			DAOUtil.close(call);
 			DAOUtil.close(connection);
 		}
+	}
+
+	private static JSONArray resultsetToJson(Connection connection, ResultSet resultSet) {
+		List<JSONObject> list = DSL.using(connection).fetch(resultSet)
+		.map(r -> {
+			JSONObject obj = new JSONObject();
+			
+			for(var field : r.fields()) {
+				obj.put(field.getName(), r.getValue(field));
+			}
+			return obj;
+		});
+		        	
+		return new JSONArray(list);
 	}
 }
