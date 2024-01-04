@@ -4,14 +4,12 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.UUID;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataCacheDBAdapter;
+import org.jooq.impl.DSL;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.DAOUtil;
@@ -29,7 +27,7 @@ public class UsersOperationsDataAccess {
 	private static final String FROM_DATE_PARAM = "$from_date";
 	private static final String TO_DATE_PARAM = "$to_date";
 
-	public static CDataCacheContainer getUserOperations(int top, Long userId, Integer[] usersOperationsTypeIds, Date fromDate, Date toDate, Integer sourceId) throws DAOException{
+	public static JSONArray getUserOperations(int top, Long userId, Integer[] usersOperationsTypeIds, Date fromDate, Date toDate, Integer sourceId) throws DAOException{
 		Connection connection = null;
 		CallableStatement call = null;
 		ResultSet resultSet = null;
@@ -48,8 +46,17 @@ public class UsersOperationsDataAccess {
         	call = factory.GetProcedureCall("getUserOperations", params);     
         	connection = call.getConnection();
             resultSet = call.executeQuery();
-            String[] primaryKeys = null;
-            return CDataCacheDBAdapter.loadData(resultSet, null, primaryKeys, new LinkedHashMap());
+            List<JSONObject> list = DSL.using(connection).fetch(resultSet)
+			.map(r -> {
+				JSONObject obj = new JSONObject();
+				
+				for(var field : r.fields()) {
+					obj.put(field.getName(), r.getValue(field));
+				}
+				return obj;
+			});
+        	
+            return new JSONArray(list);
 		
 		} catch (Exception e) {
 			throw null == call ? new DAOException(e) : new DAOException(call, e);

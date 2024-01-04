@@ -4,11 +4,11 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Date;
-import java.util.Hashtable;
-import java.util.LinkedHashMap;
+import java.util.List;
 
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataCacheDBAdapter;
+import org.jooq.impl.DSL;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.DAOUtil;
@@ -167,7 +167,7 @@ public final class MessagesDataAccess {
 		}
 	}
 
-	public static CDataCacheContainer getMessages(Long userId,
+	public static JSONArray getMessages(Long userId,
 			Date fromModifyDate, Date toModifyDate, boolean includeClosed,
 			boolean includeNotActivated, int top, boolean includeExcluded) throws DAOException {
 		Connection connection = null;
@@ -189,8 +189,18 @@ public final class MessagesDataAccess {
         	call = factory.GetProcedureCall("msg_getMessages", params);     
         	connection = call.getConnection();
             resultSet = call.executeQuery();
-            String[] primaryKeys = null;
-            return CDataCacheDBAdapter.loadData(resultSet, null, primaryKeys, new LinkedHashMap());
+            
+            List<JSONObject> list = DSL.using(connection).fetch(resultSet)
+			.map(r -> {
+				JSONObject obj = new JSONObject();
+				
+				for(var field : r.fields()) {
+					obj.put(field.getName(), r.getValue(field));
+				}
+				return obj;
+			});
+        	
+            return new JSONArray(list);
 		
 		} catch (Exception e) {
 			throw null == call ? new DAOException(e) : new DAOException(call, e);
