@@ -7,7 +7,6 @@ import java.lang.reflect.Field;
 import java.sql.CallableStatement;
 
 import com.mchange.v2.c3p0.impl.NewProxyCallableStatement;
-import com.mysql.jdbc.JDBC4CallableStatement;
 
 /**
  * This class represents a generic DAO exception. It should wrap any exception of the underlying

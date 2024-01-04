@@ -1,53 +1,86 @@
 package com.inqwise.opinion.infrastructure.systemFramework;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Map;
+import java.util.Set;
 
-import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.maxmind.geoip.LookupService;
+import com.maxmind.db.MaxMindDbConstructor;
+import com.maxmind.db.MaxMindDbParameter;
+import com.maxmind.db.Reader;
 
 public class GeoIpManager {
 	static final ApplicationLog logger = ApplicationLog.getLogger(GeoIpManager.class);
-	private static GeoIpManager instance = null;
-	private boolean done = false;
-	LookupService cl;
 	
-	public static GeoIpManager getInstance() throws IOException {
+	private static GeoIpManager instance = null;
+	private File database;
+	
+	public static synchronized GeoIpManager getInstance() throws IOException {
 		if(instance == null) {
 			instance = new GeoIpManager();
-		} else if(instance.done){
-        	try {
-				instance.finalize();
-			} catch (Throwable t) {
-				logger.error(t, "getInstance() : finilize failed.");
-			}
-        	instance = new GeoIpManager();
-		}
+		} 
 		return instance;
 	}
 	
-	private GeoIpManager() throws IOException{
-		 cl = new LookupService(BaseApplicationConfiguration.GeoIp.getGeoIpPath(),
-				LookupService.GEOIP_STANDARD );
+	GeoIpManager() throws IOException {
+		this(BaseApplicationConfiguration.GeoIp.getGeoIpPath());
 	}
 	
-	protected void finalize() throws Throwable
-	{
-		finish();
-		super.finalize();
+	GeoIpManager(String path) throws IOException{
+		database = new File(path);
 	}
 	
-	public void finish(){
-		if(!done){
-			done = true;
-			cl.close();
-		}
-	}
-	
-	public String getCountryName(String ipAddress){
-		return cl.getCountry(ipAddress).getName();
+	public String getCountryName(String ipAddress) throws UnknownHostException, IOException{
+		try (Reader reader = new Reader(database)) {
+			LookupResult result = reader.get(InetAddress.getByName(ipAddress), LookupResult.class);
+			if(null == result) return null;
+			return result.getCountry().getName();
+        }
 	}
 
-	public String getCountryCode(String ipAddress) {
-		return cl.getCountry(ipAddress).getCode();
+	public String getCountryCode(String ipAddress) throws UnknownHostException, IOException {
+		try (Reader reader = new Reader(database)) {
+			LookupResult result = reader.get(InetAddress.getByName(ipAddress), LookupResult.class);
+			if(null == result) return null;
+			return result.getCountry().getIsoCode();
+        }
 	}
+	
+	public static class LookupResult {
+        private final Country country;
+
+        @MaxMindDbConstructor
+        public LookupResult (@MaxMindDbParameter(name="country") Country country) {
+            this.country = country;
+        }
+
+        public Country getCountry() {
+            return this.country;
+        }
+    }
+
+    public static class Country {
+        private final String isoCode;
+		private Map<String, String> names;
+
+        @MaxMindDbConstructor
+        public Country (@MaxMindDbParameter(name="iso_code") String isoCode, @MaxMindDbParameter(name="names") Map<String,String> names) {
+            this.isoCode = isoCode;
+			this.names = names;
+        }
+
+        public String getIsoCode() {
+            return this.isoCode;
+        }
+        
+        public String getName() {
+            return this.names.get("en");
+        }
+        
+        public Set<String> getRegions() {
+            return this.names.keySet();
+        }
+    }
 }

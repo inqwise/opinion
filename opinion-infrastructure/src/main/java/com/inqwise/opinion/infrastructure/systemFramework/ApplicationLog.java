@@ -1,20 +1,45 @@
 package com.inqwise.opinion.infrastructure.systemFramework;
 
+import java.lang.StackWalker.Option;
+import java.lang.StackWalker.StackFrame;
+import java.util.Objects;
 import java.util.UUID;
 
-import org.apache.log4j.Logger;
-
-public class ApplicationLog{
+public class ApplicationLog {
 
 	
-	public static ApplicationLog getLogger(Class<?> clazz){
-		return new ApplicationLog(clazz);
+	public static ApplicationLog getLogger(Class<?> type){
+		return new ApplicationLog(type);
 	}
 	
-	org.apache.log4j.Logger log;
+	public static ApplicationLog getLogger(String name){
+		return new ApplicationLog(name);
+	}
 	
-	protected ApplicationLog(Class<?> clazz) {
-		log = Logger.getLogger(clazz);
+	public static ApplicationLog getLogger(){
+		return new ApplicationLog(Objects.requireNonNull(getCallerClass(2), "callerClass"));
+	}
+	
+	public static Class<?> getCallerClass(){
+		return getCallerClass(1);
+	}
+	
+	public static Class<?> getCallerClass(int depth){
+		return
+		StackWalker.getInstance(Option.RETAIN_CLASS_REFERENCE)
+				.walk(stream -> stream.map(StackFrame::getDeclaringClass)
+                .skip(depth)
+                .findFirst().orElse(null));
+	}
+	
+	private org.apache.logging.log4j.Logger log;
+	
+	protected ApplicationLog(Class<?> type) {
+		log = org.apache.logging.log4j.LogManager.getLogger(type);
+	}
+	
+	protected ApplicationLog(String name) {
+		log = org.apache.logging.log4j.LogManager.getLogger(name);
 	}
 
 	public UUID error(Throwable t, String message){
