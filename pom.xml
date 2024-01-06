@@ -39,7 +39,7 @@
 		<slf4j.version>1.6.6</slf4j.version>
 		<metrics.version>3.0.2</metrics.version>
 		<poi.version>4.1.1</poi.version>
-		<webapp.version>8.5.11.3</webapp.version>
+		<githubwebapp.version>8.5.11.3</githubwebapp.version>
 		<junit5.version>5.10.1</junit5.version>
 	</properties>
 	<dependencies>
@@ -170,21 +170,6 @@
 				<version>2.3.2</version>
 			</dependency>
 			<dependency>
-				<groupId>net.casper</groupId>
-				<artifactId>casperdatasets</artifactId>
-				<version>2.1.0</version>
-			</dependency>
-			<dependency>
-				<groupId>net.casper</groupId>
-				<artifactId>casperdatasets-io</artifactId>
-				<version>2.2.0</version>
-			</dependency>
-			<dependency>
-				<groupId>net.casper</groupId>
-				<artifactId>casperdatasets-ext</artifactId>
-				<version>2.2.0</version>
-			</dependency>
-			<dependency>
 				<groupId>org.msgpack</groupId>
 				<artifactId>msgpack</artifactId>
 				<version>0.6.12</version>
@@ -248,7 +233,7 @@
 			<dependency>
 				<groupId>com.github.jsimone</groupId>
 				<artifactId>webapp-runner</artifactId>
-				<version>${webapp.version}</version>
+				<version>${githubwebapp.version}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
