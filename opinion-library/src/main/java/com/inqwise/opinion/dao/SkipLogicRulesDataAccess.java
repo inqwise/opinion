@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.dao;
+package com.inqwise.opinion.dao;
 
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.library.dao.DAOBase;

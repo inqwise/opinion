@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.dao;
+package com.inqwise.opinion.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -13,11 +13,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataCacheDBAdapter;
-
 import org.apache.commons.lang3.StringUtils;
+import org.jooq.impl.DSL;
+import org.jooq.tools.json.JSONArray;
+import org.json.JSONObject;
 
+import com.inqwise.opinion.common.ParentType;
+import com.inqwise.opinion.common.analizeResults.IAnalizeControl;
+import com.inqwise.opinion.common.analizeResults.IAnalizeOption;
+import com.inqwise.opinion.common.analizeResults.IControlsContainer;
+import com.inqwise.opinion.common.analizeResults.IOptionsContainer;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.DAOUtil;
 import com.inqwise.opinion.infrastructure.dao.Database;
@@ -28,11 +33,9 @@ import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
 import com.inqwise.opinion.library.dao.DAOBase;
 import com.inqwise.opinion.library.dao.DAOFactory;
 import com.inqwise.opinion.library.dao.Databases;
-import com.inqwise.opinion.opinion.common.ParentType;
-import com.inqwise.opinion.opinion.common.analizeResults.IAnalizeControl;
-import com.inqwise.opinion.opinion.common.analizeResults.IAnalizeOption;
-import com.inqwise.opinion.opinion.common.analizeResults.IControlsContainer;
-import com.inqwise.opinion.opinion.common.analizeResults.IOptionsContainer;
+
+import net.casper.data.model.CDataCacheContainer;
+import net.casper.data.model.CDataCacheDBAdapter;
 
 public class Results extends DAOBase {
 	private static final String ACCOUNT_ID_PARAM = "$account_id";
@@ -190,7 +193,7 @@ public class Results extends DAOBase {
 		}
 	}
 	
-	public static CDataCacheContainer getCountriesStatistics(long opinionId, Long accountId, Date from, Date to, Long collectorId, boolean includePartial) throws DAOException{
+	public static JSONArray getCountriesStatistics(long opinionId, Long accountId, Date from, Date to, Long collectorId, boolean includePartial) throws DAOException{
 		Connection connection = null;
 		CallableStatement call = null;
 		ResultSet resultSet = null;
@@ -209,9 +212,18 @@ public class Results extends DAOBase {
         	call = factory.GetProcedureCall("getResultsCountriesStatistics", params);     
         	connection = call.getConnection();
             resultSet = call.executeQuery();
-            String[] primaryKeys = null;
-            return CDataCacheDBAdapter.loadData(resultSet, null, primaryKeys, new LinkedHashMap());
-		
+            
+            List<JSONObject> list = DSL.using(connection).fetch(resultSet)
+        			.map(r -> {
+        				JSONObject obj = new JSONObject();
+        				
+        				for(var field : r.fields()) {
+        					obj.put(field.getName(), r.getValue(field));
+        				}
+        				return obj;
+        			});
+                	
+                    return new JSONArray(list);		
 		} catch (Exception e) {
 			throw null == call ? new DAOException(e) : new DAOException(call, e);
 		} finally {

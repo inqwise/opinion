@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.dao;
+package com.inqwise.opinion.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -14,7 +14,7 @@ import com.inqwise.opinion.infrastructure.dao.DAOUtil;
 import com.inqwise.opinion.library.dao.Databases;
 import com.inqwise.opinion.infrastructure.dao.SqlParam;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.inqwise.opinion.opinion.common.IResponseRequest;
+import com.inqwise.opinion.common.IResponseRequest;
 
 public class Responses extends DAOBase {
 	static ApplicationLog logger = ApplicationLog.getLogger(Responses.class);

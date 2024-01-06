@@ -46,6 +46,7 @@ public class UsersOperationsDataAccess {
         	call = factory.GetProcedureCall("getUserOperations", params);     
         	connection = call.getConnection();
             resultSet = call.executeQuery();
+            
             List<JSONObject> list = DSL.using(connection).fetch(resultSet)
 			.map(r -> {
 				JSONObject obj = new JSONObject();

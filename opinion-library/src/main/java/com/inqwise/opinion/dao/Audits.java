@@ -1,18 +1,18 @@
-package com.inqwise.opinion.opinion.dao;
+package com.inqwise.opinion.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.util.UUID;
 
+import com.inqwise.opinion.common.audit.IAuditRequest;
+import com.inqwise.opinion.infrastructure.dao.DAOException;
+import com.inqwise.opinion.infrastructure.dao.DAOUtil;
+import com.inqwise.opinion.infrastructure.dao.Database;
+import com.inqwise.opinion.infrastructure.dao.SqlParam;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.dao.DAOBase;
-import com.inqwise.opinion.infrastructure.dao.DAOException;
-import com.inqwise.opinion.infrastructure.dao.Database;
 import com.inqwise.opinion.library.dao.DAOFactory;
-import com.inqwise.opinion.infrastructure.dao.DAOUtil;
 import com.inqwise.opinion.library.dao.Databases;
-import com.inqwise.opinion.infrastructure.dao.SqlParam;
-import com.inqwise.opinion.opinion.common.audit.IAuditRequest;
 
 public class Audits extends DAOBase {
 

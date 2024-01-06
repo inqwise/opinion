@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.dao;
+package com.inqwise.opinion.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

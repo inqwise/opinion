@@ -1,12 +1,10 @@
-package com.inqwise.opinion.opinion.dao;
+package com.inqwise.opinion.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
 import javax.naming.OperationNotSupportedException;
 
 import com.inqwise.opinion.infrastructure.dao.Database;
@@ -22,9 +20,9 @@ import com.inqwise.opinion.library.dao.Databases;
 import com.inqwise.opinion.infrastructure.dao.SqlParam;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
-import com.inqwise.opinion.opinion.common.sheet.ISheet;
-import com.inqwise.opinion.opinion.common.sheet.ISheetRequest;
-import com.inqwise.opinion.opinion.common.sheet.StartSheetIndexData;
+import com.inqwise.opinion.common.sheet.ISheet;
+import com.inqwise.opinion.common.sheet.ISheetRequest;
+import com.inqwise.opinion.common.sheet.StartSheetIndexData;
 
 public final class Sheets extends DAOBase{
 	static ApplicationLog logger = ApplicationLog.getLogger(Sheets.class);

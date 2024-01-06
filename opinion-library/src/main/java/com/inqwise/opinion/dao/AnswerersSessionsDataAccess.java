@@ -1,31 +1,28 @@
-package com.inqwise.opinion.opinion.dao;
+package com.inqwise.opinion.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.naming.OperationNotSupportedException;
 
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataCacheDBAdapter;
+import org.jooq.impl.DSL;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import com.inqwise.opinion.infrastructure.dao.DAOException;
+import com.inqwise.opinion.infrastructure.dao.DAOUtil;
 import com.inqwise.opinion.infrastructure.dao.Database;
-import com.inqwise.opinion.infrastructure.dao.IDataFillable;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
+import com.inqwise.opinion.infrastructure.dao.SqlParam;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.dao.DAOBase;
-import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.library.dao.DAOFactory;
-import com.inqwise.opinion.infrastructure.dao.DAOUtil;
 import com.inqwise.opinion.library.dao.Databases;
-import com.inqwise.opinion.infrastructure.dao.SqlParam;
 
 public class AnswerersSessionsDataAccess extends DAOBase {
 
@@ -44,7 +41,7 @@ public class AnswerersSessionsDataAccess extends DAOBase {
 	private static final String FROM_INDEX_PARAM = "$from_index";
 	private static final String TOP_PARAM = "$top";
 
-	public static CDataCacheContainer getAnswerersSessions(Long opinionId,
+	public static JSONArray getAnswerersSessions(Long opinionId,
 			Long accountId, Long collectorId, String respondentId, boolean includeUnplanned, Long fromIndex, Integer top, AtomicLong total) throws DAOException {
 		CallableStatement call = null;
 		ResultSet resultSet = null;
@@ -66,9 +63,17 @@ public class AnswerersSessionsDataAccess extends DAOBase {
         	call = factory.GetProcedureCall("getAnswerersSessions", params);
         	connection = call.getConnection();
             resultSet = call.executeQuery();
-            String[] primaryKeys = null;
-            CDataCacheContainer ds = CDataCacheDBAdapter.loadData(resultSet, null, primaryKeys, new LinkedHashMap());
             
+            List<JSONObject> list = DSL.using(connection).fetch(resultSet)
+			.map(r -> {
+				JSONObject obj = new JSONObject();
+				
+				for(var field : r.fields()) {
+					obj.put(field.getName(), r.getValue(field));
+				}
+				return obj;
+			});
+        	
             if(call.getMoreResults()){
             	resultSet = call.getResultSet();
             	if(resultSet.next()){
@@ -76,7 +81,7 @@ public class AnswerersSessionsDataAccess extends DAOBase {
             	}
             }
             
-            return ds;
+            return new JSONArray(list);
 		
 		} catch (Exception e) {
 			throw null == call ? new DAOException(e) : new DAOException(call, e);
@@ -147,57 +152,6 @@ public class AnswerersSessionsDataAccess extends DAOBase {
 		}
 	}
 	
-	private static <T> OperationResult<T> fillAnswerersSessions(Long id, String answerSessionId, Long opinionId, Long accountId, IDataFillable<T> data, List<T> answerersSessions, Long collectorId, String respondentId, boolean includeUnplanned) throws DAOException{
-		CallableStatement call = null;
-		ResultSet resultSet = null;
-		OperationResult<T> result = null;
-		Connection connection = null;
-		T answererSession = null;
-		
-		SqlParam[] params = {
-				new SqlParam(ANSWER_SESSION_ID_PARAM, answerSessionId),
-				new SqlParam(OPINION_ID_PARAM, opinionId),
-				new SqlParam(ACCOUNT_ID_PARAM, accountId),
-				new SqlParam(ID_PARAM, id),
-				new SqlParam(RESPONDENT_ID_PARAM, respondentId),
-				new SqlParam(COLLECTOR_ID_PARAM, collectorId),
-				new SqlParam(INCLUDE_UNPLANNED_PARAM, includeUnplanned),
-				new SqlParam(TOP_PARAM, null),
-				new SqlParam(FROM_INDEX_PARAM, 0),
-        };
-		
-		try {
-			
-			Database factory = DAOFactory.getInstance(Databases.Opinion);
-        	call = factory.GetProcedureCall("getAnswerersSessions", params);
-        	connection = call.getConnection();
-            resultSet = call.executeQuery();
-            while (resultSet.next()) {
-            	answererSession = data.fill(resultSet);
-            	
-            	if(null != answerersSessions){
-            		answerersSessions.add(answererSession);
-            	}
-            } 
-            
-            if(null == answererSession) {
-            	result = new OperationResult<T>(ErrorCode.NoResults);
-            } else 
-            {
-            	result = new OperationResult<T>(answererSession);
-            }
-            
-			return result;
-		
-		} catch (Exception e) {
-			throw null == call ? new DAOException(e) : new DAOException(call, e);
-		} finally {
-			DAOUtil.close(resultSet);
-			DAOUtil.close(call);
-			DAOUtil.close(connection);
-		}
-	}
-
 	public static BaseOperationResult updateGrade(Long id,
 			Long accountId, Integer grade, String comment, Long userId) throws DAOException {
 		Connection connection = null;
