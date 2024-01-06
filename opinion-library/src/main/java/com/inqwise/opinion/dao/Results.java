@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -33,9 +32,6 @@ import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
 import com.inqwise.opinion.library.dao.DAOBase;
 import com.inqwise.opinion.library.dao.DAOFactory;
 import com.inqwise.opinion.library.dao.Databases;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataCacheDBAdapter;
 
 public class Results extends DAOBase {
 	private static final String ACCOUNT_ID_PARAM = "$account_id";
@@ -118,8 +114,8 @@ public class Results extends DAOBase {
 		}
 	}
 	
-	public static CDataCacheContainer getAllResults(long opinionId, Long accountId, Long[] sessionIds, boolean includePartial, TreeMap<Long, Integer> headerIdsMap) throws DAOException{
-		CDataCacheContainer result;
+	public static JSONArray getAllResults(long opinionId, Long accountId, Long[] sessionIds, boolean includePartial, TreeMap<Long, Integer> headerIdsMap) throws DAOException{
+		JSONArray result;
 		Connection connection = null;
 		CallableStatement call = null;
 		ResultSet resultSet = null;
@@ -136,8 +132,18 @@ public class Results extends DAOBase {
         	call = factory.GetProcedureCall("getAllResults", params);     
         	connection = call.getConnection();
             resultSet = call.executeQuery();
-            String[] primaryKeys = null;
-            result = CDataCacheDBAdapter.loadData(resultSet, null, primaryKeys, new LinkedHashMap());
+            
+            List<JSONObject> list = DSL.using(connection).fetch(resultSet)
+			.map(r -> {
+				JSONObject obj = new JSONObject();
+				
+				for(var field : r.fields()) {
+					obj.put(field.getName(), r.getValue(field));
+				}
+				return obj;
+			});
+            
+            result = new JSONArray(list);
             
             if(call.getMoreResults()){
             	resultSet = call.getResultSet();
