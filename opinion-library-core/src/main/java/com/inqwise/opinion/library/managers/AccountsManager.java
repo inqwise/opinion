@@ -25,7 +25,7 @@ import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.users.IUser;
-import com.inqwise.opinion.library.dao.AccountsDataAccess;
+import com.inqwise.opinion.library.dao.AccountsDataAccessTest;
 import com.inqwise.opinion.library.entities.UserEntity;
 import com.inqwise.opinion.library.entities.accounts.AccountBusinessDetailsEntity;
 import com.inqwise.opinion.library.entities.accounts.AccountDetailsEntity;
@@ -41,7 +41,7 @@ public class AccountsManager {
 	public static CDataCacheContainer getAccounts(Long userId, int productId,
 			Integer top, boolean includeNonActive, Date fromDate, Date toDate, Long[] accountIds) {
 		try {
-			return AccountsDataAccess.getAccounts(userId, productId, includeNonActive, top, fromDate, toDate, accountIds);
+			return AccountsDataAccessTest.getAccounts(userId, productId, includeNonActive, top, fromDate, toDate, accountIds);
 			
 		} catch (DAOException e) {
 			throw new Error(e);
@@ -134,7 +134,7 @@ public class AccountsManager {
 				}
 			};
 			
-			AccountsDataAccess.getAccount(accountId, callback);
+			AccountsDataAccessTest.getAccount(accountId, callback);
 			
 			if(!result.hasError() && !result.hasValue()){
 				result.setError(ErrorCode.NoResults);
@@ -163,7 +163,7 @@ public class AccountsManager {
 				}
 			};
 			
-			AccountsDataAccess.getAccountDetails(accountId, callback);
+			AccountsDataAccessTest.getAccountDetails(accountId, callback);
 			
 			if(!result.hasError() && !result.hasValue()){
 				result.setError(ErrorCode.NoResults);
@@ -180,7 +180,7 @@ public class AccountsManager {
 	public static BaseOperationResult setAccountDetails(IAccountDetailsChangeRequest request) {
 		final BaseOperationResult result = new BaseOperationResult();
 		try{
-			AccountsDataAccess.setAccountDetails(request);
+			AccountsDataAccessTest.setAccountDetails(request);
 		}
 		catch(Exception ex){
 			UUID errorId = logger.error(ex, "setAccountDetails() : Unexpected error occured.");
@@ -194,7 +194,7 @@ public class AccountsManager {
 		
 		OperationResult<Double> result;
 		try{
-			result = AccountsDataAccess.getFreeBalance(accountId, userId);
+			result = AccountsDataAccessTest.getFreeBalance(accountId, userId);
 		} catch(Exception ex){
 			UUID errorId = logger.error(ex, "getFreeBalance() : Unexpected error occured.");
 			result = new OperationResult<Double>(ErrorCode.GeneralError, errorId);
@@ -217,7 +217,7 @@ public class AccountsManager {
 				}
 			};
 			
-			AccountsDataAccess.changeBalance(request, callback);
+			AccountsDataAccessTest.changeBalance(request, callback);
 			
 			if(!result.hasError() && null == result.getTransactionId()){
 				result.setError(ErrorCode.NoResults);
@@ -236,7 +236,7 @@ public class AccountsManager {
 			Integer maxUsers) {
 		final BaseOperationResult result = new BaseOperationResult();
 		try{
-			AccountsDataAccess.changeServicePackage(accountId, servicePackageId, servicePackageExpiryDate, maxUsers);
+			AccountsDataAccessTest.changeServicePackage(accountId, servicePackageId, servicePackageExpiryDate, maxUsers);
 			// Send package expired email
 		} catch(Exception ex){
 			UUID errorId = logger.error(ex, "setServicePackage() : Unexpected error occured.");
@@ -248,7 +248,7 @@ public class AccountsManager {
 
 	public static CDataCacheContainer getAccountsWithExpiredServicePackages(Date expiryDate) {
 		try {
-			return AccountsDataAccess.getAccountsWithExpiredServicePackages(expiryDate);
+			return AccountsDataAccessTest.getAccountsWithExpiredServicePackages(expiryDate);
 		} catch (DAOException e) {
 			throw new Error(e);
 		}
@@ -269,7 +269,7 @@ public class AccountsManager {
 				}
 			};
 			
-			AccountsDataAccess.getAccountBusinessDetails(accountId, callback);
+			AccountsDataAccessTest.getAccountBusinessDetails(accountId, callback);
 			
 			if(!result.hasError() && !result.hasValue()){
 				result.setError(ErrorCode.NoResults);
@@ -286,7 +286,7 @@ public class AccountsManager {
 	public static BaseOperationResult setAccountBusinessDetails(IAccountBusinessDetailsChangeRequest request) {
 		final BaseOperationResult result = new BaseOperationResult();
 		try{
-			AccountsDataAccess.setAccountBusinessDetails(request);
+			AccountsDataAccessTest.setAccountBusinessDetails(request);
 		}
 		catch(Exception ex){
 			UUID errorId = logger.error(ex, "setAccountBusinessDetails() : Unexpected error occured.");
@@ -299,7 +299,7 @@ public class AccountsManager {
 	public static BaseOperationResult changeAccountOwner(long accountId, long newOwnerId, Long backofficeUserId, int sourceId){
 		final BaseOperationResult result = new BaseOperationResult();
 		try{
-			AccountsDataAccess.changeAccountOwner(accountId, newOwnerId, backofficeUserId, sourceId);
+			AccountsDataAccessTest.changeAccountOwner(accountId, newOwnerId, backofficeUserId, sourceId);
 		}
 		catch(Exception ex){
 			UUID errorId = logger.error(ex, "changeAccountOwner() : Unexpected error occured.");
@@ -312,7 +312,7 @@ public class AccountsManager {
 	public static BaseOperationResult changeAccountBillingSettings(IAccountBillingSettingsChangeRequest request) {
 		final BaseOperationResult result = new BaseOperationResult();
 		try{
-			AccountsDataAccess.changeAccountBillingSettings(request);
+			AccountsDataAccessTest.changeAccountBillingSettings(request);
 		}
 		catch(Exception ex){
 			UUID errorId = logger.error(ex, "changeAccountBillingSettings() : Unexpected error occured.");
