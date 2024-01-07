@@ -27,6 +27,7 @@ import com.inqwise.opinion.automation.common.events.LoginEventArgs;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.Convert;
+import com.inqwise.opinion.infrastructure.systemFramework.GeoIpManager;
 import com.inqwise.opinion.library.common.IProduct;
 import com.inqwise.opinion.library.common.ISession;
 import com.inqwise.opinion.library.common.accounts.IAccount;
@@ -47,7 +48,6 @@ import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.library.managers.ServicePackagesManager;
 import com.inqwise.opinion.library.managers.UsersManager;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.library.systemFramework.GeoIpManager;
 
 public class ExternalLoginAction {
 
