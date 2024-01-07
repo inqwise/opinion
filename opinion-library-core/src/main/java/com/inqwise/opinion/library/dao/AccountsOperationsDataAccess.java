@@ -4,15 +4,12 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataCacheDBAdapter;
+import org.jooq.impl.DSL;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.DAOUtil;
@@ -31,7 +28,7 @@ public class AccountsOperationsDataAccess {
 	private static final String MONETARY_TRANSACTION_PARAM = "$is_monetary";
 	private static final String ACCOUNT_OPERATION_ID_PARAM = "$accop_id";
 
-	public static CDataCacheContainer getAccountOperations(int top, long accountId, List<Integer> accountsOperationsTypeIds, Long referenceId, Integer referenceTypeId, Date fromDate, Date toDate, Boolean monetary) throws DAOException{
+	public static JSONArray getAccountOperations(int top, long accountId, List<Integer> accountsOperationsTypeIds, Long referenceId, Integer referenceTypeId, Date fromDate, Date toDate, Boolean monetary) throws DAOException{
 		Connection connection = null;
 		CallableStatement call = null;
 		ResultSet resultSet = null;
@@ -52,8 +49,18 @@ public class AccountsOperationsDataAccess {
         	call = factory.GetProcedureCall("getAccountOperations", params);     
         	connection = call.getConnection();
             resultSet = call.executeQuery();
-            String[] primaryKeys = new String[]{"accop_id"};
-            return CDataCacheDBAdapter.loadData(resultSet, null, primaryKeys, new LinkedHashMap());
+            
+            List<JSONObject> list = DSL.using(connection).fetch(resultSet)
+			.map(r -> {
+				JSONObject obj = new JSONObject();
+				
+				for(var field : r.fields()) {
+					obj.put(field.getName(), r.getValue(field));
+				}
+				return obj;
+			});
+                	
+            return new JSONArray(list);
 		
 		} catch (Exception e) {
 			throw null == call ? new DAOException(e) : new DAOException(call, e);

@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.dao;
+package com.inqwise.opinion.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -21,14 +21,14 @@ import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.dao.DAOBase;
 import com.inqwise.opinion.library.dao.DAOFactory;
 import com.inqwise.opinion.library.dao.Databases;
-import com.inqwise.opinion.opinion.common.IControl;
-import com.inqwise.opinion.opinion.common.IControlRequest;
-import com.inqwise.opinion.opinion.common.ICreateResult;
-import com.inqwise.opinion.opinion.common.IModifyControlDetailsRequest;
-import com.inqwise.opinion.opinion.common.IOption;
-import com.inqwise.opinion.opinion.common.ParentType;
-import com.inqwise.opinion.opinion.common.analizeResults.IControlsContainer;
-import com.inqwise.opinion.opinion.common.analizeResults.IOptionsContainer;
+import com.inqwise.opinion.common.IControl;
+import com.inqwise.opinion.common.IControlRequest;
+import com.inqwise.opinion.common.ICreateResult;
+import com.inqwise.opinion.common.IModifyControlDetailsRequest;
+import com.inqwise.opinion.common.IOption;
+import com.inqwise.opinion.common.ParentType;
+import com.inqwise.opinion.common.analizeResults.IControlsContainer;
+import com.inqwise.opinion.common.analizeResults.IOptionsContainer;
 
 public final class ControlsDataAccess extends DAOBase {
 	private static final String CONTROL_ID_PARAM = "$control_id";

@@ -1,19 +1,21 @@
-package com.inqwise.opinion.opinion.dao;
+package com.inqwise.opinion.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Date;
-import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.UUID;
 
 import javax.naming.OperationNotSupportedException;
 
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataCacheDBAdapter;
-
 import org.apache.commons.lang3.StringUtils;
+import org.jooq.impl.DSL;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import com.inqwise.opinion.common.collectors.CollectorStatus;
+import com.inqwise.opinion.common.collectors.IDeletedCollectorDetails;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.DAOUtil;
 import com.inqwise.opinion.infrastructure.dao.Database;
@@ -26,8 +28,6 @@ import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.dao.DAOBase;
 import com.inqwise.opinion.library.dao.DAOFactory;
 import com.inqwise.opinion.library.dao.Databases;
-import com.inqwise.opinion.opinion.common.collectors.CollectorStatus;
-import com.inqwise.opinion.opinion.common.collectors.IDeletedCollectorDetails;
 
 public class CollectorsDataAccess extends DAOBase {
 
@@ -370,7 +370,7 @@ public class CollectorsDataAccess extends DAOBase {
 		return result;
 	}
 	
-	public static CDataCacheContainer getCollectors(Long opinionId, Long accountId, boolean includeExpired, int top,
+	public static JSONArray getCollectors(Long opinionId, Long accountId, boolean includeExpired, int top,
 			Date from, Date to, Integer[] collectorsStatusIds, String orderBy) throws DAOException{
 		Connection connection = null;
 		CallableStatement call = null;
@@ -392,8 +392,17 @@ public class CollectorsDataAccess extends DAOBase {
         	call = factory.GetProcedureCall("getCollectors", params);     
         	connection = call.getConnection();
             resultSet = call.executeQuery();
-            String[] primaryKeys = null;
-            return CDataCacheDBAdapter.loadData(resultSet, null, primaryKeys, new LinkedHashMap());
+            List<JSONObject> list = DSL.using(connection).fetch(resultSet)
+        			.map(r -> {
+        				JSONObject obj = new JSONObject();
+        				
+        				for(var field : r.fields()) {
+        					obj.put(field.getName(), r.getValue(field));
+        				}
+        				return obj;
+        			});
+                	
+                    return new JSONArray(list);
 		
 		} catch (Exception e) {
 			throw null == call ? new DAOException(e) : new DAOException(call, e);

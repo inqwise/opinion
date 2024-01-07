@@ -1,29 +1,18 @@
-package com.inqwise.opinion.opinion.dao;
+package com.inqwise.opinion.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import javax.naming.OperationNotSupportedException;
 
-import com.inqwise.opinion.infrastructure.dao.Database;
-import com.inqwise.opinion.infrastructure.dao.IDataFillable;
-import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
-import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
-import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
-import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.library.dao.DAOBase;
+import com.inqwise.opinion.common.SurveyStatistics;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
-import com.inqwise.opinion.library.dao.DAOFactory;
 import com.inqwise.opinion.infrastructure.dao.DAOUtil;
-import com.inqwise.opinion.library.dao.Databases;
+import com.inqwise.opinion.infrastructure.dao.Database;
 import com.inqwise.opinion.infrastructure.dao.SqlParam;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
-import com.inqwise.opinion.opinion.actions.opinions.ICreatePollRequest;
-import com.inqwise.opinion.opinion.actions.opinions.ICreateSurveyRequest;
-import com.inqwise.opinion.opinion.actions.opinions.IModifySurveyRequest;
-import com.inqwise.opinion.opinion.common.SurveyStatistics;
+import com.inqwise.opinion.library.common.errorHandle.OperationResult;
+import com.inqwise.opinion.library.dao.DAOFactory;
+import com.inqwise.opinion.library.dao.Databases;
 
 public class Surveys extends OpinionsDataAccess {
 

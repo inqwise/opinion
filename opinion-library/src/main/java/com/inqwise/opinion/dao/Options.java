@@ -1,27 +1,23 @@
-package com.inqwise.opinion.opinion.dao;
+package com.inqwise.opinion.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.naming.OperationNotSupportedException;
 
+import com.inqwise.opinion.common.ICreateResult;
+import com.inqwise.opinion.common.IOptionRequest;
+import com.inqwise.opinion.infrastructure.dao.DAOException;
+import com.inqwise.opinion.infrastructure.dao.DAOUtil;
 import com.inqwise.opinion.infrastructure.dao.Database;
-import com.inqwise.opinion.infrastructure.dao.IDataFillable;
+import com.inqwise.opinion.infrastructure.dao.SqlParam;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.dao.DAOBase;
-import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.library.dao.DAOFactory;
-import com.inqwise.opinion.infrastructure.dao.DAOUtil;
 import com.inqwise.opinion.library.dao.Databases;
-import com.inqwise.opinion.infrastructure.dao.SqlParam;
-import com.inqwise.opinion.opinion.common.ICreateResult;
-import com.inqwise.opinion.opinion.common.IOption;
-import com.inqwise.opinion.opinion.common.IOptionRequest;
 
 public class Options extends DAOBase{
 
@@ -35,7 +31,6 @@ public class Options extends DAOBase{
 	public final static String JOINED_IDS_PARAM = "$ids";
 	public final static String IS_ENABLE_ADDITIONAL_DETAILS_PARAM = "$is_enable_additional_info";
 	public final static String ADDITIONAL_DETAILS_TITLE_PARAM = "$additional_details_title";
-	private static final String ANSWER_SESSION_ID_PARAM = "$answer_session_id";
 	public static final String OPTION_KIND_ID_PARAM = "$option_kind_id";
 	private static final String OPINION_ID_PARAM = "$opinion_id";
 	private static final String USER_ID_PARAM = "$user_id";

@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.dao;
+package com.inqwise.opinion.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -16,9 +16,8 @@ import com.inqwise.opinion.infrastructure.dao.DAOUtil;
 import com.inqwise.opinion.library.dao.Databases;
 import com.inqwise.opinion.infrastructure.dao.SqlParam;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.inqwise.opinion.opinion.common.servicePackage.IOpinionServicePackageSettingsUpdateRequest;
-import com.inqwise.opinion.opinion.common.servicePackage.IServicePackageSettings;
-import com.inqwise.opinion.opinion.common.sheet.ISheet;
+import com.inqwise.opinion.common.servicePackage.IOpinionServicePackageSettingsUpdateRequest;
+import com.inqwise.opinion.common.servicePackage.IServicePackageSettings;
 
 public class ServicePackageSettings extends DAOBase{
 	private static final String SERVICE_PACKAGE_SUPPLY_DAYS_INTERVAL_PARAM = "$sps_supply_days_interval";

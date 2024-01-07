@@ -1,9 +1,9 @@
-package com.inqwise.opinion.opinion.common.analizeResults;
+package com.inqwise.opinion.common.analizeResults;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.inqwise.opinion.opinion.common.ParentType;
+import com.inqwise.opinion.common.ParentType;
 
 public interface IAnalizeControl {
 

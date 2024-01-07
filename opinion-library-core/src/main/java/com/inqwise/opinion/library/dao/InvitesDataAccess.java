@@ -3,10 +3,11 @@ package com.inqwise.opinion.library.dao;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.util.LinkedHashMap;
+import java.util.List;
 
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataCacheDBAdapter;
+import org.jooq.impl.DSL;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.DAOUtil;
@@ -137,7 +138,7 @@ public class InvitesDataAccess {
 		}
 	}
 
-	public static CDataCacheContainer getInvites(long accountId) throws DAOException {
+	public static JSONArray getInvites(long accountId) throws DAOException {
 		Connection connection = null;
 		CallableStatement call = null;
 		ResultSet resultSet = null;
@@ -151,8 +152,19 @@ public class InvitesDataAccess {
         	call = factory.GetProcedureCall("invites_getInvites", params);     
         	connection = call.getConnection();
         	resultSet = call.executeQuery();
-        	String[] primaryKeys = null;
-        	return CDataCacheDBAdapter.loadData(resultSet, null, primaryKeys, new LinkedHashMap());
+        	
+        	 List<JSONObject> list = DSL.using(connection).fetch(resultSet)
+				.map(r -> {
+				JSONObject obj = new JSONObject();
+				
+				for(var field : r.fields()) {
+					obj.put(field.getName(), r.getValue(field));
+				}
+				return obj;
+			});
+        	
+            return new JSONArray(list);
+        	            
 		} catch (Exception e) {
 			throw null == call ? new DAOException(e) : new DAOException(call, e);
 		} finally {
