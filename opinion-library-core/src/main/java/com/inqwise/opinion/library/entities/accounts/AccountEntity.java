@@ -14,7 +14,7 @@ import com.inqwise.opinion.library.common.accounts.IAccountView;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.users.IUser;
-import com.inqwise.opinion.library.dao.AccountsDataAccess;
+import com.inqwise.opinion.library.dao.AccountsDataAccessTest;
 import com.inqwise.opinion.library.entities.UserEntity;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
@@ -129,7 +129,7 @@ public class AccountEntity implements IAccount, IAccountView {
 				}
 			};
 			
-			AccountsDataAccess.getAccount(accountId, callback);
+			AccountsDataAccessTest.getAccount(accountId, callback);
 			
 			if(!result.hasValue()){
 				logger.warn("getAccount : No results for id " + accountId);

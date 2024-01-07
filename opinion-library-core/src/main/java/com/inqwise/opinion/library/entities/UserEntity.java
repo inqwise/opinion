@@ -22,7 +22,7 @@ import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.users.IUser;
 import com.inqwise.opinion.library.common.users.IUserView;
 import com.inqwise.opinion.library.common.users.LoginProvider;
-import com.inqwise.opinion.library.dao.AccountsDataAccess;
+import com.inqwise.opinion.library.dao.AccountsDataAccessTest;
 import com.inqwise.opinion.library.dao.UsersDataAccess;
 import com.inqwise.opinion.library.entities.accounts.AccountEntity;
 import com.inqwise.opinion.library.systemFramework.GeoIpManager;
@@ -301,7 +301,7 @@ public class UserEntity implements IUser, IUserView{
 					}
 				}
 			};
-			AccountsDataAccess.attachUserAccount(sourceId, accountId, getUserId(), backofficeUserId, callback);
+			AccountsDataAccessTest.attachUserAccount(sourceId, accountId, getUserId(), backofficeUserId, callback);
 			
 			if(!result.hasError() && !result.hasValue()){
 				result.setError(ErrorCode.NoResults);
@@ -327,7 +327,7 @@ public class UserEntity implements IUser, IUserView{
 	public BaseOperationResult detachAccount(int sourceId, long accountId, Long backofficeUserId){
 		BaseOperationResult result;
 		try {
-			AccountsDataAccess.detachUserAccount(sourceId, accountId, getUserId(), backofficeUserId);
+			AccountsDataAccessTest.detachUserAccount(sourceId, accountId, getUserId(), backofficeUserId);
 			
 			result = BaseOperationResult.Ok;
 		} catch (Exception ex) {
@@ -353,7 +353,7 @@ public class UserEntity implements IUser, IUserView{
 				}
 			};
 			
-			AccountsDataAccess.createUserAccount(sourceId, productId, getUserId(), backofficeUserId, accountName, clientIp, servicePackageId, getCountryId(), callback);
+			AccountsDataAccessTest.createUserAccount(sourceId, productId, getUserId(), backofficeUserId, accountName, clientIp, servicePackageId, getCountryId(), callback);
 			
 			if(!result.hasError() && !result.hasValue()){
 				result.setError(ErrorCode.NoResults);

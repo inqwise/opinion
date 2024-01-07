@@ -87,6 +87,14 @@ public class Database {
         }
     }
     
+    public Database(ComboPooledDataSource dataSource) {
+    	this.dataSource = dataSource;
+    }
+    
+    public static void myFunction() {}
+	
+	public static void myFunction2() {}
+    
     protected Database(){}
     
     /**
