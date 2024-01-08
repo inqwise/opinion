@@ -13,6 +13,7 @@ import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.DAOUtil;
 import com.inqwise.opinion.infrastructure.dao.Database;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
+import com.inqwise.opinion.infrastructure.dao.ResultSets;
 import com.inqwise.opinion.infrastructure.dao.SqlParam;
 import com.inqwise.opinion.library.common.invites.IInviteCreateRequest;
 import com.inqwise.opinion.library.common.invites.IInviteSettingsChangeRequest;
@@ -153,17 +154,7 @@ public class InvitesDataAccess {
         	connection = call.getConnection();
         	resultSet = call.executeQuery();
         	
-        	 List<JSONObject> list = DSL.using(connection).fetch(resultSet)
-				.map(r -> {
-				JSONObject obj = new JSONObject();
-				
-				for(var field : r.fields()) {
-					obj.put(field.getName(), r.getValue(field));
-				}
-				return obj;
-			});
-        	
-            return new JSONArray(list);
+            return ResultSets.parse(connection, resultSet);
         	            
 		} catch (Exception e) {
 			throw null == call ? new DAOException(e) : new DAOException(call, e);
