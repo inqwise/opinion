@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities;
+package com.inqwise.opinion.entities;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,7 +7,7 @@ import java.util.Date;
 import org.apache.commons.lang3.time.DateUtils;
 
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
-import com.inqwise.opinion.opinion.common.IOpinionAccount;
+import com.inqwise.opinion.common.IOpinionAccount;
 
 public class OpinionAccountEntity implements IOpinionAccount {
 	private long accountId;

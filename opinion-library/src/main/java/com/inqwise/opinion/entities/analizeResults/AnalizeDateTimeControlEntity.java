@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities.analizeResults;
+package com.inqwise.opinion.entities.analizeResults;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
-import com.inqwise.opinion.opinion.common.ControlType;
+import com.inqwise.opinion.common.ControlType;
 
 public class AnalizeDateTimeControlEntity extends AnalizeAdvancedControlEntity {
 	

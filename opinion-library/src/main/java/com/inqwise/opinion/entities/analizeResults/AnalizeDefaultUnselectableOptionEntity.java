@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities.analizeResults;
+package com.inqwise.opinion.entities.analizeResults;
 
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 

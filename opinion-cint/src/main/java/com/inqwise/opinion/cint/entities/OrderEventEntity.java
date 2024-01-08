@@ -1,11 +1,11 @@
-package com.cint.entities;
+package com.inqwise.opinion.cint.entities;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.cint.common.IOrderEvent;
-import com.cint.common.IXmlOwnerCallback;
+import com.inqwise.opinion.cint.common.IOrderEvent;
+import com.inqwise.opinion.cint.common.IXmlOwnerCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 
 public abstract class OrderEventEntity implements IOrderEvent, IXmlOwnerCallback {

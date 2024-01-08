@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities.controls;
+package com.inqwise.opinion.entities.controls;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,9 +11,9 @@ import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.ControlType;
-import com.inqwise.opinion.opinion.common.IControlRequest;
-import com.inqwise.opinion.opinion.common.IModifyControlDetailsRequest;
+import com.inqwise.opinion.common.ControlType;
+import com.inqwise.opinion.common.IControlRequest;
+import com.inqwise.opinion.common.IModifyControlDetailsRequest;
 
 public class ScaleControlEntity extends AdvancedControlEntity {
 

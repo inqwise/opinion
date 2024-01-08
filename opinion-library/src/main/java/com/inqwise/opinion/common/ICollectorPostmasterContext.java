@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common;
+package com.inqwise.opinion.common;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -7,7 +7,7 @@ import java.net.URL;
 import javax.servlet.http.HttpServletRequest;
 
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.http.HttpClientSession;
+import com.inqwise.opinion.http.HttpClientSession;
 
 public interface ICollectorPostmasterContext{
 

@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.util.Date;
 import java.util.UUID;
 
-import net.casper.data.model.CDataCacheContainer;
+import org.json.JSONArray;
 
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
@@ -92,7 +92,7 @@ public final class MessagesManager {
 		return result;
 	}
 	
-	public static CDataCacheContainer getMessages(Long userId, Date fromModifyDate, Date toModifyDate, boolean includeClosed, boolean includeNotActivated, int top, boolean includeExcluded){
+	public static JSONArray getMessages(Long userId, Date fromModifyDate, Date toModifyDate, boolean includeClosed, boolean includeNotActivated, int top, boolean includeExcluded){
 		try {
 			return MessagesDataAccess.getMessages(userId, fromModifyDate, toModifyDate, includeClosed, includeNotActivated, top, includeExcluded);
 		} catch (DAOException e) {

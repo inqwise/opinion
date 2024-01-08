@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities.analizeResults;
+package com.inqwise.opinion.entities.analizeResults;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,8 +8,8 @@ import org.json.JSONObject;
 
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
-import com.inqwise.opinion.opinion.common.ControlType;
-import com.inqwise.opinion.opinion.common.IControl;
+import com.inqwise.opinion.common.ControlType;
+import com.inqwise.opinion.common.IControl;
 
 public abstract class AnalizeAdvancedControlEntity extends AnalizeControlEntity {
 

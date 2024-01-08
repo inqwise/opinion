@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.jobs;
+package com.inqwise.opinion.jobs;
 
 import java.util.List;
 import java.util.UUID;
@@ -10,8 +10,8 @@ import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.SessionCreditInfo;
-import com.inqwise.opinion.opinion.dao.OpinionAccountDataAccess;
+import com.inqwise.opinion.common.SessionCreditInfo;
+import com.inqwise.opinion.dao.OpinionAccountDataAccess;
 
 public class SessionsAmountCreditor extends Job {
 	

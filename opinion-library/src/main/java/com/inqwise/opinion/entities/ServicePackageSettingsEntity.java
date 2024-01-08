@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities;
+package com.inqwise.opinion.entities;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,8 +9,8 @@ import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
-import com.inqwise.opinion.opinion.common.servicePackage.IServicePackageSettings;
-import com.inqwise.opinion.opinion.dao.ServicePackageSettings;
+import com.inqwise.opinion.common.servicePackage.IServicePackageSettings;
+import com.inqwise.opinion.dao.ServicePackageSettings;
 
 public class ServicePackageSettingsEntity implements IServicePackageSettings {
 	private static ApplicationLog logger = ApplicationLog

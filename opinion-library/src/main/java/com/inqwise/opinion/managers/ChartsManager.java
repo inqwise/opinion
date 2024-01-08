@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.managers;
+package com.inqwise.opinion.managers;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -19,9 +19,9 @@ import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
-import com.inqwise.opinion.opinion.common.charts.ActivityChartDataItem;
-import com.inqwise.opinion.opinion.common.charts.TimePointRange;
-import com.inqwise.opinion.opinion.dao.Charts;
+import com.inqwise.opinion.common.charts.ActivityChartDataItem;
+import com.inqwise.opinion.common.charts.TimePointRange;
+import com.inqwise.opinion.dao.Charts;
 
 public class ChartsManager {
 	private static ApplicationLog logger = ApplicationLog.getLogger(ChartsManager.class);

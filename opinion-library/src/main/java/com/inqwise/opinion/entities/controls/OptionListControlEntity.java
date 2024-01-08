@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities.controls;
+package com.inqwise.opinion.entities.controls;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,17 +17,17 @@ import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
-import com.inqwise.opinion.opinion.common.ControlType;
-import com.inqwise.opinion.opinion.common.IControl;
-import com.inqwise.opinion.opinion.common.IControlRequest;
-import com.inqwise.opinion.opinion.common.IModifyControlDetailsRequest;
-import com.inqwise.opinion.opinion.common.IOption;
-import com.inqwise.opinion.opinion.common.OptionsType;
-import com.inqwise.opinion.opinion.common.analizeResults.IControlsContainer;
-import com.inqwise.opinion.opinion.common.analizeResults.IOptionsContainer;
-import com.inqwise.opinion.opinion.dao.ControlsDataAccess;
-import com.inqwise.opinion.opinion.dao.Options;
-import com.inqwise.opinion.opinion.entities.OptionEntity;
+import com.inqwise.opinion.common.ControlType;
+import com.inqwise.opinion.common.IControl;
+import com.inqwise.opinion.common.IControlRequest;
+import com.inqwise.opinion.common.IModifyControlDetailsRequest;
+import com.inqwise.opinion.common.IOption;
+import com.inqwise.opinion.common.OptionsType;
+import com.inqwise.opinion.common.analizeResults.IControlsContainer;
+import com.inqwise.opinion.common.analizeResults.IOptionsContainer;
+import com.inqwise.opinion.dao.ControlsDataAccess;
+import com.inqwise.opinion.dao.Options;
+import com.inqwise.opinion.entities.OptionEntity;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 
 public class OptionListControlEntity extends AdvancedControlEntity implements IOptionsContainer<IOption>{

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.inqwise.opinion.opinion.common;
+package com.inqwise.opinion.common;
 
 /**
  * @author Alex

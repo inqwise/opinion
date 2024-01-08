@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common.servicePackage;
+package com.inqwise.opinion.common.servicePackage;
 
 public interface IOpinionServicePackageSettingsUpdateRequest {
 

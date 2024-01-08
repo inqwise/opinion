@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.managers;
+package com.inqwise.opinion.managers;
 
 import java.sql.ResultSet;
 import java.util.UUID;
@@ -15,12 +15,12 @@ import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.inqwise.opinion.opinion.common.AccountOpinionInfo;
-import com.inqwise.opinion.opinion.common.IOpinionAccount;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.dao.AccountsDataAccess;
-import com.inqwise.opinion.opinion.dao.OpinionAccountDataAccess;
-import com.inqwise.opinion.opinion.entities.OpinionAccountEntity;
+import com.inqwise.opinion.common.AccountOpinionInfo;
+import com.inqwise.opinion.common.IOpinionAccount;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.dao.AccountsDataAccess;
+import com.inqwise.opinion.dao.OpinionAccountDataAccess;
+import com.inqwise.opinion.entities.OpinionAccountEntity;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;

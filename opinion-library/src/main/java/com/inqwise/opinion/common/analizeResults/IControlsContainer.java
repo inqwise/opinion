@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common.analizeResults;
+package com.inqwise.opinion.common.analizeResults;
 
 import java.util.List;
 

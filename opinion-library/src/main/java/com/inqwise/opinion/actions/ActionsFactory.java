@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.actions;
+package com.inqwise.opinion.actions;
 
 import java.util.HashMap;
 

@@ -13,7 +13,7 @@
 		<dependency>
 			<groupId>com.inqwise.opinion</groupId>
 			<artifactId>opinion-automation-common</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.inqwise.opinion</groupId>

@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.List;
 
 import org.jooq.impl.DSL;
-import org.jooq.tools.json.JSONArray;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.inqwise.opinion.infrastructure.dao.DAOException;

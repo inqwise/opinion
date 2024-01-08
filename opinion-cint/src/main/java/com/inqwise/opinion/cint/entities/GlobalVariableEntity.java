@@ -1,13 +1,13 @@
-package com.cint.entities;
+package com.inqwise.opinion.cint.entities;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Element;
 
-import com.cint.common.IGlobalVariable;
-import com.cint.common.IValue;
-import com.cint.common.IXmlOwnerCallback;
+import com.inqwise.opinion.cint.common.IGlobalVariable;
+import com.inqwise.opinion.cint.common.IValue;
+import com.inqwise.opinion.cint.common.IXmlOwnerCallback;
 
 public class GlobalVariableEntity implements IGlobalVariable, IXmlOwnerCallback {
 

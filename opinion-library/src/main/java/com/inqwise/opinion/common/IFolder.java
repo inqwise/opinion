@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common;
+package com.inqwise.opinion.common;
 
 public interface IFolder {
 	public String getName();

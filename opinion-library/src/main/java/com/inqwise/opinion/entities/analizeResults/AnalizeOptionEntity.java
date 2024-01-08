@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities.analizeResults;
+package com.inqwise.opinion.entities.analizeResults;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,10 +12,10 @@ import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
 import com.inqwise.opinion.library.entities.BaseEntity;
-import com.inqwise.opinion.opinion.common.IOption;
-import com.inqwise.opinion.opinion.common.LinkType;
-import com.inqwise.opinion.opinion.common.OptionKind;
-import com.inqwise.opinion.opinion.common.analizeResults.IAnalizeOption;
+import com.inqwise.opinion.common.IOption;
+import com.inqwise.opinion.common.LinkType;
+import com.inqwise.opinion.common.OptionKind;
+import com.inqwise.opinion.common.analizeResults.IAnalizeOption;
 
 public abstract class AnalizeOptionEntity extends BaseEntity implements IAnalizeOption {
 	/**

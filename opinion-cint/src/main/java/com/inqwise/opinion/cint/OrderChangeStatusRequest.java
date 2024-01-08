@@ -1,13 +1,13 @@
-package com.cint;
+package com.inqwise.opinion.cint;
 
-import com.cint.common.IOrderSubmit;
-import com.cint.common.IRequestVoid;
-import com.cint.common.ITargetGroupSubmit;
-import com.cint.common.OrderEventType;
-import com.cint.common.errorHandle.CintBaseOperationResult;
-import com.cint.common.errorHandle.CintErrorCode;
-import com.cint.common.errorHandle.CintOperationResult;
-import com.cint.core.RequestType;
+import com.inqwise.opinion.cint.common.IOrderSubmit;
+import com.inqwise.opinion.cint.common.IRequestVoid;
+import com.inqwise.opinion.cint.common.ITargetGroupSubmit;
+import com.inqwise.opinion.cint.common.OrderEventType;
+import com.inqwise.opinion.cint.common.errorHandle.CintBaseOperationResult;
+import com.inqwise.opinion.cint.common.errorHandle.CintErrorCode;
+import com.inqwise.opinion.cint.common.errorHandle.CintOperationResult;
+import com.inqwise.opinion.cint.core.RequestType;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 
 public class OrderChangeStatusRequest implements IRequestVoid {

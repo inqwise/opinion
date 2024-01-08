@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common.opinions;
+package com.inqwise.opinion.common.opinions;
 
 public enum OpinionsOrderBy {
 	InsertDate("insert_date"),

@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.systemFramework;
+package com.inqwise.opinion.systemFramework;
 
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
 

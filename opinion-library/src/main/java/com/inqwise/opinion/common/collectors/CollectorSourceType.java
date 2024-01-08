@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common.collectors;
+package com.inqwise.opinion.common.collectors;
 
 public enum CollectorSourceType {
 	Undefined(0),

@@ -1,8 +1,8 @@
-package com.cint.entities;
+package com.inqwise.opinion.cint.entities;
 
 import org.w3c.dom.Element;
 
-import com.cint.common.IOccupationStatus;
+import com.inqwise.opinion.cint.common.IOccupationStatus;
 
 class OccupationStatusEntity extends IdNameEntity implements IOccupationStatus {
 

@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities;
+package com.inqwise.opinion.entities;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,10 +27,10 @@ import com.inqwise.opinion.library.common.parameters.PermissionsKeys;
 import com.inqwise.opinion.library.entities.BaseEntity;
 import com.inqwise.opinion.library.entities.accounts.AccountEntity;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.opinion.common.opinions.FinishBehaviourType;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
-import com.inqwise.opinion.opinion.dao.OpinionsDataAccess;
+import com.inqwise.opinion.common.opinions.FinishBehaviourType;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.dao.OpinionsDataAccess;
 
 public abstract class OpinionEntity extends BaseEntity implements IOpinion {
 

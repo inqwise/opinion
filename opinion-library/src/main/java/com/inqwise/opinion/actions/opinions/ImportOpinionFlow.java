@@ -1,11 +1,11 @@
-package com.inqwise.opinion.opinion.actions.opinions;
+package com.inqwise.opinion.actions.opinions;
 
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.accounts.IAccountView;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.actions.ActionFlow;
-import com.inqwise.opinion.opinion.actions.opinions.ICreateOpinionRequest.IRequestExtension;
-import com.inqwise.opinion.opinion.dao.IInsertOpinionParams;
+import com.inqwise.opinion.actions.ActionFlow;
+import com.inqwise.opinion.actions.opinions.ICreateOpinionRequest.IRequestExtension;
+import com.inqwise.opinion.dao.IInsertOpinionParams;
 
 public class ImportOpinionFlow/*<TRequest extends IImportOpinionRequest> extends ActionFlow<TRequest, OperationResult<Long>> implements IInsertOpinionParams*/ {
 

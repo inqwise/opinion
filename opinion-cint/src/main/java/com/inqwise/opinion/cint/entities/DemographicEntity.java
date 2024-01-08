@@ -1,12 +1,12 @@
-package com.cint.entities;
+package com.inqwise.opinion.cint.entities;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Element;
 
-import com.cint.common.IDemographic;
-import com.cint.common.ILink;
+import com.inqwise.opinion.cint.common.IDemographic;
+import com.inqwise.opinion.cint.common.ILink;
 
 public class DemographicEntity extends IdNameEntity implements IDemographic {
 	private List<ILink> links;

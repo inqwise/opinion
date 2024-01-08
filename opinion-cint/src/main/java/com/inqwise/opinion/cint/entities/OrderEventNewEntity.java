@@ -1,10 +1,10 @@
-package com.cint.entities;
+package com.inqwise.opinion.cint.entities;
 
 import org.w3c.dom.Element;
 
-import com.cint.common.IGlobalVariable;
-import com.cint.common.IOrderEventNew;
-import com.cint.common.OrderEventType;
+import com.inqwise.opinion.cint.common.IGlobalVariable;
+import com.inqwise.opinion.cint.common.IOrderEventNew;
+import com.inqwise.opinion.cint.common.OrderEventType;
 
 public class OrderEventNewEntity extends OrderEventEntity implements
 		IOrderEventNew {

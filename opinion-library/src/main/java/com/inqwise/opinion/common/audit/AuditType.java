@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common.audit;
+package com.inqwise.opinion.common.audit;
 
 public enum AuditType {
 	Undefined(0),

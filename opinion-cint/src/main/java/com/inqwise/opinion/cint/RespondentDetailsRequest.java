@@ -1,14 +1,14 @@
-package com.cint;
+package com.inqwise.opinion.cint;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.cint.common.IRequest;
-import com.cint.common.IRespondent;
-import com.cint.common.errorHandle.CintBaseOperationResult;
-import com.cint.common.errorHandle.CintErrorCode;
-import com.cint.core.RequestType;
-import com.cint.entities.RespondentEntity;
+import com.inqwise.opinion.cint.common.IRequest;
+import com.inqwise.opinion.cint.common.IRespondent;
+import com.inqwise.opinion.cint.common.errorHandle.CintBaseOperationResult;
+import com.inqwise.opinion.cint.common.errorHandle.CintErrorCode;
+import com.inqwise.opinion.cint.core.RequestType;
+import com.inqwise.opinion.cint.entities.RespondentEntity;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 
 public class RespondentDetailsRequest implements IRequest<IRespondent> {

@@ -6,13 +6,12 @@ import java.util.UUID;
 
 import javax.naming.OperationNotSupportedException;
 
-import net.casper.data.model.CDataCacheContainer;
+import org.json.JSONArray;
 
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
-import com.inqwise.opinion.library.common.accounts.IAccount;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
@@ -23,8 +22,6 @@ import com.inqwise.opinion.library.common.users.IUserView;
 import com.inqwise.opinion.library.dao.DAOBase;
 import com.inqwise.opinion.library.dao.InvitesDataAccess;
 import com.inqwise.opinion.library.entities.InviteEntity;
-import com.inqwise.opinion.library.entities.UserEntity;
-import com.inqwise.opinion.library.jobs.AccountsServicePackagesExpirationChecker;
 
 public class InvitesManager {
 	private static ApplicationLog logger = ApplicationLog.getLogger(InvitesManager.class);
@@ -33,7 +30,7 @@ public class InvitesManager {
 		final OperationResult<Long> result = new OperationResult<>();
 		try {
 			if(null != request.getMaxUsers()){
-				int countOfInvitedUsers = getInvites(request.getAccountId()).getAll().size();
+				int countOfInvitedUsers = getInvites(request.getAccountId()).length();
 				int maxCountOfAssignedUsers = request.getMaxUsers() - Math.min(countOfInvitedUsers, request.getMaxUsers());
 				OperationResult<List<IUserView>> usersResult = UsersManager.getUsers(request.getMaxUsers(), request.getAccountProductId(), null, null, request.getAccountId());
 				if(usersResult.hasErrorExcept(ErrorCode.NoResults)){
@@ -151,7 +148,7 @@ public class InvitesManager {
 		return result;
 	}
 	
-	public static CDataCacheContainer getInvites(long accountId){
+	public static JSONArray getInvites(long accountId){
 		try {
 			return InvitesDataAccess.getInvites(accountId);
 		} catch (DAOException e) {

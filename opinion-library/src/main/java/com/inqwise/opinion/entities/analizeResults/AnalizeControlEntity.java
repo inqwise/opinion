@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities.analizeResults;
+package com.inqwise.opinion.entities.analizeResults;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,13 +15,13 @@ import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.entities.BaseEntity;
-import com.inqwise.opinion.opinion.common.ControlType;
-import com.inqwise.opinion.opinion.common.IControl;
-import com.inqwise.opinion.opinion.common.OptionKind;
-import com.inqwise.opinion.opinion.common.ParentType;
-import com.inqwise.opinion.opinion.common.analizeResults.IAnalizeControl;
-import com.inqwise.opinion.opinion.common.analizeResults.IAnalizeOption;
-import com.inqwise.opinion.opinion.dao.Results;
+import com.inqwise.opinion.common.ControlType;
+import com.inqwise.opinion.common.IControl;
+import com.inqwise.opinion.common.OptionKind;
+import com.inqwise.opinion.common.ParentType;
+import com.inqwise.opinion.common.analizeResults.IAnalizeControl;
+import com.inqwise.opinion.common.analizeResults.IAnalizeOption;
+import com.inqwise.opinion.dao.Results;
 
 public abstract class AnalizeControlEntity extends BaseEntity implements IAnalizeControl {
 	/**

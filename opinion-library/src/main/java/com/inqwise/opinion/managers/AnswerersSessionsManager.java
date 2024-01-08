@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.managers;
+package com.inqwise.opinion.managers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,27 +8,23 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
-import net.casper.data.model.CDataCacheContainer;
+import org.json.JSONArray;
 
-import org.javatuples.Pair;
-import org.javatuples.Triplet;
-
-import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
-import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
-import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.infrastructure.dao.DAOException;
-import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.inqwise.opinion.opinion.common.IAnswererSession;
-import com.inqwise.opinion.opinion.common.IOpinionAccount;
-import com.inqwise.opinion.opinion.dao.AnswerersSessionsDataAccess;
-import com.inqwise.opinion.opinion.entities.analizeResults.AnswererSessionEntity;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.inqwise.opinion.common.IAnswererSession;
+import com.inqwise.opinion.dao.AnswerersSessionsDataAccess;
+import com.inqwise.opinion.entities.analizeResults.AnswererSessionEntity;
+import com.inqwise.opinion.infrastructure.dao.DAOException;
+import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
+import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
+import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
+import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 
 public class AnswerersSessionsManager {
 	private static ApplicationLog logger = ApplicationLog.getLogger(AnswerersSessionsManager.class);
-	public static CDataCacheContainer getAnswerersSessions(Long opinionId, Long accountId, Long collectorId, String respondentId, boolean includeUnplanned, Long fromIndex, Integer top, AtomicLong total){
+	public static JSONArray getAnswerersSessions(Long opinionId, Long accountId, Long collectorId, String respondentId, boolean includeUnplanned, Long fromIndex, Integer top, AtomicLong total){
 		return AnswererSessionEntity.getAnswerersSessions(opinionId, accountId, collectorId, respondentId, includeUnplanned, fromIndex, top, total);
 	}
 	

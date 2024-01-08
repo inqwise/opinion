@@ -1,28 +1,20 @@
-package com.inqwise.opinion.opinion.managers;
+package com.inqwise.opinion.managers;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 
-import org.javatuples.Septet;
+import org.json.JSONArray;
 
-import net.casper.data.model.CDataCacheContainer;
-
+import com.inqwise.opinion.common.analizeResults.IAnalizeControl;
+import com.inqwise.opinion.dao.Results;
+import com.inqwise.opinion.entities.analizeResults.AnalizeControlEntity;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.analizeResults.IAnalizeControl;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.dao.Results;
-import com.inqwise.opinion.opinion.entities.analizeResults.AnalizeControlEntity;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 
 public class ResultsManager {
 	private static ApplicationLog logger = ApplicationLog.getLogger(ResultsManager.class);
@@ -73,7 +65,7 @@ public class ResultsManager {
 		return AnalizeControlEntity.getAnalizeControls(opinionId, accountId, null, answererSessionId, collectorId, includePartialAnswers, includePartialStatistics, includeAttributeControl);
 	}
 	
-	public static CDataCacheContainer getAllResults(long opinionId, Long accountId, Long[] sessionIds, boolean includePartial, TreeMap<Long, Integer> headerIdsMap) {
+	public static JSONArray getAllResults(long opinionId, Long accountId, Long[] sessionIds, boolean includePartial, TreeMap<Long, Integer> headerIdsMap) {
 		try{
 			return Results.getAllResults(opinionId, accountId, sessionIds, includePartial, headerIdsMap);
 		} catch (DAOException ex){
@@ -93,7 +85,7 @@ public class ResultsManager {
 		return result;
 	}
 	
-	public static CDataCacheContainer getCountriesStatistics(long opinionId, Long accountId, Date from, Date to, Long collectorId, boolean includePartial){
+	public static JSONArray getCountriesStatistics(long opinionId, Long accountId, Date from, Date to, Long collectorId, boolean includePartial){
 		try{
 			return Results.getCountriesStatistics(opinionId, accountId, from, to, collectorId, includePartial);
 		} catch (DAOException ex){

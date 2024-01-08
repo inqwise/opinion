@@ -4,7 +4,6 @@ package com.inqwise.opinion.library.managers;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -19,12 +18,17 @@ import org.brickred.socialauth.SocialAuthManager;
 import org.javatuples.KeyValue;
 import org.javatuples.Pair;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.inqwise.opinion.automation.EventsServiceClient;
 import com.inqwise.opinion.automation.common.events.LoginEventArgs;
 import com.inqwise.opinion.automation.common.events.RegistrationEventArgs;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
+import com.inqwise.opinion.infrastructure.systemFramework.GeoIpManager;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
 import com.inqwise.opinion.library.actions.ExternalLoginAction;
 import com.inqwise.opinion.library.common.IProduct;
@@ -49,11 +53,6 @@ import com.inqwise.opinion.library.entities.SessionEntity;
 import com.inqwise.opinion.library.entities.UserDetailsEntity;
 import com.inqwise.opinion.library.entities.UserEntity;
 import com.inqwise.opinion.library.entities.accounts.AccountEntity;
-import com.inqwise.opinion.library.systemFramework.GeoIpManager;
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 
 
 

@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities.collectors;
+package com.inqwise.opinion.entities.collectors;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,14 +20,14 @@ import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.entities.BaseEntity;
 import com.inqwise.opinion.library.entities.accounts.AccountEntity;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.opinion.common.collectors.CollectorSourceType;
-import com.inqwise.opinion.opinion.common.collectors.CollectorStatus;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.common.collectors.IDeletedCollectorDetails;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
-import com.inqwise.opinion.opinion.dao.CollectorsDataAccess;
-import com.inqwise.opinion.opinion.managers.OpinionsManager;
+import com.inqwise.opinion.common.collectors.CollectorSourceType;
+import com.inqwise.opinion.common.collectors.CollectorStatus;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.common.collectors.IDeletedCollectorDetails;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.dao.CollectorsDataAccess;
+import com.inqwise.opinion.managers.OpinionsManager;
 
 public abstract class CollectorEntity extends BaseEntity implements ICollector {
 

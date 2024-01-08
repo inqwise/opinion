@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.inqwise.opinion.opinion.entities;
+package com.inqwise.opinion.entities;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -20,15 +20,15 @@ import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.library.entities.BaseEntity;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
-import com.inqwise.opinion.opinion.common.ICreateResult;
-import com.inqwise.opinion.opinion.common.IOption;
-import com.inqwise.opinion.opinion.common.IOptionRequest;
-import com.inqwise.opinion.opinion.common.LinkType;
-import com.inqwise.opinion.opinion.common.OptionKind;
-import com.inqwise.opinion.opinion.common.IControl.JsonNames;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.dao.Options;
+import com.inqwise.opinion.common.ICreateResult;
+import com.inqwise.opinion.common.IOption;
+import com.inqwise.opinion.common.IOptionRequest;
+import com.inqwise.opinion.common.LinkType;
+import com.inqwise.opinion.common.OptionKind;
+import com.inqwise.opinion.common.IControl.JsonNames;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.dao.Options;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 
 /**

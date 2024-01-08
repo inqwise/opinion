@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.managers;
+package com.inqwise.opinion.managers;
 
 import java.sql.ResultSet;
 import java.util.UUID;
@@ -7,9 +7,9 @@ import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.collectors.ICollectorSource;
-import com.inqwise.opinion.opinion.dao.CollectorSourcesDataAccess;
-import com.inqwise.opinion.opinion.entities.CollectorSourceEntity;
+import com.inqwise.opinion.common.collectors.ICollectorSource;
+import com.inqwise.opinion.dao.CollectorSourcesDataAccess;
+import com.inqwise.opinion.entities.CollectorSourceEntity;
 
 public class CollectorSourcesManager {
 

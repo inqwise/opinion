@@ -1,15 +1,15 @@
-package com.inqwise.opinion.opinion.facade.collector;
+package com.inqwise.opinion.facade.collector;
 
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.basicTypes.EntityBox;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.GuidType;
-import com.inqwise.opinion.opinion.common.ICollectorPostmasterContext;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.managers.CollectorsManager;
-import com.inqwise.opinion.opinion.managers.OpinionsManager;
+import com.inqwise.opinion.common.GuidType;
+import com.inqwise.opinion.common.ICollectorPostmasterContext;
+import com.inqwise.opinion.common.IPostmasterObject;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.managers.CollectorsManager;
+import com.inqwise.opinion.managers.OpinionsManager;
 
 public class Entry {
 

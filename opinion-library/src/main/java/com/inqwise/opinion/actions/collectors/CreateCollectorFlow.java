@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.actions.collectors;
+package com.inqwise.opinion.actions.collectors;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,16 +23,16 @@ import com.inqwise.opinion.library.dao.DAOBase;
 import com.inqwise.opinion.library.managers.AccountsManager;
 import com.inqwise.opinion.library.managers.ParametersManager;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.opinion.actions.ActionFlow;
-import com.inqwise.opinion.opinion.common.collectors.CollectorSourceType;
-import com.inqwise.opinion.opinion.common.collectors.CollectorStatus;
-import com.inqwise.opinion.opinion.common.collectors.ICollectorSource;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
-import com.inqwise.opinion.opinion.dao.CollectorsDataAccess;
-import com.inqwise.opinion.opinion.dao.IInsertCollectorParams;
-import com.inqwise.opinion.opinion.managers.CollectorSourcesManager;
-import com.inqwise.opinion.opinion.managers.OpinionsManager;
+import com.inqwise.opinion.actions.ActionFlow;
+import com.inqwise.opinion.common.collectors.CollectorSourceType;
+import com.inqwise.opinion.common.collectors.CollectorStatus;
+import com.inqwise.opinion.common.collectors.ICollectorSource;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.dao.CollectorsDataAccess;
+import com.inqwise.opinion.dao.IInsertCollectorParams;
+import com.inqwise.opinion.managers.CollectorSourcesManager;
+import com.inqwise.opinion.managers.OpinionsManager;
 
 abstract class CreateCollectorFlow<TRequest extends ICreateCollectorRequest> extends ActionFlow<TRequest, OperationResult<Long>> implements IInsertCollectorParams {
 

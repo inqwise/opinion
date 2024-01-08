@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.managers;
+package com.inqwise.opinion.managers;
 
 import java.util.UUID;
 
@@ -6,8 +6,8 @@ import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.inqwise.opinion.opinion.common.GeneralSettingKeys;
-import com.inqwise.opinion.opinion.dao.GeneralSettings;
+import com.inqwise.opinion.common.GeneralSettingKeys;
+import com.inqwise.opinion.dao.GeneralSettings;
 
 public class SettingsManager {
 	private final static ApplicationLog logger = ApplicationLog.getLogger(SettingsManager.class);

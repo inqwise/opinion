@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.http;
+package com.inqwise.opinion.http;
 
 import org.msgpack.annotation.Message;
 

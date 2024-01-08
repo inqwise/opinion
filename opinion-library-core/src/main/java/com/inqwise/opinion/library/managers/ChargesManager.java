@@ -6,16 +6,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
-import net.casper.data.model.filters.CDataFilter;
-import net.casper.data.model.filters.CDataFilterClause;
-import net.casper.data.model.filters.EqualsFilter;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.time.DateUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import com.google.common.collect.Lists;
 import com.inqwise.opinion.automation.EventsServiceClient;
 import com.inqwise.opinion.automation.common.events.ChargeStatusChangedEventArgs;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
@@ -33,6 +31,8 @@ import com.inqwise.opinion.library.common.parameters.IVariableSet;
 import com.inqwise.opinion.library.common.parameters.PermissionsKeys;
 import com.inqwise.opinion.library.common.parameters.VariablesCategories;
 import com.inqwise.opinion.library.common.pay.BillType;
+import com.inqwise.opinion.library.common.pay.ChargeModel;
+import com.inqwise.opinion.library.common.pay.ChargeRepositoryParser;
 import com.inqwise.opinion.library.common.pay.ChargeStatus;
 import com.inqwise.opinion.library.common.pay.ICancelChargeRequest;
 import com.inqwise.opinion.library.common.pay.ICharge;
@@ -45,9 +45,10 @@ import com.inqwise.opinion.library.entities.pay.ChargeEntity;
 public class ChargesManager {
 	static ApplicationLog logger = ApplicationLog.getLogger(ChargesManager.class);
 	
-	public static CDataCacheContainer getCharges(int top, Long billId, Integer billTypeId, Long accountId, Integer statusId, boolean includeExpired, Boolean billed){
+	public static List<ChargeModel> getCharges(int top, Long billId, Integer billTypeId, Long accountId, Integer statusId, boolean includeExpired, Boolean billed){
 		try {
-			return ChargesDataAccess.getCharges(top, billId, billTypeId, accountId, statusId, includeExpired, billed);
+			var arr = ChargesDataAccess.getCharges(top, billId, billTypeId, accountId, statusId, includeExpired, billed);
+			return arr.toList().stream().map(i -> (JSONObject)i).map(new ChargeRepositoryParser()::parse).collect(Collectors.toList());
 		} catch (DAOException e) {
 			throw new Error(e);
 		}
@@ -205,7 +206,7 @@ public class ChargesManager {
 		}
 	}
 	
-	public static CDataCacheContainer getPostPayActions(Long chargeId){
+	public static JSONArray getPostPayActions(Long chargeId){
 		try {
 			return ChargesDataAccess.getPostPayActions(chargeId, null, null);
 		} catch (DAOException e) {
@@ -235,7 +236,7 @@ public class ChargesManager {
 		return result;
 	}
 	
-	public static CDataCacheContainer getChargesByReferenceId(Long accountId,
+	public static JSONArray getChargesByReferenceId(Long accountId,
 			long referenceId, int referenceTypeId) {
 		
 		try {
@@ -248,11 +249,11 @@ public class ChargesManager {
 	public static BaseOperationResult cancelOrder(long collectorId, int referenceTypeId, Long accountId, long userId) {
 		BaseOperationResult result = new BaseOperationResult();
 		try{
-			CDataCacheContainer dataSet = getChargesByReferenceId(accountId, collectorId, referenceTypeId);
-			CDataRowSet rowSet = dataSet.getAll();
-			while(rowSet.next()){
-				long chargeId = rowSet.getLong("charge_id");
-				ChargeStatus status = ChargeStatus.fromInt(rowSet.getInt("status_id"));
+			JSONArray arr = getChargesByReferenceId(accountId, collectorId, referenceTypeId);
+			for (int i = 0; i < arr.length(); i++) {
+				var json = arr.getJSONObject(i);
+				long chargeId = json.getLong("charge_id");
+				ChargeStatus status = ChargeStatus.fromInt(json.getInt("status_id"));
 				if(status == ChargeStatus.Unpaid){
 					BaseOperationResult deleteResult = deleteCharge(chargeId, userId, accountId);
 					if(deleteResult.hasError() && !result.hasError()){
@@ -310,24 +311,28 @@ public class ChargesManager {
 		return result;
 	}
 
-	public static CDataRowSet getCharges(int top, Long accountId, Long billId,
+	public static List<ChargeModel> getCharges(int top, Long accountId, Long billId,
 			Integer billTypeId, Integer statusId, List<Integer> statusIds,
-			boolean includeExpired, Boolean invoiced, List<Long> chargesIds)
-			throws CDataGridException {
-		CDataCacheContainer ds = getCharges(top, billId, billTypeId, accountId, statusId, includeExpired, invoiced);
+			boolean includeExpired, Boolean invoiced, List<Long> chargesIds) {
+		List<ChargeModel> list = getCharges(top, billId, billTypeId, accountId, statusId, includeExpired, invoiced);
 		
-		CDataFilterClause filterClause = new CDataFilterClause();
+		Stream<ChargeModel> stream = list.stream();
+		
+//		CDataFilterClause filterClause = new CDataFilterClause();
 		if(null != chargesIds){
-			CDataFilter chargeIdFilter = new EqualsFilter("charge_id", chargesIds.toArray());
-			filterClause.addFilter(chargeIdFilter);
+			stream = stream.filter(itm -> chargesIds.contains(itm.getId()));
+			
+//			CDataFilter chargeIdFilter = new EqualsFilter("charge_id", chargesIds.toArray());
+//			filterClause.addFilter(chargeIdFilter);
 		}
 		
 		if(null != statusIds){
-			CDataFilter statusIdFilter = new EqualsFilter("charge_status_id", statusIds.toArray());
-			filterClause.addFilter(statusIdFilter);
+			stream = stream.filter(itm -> statusIds.contains(itm.getStatus().getValue()));
+			
+//			CDataFilter statusIdFilter = new EqualsFilter("charge_status_id", statusIds.toArray());
+//			filterClause.addFilter(statusIdFilter);
 		}
 		
-		CDataRowSet rowSet = ds.get(filterClause);
-		return rowSet;
+		return stream.collect(Collectors.toList());
 	}
 }

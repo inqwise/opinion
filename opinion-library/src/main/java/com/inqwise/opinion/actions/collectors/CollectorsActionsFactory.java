@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.actions.collectors;
+package com.inqwise.opinion.actions.collectors;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -6,8 +6,8 @@ import java.util.Set;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.actions.ActionFlow;
-import com.inqwise.opinion.opinion.actions.ActionsFactory;
+import com.inqwise.opinion.actions.ActionFlow;
+import com.inqwise.opinion.actions.ActionsFactory;
 
 public final class CollectorsActionsFactory extends ActionsFactory {
 	

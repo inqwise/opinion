@@ -1,14 +1,14 @@
-package com.cint.entities;
+package com.inqwise.opinion.cint.entities;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Element;
 
-import com.cint.common.ILink;
-import com.cint.common.IEntry;
-import com.cint.common.IOrderHistory;
-import com.cint.common.IXmlOwnerCallback;
+import com.inqwise.opinion.cint.common.ILink;
+import com.inqwise.opinion.cint.common.IEntry;
+import com.inqwise.opinion.cint.common.IOrderHistory;
+import com.inqwise.opinion.cint.common.IXmlOwnerCallback;
 
 public class OrderHistoryEntity implements IOrderHistory, IXmlOwnerCallback {
 	

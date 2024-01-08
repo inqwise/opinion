@@ -1,4 +1,4 @@
-package com.cint.common;
+package com.inqwise.opinion.cint.common;
 
 public interface IOrderEventLive extends IOrderEvent {
 

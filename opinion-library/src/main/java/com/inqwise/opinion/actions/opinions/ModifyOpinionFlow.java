@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.actions.opinions;
+package com.inqwise.opinion.actions.opinions;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,9 +9,9 @@ import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.actions.ActionFlow;
-import com.inqwise.opinion.opinion.dao.IUpdateOpinionParams;
-import com.inqwise.opinion.opinion.dao.OpinionsDataAccess;
+import com.inqwise.opinion.actions.ActionFlow;
+import com.inqwise.opinion.dao.IUpdateOpinionParams;
+import com.inqwise.opinion.dao.OpinionsDataAccess;
 
 abstract class ModifyOpinionFlow<TRequest extends IModifyOpinionRequest> extends ActionFlow<TRequest, BaseOperationResult> implements IUpdateOpinionParams {
 

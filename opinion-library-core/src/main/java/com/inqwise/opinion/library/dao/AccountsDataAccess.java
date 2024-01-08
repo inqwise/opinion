@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jooq.impl.DSL;
-import org.jooq.tools.json.JSONArray;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.inqwise.opinion.infrastructure.dao.DAOException;

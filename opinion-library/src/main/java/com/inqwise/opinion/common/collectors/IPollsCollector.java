@@ -1,6 +1,6 @@
-package com.inqwise.opinion.opinion.common.collectors;
+package com.inqwise.opinion.common.collectors;
 
-import com.inqwise.opinion.opinion.common.ResultsPermissionType;
+import com.inqwise.opinion.common.ResultsPermissionType;
 
 public interface IPollsCollector extends ICollector, ICollector.IEndDateExtension, ICollector.IMultiplyResponsesExtension, ICollector.IPasswordExtension, ICollector.IMessagesExtension {
 	ResultsPermissionType getResultsType();

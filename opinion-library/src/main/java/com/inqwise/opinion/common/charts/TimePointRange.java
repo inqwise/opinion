@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common.charts;
+package com.inqwise.opinion.common.charts;
 
 public enum TimePointRange {
 	Unknown(0),

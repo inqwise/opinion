@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common.collectors;
+package com.inqwise.opinion.common.collectors;
 
 
 import java.util.Date;
@@ -8,8 +8,8 @@ import org.json.JSONObject;
 
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.OpinionType;
 
 public interface ICollector {
 

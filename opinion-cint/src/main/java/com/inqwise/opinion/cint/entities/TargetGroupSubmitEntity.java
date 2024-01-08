@@ -1,11 +1,11 @@
-package com.cint.entities;
+package com.inqwise.opinion.cint.entities;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cint.common.ITargetGroupSubmit;
-import com.cint.common.errorHandle.CintBaseOperationResult;
-import com.cint.common.errorHandle.CintErrorCode;
+import com.inqwise.opinion.cint.common.ITargetGroupSubmit;
+import com.inqwise.opinion.cint.common.errorHandle.CintBaseOperationResult;
+import com.inqwise.opinion.cint.common.errorHandle.CintErrorCode;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 
 class TargetGroupSubmitEntity implements ITargetGroupSubmit {

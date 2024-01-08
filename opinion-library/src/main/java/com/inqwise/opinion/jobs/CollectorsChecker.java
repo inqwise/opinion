@@ -1,27 +1,23 @@
-package com.inqwise.opinion.opinion.jobs;
+package com.inqwise.opinion.jobs;
 
 import java.util.UUID;
 
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
-
-import com.cint.CintApiService;
-import com.cint.OrderDetailsRequest;
-import com.cint.common.IOrder;
-import com.cint.common.errorHandle.CintErrorCode;
-import com.cint.common.errorHandle.CintOperationResult;
 import com.inqwise.opinion.automation.common.jobs.IJobExecutorCallback;
 import com.inqwise.opinion.automation.common.jobs.Job;
 import com.inqwise.opinion.automation.common.jobs.JobSettings;
+import com.inqwise.opinion.cint.CintApiService;
+import com.inqwise.opinion.cint.OrderDetailsRequest;
+import com.inqwise.opinion.cint.common.IOrder;
+import com.inqwise.opinion.cint.common.errorHandle.CintErrorCode;
+import com.inqwise.opinion.cint.common.errorHandle.CintOperationResult;
+import com.inqwise.opinion.common.collectors.CollectorStatus;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.common.collectors.IPanelSurveysCollector;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
-import com.inqwise.opinion.opinion.common.collectors.CollectorStatus;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.common.collectors.IPanelSurveysCollector;
-import com.inqwise.opinion.opinion.managers.CollectorsManager;
+import com.inqwise.opinion.managers.CollectorsManager;
 
 public class CollectorsChecker extends Job {
 	private static ApplicationLog logger = ApplicationLog.getLogger(CollectorsChecker.class);

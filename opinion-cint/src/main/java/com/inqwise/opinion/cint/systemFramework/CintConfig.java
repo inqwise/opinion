@@ -1,4 +1,4 @@
-package com.cint.systemFramework;
+package com.inqwise.opinion.cint.systemFramework;
 
 import com.inqwise.opinion.infrastructure.systemFramework.BaseApplicationConfiguration;
 

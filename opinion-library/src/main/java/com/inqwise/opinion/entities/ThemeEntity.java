@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities;
+package com.inqwise.opinion.entities;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,9 +13,9 @@ import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.ITheme;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
-import com.inqwise.opinion.opinion.dao.ThemesDataAccess;
+import com.inqwise.opinion.common.ITheme;
+import com.inqwise.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.dao.ThemesDataAccess;
 
 public class ThemeEntity implements ITheme {
 	public static ApplicationLog logger = ApplicationLog.getLogger(ThemeEntity.class);

@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities.controls;
+package com.inqwise.opinion.entities.controls;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,20 +19,20 @@ import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.entities.BaseEntity;
 import com.inqwise.opinion.library.managers.AccountsManager;
-import com.inqwise.opinion.opinion.common.ControlType;
-import com.inqwise.opinion.opinion.common.IControl;
-import com.inqwise.opinion.opinion.common.IControlRequest;
-import com.inqwise.opinion.opinion.common.ICreateResult;
-import com.inqwise.opinion.opinion.common.IModifyControlDetailsRequest;
-import com.inqwise.opinion.opinion.common.IOption;
-import com.inqwise.opinion.opinion.common.IOptionRequest;
-import com.inqwise.opinion.opinion.common.ParentType;
-import com.inqwise.opinion.opinion.common.SurveyStatistics;
-import com.inqwise.opinion.opinion.common.servicePackage.IServicePackageSettings;
-import com.inqwise.opinion.opinion.dao.ControlsDataAccess;
-import com.inqwise.opinion.opinion.entities.OptionEntity;
-import com.inqwise.opinion.opinion.entities.ServicePackageSettingsEntity;
-import com.inqwise.opinion.opinion.entities.SurveyEntity;
+import com.inqwise.opinion.common.ControlType;
+import com.inqwise.opinion.common.IControl;
+import com.inqwise.opinion.common.IControlRequest;
+import com.inqwise.opinion.common.ICreateResult;
+import com.inqwise.opinion.common.IModifyControlDetailsRequest;
+import com.inqwise.opinion.common.IOption;
+import com.inqwise.opinion.common.IOptionRequest;
+import com.inqwise.opinion.common.ParentType;
+import com.inqwise.opinion.common.SurveyStatistics;
+import com.inqwise.opinion.common.servicePackage.IServicePackageSettings;
+import com.inqwise.opinion.dao.ControlsDataAccess;
+import com.inqwise.opinion.entities.OptionEntity;
+import com.inqwise.opinion.entities.ServicePackageSettingsEntity;
+import com.inqwise.opinion.entities.SurveyEntity;
 
 public abstract class ControlEntity extends BaseEntity implements IControl{
 	

@@ -1,21 +1,21 @@
-package com.inqwise.opinion.opinion.entities.analizeResults;
+package com.inqwise.opinion.entities.analizeResults;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
-import net.casper.data.model.CDataCacheContainer;
-
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.inqwise.opinion.common.GuidType;
+import com.inqwise.opinion.common.IAnswererSession;
+import com.inqwise.opinion.dao.AnswerersSessionsDataAccess;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
-import com.inqwise.opinion.infrastructure.dao.IDataFillable;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
@@ -24,9 +24,6 @@ import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.entities.BaseEntity;
-import com.inqwise.opinion.opinion.common.GuidType;
-import com.inqwise.opinion.opinion.common.IAnswererSession;
-import com.inqwise.opinion.opinion.dao.AnswerersSessionsDataAccess;
 
 public class AnswererSessionEntity extends BaseEntity implements IAnswererSession {
 	/**
@@ -186,7 +183,7 @@ public class AnswererSessionEntity extends BaseEntity implements IAnswererSessio
 		return answerSessionId;
 	}
 	
-	public static CDataCacheContainer getAnswerersSessions(Long opinionId, Long accountId, Long collectorId, String respondentId, boolean includeUnplanned, Long fromIndex, Integer top, AtomicLong total){
+	public static JSONArray getAnswerersSessions(Long opinionId, Long accountId, Long collectorId, String respondentId, boolean includeUnplanned, Long fromIndex, Integer top, AtomicLong total){
 		try {
 			return AnswerersSessionsDataAccess.getAnswerersSessions(opinionId, accountId, collectorId, respondentId, includeUnplanned, fromIndex, top, total);
 		} catch (DAOException e) {

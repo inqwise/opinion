@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common.charts;
+package com.inqwise.opinion.common.charts;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.managers;
+package com.inqwise.opinion.managers;
 
 import java.util.List;
 
@@ -6,11 +6,11 @@ import com.inqwise.opinion.library.common.accounts.IAccount;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.inqwise.opinion.opinion.common.IControl;
-import com.inqwise.opinion.opinion.common.IControlRequest;
-import com.inqwise.opinion.opinion.common.IModifyControlDetailsRequest;
-import com.inqwise.opinion.opinion.common.ParentType;
-import com.inqwise.opinion.opinion.entities.controls.ControlEntity;
+import com.inqwise.opinion.common.IControl;
+import com.inqwise.opinion.common.IControlRequest;
+import com.inqwise.opinion.common.IModifyControlDetailsRequest;
+import com.inqwise.opinion.common.ParentType;
+import com.inqwise.opinion.entities.controls.ControlEntity;
 
 public final class ControlsManager {
 	private static ApplicationLog logger = ApplicationLog.getLogger(ControlsManager.class);

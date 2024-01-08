@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.managers;
+package com.inqwise.opinion.managers;
 
 import java.io.File;
 import java.util.UUID;
@@ -13,8 +13,8 @@ import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.managers.EmailsManager;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.opinion.common.emails.IAnswererFinishResponseEmailData;
-import com.inqwise.opinion.opinion.common.emails.ICollectLinkEmailData;
+import com.inqwise.opinion.common.emails.IAnswererFinishResponseEmailData;
+import com.inqwise.opinion.common.emails.ICollectLinkEmailData;
 
 public class OpinionEmailsManager extends EmailsManager {
 

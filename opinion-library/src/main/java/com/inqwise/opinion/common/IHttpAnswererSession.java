@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common;
+package com.inqwise.opinion.common;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;

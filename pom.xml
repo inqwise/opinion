@@ -31,7 +31,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>10</java.version>
 		<commons.lang.version>2.5</commons.lang.version>
-		<guava.version>15.0</guava.version>
+		<guava.version>33.0.0-jre</guava.version>
 		<mysql.conector.version>8.0.28</mysql.conector.version>
 		<json.version>20231013</json.version>
 		<log4j2.version>2.22.0</log4j2.version>

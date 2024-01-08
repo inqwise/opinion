@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities;
+package com.inqwise.opinion.entities;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,18 +15,18 @@ import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.parameters.IVariableSet;
-import com.inqwise.opinion.opinion.actions.opinions.ICreatePollRequest;
-import com.inqwise.opinion.opinion.actions.opinions.IModifyPollRequest;
-import com.inqwise.opinion.opinion.actions.opinions.IModifySurveyRequest;
-import com.inqwise.opinion.opinion.actions.opinions.OpinionsActionsFactory;
-import com.inqwise.opinion.opinion.common.IControl;
-import com.inqwise.opinion.opinion.common.ParentType;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.opinions.IPoll;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion.JsonNames;
-import com.inqwise.opinion.opinion.entities.controls.ControlEntity;
-import com.inqwise.opinion.opinion.managers.ControlsManager;
+import com.inqwise.opinion.actions.opinions.ICreatePollRequest;
+import com.inqwise.opinion.actions.opinions.IModifyPollRequest;
+import com.inqwise.opinion.actions.opinions.IModifySurveyRequest;
+import com.inqwise.opinion.actions.opinions.OpinionsActionsFactory;
+import com.inqwise.opinion.common.IControl;
+import com.inqwise.opinion.common.ParentType;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.IPoll;
+import com.inqwise.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.common.opinions.IOpinion.JsonNames;
+import com.inqwise.opinion.entities.controls.ControlEntity;
+import com.inqwise.opinion.managers.ControlsManager;
 
 public class PollEntity extends OpinionEntity implements IPoll {
 
