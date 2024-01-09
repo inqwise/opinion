@@ -1,4 +1,4 @@
-package com.cint.common;
+package com.inqwise.opinion.cint.common;
 
 import org.w3c.dom.Document;
 

@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.managers;
+package com.inqwise.opinion.managers;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -10,11 +10,29 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import net.casper.data.model.CDataCacheContainer;
-
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+import com.inqwise.opinion.actions.opinions.ICreatePollRequest;
+import com.inqwise.opinion.actions.opinions.ICreateSurveyRequest;
+import com.inqwise.opinion.actions.opinions.OpinionsActionsFactory;
+import com.inqwise.opinion.common.IControlType;
+import com.inqwise.opinion.common.IOptionRequest;
+import com.inqwise.opinion.common.ITheme;
+import com.inqwise.opinion.common.SurveyStatistics;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.IOpinionTemplate;
+import com.inqwise.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.common.opinions.OpinionsOrderBy;
+import com.inqwise.opinion.dao.OpinionsDataAccess;
+import com.inqwise.opinion.entities.ControlTypeEntity;
+import com.inqwise.opinion.entities.OpinionEntity;
+import com.inqwise.opinion.entities.OptionEntity;
+import com.inqwise.opinion.entities.SurveyEntity;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
@@ -27,25 +45,6 @@ import com.inqwise.opinion.library.common.parameters.IVariableSet;
 import com.inqwise.opinion.library.common.parameters.VariablesCategories;
 import com.inqwise.opinion.library.managers.AccountsManager;
 import com.inqwise.opinion.library.managers.ParametersManager;
-import com.inqwise.opinion.opinion.actions.opinions.ICreatePollRequest;
-import com.inqwise.opinion.opinion.actions.opinions.ICreateSurveyRequest;
-import com.inqwise.opinion.opinion.actions.opinions.OpinionsActionsFactory;
-import com.inqwise.opinion.opinion.common.IControlType;
-import com.inqwise.opinion.opinion.common.IOptionRequest;
-import com.inqwise.opinion.opinion.common.ITheme;
-import com.inqwise.opinion.opinion.common.SurveyStatistics;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.opinions.IOpinionTemplate;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
-import com.inqwise.opinion.opinion.common.opinions.OpinionsOrderBy;
-import com.inqwise.opinion.opinion.dao.OpinionsDataAccess;
-import com.inqwise.opinion.opinion.entities.ControlTypeEntity;
-import com.inqwise.opinion.opinion.entities.OpinionEntity;
-import com.inqwise.opinion.opinion.entities.OptionEntity;
-import com.inqwise.opinion.opinion.entities.SurveyEntity;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 
 public class OpinionsManager {
 	
@@ -178,7 +177,7 @@ public class OpinionsManager {
 		return SurveyEntity.getSurveyShortStatistics(opinionId);
 	}
 	
-	public static CDataCacheContainer getOpinions(Long accountId, int top, Date from, Date to, Integer opinionTypeId, long translationId, OpinionsOrderBy orderBy){
+	public static JSONArray getOpinions(Long accountId, int top, Date from, Date to, Integer opinionTypeId, long translationId, OpinionsOrderBy orderBy){
 		try {
 			return OpinionsDataAccess.getOpinions(accountId, top, from, to, opinionTypeId, translationId, (null == orderBy ? null : orderBy.getValue()));
 		} catch (DAOException e) {
@@ -417,7 +416,7 @@ public class OpinionsManager {
 		return result;
 	}
 	
-	public static CDataCacheContainer getTemplates(){
+	public static JSONArray getTemplates(){
 		try {
 			return OpinionsDataAccess.getTemplatesDataSet();
 		} catch (DAOException e) {

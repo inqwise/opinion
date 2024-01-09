@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common.sheet;
+package com.inqwise.opinion.common.sheet;
 import java.util.Collection;
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.json.JSONObject;
 import com.inqwise.opinion.library.common.accounts.IAccount;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.IControl;
-import com.inqwise.opinion.opinion.common.IControlRequest;
+import com.inqwise.opinion.common.IControl;
+import com.inqwise.opinion.common.IControlRequest;
 
 public interface ISheet {
 	

@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.managers;
+package com.inqwise.opinion.managers;
 
 import java.util.UUID;
 
@@ -7,8 +7,8 @@ import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.inqwise.opinion.opinion.common.audit.IAuditRequest;
-import com.inqwise.opinion.opinion.dao.Audits;
+import com.inqwise.opinion.common.audit.IAuditRequest;
+import com.inqwise.opinion.dao.Audits;
 
 public class AuditsManager {
 	private static ApplicationLog logger = ApplicationLog.getLogger(AuditsManager.class);

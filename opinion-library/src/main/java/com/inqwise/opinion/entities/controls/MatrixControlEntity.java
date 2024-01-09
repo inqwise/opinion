@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities.controls;
+package com.inqwise.opinion.entities.controls;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,11 +14,11 @@ import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.inqwise.opinion.opinion.common.ControlType;
-import com.inqwise.opinion.opinion.common.IControl;
-import com.inqwise.opinion.opinion.common.IControlRequest;
-import com.inqwise.opinion.opinion.common.ParentType;
-import com.inqwise.opinion.opinion.common.analizeResults.IControlsContainer;
+import com.inqwise.opinion.common.ControlType;
+import com.inqwise.opinion.common.IControl;
+import com.inqwise.opinion.common.IControlRequest;
+import com.inqwise.opinion.common.ParentType;
+import com.inqwise.opinion.common.analizeResults.IControlsContainer;
 
 public class MatrixControlEntity extends OptionListControlEntity implements IControlsContainer<IControl>{
 

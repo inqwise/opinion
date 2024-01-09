@@ -1,9 +1,9 @@
-package com.cint.entities;
+package com.inqwise.opinion.cint.entities;
 
 import org.w3c.dom.Element;
 
-import com.cint.common.IOrderEventCompleted;
-import com.cint.common.OrderEventType;
+import com.inqwise.opinion.cint.common.IOrderEventCompleted;
+import com.inqwise.opinion.cint.common.OrderEventType;
 
 public class OrderEventCompletedEntity extends OrderEventEntity implements IOrderEventCompleted  {
 

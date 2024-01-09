@@ -1,7 +1,7 @@
-package com.cint.common;
+package com.inqwise.opinion.cint.common;
 
-import com.cint.common.errorHandle.CintBaseOperationResult;
-import com.cint.core.RequestType;
+import com.inqwise.opinion.cint.common.errorHandle.CintBaseOperationResult;
+import com.inqwise.opinion.cint.core.RequestType;
 
 public interface IRequestVoid {
 	String getUrl();

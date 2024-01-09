@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.managers;
+package com.inqwise.opinion.managers;
 
 import java.util.List;
 import java.util.UUID;
@@ -8,12 +8,12 @@ import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.opinions.ISurvey;
-import com.inqwise.opinion.opinion.common.sheet.ISheet;
-import com.inqwise.opinion.opinion.common.sheet.ISheetRequest;
-import com.inqwise.opinion.opinion.common.sheet.StartSheetIndexData;
-import com.inqwise.opinion.opinion.dao.Sheets;
-import com.inqwise.opinion.opinion.entities.SheetEntity;
+import com.inqwise.opinion.common.opinions.ISurvey;
+import com.inqwise.opinion.common.sheet.ISheet;
+import com.inqwise.opinion.common.sheet.ISheetRequest;
+import com.inqwise.opinion.common.sheet.StartSheetIndexData;
+import com.inqwise.opinion.dao.Sheets;
+import com.inqwise.opinion.entities.SheetEntity;
 
 public class SheetsManager {
 	private static ApplicationLog logger = ApplicationLog.getLogger(SheetsManager.class);

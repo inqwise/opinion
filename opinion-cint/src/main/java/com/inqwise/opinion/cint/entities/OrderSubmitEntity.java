@@ -1,9 +1,9 @@
-package com.cint.entities;
+package com.inqwise.opinion.cint.entities;
 
-import com.cint.common.IOrderSubmit;
-import com.cint.common.ITargetGroupSubmit;
-import com.cint.common.errorHandle.CintBaseOperationResult;
-import com.cint.common.errorHandle.CintErrorCode;
+import com.inqwise.opinion.cint.common.IOrderSubmit;
+import com.inqwise.opinion.cint.common.ITargetGroupSubmit;
+import com.inqwise.opinion.cint.common.errorHandle.CintBaseOperationResult;
+import com.inqwise.opinion.cint.common.errorHandle.CintErrorCode;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 
 public class OrderSubmitEntity implements IOrderSubmit {

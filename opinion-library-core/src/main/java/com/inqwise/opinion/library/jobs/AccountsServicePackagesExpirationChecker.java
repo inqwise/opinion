@@ -4,9 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataRowSet;
-
 import org.apache.commons.lang3.time.DateUtils;
 
 import com.inqwise.opinion.automation.common.jobs.IJobExecutorCallback;
@@ -43,20 +40,21 @@ public class AccountsServicePackagesExpirationChecker extends Job {
 		BaseOperationResult result;
 		try {
 			Date today = DateConverter.trim(new Date());
-			Date yestorday = DateUtils.addDays(today, 2);
-			CDataCacheContainer ds = AccountsManager.getAccountsWithExpiredServicePackages(yestorday);
-			CDataRowSet rowSet = ds.getAll();
-			while(rowSet.next()){
-				int productId = rowSet.getInt("product_id");
+			Date yesterday = DateUtils.addDays(today, 2);
+			var arr = AccountsManager.getAccountsWithExpiredServicePackages(yesterday);
+			for (int i = 0; i < arr.length(); i++) {
+				var json = arr.getJSONObject(i);
+
+				int productId = json.getInt("product_id");
 				if(null == product || product.getId() != productId){
 					product = ProductsManager.getProductById(productId).getValue();
 					defaultServicePackage = product.getDefaultServicePackage();
 				}
 				
-				long accountId = rowSet.getLong("account_id");
-				long userId = rowSet.getLong("user_id");
-				Date expiryDate = rowSet.getDate("expiry_date");
-				int currentServicePackageId = rowSet.getInt("service_package_id");
+				long accountId = json.getLong("account_id");
+				long userId = json.getLong("user_id");
+				Date expiryDate = (Date)json.get("expiry_date");
+				int currentServicePackageId = json.getInt("service_package_id");
 				IServicePackage currentServicePackage = product.getServicePackage(currentServicePackageId);
 				
 				IAccountView account = AccountsManager.getAccount(accountId).getValue();

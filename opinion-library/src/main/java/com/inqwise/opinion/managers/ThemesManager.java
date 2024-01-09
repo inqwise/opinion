@@ -1,13 +1,16 @@
-package com.inqwise.opinion.opinion.managers;
+package com.inqwise.opinion.managers;
 
 import java.sql.ResultSet;
-import java.util.List;
 import java.util.UUID;
 
-import net.casper.data.model.CDataCacheContainer;
+import org.json.JSONArray;
 
+import com.inqwise.opinion.common.ITheme;
+import com.inqwise.opinion.common.OutputMode;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.dao.ThemesDataAccess;
+import com.inqwise.opinion.entities.ThemeEntity;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
-import com.inqwise.opinion.infrastructure.dao.IDataFillable;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
@@ -15,20 +18,12 @@ import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.dao.DAOBase;
-import com.inqwise.opinion.opinion.common.ITheme;
-import com.inqwise.opinion.opinion.common.OutputMode;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.dao.OpinionsDataAccess;
-import com.inqwise.opinion.opinion.dao.ThemesDataAccess;
-import com.inqwise.opinion.opinion.entities.OpinionEntity;
-import com.inqwise.opinion.opinion.entities.ThemeEntity;
 
 
 public class ThemesManager {
 	public static ApplicationLog logger = ApplicationLog.getLogger(ThemesManager.class);
 	
-	public static CDataCacheContainer getMeny(long accountId, Integer top, int opinionTypeId) {
+	public static JSONArray getMeny(long accountId, Integer top, int opinionTypeId) {
 		try {
 			return ThemesDataAccess.getThemes(accountId, top, opinionTypeId);
 		} catch (DAOException e) {

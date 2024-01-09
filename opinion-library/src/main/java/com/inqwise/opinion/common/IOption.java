@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common;
+package com.inqwise.opinion.common;
 
 import org.json.JSONException;
 import org.json.JSONObject;

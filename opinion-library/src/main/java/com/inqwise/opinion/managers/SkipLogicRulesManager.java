@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.managers;
+package com.inqwise.opinion.managers;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -19,14 +19,14 @@ import com.inqwise.opinion.library.common.parameters.VariablesCategories;
 import com.inqwise.opinion.library.dao.DAOBase;
 import com.inqwise.opinion.library.managers.AccountsManager;
 import com.inqwise.opinion.library.managers.ParametersManager;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.rules.IRule;
-import com.inqwise.opinion.opinion.common.rules.RuleType;
-import com.inqwise.opinion.opinion.common.rules.NewRuleArgs;
-import com.inqwise.opinion.opinion.dao.OpinionsDataAccess;
-import com.inqwise.opinion.opinion.dao.SkipLogicRulesDataAccess;
-import com.inqwise.opinion.opinion.dao.ThemesDataAccess;
-import com.inqwise.opinion.opinion.entities.OpinionEntity;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.rules.IRule;
+import com.inqwise.opinion.common.rules.RuleType;
+import com.inqwise.opinion.common.rules.NewRuleArgs;
+import com.inqwise.opinion.dao.OpinionsDataAccess;
+import com.inqwise.opinion.dao.SkipLogicRulesDataAccess;
+import com.inqwise.opinion.dao.ThemesDataAccess;
+import com.inqwise.opinion.entities.OpinionEntity;
 
 public class SkipLogicRulesManager {
 	private static ApplicationLog logger = ApplicationLog

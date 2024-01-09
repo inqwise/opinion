@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities;
+package com.inqwise.opinion.entities;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,23 +26,23 @@ import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.parameters.IVariableSet;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.opinion.actions.opinions.ICreateSurveyRequest;
-import com.inqwise.opinion.opinion.actions.opinions.IModifySurveyRequest;
-import com.inqwise.opinion.opinion.actions.opinions.OpinionsActionsFactory;
-import com.inqwise.opinion.opinion.common.SurveyStatistics;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.common.opinions.FinishBehaviourType;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.opinions.IPoll;
-import com.inqwise.opinion.opinion.common.opinions.ISurvey;
-import com.inqwise.opinion.opinion.common.opinions.LabelPlacement;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion.JsonNames;
-import com.inqwise.opinion.opinion.common.sheet.ISheet;
-import com.inqwise.opinion.opinion.common.sheet.ISheetRequest;
-import com.inqwise.opinion.opinion.dao.OpinionsDataAccess;
-import com.inqwise.opinion.opinion.dao.Surveys;
-import com.inqwise.opinion.opinion.managers.SheetsManager;
+import com.inqwise.opinion.actions.opinions.ICreateSurveyRequest;
+import com.inqwise.opinion.actions.opinions.IModifySurveyRequest;
+import com.inqwise.opinion.actions.opinions.OpinionsActionsFactory;
+import com.inqwise.opinion.common.SurveyStatistics;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.common.opinions.FinishBehaviourType;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.IPoll;
+import com.inqwise.opinion.common.opinions.ISurvey;
+import com.inqwise.opinion.common.opinions.LabelPlacement;
+import com.inqwise.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.common.opinions.IOpinion.JsonNames;
+import com.inqwise.opinion.common.sheet.ISheet;
+import com.inqwise.opinion.common.sheet.ISheetRequest;
+import com.inqwise.opinion.dao.OpinionsDataAccess;
+import com.inqwise.opinion.dao.Surveys;
+import com.inqwise.opinion.managers.SheetsManager;
 
 public class SurveyEntity extends OpinionEntity implements ISurvey {
 	

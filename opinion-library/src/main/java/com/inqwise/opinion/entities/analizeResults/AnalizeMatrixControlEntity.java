@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities.analizeResults;
+package com.inqwise.opinion.entities.analizeResults;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,11 +10,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.inqwise.opinion.opinion.common.ControlType;
-import com.inqwise.opinion.opinion.common.analizeResults.IAnalizeControl;
-import com.inqwise.opinion.opinion.common.analizeResults.IAnalizeOption;
-import com.inqwise.opinion.opinion.common.analizeResults.IControlsContainer;
-import com.inqwise.opinion.opinion.common.analizeResults.IOptionsContainer;
+import com.inqwise.opinion.common.ControlType;
+import com.inqwise.opinion.common.analizeResults.IAnalizeControl;
+import com.inqwise.opinion.common.analizeResults.IAnalizeOption;
+import com.inqwise.opinion.common.analizeResults.IControlsContainer;
+import com.inqwise.opinion.common.analizeResults.IOptionsContainer;
 
 public class AnalizeMatrixControlEntity extends AnalizeAdvancedControlEntity implements IControlsContainer<IAnalizeControl>, IOptionsContainer<IAnalizeOption> {
 	

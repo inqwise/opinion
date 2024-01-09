@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
+import com.inqwise.opinion.infrastructure.systemFramework.GeoIpManager;
 import com.inqwise.opinion.library.common.countries.ICountry;
 import com.inqwise.opinion.library.common.countries.IStateProvince;
 import com.inqwise.opinion.library.common.countries.ITimeZone;
@@ -19,7 +20,6 @@ import com.inqwise.opinion.library.dao.CountriesDataAccess;
 import com.inqwise.opinion.library.entities.CountryEntity;
 import com.inqwise.opinion.library.entities.StateProviceEntity;
 import com.inqwise.opinion.library.entities.TimeZoneEntity;
-import com.inqwise.opinion.library.systemFramework.GeoIpManager;
 
 public class CountriesManager {
 	private static ApplicationLog logger = ApplicationLog.getLogger(CountriesManager.class);
@@ -28,7 +28,7 @@ public class CountriesManager {
 	private static List<ICountry> countries;
 	public static ICountry getCountryByIp(String ipAddress) throws IOException{
 		
-		String countryCode = GeoIpManager.getInstance().getCountryCodeOrNull(ipAddress);
+		String countryCode = GeoIpManager.getInstance().getCountryCode(ipAddress);
 		
 		if(null == countriesByIso2){
 			synchronized (CountriesManager.class) {

@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities;
+package com.inqwise.opinion.entities;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,15 +19,15 @@ import com.inqwise.opinion.library.common.accounts.IAccount;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.IControl;
-import com.inqwise.opinion.opinion.common.IControlRequest;
-import com.inqwise.opinion.opinion.common.ParentType;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.sheet.ISheet;
-import com.inqwise.opinion.opinion.common.sheet.ISheetRequest;
-import com.inqwise.opinion.opinion.dao.Sheets;
-import com.inqwise.opinion.opinion.entities.controls.ControlEntity;
-import com.inqwise.opinion.opinion.managers.ControlsManager;
+import com.inqwise.opinion.common.IControl;
+import com.inqwise.opinion.common.IControlRequest;
+import com.inqwise.opinion.common.ParentType;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.sheet.ISheet;
+import com.inqwise.opinion.common.sheet.ISheetRequest;
+import com.inqwise.opinion.dao.Sheets;
+import com.inqwise.opinion.entities.controls.ControlEntity;
+import com.inqwise.opinion.managers.ControlsManager;
 
 public class SheetEntity implements ISheet {
 

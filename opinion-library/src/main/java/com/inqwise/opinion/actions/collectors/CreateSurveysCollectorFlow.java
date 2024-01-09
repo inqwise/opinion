@@ -1,15 +1,15 @@
-package com.inqwise.opinion.opinion.actions.collectors;
+package com.inqwise.opinion.actions.collectors;
 
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.actions.collectors.ICreateSurveysCollectorRequest.IRequestExtension;
-import com.inqwise.opinion.opinion.common.AccountOpinionInfo;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
-import com.inqwise.opinion.opinion.common.servicePackage.IServicePackageSettings;
-import com.inqwise.opinion.opinion.dao.AccountsDataAccess;
-import com.inqwise.opinion.opinion.entities.ServicePackageSettingsEntity;
+import com.inqwise.opinion.actions.collectors.ICreateSurveysCollectorRequest.IRequestExtension;
+import com.inqwise.opinion.common.AccountOpinionInfo;
+import com.inqwise.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.common.servicePackage.IServicePackageSettings;
+import com.inqwise.opinion.dao.AccountsDataAccess;
+import com.inqwise.opinion.entities.ServicePackageSettingsEntity;
 
 class CreateSurveysCollectorFlow extends CreateCollectorFlow<ICreateSurveysCollectorRequest> {
 

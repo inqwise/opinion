@@ -1,4 +1,4 @@
-package com.cint.core;
+package com.inqwise.opinion.cint.core;
 
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;

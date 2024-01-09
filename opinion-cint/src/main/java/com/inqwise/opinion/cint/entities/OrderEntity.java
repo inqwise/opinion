@@ -1,4 +1,4 @@
-package com.cint.entities;
+package com.inqwise.opinion.cint.entities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,15 +6,15 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Element;
 
-import com.cint.common.ICountry;
-import com.cint.common.IEducationLevel;
-import com.cint.common.IGender;
-import com.cint.common.ILink;
-import com.cint.common.IOccupationStatus;
-import com.cint.common.IOrder;
-import com.cint.common.IVariable;
-import com.cint.common.IXmlOwnerCallback;
-import com.cint.common.OrderState;
+import com.inqwise.opinion.cint.common.ICountry;
+import com.inqwise.opinion.cint.common.IEducationLevel;
+import com.inqwise.opinion.cint.common.IGender;
+import com.inqwise.opinion.cint.common.ILink;
+import com.inqwise.opinion.cint.common.IOccupationStatus;
+import com.inqwise.opinion.cint.common.IOrder;
+import com.inqwise.opinion.cint.common.IVariable;
+import com.inqwise.opinion.cint.common.IXmlOwnerCallback;
+import com.inqwise.opinion.cint.common.OrderState;
 
 public class OrderEntity implements IOrder, IXmlOwnerCallback {
 	

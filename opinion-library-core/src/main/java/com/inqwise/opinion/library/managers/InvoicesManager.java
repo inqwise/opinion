@@ -4,9 +4,8 @@ import java.sql.ResultSet;
 import java.util.Map;
 import java.util.UUID;
 
-import net.casper.data.model.CDataCacheContainer;
+import org.json.JSONArray;
 
-import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
@@ -19,7 +18,6 @@ import com.inqwise.opinion.library.common.pay.IInvoiceCreateRequest;
 import com.inqwise.opinion.library.common.pay.IOpenInvoiceRequest;
 import com.inqwise.opinion.library.common.pay.IUpdateInvoiceRequest;
 import com.inqwise.opinion.library.common.pay.InvoiceItemType;
-import com.inqwise.opinion.library.common.pay.InvoiceStatus;
 import com.inqwise.opinion.library.dao.InvoicesDataAccess;
 import com.inqwise.opinion.library.entities.pay.InvoiceEntity;
 
@@ -105,7 +103,7 @@ public class InvoicesManager {
 		return result;
 	}
 
-	public static CDataCacheContainer getInvoices(int top, Long accountId,
+	public static JSONArray getInvoices(int top, Long accountId,
 			Integer invoiceStatusId, boolean includeDue) {
 		
 		try {
@@ -142,7 +140,7 @@ public class InvoicesManager {
 		return result;
 	}
 	
-	public static Map<InvoiceItemType, CDataCacheContainer> getInvoiceItems(long invoiceId){
+	public static Map<InvoiceItemType, JSONArray> getInvoiceItems(long invoiceId){
 		try {
 			return InvoicesDataAccess.getInvoiceItems(invoiceId, BillType.Invoice.getValue());
 		} catch (DAOException e) {

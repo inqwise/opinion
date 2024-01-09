@@ -1,4 +1,4 @@
-package com.cint.exception;
+package com.inqwise.opinion.cint.exception;
 
 public class InvalidCredentialException extends BaseException {
 	

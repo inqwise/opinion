@@ -1,4 +1,4 @@
-package com.cint.core;
+package com.inqwise.opinion.cint.core;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -9,12 +9,12 @@ import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.cint.exception.ClientActionRequiredException;
-import com.cint.exception.HttpErrorException;
-import com.cint.exception.InvalidCredentialException;
-import com.cint.exception.InvalidResponseDataException;
-import com.cint.exception.MissingCredentialException;
-import com.cint.systemFramework.CintConfig;
+import com.inqwise.opinion.cint.exception.ClientActionRequiredException;
+import com.inqwise.opinion.cint.exception.HttpErrorException;
+import com.inqwise.opinion.cint.exception.InvalidCredentialException;
+import com.inqwise.opinion.cint.exception.InvalidResponseDataException;
+import com.inqwise.opinion.cint.exception.MissingCredentialException;
+import com.inqwise.opinion.cint.systemFramework.CintConfig;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 
 /**

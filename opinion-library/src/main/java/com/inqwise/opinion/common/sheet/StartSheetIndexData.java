@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common.sheet;
+package com.inqwise.opinion.common.sheet;
 
 public class StartSheetIndexData {
 

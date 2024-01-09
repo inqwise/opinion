@@ -1,16 +1,16 @@
-package com.cint;
+package com.inqwise.opinion.cint;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.cint.common.IOrder;
-import com.cint.common.IOrderHistory;
-import com.cint.common.IRequest;
-import com.cint.common.errorHandle.CintBaseOperationResult;
-import com.cint.common.errorHandle.CintErrorCode;
-import com.cint.common.errorHandle.CintOperationResult;
-import com.cint.core.RequestType;
-import com.cint.entities.OrderHistoryEntity;
+import com.inqwise.opinion.cint.common.IOrder;
+import com.inqwise.opinion.cint.common.IOrderHistory;
+import com.inqwise.opinion.cint.common.IRequest;
+import com.inqwise.opinion.cint.common.errorHandle.CintBaseOperationResult;
+import com.inqwise.opinion.cint.common.errorHandle.CintErrorCode;
+import com.inqwise.opinion.cint.common.errorHandle.CintOperationResult;
+import com.inqwise.opinion.cint.core.RequestType;
+import com.inqwise.opinion.cint.entities.OrderHistoryEntity;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 
 public class OrderHistoryRequest implements IRequest<IOrderHistory> {

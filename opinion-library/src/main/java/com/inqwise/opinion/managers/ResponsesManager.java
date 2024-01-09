@@ -1,18 +1,22 @@
-package com.inqwise.opinion.opinion.managers;
+package com.inqwise.opinion.managers;
 
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.UUID;
-
-import org.apache.commons.lang3.StringUtils;
 
 import com.inqwise.opinion.automation.EventsServiceClient;
 import com.inqwise.opinion.automation.common.events.ParticipantCompletedEventArgs;
+import com.inqwise.opinion.common.IResponseRequest;
+import com.inqwise.opinion.common.ResponseType;
+import com.inqwise.opinion.common.collectors.CollectorStatus;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.common.emails.IAnswererFinishResponseEmailData;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.dao.Responses;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.IProduct;
@@ -24,15 +28,6 @@ import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.users.IUser;
 import com.inqwise.opinion.library.managers.CountriesManager;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.library.systemFramework.GeoIpManager;
-import com.inqwise.opinion.opinion.common.IResponseRequest;
-import com.inqwise.opinion.opinion.common.ResponseType;
-import com.inqwise.opinion.opinion.common.collectors.CollectorStatus;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.common.emails.IAnswererFinishResponseEmailData;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
-import com.inqwise.opinion.opinion.dao.Responses;
 
 public final class ResponsesManager {
 	private static ApplicationLog logger = ApplicationLog

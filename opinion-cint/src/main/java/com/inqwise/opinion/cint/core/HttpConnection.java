@@ -1,4 +1,4 @@
-package com.cint.core;
+package com.inqwise.opinion.cint.core;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,10 +27,10 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 
-import com.cint.exception.ClientActionRequiredException;
-import com.cint.exception.HttpErrorException;
-import com.cint.exception.InvalidResponseDataException;
-import com.cint.exception.SSLConfigurationException;
+import com.inqwise.opinion.cint.exception.ClientActionRequiredException;
+import com.inqwise.opinion.cint.exception.HttpErrorException;
+import com.inqwise.opinion.cint.exception.InvalidResponseDataException;
+import com.inqwise.opinion.cint.exception.SSLConfigurationException;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 
 /**

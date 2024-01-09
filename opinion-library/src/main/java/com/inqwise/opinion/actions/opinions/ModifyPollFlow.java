@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.actions.opinions;
+package com.inqwise.opinion.actions.opinions;
 
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 

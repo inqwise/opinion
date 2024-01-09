@@ -1,9 +1,9 @@
-package com.inqwise.opinion.opinion.common;
+package com.inqwise.opinion.common;
 
 import com.inqwise.opinion.library.common.IProduct;
 import com.inqwise.opinion.library.common.accounts.IAccount;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.common.opinions.IOpinion;
 
 public interface IOpinionComplexData<T extends IOpinion> {
 	public GuidType getGuidType();

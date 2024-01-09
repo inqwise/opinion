@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.http;
+package com.inqwise.opinion.http;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -17,7 +17,7 @@ import org.json.JSONObject;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.infrastructure.systemFramework.cryptography.StringEncrypter;
-import com.inqwise.opinion.opinion.common.IHttpAnswererSession;
+import com.inqwise.opinion.common.IHttpAnswererSession;
 
 public class HttpAnswererSession implements IHttpAnswererSession {
 	

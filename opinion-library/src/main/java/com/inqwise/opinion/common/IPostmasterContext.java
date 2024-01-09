@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common;
+package com.inqwise.opinion.common;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -13,7 +13,7 @@ import com.inqwise.opinion.library.common.IProduct;
 import com.inqwise.opinion.library.common.accounts.IAccount;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.users.IUser;
-import com.inqwise.opinion.opinion.http.HttpClientSession;
+import com.inqwise.opinion.http.HttpClientSession;
 
 public interface IPostmasterContext {
 	String getClientIp();

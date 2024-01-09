@@ -1,13 +1,13 @@
-package com.inqwise.opinion.opinion.entities;
+package com.inqwise.opinion.entities;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
-import com.inqwise.opinion.opinion.common.collectors.CollectorSourceType;
-import com.inqwise.opinion.opinion.common.collectors.CollectorStatus;
-import com.inqwise.opinion.opinion.common.collectors.ICollectorSource;
+import com.inqwise.opinion.common.collectors.CollectorSourceType;
+import com.inqwise.opinion.common.collectors.CollectorStatus;
+import com.inqwise.opinion.common.collectors.ICollectorSource;
 
 public class CollectorSourceEntity implements ICollectorSource {
 

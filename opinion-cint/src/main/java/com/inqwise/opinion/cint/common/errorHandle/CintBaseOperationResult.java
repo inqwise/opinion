@@ -1,4 +1,4 @@
-package com.cint.common.errorHandle;
+package com.inqwise.opinion.cint.common.errorHandle;
 
 import java.util.UUID;
 

@@ -1,17 +1,17 @@
-package com.cint;
+package com.inqwise.opinion.cint;
 
 import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
 
-import com.cint.common.IOrderSubmit;
-import com.cint.common.IRequest;
-import com.cint.common.ITargetGroupSubmit;
-import com.cint.common.OrderEventType;
-import com.cint.common.errorHandle.CintBaseOperationResult;
-import com.cint.common.errorHandle.CintErrorCode;
-import com.cint.common.errorHandle.CintOperationResult;
-import com.cint.core.RequestType;
-import com.cint.entities.OrderSubmitEntity;
+import com.inqwise.opinion.cint.common.IOrderSubmit;
+import com.inqwise.opinion.cint.common.IRequest;
+import com.inqwise.opinion.cint.common.ITargetGroupSubmit;
+import com.inqwise.opinion.cint.common.OrderEventType;
+import com.inqwise.opinion.cint.common.errorHandle.CintBaseOperationResult;
+import com.inqwise.opinion.cint.common.errorHandle.CintErrorCode;
+import com.inqwise.opinion.cint.common.errorHandle.CintOperationResult;
+import com.inqwise.opinion.cint.core.RequestType;
+import com.inqwise.opinion.cint.entities.OrderSubmitEntity;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 
 public class OrderPurchaseRequest implements IRequest<String>  {

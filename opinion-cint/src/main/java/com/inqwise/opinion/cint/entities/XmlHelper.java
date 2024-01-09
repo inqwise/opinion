@@ -1,4 +1,4 @@
-package com.cint.entities;
+package com.inqwise.opinion.cint.entities;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -9,7 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.cint.common.IXmlOwnerCallback;
+import com.inqwise.opinion.cint.common.IXmlOwnerCallback;
 
 class XmlHelper {
 	public static void parse(Element element, IXmlOwnerCallback callback){

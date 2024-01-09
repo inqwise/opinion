@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.actions.opinions;
+package com.inqwise.opinion.actions.opinions;
 
 import java.util.HashMap;
 
@@ -15,10 +15,10 @@ import com.inqwise.opinion.library.common.parameters.IVariableSet;
 import com.inqwise.opinion.library.common.parameters.PermissionsKeys;
 import com.inqwise.opinion.library.common.parameters.VariablesCategories;
 import com.inqwise.opinion.library.managers.ParametersManager;
-//import com.inqwise.opinion.opinion.managers.AccountsManager;
+//import com.inqwise.opinion.managers.AccountsManager;
 import com.inqwise.opinion.library.managers.AccountsManager;
-import com.inqwise.opinion.opinion.common.opinions.FinishBehaviourType;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.FinishBehaviourType;
+import com.inqwise.opinion.common.opinions.IOpinion;
 
 
 class ModifySurveyFlow extends ModifyOpinionFlow<IModifySurveyRequest> {

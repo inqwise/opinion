@@ -1,7 +1,7 @@
-package com.inqwise.opinion.opinion.actions.collectors;
+package com.inqwise.opinion.actions.collectors;
 
 import com.inqwise.opinion.infrastructure.dao.SqlProcParameter;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.common.opinions.OpinionType;
 
 
 class CreatePollsCollectorFlow extends CreateCollectorFlow<ICreatePollsCollectorRequest> {

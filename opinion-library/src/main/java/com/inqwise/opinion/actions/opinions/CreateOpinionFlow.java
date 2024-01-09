@@ -1,11 +1,16 @@
-package com.inqwise.opinion.opinion.actions.opinions;
+package com.inqwise.opinion.actions.opinions;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
+import com.inqwise.opinion.actions.ActionFlow;
 import com.inqwise.opinion.automation.EventsServiceClient;
 import com.inqwise.opinion.automation.common.events.OpinionCreatedEventArgs;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.dao.IInsertOpinionParams;
+import com.inqwise.opinion.dao.OpinionsDataAccess;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.accounts.IAccountView;
@@ -15,12 +20,6 @@ import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.managers.AccountsManager;
 import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.opinion.actions.ActionFlow;
-import com.inqwise.opinion.opinion.actions.opinions.ICreateOpinionRequest.IRequestExtension;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
-import com.inqwise.opinion.opinion.dao.IInsertOpinionParams;
-import com.inqwise.opinion.opinion.dao.OpinionsDataAccess;
 
 abstract class CreateOpinionFlow<TRequest extends ICreateOpinionRequest> extends ActionFlow<TRequest, OperationResult<Long>> implements IInsertOpinionParams {
 

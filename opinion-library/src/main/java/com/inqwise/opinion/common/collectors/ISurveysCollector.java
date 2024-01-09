@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common.collectors;
+package com.inqwise.opinion.common.collectors;
 
 
 public interface ISurveysCollector extends ICollector, ICollector.IEndDateExtension, ICollector.IMultiplyResponsesExtension, ICollector.IPasswordExtension, ICollector.IMessagesExtension, ICollector.IMultiPageExtension {

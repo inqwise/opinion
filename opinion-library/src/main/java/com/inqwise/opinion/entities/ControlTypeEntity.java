@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities;
+package com.inqwise.opinion.entities;
 
 import java.sql.ResultSet;
 import java.util.List;
@@ -9,8 +9,8 @@ import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.inqwise.opinion.opinion.common.IControlType;
-import com.inqwise.opinion.opinion.dao.ControlTypes;
+import com.inqwise.opinion.common.IControlType;
+import com.inqwise.opinion.dao.ControlTypes;
 
 public class ControlTypeEntity extends BaseOperationResult implements IControlType {
 

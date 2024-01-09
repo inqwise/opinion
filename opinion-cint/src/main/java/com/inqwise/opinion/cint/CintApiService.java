@@ -1,4 +1,4 @@
-package com.cint;
+package com.inqwise.opinion.cint;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,20 +15,20 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
-import com.cint.common.IRequest;
-import com.cint.common.IRequestVoid;
-import com.cint.common.errorHandle.CintBaseOperationResult;
-import com.cint.common.errorHandle.CintErrorCode;
-import com.cint.common.errorHandle.CintOperationResult;
-import com.cint.core.BaseService;
-import com.cint.core.ResponseValue;
-import com.cint.exception.ClientActionRequiredException;
-import com.cint.exception.HttpErrorException;
-import com.cint.exception.InvalidCredentialException;
-import com.cint.exception.InvalidResponseDataException;
-import com.cint.exception.MissingCredentialException;
-import com.cint.exception.SSLConfigurationException;
-import com.cint.systemFramework.CintConfig;
+import com.inqwise.opinion.cint.common.IRequest;
+import com.inqwise.opinion.cint.common.IRequestVoid;
+import com.inqwise.opinion.cint.common.errorHandle.CintBaseOperationResult;
+import com.inqwise.opinion.cint.common.errorHandle.CintErrorCode;
+import com.inqwise.opinion.cint.common.errorHandle.CintOperationResult;
+import com.inqwise.opinion.cint.core.BaseService;
+import com.inqwise.opinion.cint.core.ResponseValue;
+import com.inqwise.opinion.cint.exception.ClientActionRequiredException;
+import com.inqwise.opinion.cint.exception.HttpErrorException;
+import com.inqwise.opinion.cint.exception.InvalidCredentialException;
+import com.inqwise.opinion.cint.exception.InvalidResponseDataException;
+import com.inqwise.opinion.cint.exception.MissingCredentialException;
+import com.inqwise.opinion.cint.exception.SSLConfigurationException;
+import com.inqwise.opinion.cint.systemFramework.CintConfig;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 
 public class CintApiService extends BaseService{

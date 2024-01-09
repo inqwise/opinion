@@ -1,4 +1,4 @@
-package com.cint.core;
+package com.inqwise.opinion.cint.core;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,7 +17,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import com.cint.exception.SSLConfigurationException;
+import com.inqwise.opinion.cint.exception.SSLConfigurationException;
 
 /**
  * Default TrustManager to relax verification on server certificate.

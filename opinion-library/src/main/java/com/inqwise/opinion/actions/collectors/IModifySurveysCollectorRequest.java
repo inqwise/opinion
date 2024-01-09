@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.actions.collectors;
+package com.inqwise.opinion.actions.collectors;
 
 public interface IModifySurveysCollectorRequest extends IModifyCollectorRequest {
 	

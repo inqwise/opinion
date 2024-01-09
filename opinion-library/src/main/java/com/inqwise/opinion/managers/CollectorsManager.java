@@ -1,47 +1,40 @@
-package com.inqwise.opinion.opinion.managers;
+package com.inqwise.opinion.managers;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import net.casper.data.model.CDataCacheContainer;
-
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+import com.inqwise.opinion.actions.collectors.CollectorsActionsFactory;
+import com.inqwise.opinion.actions.collectors.ICreatePollsCollectorRequest;
+import com.inqwise.opinion.actions.collectors.ICreateSurveysCollectorRequest;
+import com.inqwise.opinion.common.ResultsPermissionType;
+import com.inqwise.opinion.common.collectors.CollectorStatus;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.common.collectors.ICollector.JsonNames;
+import com.inqwise.opinion.common.collectors.IDeletedCollectorDetails;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.dao.CollectorsDataAccess;
+import com.inqwise.opinion.entities.collectors.CollectorEntity;
+import com.inqwise.opinion.entities.collectors.SurveysCollectorEntity;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
-import com.inqwise.opinion.infrastructure.dao.IDataFillable;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.pay.ChargeReferenceType;
-import com.inqwise.opinion.library.common.users.IUser;
-import com.inqwise.opinion.library.entities.UserEntity;
 import com.inqwise.opinion.library.managers.ChargesManager;
-import com.inqwise.opinion.opinion.actions.collectors.CollectorsActionsFactory;
-import com.inqwise.opinion.opinion.actions.collectors.ICreatePollsCollectorRequest;
-import com.inqwise.opinion.opinion.actions.collectors.ICreateSurveysCollectorRequest;
-import com.inqwise.opinion.opinion.common.ResultsPermissionType;
-import com.inqwise.opinion.opinion.common.collectors.CollectorStatus;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.common.collectors.ICollector.JsonNames;
-import com.inqwise.opinion.opinion.common.collectors.IDeletedCollectorDetails;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.dao.CollectorsDataAccess;
-import com.inqwise.opinion.opinion.dao.OpinionsDataAccess;
-import com.inqwise.opinion.opinion.entities.OpinionEntity;
-import com.inqwise.opinion.opinion.entities.collectors.CollectorEntity;
-import com.inqwise.opinion.opinion.entities.collectors.SurveysCollectorEntity;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 
 public final class CollectorsManager {
 
@@ -200,7 +193,7 @@ public final class CollectorsManager {
 		return result;
 	}
 	
-	public static CDataCacheContainer getMeny(Long opinionId, Long accountId, boolean includeExpired, int top, Date from, Date to, Integer[] collectorsStatusIds, String orderBy){
+	public static List<CollectorModel> getMeny(Long opinionId, Long accountId, boolean includeExpired, int top, Date from, Date to, Integer[] collectorsStatusIds, String orderBy){
 		try {
 			return CollectorsDataAccess.getCollectors(opinionId, accountId, includeExpired, top, from, to, collectorsStatusIds, orderBy);
 		} catch (DAOException e) {

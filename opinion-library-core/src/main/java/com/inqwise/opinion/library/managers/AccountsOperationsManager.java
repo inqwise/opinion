@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import net.casper.data.model.CDataCacheContainer;
+import org.json.JSONArray;
 
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
@@ -13,17 +13,13 @@ import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.accounts.IAccountOperation;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.library.common.pay.ICharge;
 import com.inqwise.opinion.library.dao.AccountsOperationsDataAccess;
-import com.inqwise.opinion.library.dao.ChargesDataAccess;
-import com.inqwise.opinion.library.dao.InvoicesDataAccess;
 import com.inqwise.opinion.library.entities.accounts.AccountOperationEntity;
-import com.inqwise.opinion.library.entities.pay.ChargeEntity;
 
 public class AccountsOperationsManager {
 	static ApplicationLog logger = ApplicationLog.getLogger(AccountsOperationsManager.class);
 	
-	public static CDataCacheContainer getAccountOperations(int top, long accountId,
+	public static JSONArray getAccountOperations(int top, long accountId,
 			List<Integer> accountsOperationsTypeIds, Long referenceId, Integer referenceTypeId, Date fromDate, Date toDate, Boolean monetary) {
 		
 		try {

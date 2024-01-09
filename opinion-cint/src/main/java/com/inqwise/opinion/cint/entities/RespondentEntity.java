@@ -1,14 +1,14 @@
-package com.cint.entities;
+package com.inqwise.opinion.cint.entities;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Element;
 
-import com.cint.common.IDemographic;
-import com.cint.common.IRespondent;
-import com.cint.common.IVariable;
-import com.cint.common.IXmlOwnerCallback;
+import com.inqwise.opinion.cint.common.IDemographic;
+import com.inqwise.opinion.cint.common.IRespondent;
+import com.inqwise.opinion.cint.common.IVariable;
+import com.inqwise.opinion.cint.common.IXmlOwnerCallback;
 
 public class RespondentEntity implements IRespondent, IXmlOwnerCallback {
 	private String id;

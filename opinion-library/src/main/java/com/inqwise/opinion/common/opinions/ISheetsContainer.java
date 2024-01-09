@@ -1,10 +1,10 @@
-package com.inqwise.opinion.opinion.common.opinions;
+package com.inqwise.opinion.common.opinions;
 
 import java.util.List;
 
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.sheet.ISheet;
+import com.inqwise.opinion.common.sheet.ISheet;
 
 public interface ISheetsContainer {
 

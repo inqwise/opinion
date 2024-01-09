@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.actions.collectors;
+package com.inqwise.opinion.actions.collectors;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,9 +11,9 @@ import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.dao.DAOBase;
-import com.inqwise.opinion.opinion.actions.ActionFlow;
-import com.inqwise.opinion.opinion.dao.CollectorsDataAccess;
-import com.inqwise.opinion.opinion.dao.IUpdateCollectorParams;
+import com.inqwise.opinion.actions.ActionFlow;
+import com.inqwise.opinion.dao.CollectorsDataAccess;
+import com.inqwise.opinion.dao.IUpdateCollectorParams;
 
 public abstract class ModifyCollectorFlow<TRequest extends IModifyCollectorRequest> extends  ActionFlow<TRequest, BaseOperationResult> implements IUpdateCollectorParams {
 	

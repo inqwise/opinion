@@ -1,12 +1,12 @@
-package com.cint.entities;
+package com.inqwise.opinion.cint.entities;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Element;
 
-import com.cint.common.ICountry;
-import com.cint.common.IRegion;
+import com.inqwise.opinion.cint.common.ICountry;
+import com.inqwise.opinion.cint.common.IRegion;
 
 public class CountryEntity extends IdNameEntity implements ICountry {
     private List<IRegion> regions;

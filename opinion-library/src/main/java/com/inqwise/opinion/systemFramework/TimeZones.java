@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.systemFramework;
+package com.inqwise.opinion.systemFramework;
 
 import java.util.ArrayList;
 import java.util.Collections;

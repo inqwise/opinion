@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common.opinions;
+package com.inqwise.opinion.common.opinions;
 
 public enum OpinionType {
 	Undefined(0),

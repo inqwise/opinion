@@ -1,9 +1,9 @@
-package com.inqwise.opinion.opinion.common.opinions;
+package com.inqwise.opinion.common.opinions;
 
 import java.util.List;
 
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.IControl;
+import com.inqwise.opinion.common.IControl;
 
 
 public interface IPoll extends IOpinion {

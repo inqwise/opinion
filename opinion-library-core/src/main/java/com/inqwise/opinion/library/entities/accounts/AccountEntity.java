@@ -3,23 +3,20 @@ package com.inqwise.opinion.library.entities.accounts;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.TimeZone;
 import java.util.UUID;
 
-import org.apache.commons.lang3.time.DateUtils;
-
+import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
+import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
+import com.inqwise.opinion.infrastructure.systemFramework.DateConverter;
+import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
 import com.inqwise.opinion.library.common.accounts.IAccount;
 import com.inqwise.opinion.library.common.accounts.IAccountView;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.users.IUser;
-import com.inqwise.opinion.library.dao.AccountsDataAccessTest;
+import com.inqwise.opinion.library.dao.AccountsDataAccess;
 import com.inqwise.opinion.library.entities.UserEntity;
-import com.inqwise.opinion.infrastructure.dao.DAOException;
-import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.inqwise.opinion.infrastructure.systemFramework.DateConverter;
-import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
 
 public class AccountEntity implements IAccount, IAccountView {
 
@@ -129,7 +126,7 @@ public class AccountEntity implements IAccount, IAccountView {
 				}
 			};
 			
-			AccountsDataAccessTest.getAccount(accountId, callback);
+			AccountsDataAccess.getAccount(accountId, callback);
 			
 			if(!result.hasValue()){
 				logger.warn("getAccount : No results for id " + accountId);

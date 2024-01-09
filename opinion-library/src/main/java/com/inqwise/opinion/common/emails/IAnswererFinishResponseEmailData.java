@@ -1,9 +1,9 @@
-package com.inqwise.opinion.opinion.common.emails;
+package com.inqwise.opinion.common.emails;
 
 import com.inqwise.opinion.library.common.emails.IEmailData;
 import com.inqwise.opinion.library.common.emails.ISingleEmailSignature;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.OpinionType;
 
 public interface IAnswererFinishResponseEmailData extends ISingleEmailSignature, IEmailData {
 

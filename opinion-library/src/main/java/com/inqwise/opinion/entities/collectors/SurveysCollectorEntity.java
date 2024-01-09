@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.entities.collectors;
+package com.inqwise.opinion.entities.collectors;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,11 +12,11 @@ import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
 import com.inqwise.opinion.library.common.accounts.IAccount;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
-import com.inqwise.opinion.opinion.actions.collectors.CollectorsActionsFactory;
-import com.inqwise.opinion.opinion.actions.collectors.IModifySurveysCollectorRequest;
-import com.inqwise.opinion.opinion.common.collectors.CollectorSourceType;
-import com.inqwise.opinion.opinion.common.collectors.ISurveysCollector;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.actions.collectors.CollectorsActionsFactory;
+import com.inqwise.opinion.actions.collectors.IModifySurveysCollectorRequest;
+import com.inqwise.opinion.common.collectors.CollectorSourceType;
+import com.inqwise.opinion.common.collectors.ISurveysCollector;
+import com.inqwise.opinion.common.opinions.IOpinion;
 
 public class SurveysCollectorEntity extends CollectorEntity implements ISurveysCollector {
 

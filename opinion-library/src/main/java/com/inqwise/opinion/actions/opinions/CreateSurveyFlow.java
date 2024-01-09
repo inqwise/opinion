@@ -1,22 +1,22 @@
-package com.inqwise.opinion.opinion.actions.opinions;
+package com.inqwise.opinion.actions.opinions;
 
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.SqlProcParameter;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.actions.collectors.CollectorsActionsFactory;
-import com.inqwise.opinion.opinion.actions.collectors.ICreateSurveysCollectorRequest;
-import com.inqwise.opinion.opinion.actions.opinions.ICreateSurveyRequest.IRequestExtension;
-import com.inqwise.opinion.opinion.common.AccountOpinionInfo;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.opinions.IPoll;
-import com.inqwise.opinion.opinion.common.opinions.ISurvey;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
-import com.inqwise.opinion.opinion.common.servicePackage.IServicePackageSettings;
-import com.inqwise.opinion.opinion.dao.AccountsDataAccess;
-import com.inqwise.opinion.opinion.entities.ServicePackageSettingsEntity;
-import com.inqwise.opinion.opinion.managers.SheetsManager;
+import com.inqwise.opinion.actions.collectors.CollectorsActionsFactory;
+import com.inqwise.opinion.actions.collectors.ICreateSurveysCollectorRequest;
+import com.inqwise.opinion.actions.opinions.ICreateSurveyRequest.IRequestExtension;
+import com.inqwise.opinion.common.AccountOpinionInfo;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.IPoll;
+import com.inqwise.opinion.common.opinions.ISurvey;
+import com.inqwise.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.common.servicePackage.IServicePackageSettings;
+import com.inqwise.opinion.dao.AccountsDataAccess;
+import com.inqwise.opinion.entities.ServicePackageSettingsEntity;
+import com.inqwise.opinion.managers.SheetsManager;
 
 class CreateSurveyFlow extends CreateOpinionFlow<ICreateSurveyRequest> {
 	private static final String DEFAULT_FINISH_BUTTON_TITLE = "Finish";

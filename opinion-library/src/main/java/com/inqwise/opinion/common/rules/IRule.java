@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.common.rules;
+package com.inqwise.opinion.common.rules;
 
 public interface IRule {
 

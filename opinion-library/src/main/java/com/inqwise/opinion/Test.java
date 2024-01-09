@@ -1,13 +1,13 @@
-package com.inqwise.opinion.opinion;
+package com.inqwise.opinion;
 
 import com.inqwise.opinion.automation.common.jobs.JobScheduleTask;
 import com.inqwise.opinion.automation.common.jobs.JobSettings;
 import com.inqwise.opinion.automation.common.jobs.JobStatus;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.jobs.CollectorsChecker;
-import com.inqwise.opinion.opinion.managers.CollectorsManager;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.jobs.CollectorsChecker;
+import com.inqwise.opinion.managers.CollectorsManager;
 
 public class Test {
 

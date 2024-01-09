@@ -1,11 +1,11 @@
-package com.inqwise.opinion.opinion.common;
+package com.inqwise.opinion.common;
 
 import java.util.Collection;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.common.opinions.OpinionType;
 
 public interface ITheme {
 

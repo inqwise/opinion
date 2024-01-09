@@ -1,14 +1,14 @@
-package com.inqwise.opinion.opinion.actions.opinions;
+package com.inqwise.opinion.actions.opinions;
 
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.SqlProcParameter;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
-import com.inqwise.opinion.opinion.actions.collectors.CollectorsActionsFactory;
-import com.inqwise.opinion.opinion.actions.collectors.ICreatePollsCollectorRequest;
-import com.inqwise.opinion.opinion.actions.opinions.ICreatePollRequest.IRequestExtension;
-import com.inqwise.opinion.opinion.common.ResultsPermissionType;
-import com.inqwise.opinion.opinion.common.opinions.IPoll;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.actions.collectors.CollectorsActionsFactory;
+import com.inqwise.opinion.actions.collectors.ICreatePollsCollectorRequest;
+import com.inqwise.opinion.actions.opinions.ICreatePollRequest.IRequestExtension;
+import com.inqwise.opinion.common.ResultsPermissionType;
+import com.inqwise.opinion.common.opinions.IPoll;
+import com.inqwise.opinion.common.opinions.OpinionType;
 
 class CreatePollFlow extends CreateOpinionFlow<ICreatePollRequest> {
 	private static final String DEFAULT_VOTE_BUTTON_TITLE = "Vote";
