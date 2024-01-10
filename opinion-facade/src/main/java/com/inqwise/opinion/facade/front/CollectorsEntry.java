@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.facade.front;
+package com.inqwise.opinion.facade.front;
 
 import java.io.IOException;
 import java.text.Format;
@@ -8,10 +8,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,22 +27,22 @@ import com.inqwise.opinion.library.common.users.IUser;
 import com.inqwise.opinion.library.managers.ChargesManager;
 import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
-import com.inqwise.opinion.opinion.common.SurveyStatistics;
-import com.inqwise.opinion.opinion.common.collectors.CollectorSourceType;
-import com.inqwise.opinion.opinion.common.collectors.CollectorStatus;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.common.collectors.ICollector.IMessagesExtension;
-import com.inqwise.opinion.opinion.common.collectors.ICollector.JsonNames;
-import com.inqwise.opinion.opinion.common.collectors.ICollector.ResultSetNames;
-import com.inqwise.opinion.opinion.common.emails.ICollectLinkEmailData;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.opinions.ISurvey;
-import com.inqwise.opinion.opinion.http.HttpClientSession;
-import com.inqwise.opinion.opinion.managers.CollectorsManager;
-import com.inqwise.opinion.opinion.managers.OpinionEmailsManager;
-import com.inqwise.opinion.opinion.managers.OpinionsManager;
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.IPostmasterObject;
+import com.inqwise.opinion.common.SurveyStatistics;
+import com.inqwise.opinion.common.collectors.CollectorSourceType;
+import com.inqwise.opinion.common.collectors.CollectorStatus;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.common.collectors.ICollector.IMessagesExtension;
+import com.inqwise.opinion.common.collectors.ICollector.JsonNames;
+import com.inqwise.opinion.common.collectors.ICollector.ResultSetNames;
+import com.inqwise.opinion.common.emails.ICollectLinkEmailData;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.ISurvey;
+import com.inqwise.opinion.http.HttpClientSession;
+import com.inqwise.opinion.managers.CollectorsManager;
+import com.inqwise.opinion.managers.OpinionEmailsManager;
+import com.inqwise.opinion.managers.OpinionsManager;
 
 public class CollectorsEntry extends Entry implements IPostmasterObject {
 	
@@ -258,7 +254,7 @@ public class CollectorsEntry extends Entry implements IPostmasterObject {
 		return output;
 	}
 	
-	public JSONObject getCollectorDetails(JSONObject input) throws CDataGridException, JSONException, IOException, NullPointerException, ExecutionException {
+	public JSONObject getCollectorDetails(JSONObject input) throws JSONException, IOException, NullPointerException, ExecutionException {
 		JSONObject output = new JSONObject();
 		IOperationResult result = validateSignIn();
 		Long collectorId = JSONHelper.optLong(input, JsonNames.COLLECTOR_ID);
@@ -320,8 +316,7 @@ public class CollectorsEntry extends Entry implements IPostmasterObject {
 		}
 		
 		if (null == result && collector.getCollectorStatus() == CollectorStatus.PendingPayment) {
-			CDataCacheContainer dataSet = ChargesManager.getChargesByReferenceId(account.getId(), collectorId, ChargeReferenceType.Collector.getValue());
-			CDataRowSet rowSet = dataSet.getAll();
+			JSONArray arr = ChargesManager.getChargesByReferenceId(account.getId(), collectorId, ChargeReferenceType.Collector.getValue());
 			if(rowSet.next()){
 				JSONObject chargeJO = new JSONObject();
 				chargeJO.put("chargeId",rowSet.getLong("charge_id"));
@@ -389,7 +384,7 @@ public class CollectorsEntry extends Entry implements IPostmasterObject {
 		return output;
 	}
 
-	public JSONObject getCollectors(JSONObject input) throws CDataGridException, JSONException, IOException, NullPointerException, ExecutionException{
+	public JSONObject getCollectors(JSONObject input) throws JSONException, IOException, NullPointerException, ExecutionException{
 		JSONObject output;
 		
 		IOperationResult result = validateSignIn();
