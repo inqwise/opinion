@@ -6,42 +6,38 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.SurveyStatistics;
+import com.inqwise.opinion.common.collectors.CollectorModel;
+import com.inqwise.opinion.common.collectors.CollectorSourceType;
+import com.inqwise.opinion.common.collectors.CollectorStatus;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.ISurvey;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.IProduct;
 import com.inqwise.opinion.library.common.accounts.IAccount;
-import com.inqwise.opinion.library.common.accounts.IAccountView;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.pay.ChargeReferenceType;
 import com.inqwise.opinion.library.managers.AccountsManager;
 import com.inqwise.opinion.library.managers.ChargesManager;
-import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.common.SurveyStatistics;
-import com.inqwise.opinion.opinion.common.collectors.CollectorSourceType;
-import com.inqwise.opinion.opinion.common.collectors.CollectorStatus;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.common.collectors.ICollector.IMessagesExtension;
-import com.inqwise.opinion.opinion.common.collectors.ICollector.JsonNames;
-import com.inqwise.opinion.opinion.common.collectors.ICollector.ResultSetNames;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.opinions.ISurvey;
-import com.inqwise.opinion.opinion.managers.CollectorsManager;
-import com.inqwise.opinion.opinion.managers.OpinionsManager;
 import com.inqwise.opinion.library.managers.ProductsManager;
+import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
+import com.inqwise.opinion.managers.CollectorsManager;
+import com.inqwise.opinion.managers.OpinionsManager;
+
+import net.casper.data.model.CDataCacheContainer;
+import net.casper.data.model.CDataGridException;
+import net.casper.data.model.CDataRowSet;
 
 public class CollectorsEntry extends Entry {
 
@@ -64,42 +60,38 @@ public class CollectorsEntry extends Entry {
 			collectorsByAccountId = new LinkedHashMap<>();
 		}
 		
-		CDataCacheContainer ds = CollectorsManager.getMeny(opinionId, accountId, includeExpired, top, fromDate, toDate, null, ICollector.ResultSetNames.LAST_START_DATE);
+		List<CollectorModel> list = CollectorsManager.getMeny(opinionId, accountId, includeExpired, top, fromDate, toDate, null, ICollector.ResultSetNames.LAST_START_DATE);
 		JSONArray ja = new JSONArray();
 		
-		
-		
 		//int accountsResult = AccountsManager.getAccounts(null, null, null, true, null, null, )
-		
-		CDataRowSet rowSet = ds.getAll();
-		
+				
 		Format formatter = new SimpleDateFormat(
 				"MMM dd, yyyy HH:mm:ss");
-		while(rowSet.next()){
+		for(var collectorModel : list) {
 			JSONObject jo = new JSONObject();
-			jo.put(ICollector.JsonNames.COLLECTOR_ID, rowSet.getLong(ICollector.ResultSetNames.COLLECTOR_ID));
-			jo.put(ICollector.JsonNames.OPINION_ID, rowSet.getLong(ICollector.ResultSetNames.OPINION_ID));
-			Long actualAccountId = rowSet.getLong(ICollector.ResultSetNames.ACCOUNT_ID);
-			jo.put(ICollector.JsonNames.ACCOUNT_ID, actualAccountId);
-			jo.put(ICollector.JsonNames.COLLECTOR_UUID, rowSet.getString(ICollector.ResultSetNames.COLLECTOR_UUID));
-			jo.put(ICollector.JsonNames.MODIFY_DATE, mdyhFormatter.format(rowSet.getDate(ICollector.ResultSetNames.MODIFY_DATE)));
-			jo.put(ICollector.JsonNames.CREATE_DATE, mdyhFormatter.format(rowSet.getDate(ICollector.ResultSetNames.CREATE_DATE)));
-			if(null != rowSet.getDate(ICollector.ResultSetNames.EXPIRATION_DATE)){
-				jo.put(ICollector.JsonNames.EXPIRATION_DATE, mdyhFormatter.format(rowSet.getDate(ICollector.ResultSetNames.EXPIRATION_DATE)));
+			jo.put(ICollector.JsonNames.COLLECTOR_ID, collectorModel.getId());
+			jo.put(ICollector.JsonNames.OPINION_ID, collectorModel.getOpinionId());
+			Long actualAccountId = collectorModel.getAccountId();
+			jo.put(ICollector.JsonNames.ACCOUNT_ID, collectorModel.getAccountId());
+			jo.put(ICollector.JsonNames.COLLECTOR_UUID, collectorModel.getCollectorUuid());
+			jo.put(ICollector.JsonNames.MODIFY_DATE, mdyhFormatter.format(collectorModel.getModifyDate()));
+			jo.put(ICollector.JsonNames.CREATE_DATE, mdyhFormatter.format(collectorModel.getCreateDate()));
+			if(null != collectorModel.getExpirationDate()){
+				jo.put(ICollector.JsonNames.EXPIRATION_DATE, mdyhFormatter.format(collectorModel.getExpirationDate()));
 			}
-			jo.put(ICollector.JsonNames.NAME, rowSet.getString(ICollector.ResultSetNames.COLLECTOR_NAME));
+			jo.put(ICollector.JsonNames.NAME, collectorModel.getCollectorName());
 			
-			String opinionName = rowSet.getString(ICollector.ResultSetNames.OPINION_NAME);
+			String opinionName = collectorModel.getOpinionName();
 			String opinionShortName = (opinionName.length() > 20 ? opinionName.substring(0, 18) + ".." : opinionName);
 			jo.put(ICollector.JsonNames.OPINION_NAME, opinionName);
 			jo.put("opinionShortName", opinionShortName);
-			jo.put(ICollector.JsonNames.OPINION_TYPE_NAME, rowSet.getString(ICollector.ResultSetNames.OPINION_TYPE_NAME));
-			jo.put(ICollector.JsonNames.STATUS_ID, rowSet.getInt(ICollector.ResultSetNames.COLLECTOR_STATUS_ID));
-			jo.put(ICollector.JsonNames.SOURCE_ID, rowSet.getInt(ICollector.ResultSetNames.COLLECTOR_SOURCE_ID));
-			jo.put(ICollector.JsonNames.SOURCE_NAME, rowSet.getString(ICollector.ResultSetNames.COLLECTOR_SOURCE_NAME));
-			jo.put(ICollector.JsonNames.SOURCE_TYPE_ID, rowSet.getInt(ICollector.ResultSetNames.COLLECTOR_SOURCE_TYPE_ID));
-			long cntStarted = rowSet.getLong(ResultSetNames.CNT_STARTED_OPINIONS);
-			long cntCompleted = rowSet.getLong(ResultSetNames.CNT_FINISHED_OPINIONS);
+			jo.put(ICollector.JsonNames.OPINION_TYPE_NAME, collectorModel.getOpinionTypeName());
+			jo.put(ICollector.JsonNames.STATUS_ID, collectorModel.getCollectorStatusId());
+			jo.put(ICollector.JsonNames.SOURCE_ID, collectorModel.getCollectorSourceId());
+			jo.put(ICollector.JsonNames.SOURCE_NAME, collectorModel.getCollectorSourceName());
+			jo.put(ICollector.JsonNames.SOURCE_TYPE_ID, collectorModel.getCollectorSourceTypeId());
+			long cntStarted = collectorModel.getCntStartedOpinions();
+			long cntCompleted = collectorModel.getCntFinishedOpinions();
 			jo.put(JsonNames.STARTED_RESPONSES, cntStarted);
 			jo.put(JsonNames.FINISHED_RESPONSES, cntCompleted);
 			jo.put(JsonNames.PARTIAL_RESPONSES, cntStarted - cntCompleted);
