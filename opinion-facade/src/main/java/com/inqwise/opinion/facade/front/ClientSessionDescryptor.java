@@ -1,7 +1,6 @@
-package com.inqwise.opinion.opinion.facade.front;
+package com.inqwise.opinion.facade.front;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 import javax.servlet.http.Cookie;
@@ -11,13 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.binary.Base64;
 import org.msgpack.MessagePack;
 
+import com.inqwise.opinion.http.HttpClientSession;
+import com.inqwise.opinion.http.HttpClientSessionUserArgs;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.NetworkHelper;
 import com.inqwise.opinion.infrastructure.systemFramework.cryptography.StringEncrypter;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.opinion.http.HttpClientSession;
-import com.inqwise.opinion.opinion.http.HttpClientSessionUserArgs;
 
 public class ClientSessionDescryptor {
 	static ApplicationLog logger = ApplicationLog

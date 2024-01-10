@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.facade.front;
+package com.inqwise.opinion.facade.front;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -11,19 +11,24 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.cint.CintApiService;
-import com.cint.OrderDetailsRequest;
-import com.cint.OrderPurchaseRequest;
-import com.cint.common.IOrder;
-import com.cint.common.IOrderSubmit;
-import com.cint.common.ITargetGroupSubmit;
-import com.cint.common.OrderEventType;
-import com.cint.common.errorHandle.CintOperationResult;
+import com.inqwise.opinion.cint.CintApiService;
+import com.inqwise.opinion.cint.OrderDetailsRequest;
+import com.inqwise.opinion.cint.OrderPurchaseRequest;
+import com.inqwise.opinion.cint.common.IOrder;
+import com.inqwise.opinion.cint.common.IOrderSubmit;
+import com.inqwise.opinion.cint.common.ITargetGroupSubmit;
+import com.inqwise.opinion.cint.common.OrderEventType;
+import com.inqwise.opinion.cint.common.errorHandle.CintOperationResult;
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.IPostmasterObject;
+import com.inqwise.opinion.common.collectors.CollectorStatus;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.common.collectors.IPanelSurveysCollector;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.Convert;
 import com.inqwise.opinion.infrastructure.systemFramework.DateConverter;
-import com.inqwise.opinion.infrastructure.systemFramework.NetworkHelper;
+import com.inqwise.opinion.infrastructure.systemFramework.GeoIpManager;
 import com.inqwise.opinion.library.common.accounts.IAccount;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
@@ -36,14 +41,7 @@ import com.inqwise.opinion.library.common.pay.IChargePayRequest;
 import com.inqwise.opinion.library.common.users.IUser;
 import com.inqwise.opinion.library.managers.ChargesManager;
 import com.inqwise.opinion.library.managers.ProductsManager;
-import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.library.systemFramework.GeoIpManager;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
-import com.inqwise.opinion.opinion.common.collectors.CollectorStatus;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.common.collectors.IPanelSurveysCollector;
-import com.inqwise.opinion.opinion.managers.CollectorsManager;
+import com.inqwise.opinion.managers.CollectorsManager;
 
 public class CintEntry extends Entry implements IPostmasterObject {
 	

@@ -17,9 +17,9 @@ public class ChargeModel {
 	}
 
 	public static final class Keys {
-		public static String ID = "id";
-		public static String STATUS_ID = "status_id";
-		public static String AMOUNT = "amount";
+		public static final String ID = "id";
+		public static final String STATUS_ID = "status_id";
+		public static final String AMOUNT = "amount";
 	}  
 	
 	public ChargeModel(JSONObject json) {

@@ -4,16 +4,16 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.google.common.collect.Lists;
 
 public final class JSONHelper {
 	
@@ -168,6 +168,12 @@ public final class JSONHelper {
 			list.add(Integer.valueOf(jsonArray.optInt(i)));
 		}
 		
+		return list;
+	}
+	
+	public static <T> List<T> toListOfModel(JSONArray jsonArray, Function<JSONObject, T> parser){
+		List<T> list = Lists.newArrayList();
+		jsonArray.forEach(itm -> list.add(parser.apply((JSONObject) itm)));
 		return list;
 	}
 	

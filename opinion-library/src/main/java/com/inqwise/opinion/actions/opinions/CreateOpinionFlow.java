@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 import com.inqwise.opinion.actions.ActionFlow;
+import com.inqwise.opinion.actions.opinions.ICreateOpinionRequest.IRequestExtension;
 import com.inqwise.opinion.automation.EventsServiceClient;
 import com.inqwise.opinion.automation.common.events.OpinionCreatedEventArgs;
 import com.inqwise.opinion.common.opinions.IOpinion;

@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.facade.front;
+package com.inqwise.opinion.facade.front;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -14,9 +14,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.IPostmasterObject;
+import com.inqwise.opinion.common.opinions.IOpinion.JsonNames;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.DateConverter;
+import com.inqwise.opinion.infrastructure.systemFramework.GeoIpManager;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.IProduct;
 import com.inqwise.opinion.library.common.accounts.AccountOperationsReferenceType;
@@ -42,14 +46,6 @@ import com.inqwise.opinion.library.managers.ChargesManager;
 import com.inqwise.opinion.library.managers.InvoicesManager;
 import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.library.managers.ServicePackagesManager;
-import com.inqwise.opinion.library.systemFramework.GeoIpManager;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion.JsonNames;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
 
 public class AccountsEntry extends Entry implements IPostmasterObject {
 	public AccountsEntry(IPostmasterContext context) {
@@ -188,7 +184,7 @@ public class AccountsEntry extends Entry implements IPostmasterObject {
 		return output;
 	}
 	
-	public JSONObject getTransactions(JSONObject input) throws IOException, CDataGridException, JSONException, NullPointerException, ExecutionException{
+	public JSONObject getTransactions(JSONObject input) throws IOException, JSONException, NullPointerException, ExecutionException{
 		JSONObject output;
 		IOperationResult result = null;
 		IAccount account = null;
@@ -227,33 +223,33 @@ public class AccountsEntry extends Entry implements IPostmasterObject {
 		}
 		
 		if (null == result) {
-			CDataCacheContainer ds = AccountsOperationsManager
+			var rowSetArr = AccountsOperationsManager
 					.getAccountOperations(top, account.getId(),
 							accountOperationTypeIds, referenceId,
 							referenceTypeId, fromDate, toDate, true);
 			JSONArray ja = new JSONArray();
-			CDataRowSet rowSet = ds.getAll(null, true);
-			CDataRowSet invoicesRowSet = null;
+			JSONArray invoicesRowSetArr = null;
 			TreeMap<Date, JSONObject> groupsMap = null;
 			BigDecimal groupDebit = null;
 			BigDecimal groupCredit = null;
 			if (null != groupBy) {
 				groupDebit = new BigDecimal(0.0);
 				groupCredit = new BigDecimal(0.0);
-				invoicesRowSet = InvoicesManager.getInvoices(top, account.getId(),
-						InvoiceStatus.Open.getValue(), false).getAll();
+				invoicesRowSetArr = InvoicesManager.getInvoices(top, account.getId(),
+						InvoiceStatus.Open.getValue(), false);
 				groupsMap = new TreeMap<>();
 			}
 			JSONObject lastFundJo = null;
 			BigDecimal totalDebit = new BigDecimal(0.0);
 			BigDecimal totalCredit = new BigDecimal(0.0);
-			while (rowSet.next()) {
+			for (int i = 0; i < rowSetArr.length(); i++) {
+				var json = ja.getJSONObject(i);
 				JSONObject jTransaction = new JSONObject();
 
-				jTransaction.put("transactionId", rowSet.getLong("accop_id"));
-				Integer accountOperationTypeId = rowSet.getInt("accop_type_id");
+				jTransaction.put("transactionId", json.getLong("accop_id"));
+				Integer accountOperationTypeId = json.getInt("accop_type_id");
 				jTransaction.put("typeId", accountOperationTypeId);
-				Double amount = rowSet.getDouble("amount");
+				Double amount = json.getDouble("amount");
 				if (null != amount) {
 					jTransaction.put("amount", amount);
 					if (amount < 0) {
@@ -273,16 +269,16 @@ public class AccountsEntry extends Entry implements IPostmasterObject {
 					jTransaction.put("debit", (amount < 0 ? -1.0 * amount : 0));
 					jTransaction.put("credit", (amount > 0 ? amount : 0));
 				}
-				Double balance = rowSet.getDouble("balance");
+				Double balance = json.getDouble("balance");
 				jTransaction.put("balance", balance);
-				Date modifyDate = account.addDateOffset(rowSet.getDate("modify_date"));
+				Date modifyDate = account.addDateOffset((Date)json.get("modify_date"));
 				jTransaction.put("modifyDate",	JSONHelper.getDateFormat(modifyDate, "MMM dd, yyyy"));
-				Long accountOperationReferenceId = rowSet.getLong("reference_id");
+				Long accountOperationReferenceId = json.getLong("reference_id");
 				jTransaction.put("referenceId", accountOperationReferenceId);
-				jTransaction.put("comments", rowSet.getString("comments"));
-				jTransaction.put("creditCard",rowSet.getString("credit_card_number"));
-				jTransaction.put("creditCardTypeId",rowSet.getInt("credit_card_type_id"));
-				jTransaction.put("chargeDescription",rowSet.getString("charge_description"));
+				jTransaction.put("comments", json.getString("comments"));
+				jTransaction.put("creditCard",json.getString("credit_card_number"));
+				jTransaction.put("creditCardTypeId",json.getInt("credit_card_type_id"));
+				jTransaction.put("chargeDescription",json.getString("charge_description"));
 
 				if (null == groupsMap) {
 					ja.put(jTransaction);
@@ -318,19 +314,20 @@ public class AccountsEntry extends Entry implements IPostmasterObject {
 				}
 
 				if (null == lastFundJo
-						&& rowSet.getInt("accop_type_id") == AccountsOperationsType.Fund.getValue()) {
+						&& json.getInt("accop_type_id") == AccountsOperationsType.Fund.getValue()) {
 					lastFundJo = jTransaction;
 				}
 			}
 			
 			if(null != groupBy){
-				while (invoicesRowSet.next()) {
+				for (int i = 0; i < invoicesRowSetArr.length(); i++) {
+					var json = invoicesRowSetArr.getJSONObject(i);
 					JSONObject jInvoice = new JSONObject();
-					jInvoice.put("invoiceId",invoicesRowSet.getString("invoice_id"));
+					jInvoice.put("invoiceId",json.getString("invoice_id"));
 
 					Date groupDate = DateConverter
-							.shiftToTheEndOfTheMonth(account.addDateOffset(invoicesRowSet
-									.getDate("invoice_to_date")));
+							.shiftToTheEndOfTheMonth(account.addDateOffset((Date)json
+									.get("invoice_to_date")));
 					JSONObject jGroup = groupsMap.get(groupDate);
 					if (null == jGroup) {
 						jGroup = createJGroup(groupDate);
@@ -711,7 +708,7 @@ public class AccountsEntry extends Entry implements IPostmasterObject {
 		
 		if(null == result){
 			Long accountId = account.getId();
-			result = com.inqwise.opinion.opinion.managers.AccountsManager.updateWelcomeMessageFlag(accountId, input.optBoolean(JsonNames.SHOW_WELCOME_MESSAGE, false), userId);
+			result = com.inqwise.opinion.managers.AccountsManager.updateWelcomeMessageFlag(accountId, input.optBoolean(JsonNames.SHOW_WELCOME_MESSAGE, false), userId);
 		}
 		
 		if(result.hasError()){
