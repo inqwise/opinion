@@ -26,6 +26,7 @@ import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.DateConverter;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.IProduct;
+import com.inqwise.opinion.library.common.accounts.AccountModel;
 import com.inqwise.opinion.library.common.accounts.AccountOperationsReferenceType;
 import com.inqwise.opinion.library.common.accounts.AccountsOperationsType;
 import com.inqwise.opinion.library.common.accounts.IAccount;
@@ -76,19 +77,20 @@ public class AccountsEntry extends Entry {
 		Date fromDate = JSONHelper.optDate(input, "fromDate");
 		Date toDate = JSONHelper.optDate(input, "toDate");
 		
-		CDataCacheContainer dsAccounts = AccountsManager.getAccounts(userId, productId, top, includeNonActive, fromDate, toDate, null);
-		CDataRowSet rowSet = dsAccounts.getAll();
-		if(rowSet.size() > 0){
+		List<AccountModel> accountList = AccountsManager.getAccounts(userId, productId, top, includeNonActive, fromDate, toDate, null);
+		JSONArray ja = new JSONArray();
+		
+		if(accountList.size() > 0){
 			output = new JSONObject();
 			JSONArray list = new JSONArray();
-			while(rowSet.next()){
+			for(var accountModel : accountList){
 				JSONObject item = new JSONObject();
-				item.put(IAccount.JsonNames.ACCOUNT_ID, rowSet.getLong(IAccount.ResultSetNames.ACCOUNT_ID));
-				item.put(IAccount.JsonNames.SERVICE_PACKAGE_NAME, rowSet.getString(IAccount.ResultSetNames.SERVICE_PACKAGE_NAME));
-				item.put(IAccount.JsonNames.ACCOUNT_NAME, rowSet.getString(IAccount.ResultSetNames.ACCOUNT_NAME));
-				item.put(IAccount.JsonNames.OWNER_ID, rowSet.getLong(IAccount.ResultSetNames.OWNER_ID));
-				item.put(IAccount.JsonNames.INSERT_DATE, mdyhmsFormatter.format(rowSet.getDate(IAccount.ResultSetNames.INSERT_DATE)));
-				item.put(IAccount.JsonNames.IS_ACTIVE, rowSet.getBoolean(IAccount.ResultSetNames.IS_ACTIVE));
+				item.put(IAccount.JsonNames.ACCOUNT_ID, accountModel.getAccountId());
+				item.put(IAccount.JsonNames.SERVICE_PACKAGE_NAME, accountModel.getServicePackageName());
+				item.put(IAccount.JsonNames.ACCOUNT_NAME, accountModel.getAccountName());
+				item.put(IAccount.JsonNames.OWNER_ID, accountModel.getOwnerId());
+				item.put(IAccount.JsonNames.INSERT_DATE, mdyhmsFormatter.format(accountModel.getInsertDate()));
+				item.put(IAccount.JsonNames.IS_ACTIVE, accountModel.getIsActive());
 				
 				list.put(item);
 			}

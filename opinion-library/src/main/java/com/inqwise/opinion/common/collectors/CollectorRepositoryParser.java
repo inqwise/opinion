@@ -23,6 +23,8 @@ public class CollectorRepositoryParser {
 				.withCollectorSourceTypeId(json.optIntegerObject(ICollector.ResultSetNames.COLLECTOR_SOURCE_TYPE_ID))
 				.withCntStartedOpinions(json.optLongObject(ICollector.ResultSetNames.CNT_STARTED_OPINIONS))
 				.withCntFinishedOpinions(json.optLongObject(ICollector.ResultSetNames.CNT_FINISHED_OPINIONS))
+				.withLastStartDate((Date) json.opt(ICollector.ResultSetNames.LAST_START_DATE))
+				.withAvgTimeTakenSec(json.optDoubleObject(ICollector.ResultSetNames.AVG_TIME_TAKEN_SEC))
 				.build();
 	}
 	

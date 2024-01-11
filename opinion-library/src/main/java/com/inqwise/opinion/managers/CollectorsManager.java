@@ -201,7 +201,7 @@ public final class CollectorsManager {
 			JSONArray arr = CollectorsDataAccess.getCollectors(opinionId, accountId, includeExpired, top, from, to, collectorsStatusIds, orderBy);
 
 			arr.forEach(itm -> {
-				list.add(new CollectorRepositoryParser().parse((JSONObject)itm));
+				list.add(new CollectorRepositoryParser().parse((JSONObject)itm));						
 			});
 			return list;
 			

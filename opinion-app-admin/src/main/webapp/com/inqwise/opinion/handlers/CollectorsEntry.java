@@ -92,15 +92,15 @@ public class CollectorsEntry extends Entry {
 			jo.put(ICollector.JsonNames.SOURCE_TYPE_ID, collectorModel.getCollectorSourceTypeId());
 			long cntStarted = collectorModel.getCntStartedOpinions();
 			long cntCompleted = collectorModel.getCntFinishedOpinions();
-			jo.put(JsonNames.STARTED_RESPONSES, cntStarted);
-			jo.put(JsonNames.FINISHED_RESPONSES, cntCompleted);
-			jo.put(JsonNames.PARTIAL_RESPONSES, cntStarted - cntCompleted);
-			jo.put(JsonNames.COMPLETION_RATE, (cntStarted > 0 ? Math.round((cntCompleted * 1d / cntStarted * 1d) * 100.0) : 0));
-			if(null != rowSet.getDate(ICollector.ResultSetNames.LAST_START_DATE)){
-				jo.put(ICollector.JsonNames.LAST_RESPONSE_DATE, formatter.format(rowSet.getDate(ICollector.ResultSetNames.LAST_START_DATE)));
+			jo.put(ICollector.JsonNames.STARTED_RESPONSES, cntStarted);
+			jo.put(ICollector.JsonNames.FINISHED_RESPONSES, cntCompleted);
+			jo.put(ICollector.JsonNames.PARTIAL_RESPONSES, cntStarted - cntCompleted);
+			jo.put(ICollector.JsonNames.COMPLETION_RATE, (cntStarted > 0 ? Math.round((cntCompleted * 1d / cntStarted * 1d) * 100.0) : 0));
+			if(null != collectorModel.getLastStartDate()){
+				jo.put(ICollector.JsonNames.LAST_RESPONSE_DATE, formatter.format(collectorModel.getLastStartDate()));
 			}
-			if(null != rowSet.getDouble(ICollector.ResultSetNames.AVG_TIME_TAKEN_SEC)){
-				jo.put(ICollector.JsonNames.TIME_TAKEN, JSONHelper.getTimeSpanSec(Math.round(rowSet.getDouble(ICollector.ResultSetNames.AVG_TIME_TAKEN_SEC))));
+			if(null != collectorModel.getAvgTimeTakenSec()){
+				jo.put(ICollector.JsonNames.TIME_TAKEN, JSONHelper.getTimeSpanSec(Math.round(collectorModel.getAvgTimeTakenSec())));
 			}
 			ja.put(jo);
 			

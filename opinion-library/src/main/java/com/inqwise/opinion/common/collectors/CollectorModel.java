@@ -25,6 +25,8 @@ public class CollectorModel {
 	private Integer collectorSourceTypeId;
 	private Long cntStartedOpinions;
 	private Long cntFinishedOpinions;
+	private Date lastStartDate;
+	private Double avgTimeTakenSec;
 
 	private CollectorModel(Builder builder) {
 		this.id = builder.id;
@@ -43,6 +45,8 @@ public class CollectorModel {
 		this.collectorSourceTypeId = builder.collectorSourceTypeId;
 		this.cntStartedOpinions = builder.cntStartedOpinions;
 		this.cntFinishedOpinions = builder.cntFinishedOpinions;
+		this.lastStartDate = builder.lastStartDate;
+		this.avgTimeTakenSec = builder.avgTimeTakenSec;
 	}
 
 	public static final class Keys{
@@ -62,6 +66,8 @@ public class CollectorModel {
 		public static final String COLLECTOR_SOURCE_TYPE_ID = "collector_source_type_id";
 		public static final String CNT_STARTED_OPINIONS = "cnt_started_opinions";
 		public static final String CNT_FINISHED_OPINIONS = "cnt_finished_opinions";
+		public static final String LAST_START_DATE = "last_start_date";
+		public static final String AVG_TIME_TAKEN_SEC = "avg_time_taken_sec";
 		
 		private Keys(Builder builder) {
 		}
@@ -102,6 +108,8 @@ public class CollectorModel {
 		collectorSourceTypeId = json.optIntegerObject(Keys.COLLECTOR_SOURCE_TYPE_ID);
 		cntStartedOpinions = json.optLongObject(Keys.CNT_STARTED_OPINIONS);
 		cntFinishedOpinions = json.optLongObject(Keys.CNT_FINISHED_OPINIONS);
+		lastStartDate = (Date) json.opt(Keys.LAST_START_DATE);
+		avgTimeTakenSec = json.optDouble(Keys.AVG_TIME_TAKEN_SEC);
 	}
 	
 	public Long getId() {
@@ -160,14 +168,22 @@ public class CollectorModel {
 		return collectorSourceTypeId;
 	}
 	
-	public long getCntStartedOpinions() {
+	public Long getCntStartedOpinions() {
 		return cntStartedOpinions;
 	}
 
-	public long getCntFinishedOpinions() {
+	public Long getCntFinishedOpinions() {
 		return cntFinishedOpinions;
 	}
 	
+	public Date getLastStartDate() {
+		return lastStartDate;
+	}
+
+	public Double getAvgTimeTakenSec() {
+		return avgTimeTakenSec;
+	}
+
 	public JSONObject toJson() {
 		var json = new JSONObject();
 		json.put(Keys.ID, id);
@@ -186,6 +202,8 @@ public class CollectorModel {
 		json.put(Keys.COLLECTOR_SOURCE_TYPE_ID, collectorSourceTypeId);
 		json.put(Keys.CNT_STARTED_OPINIONS, cntStartedOpinions);
 		json.put(Keys.CNT_FINISHED_OPINIONS, cntFinishedOpinions);
+		json.put(Keys.LAST_START_DATE, lastStartDate.getTime());
+		json.put(Keys.AVG_TIME_TAKEN_SEC, avgTimeTakenSec);
 		return json;
 		
 
@@ -216,6 +234,8 @@ public class CollectorModel {
 		private Integer collectorSourceTypeId;
 		private Long cntStartedOpinions;
 		private Long cntFinishedOpinions;
+		private Date lastStartDate;
+		private Double avgTimeTakenSec;
 
 		private Builder() {
 		}
@@ -237,6 +257,8 @@ public class CollectorModel {
 			this.collectorSourceTypeId = collectorModel.collectorSourceTypeId;
 			this.cntStartedOpinions = collectorModel.cntStartedOpinions;
 			this.cntFinishedOpinions = collectorModel.cntFinishedOpinions;
+			this.lastStartDate = collectorModel.lastStartDate;
+			this.avgTimeTakenSec = collectorModel.avgTimeTakenSec;
 		}
 
 		public Builder withId(Long id) {
@@ -319,6 +341,16 @@ public class CollectorModel {
 			return this;
 		}
 
+		public Builder withLastStartDate(Date lastStartDate) {
+			this.lastStartDate = lastStartDate;
+			return this;
+		}
+
+		public Builder withAvgTimeTakenSec(Double avgTimeTakenSec) {
+			this.avgTimeTakenSec = avgTimeTakenSec;
+			return this;
+		}
+
 		public CollectorModel build() {
 			return new CollectorModel(this);
 		}
@@ -333,7 +365,7 @@ public class CollectorModel {
 				.add("collectorStatusId", collectorStatusId).add("collectorSourceId", collectorSourceId)
 				.add("collectorSourceName", collectorSourceName).add("collectorSourceTypeId", collectorSourceTypeId)
 				.add("cntStartedOpinions", cntStartedOpinions).add("cntFinishedOpinions", cntFinishedOpinions)
-				.toString();
+				.add("lastStartDate", lastStartDate).add("avgTimeTakenSec", avgTimeTakenSec).toString();
 	}
 	
 }
