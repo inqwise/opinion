@@ -24,6 +24,7 @@ import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.IProduct;
+import com.inqwise.opinion.library.common.accounts.AccountModel;
 import com.inqwise.opinion.library.common.accounts.IAccount;
 import com.inqwise.opinion.library.common.accounts.IAccountView;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
@@ -108,9 +109,9 @@ public class OpinionsEntry extends Entry {
 		if(null == accountId){
 			accountIds = getArrayFromKeys(surveysByAccountId);
 			IProduct product = ProductsManager.getProductByGuid(ApplicationConfiguration.Opinion.getProductGuid()).getValue();
-			CDataCacheContainer dsAccounts = AccountsManager.getAccounts(null, product.getId(), top, true, null, null, accountIds);
-			if(dsAccounts.size() > 0){
-				fillAccountDetails(dsAccounts, surveysByAccountId);
+			List<AccountModel> accountList = AccountsManager.getAccounts(null, product.getId(), top, true, null, null, accountIds);
+			if(accountList.size() > 0){
+				fillAccountDetails(accountList, surveysByAccountId);
 			}
 		}
 		
@@ -119,13 +120,12 @@ public class OpinionsEntry extends Entry {
 		return output;
 	}
 	
-	private void fillAccountDetails(CDataCacheContainer dsAccounts,
-			LinkedHashMap<Long, List<JSONObject>> collectorsByAccountId) throws JSONException, CDataGridException {
-		CDataRowSet rowSet = dsAccounts.getAll();
-		while(rowSet.next()){
-			List<JSONObject> joList = collectorsByAccountId.get(rowSet.getLong(IAccount.ResultSetNames.ACCOUNT_ID));
+	private void fillAccountDetails(List<AccountModel> accountList,
+			LinkedHashMap<Long, List<JSONObject>> collectorsByAccountId) throws JSONException {
+		for(AccountModel model : accountList){
+			List<JSONObject> joList = collectorsByAccountId.get(model.getAccountId());
 			for (JSONObject jo : joList) {
-				jo.put(IOpinion.JsonNames.ACCOUNT_NAME, rowSet.getString(IAccount.ResultSetNames.ACCOUNT_NAME));
+				jo.put(IOpinion.JsonNames.ACCOUNT_NAME, model.getAccountName());
 			}
 		}
 	}
