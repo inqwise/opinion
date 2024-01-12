@@ -2,6 +2,8 @@ package com.inqwise.opinion.jobs;
 
 import java.util.UUID;
 
+import org.json.JSONArray;
+
 import com.inqwise.opinion.automation.common.jobs.IJobExecutorCallback;
 import com.inqwise.opinion.automation.common.jobs.Job;
 import com.inqwise.opinion.automation.common.jobs.JobSettings;
@@ -39,14 +41,12 @@ public class CollectorsChecker extends Job {
 		return result;
 	}
 
-	private IOperationResult checkVerifiedCollectors() throws NullPointerException, CDataGridException {
+	private IOperationResult checkVerifiedCollectors() throws NullPointerException {
 		IOperationResult result = null;
-		CDataCacheContainer ds = CollectorsManager.getMeny(null, null, false, 100, null, null, new Integer[] { CollectorStatus.Verify.getValue() }, null);
+		var list = CollectorsManager.getMeny(null, null, false, 100, null, null, new Integer[] { CollectorStatus.Verify.getValue() }, null);
 		
-		CDataRowSet rows = ds.getAll();
-		while(rows.next()){
-			
-			IOperationResult checkResult = checkVerifiedCollector(CollectorsManager.get(rows.getLong(ICollector.ResultSetNames.COLLECTOR_ID), null).getValue());
+		for (var collectorModel : list) {
+			IOperationResult checkResult = checkVerifiedCollector(CollectorsManager.get(collectorModel.getId(), null).getValue());
 			if(checkResult.hasError()){
 				result = checkResult;
 			}

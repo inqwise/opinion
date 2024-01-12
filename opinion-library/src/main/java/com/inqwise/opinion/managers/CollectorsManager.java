@@ -19,6 +19,8 @@ import com.inqwise.opinion.actions.collectors.CollectorsActionsFactory;
 import com.inqwise.opinion.actions.collectors.ICreatePollsCollectorRequest;
 import com.inqwise.opinion.actions.collectors.ICreateSurveysCollectorRequest;
 import com.inqwise.opinion.common.ResultsPermissionType;
+import com.inqwise.opinion.common.collectors.CollectorModel;
+import com.inqwise.opinion.common.collectors.CollectorRepositoryParser;
 import com.inqwise.opinion.common.collectors.CollectorStatus;
 import com.inqwise.opinion.common.collectors.ICollector;
 import com.inqwise.opinion.common.collectors.ICollector.JsonNames;
@@ -195,7 +197,14 @@ public final class CollectorsManager {
 	
 	public static List<CollectorModel> getMeny(Long opinionId, Long accountId, boolean includeExpired, int top, Date from, Date to, Integer[] collectorsStatusIds, String orderBy){
 		try {
-			return CollectorsDataAccess.getCollectors(opinionId, accountId, includeExpired, top, from, to, collectorsStatusIds, orderBy);
+			List<CollectorModel> list = new ArrayList<>();
+			JSONArray arr = CollectorsDataAccess.getCollectors(opinionId, accountId, includeExpired, top, from, to, collectorsStatusIds, orderBy);
+
+			arr.forEach(itm -> {
+				list.add(new CollectorRepositoryParser().parse((JSONObject)itm));						
+			});
+			return list;
+			
 		} catch (DAOException e) {
 			throw new Error(e);
 		}

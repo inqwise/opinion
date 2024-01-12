@@ -26,6 +26,7 @@ import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.DAOUtil;
 import com.inqwise.opinion.infrastructure.dao.Database;
 import com.inqwise.opinion.infrastructure.dao.IDataFillable;
+import com.inqwise.opinion.infrastructure.dao.ResultSets;
 import com.inqwise.opinion.infrastructure.dao.SqlParam;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
@@ -115,7 +116,6 @@ public class Results extends DAOBase {
 	}
 	
 	public static JSONArray getAllResults(long opinionId, Long accountId, Long[] sessionIds, boolean includePartial, TreeMap<Long, Integer> headerIdsMap) throws DAOException{
-		JSONArray result;
 		Connection connection = null;
 		CallableStatement call = null;
 		ResultSet resultSet = null;
@@ -133,17 +133,7 @@ public class Results extends DAOBase {
         	connection = call.getConnection();
             resultSet = call.executeQuery();
             
-            List<JSONObject> list = DSL.using(connection).fetch(resultSet)
-			.map(r -> {
-				JSONObject obj = new JSONObject();
-				
-				for(var field : r.fields()) {
-					obj.put(field.getName(), r.getValue(field));
-				}
-				return obj;
-			});
-            
-            result = new JSONArray(list);
+            JSONArray result = ResultSets.parse(connection, resultSet);
             
             if(call.getMoreResults()){
             	resultSet = call.getResultSet();
@@ -219,17 +209,8 @@ public class Results extends DAOBase {
         	connection = call.getConnection();
             resultSet = call.executeQuery();
             
-            List<JSONObject> list = DSL.using(connection).fetch(resultSet)
-        			.map(r -> {
-        				JSONObject obj = new JSONObject();
-        				
-        				for(var field : r.fields()) {
-        					obj.put(field.getName(), r.getValue(field));
-        				}
-        				return obj;
-        			});
+            return ResultSets.parse(connection, resultSet);
                 	
-                    return new JSONArray(list);		
 		} catch (Exception e) {
 			throw null == call ? new DAOException(e) : new DAOException(call, e);
 		} finally {

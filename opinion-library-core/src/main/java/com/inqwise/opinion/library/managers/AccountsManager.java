@@ -2,10 +2,15 @@ package com.inqwise.opinion.library.managers;
 
 import java.sql.ResultSet;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
+import org.apache.logging.log4j.core.util.JsonUtils;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -14,6 +19,9 @@ import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
+import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
+import com.inqwise.opinion.library.common.accounts.AccountModel;
+import com.inqwise.opinion.library.common.accounts.AccountRepositoryParser;
 import com.inqwise.opinion.library.common.accounts.IAccountBillingSettingsChangeRequest;
 import com.inqwise.opinion.library.common.accounts.IAccountBusinessDetails;
 import com.inqwise.opinion.library.common.accounts.IAccountBusinessDetailsChangeRequest;
@@ -32,11 +40,19 @@ import com.inqwise.opinion.library.entities.accounts.AccountEntity;
 public class AccountsManager {
 	static ApplicationLog logger = ApplicationLog.getLogger(AccountsManager.class);
 	
-	public static JSONArray getAccounts(Long userId, int productId,
+	public static List<AccountModel> getAccounts(Long userId, int productId,
 			Integer top, boolean includeNonActive, Date fromDate, Date toDate, Long[] accountIds) {
 		try {
-			return AccountsDataAccess.getAccounts(userId, productId, includeNonActive, top, fromDate, toDate, accountIds);
-			
+			return JSONHelper.toListOfModel(AccountsDataAccess
+					.getAccounts(userId, productId, 
+							includeNonActive, top, 
+							fromDate, toDate, accountIds),
+			new Function<JSONObject, AccountModel>() {
+				@Override
+				public AccountModel apply(JSONObject json) {
+					 return new AccountRepositoryParser().parse(json);
+				}
+			});
 		} catch (DAOException e) {
 			throw new Error(e);
 		}
