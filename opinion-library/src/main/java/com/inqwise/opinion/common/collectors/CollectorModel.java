@@ -1,6 +1,5 @@
 package com.inqwise.opinion.common.collectors;
 
-import java.util.Collection;
 import java.util.Date;
 
 import org.json.JSONObject;

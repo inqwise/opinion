@@ -8,26 +8,30 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.json.JSONArray;
-
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.inqwise.opinion.common.AnswererSessionModel;
+import com.inqwise.opinion.common.AnswererSessionRepositoryParser;
 import com.inqwise.opinion.common.IAnswererSession;
 import com.inqwise.opinion.dao.AnswerersSessionsDataAccess;
 import com.inqwise.opinion.entities.analizeResults.AnswererSessionEntity;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
+import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 
 public class AnswerersSessionsManager {
 	private static ApplicationLog logger = ApplicationLog.getLogger(AnswerersSessionsManager.class);
-	public static JSONArray getAnswerersSessions(Long opinionId, Long accountId, Long collectorId, String respondentId, boolean includeUnplanned, Long fromIndex, Integer top, AtomicLong total){
-		return AnswererSessionEntity.getAnswerersSessions(opinionId, accountId, collectorId, respondentId, includeUnplanned, fromIndex, top, total);
+
+	public static List<AnswererSessionModel> getAnswerersSessions(Long opinionId, Long accountId, Long collectorId, String respondentId, boolean includeUnplanned, Long fromIndex, Integer top, AtomicLong total){		
+		var arr = AnswererSessionEntity.getAnswerersSessions(opinionId, accountId, collectorId, respondentId, includeUnplanned, fromIndex, top, total);
+		var toList = JSONHelper.toListOfModel(arr, new AnswererSessionRepositoryParser()::parse); 
+		return toList;
 	}
-	
+
 	private static Object _sessionsCacheLocker = new Object(); 
 	private static LoadingCache<Integer, OperationResult<IAnswererSession>> _sessionsCache;
 	private static LoadingCache<Integer, OperationResult<IAnswererSession>> getSessionsCache(){
