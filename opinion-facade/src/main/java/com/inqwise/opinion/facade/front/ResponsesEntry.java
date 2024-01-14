@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.facade.front;
+package com.inqwise.opinion.facade.front;
 
 import java.io.IOException;
 import java.text.Format;
@@ -10,14 +10,17 @@ import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicLong;
 
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.inqwise.opinion.common.AnswererSessionModel;
+import com.inqwise.opinion.common.IAnswererSession;
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.IPostmasterObject;
+import com.inqwise.opinion.common.SurveyStatistics;
+import com.inqwise.opinion.common.analizeResults.IAnalizeControl;
+import com.inqwise.opinion.common.collectors.ICollector;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
@@ -25,16 +28,9 @@ import com.inqwise.opinion.library.common.accounts.IAccount;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.IAnswererSession;
-import com.inqwise.opinion.opinion.common.IAnswererSession.ResultSetNames;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
-import com.inqwise.opinion.opinion.common.SurveyStatistics;
-import com.inqwise.opinion.opinion.common.analizeResults.IAnalizeControl;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.managers.AnswerersSessionsManager;
-import com.inqwise.opinion.opinion.managers.OpinionsManager;
-import com.inqwise.opinion.opinion.managers.ResultsManager;
+import com.inqwise.opinion.managers.AnswerersSessionsManager;
+import com.inqwise.opinion.managers.OpinionsManager;
+import com.inqwise.opinion.managers.ResultsManager;
 
 public class ResponsesEntry extends Entry implements IPostmasterObject {
 	static ApplicationLog logger = ApplicationLog.getLogger(ResponsesEntry.class);
@@ -45,7 +41,7 @@ public class ResponsesEntry extends Entry implements IPostmasterObject {
 		super(context);
 	}
 	
-	public JSONObject getResponses(JSONObject input) throws IOException, JSONException, NullPointerException, ExecutionException, CDataGridException {
+	public JSONObject getResponses(JSONObject input) throws IOException, JSONException, NullPointerException, ExecutionException {
 		JSONObject output = new JSONObject();
 		IOperationResult result = validateSignIn();
 		IAccount account = null;
@@ -67,44 +63,46 @@ public class ResponsesEntry extends Entry implements IPostmasterObject {
 			int countOfUnplanned = 0;
 			AtomicLong total = new AtomicLong(); 
 			
-			CDataCacheContainer ds = AnswerersSessionsManager
-					.getAnswerersSessions(opinionId, account.getId(), collectorId, respondentId, true, fromIndex, top, total);
+			List<AnswererSessionModel> list = AnswerersSessionsManager
+					.getAnswerersSessions(opinionId, account.getId(),
+							collectorId, respondentId, true,
+							fromIndex, top, total);
 			
 			JSONArray ja = new JSONArray();
-			CDataRowSet rowSet = ds.getAll();
+			
 			Map<Long, String> collectors = new TreeMap<Long, String>();
 			
-			while(rowSet.next()){
+			for(var answererSessionModel : list){
 				
-				boolean isUnplained = rowSet.getBoolean(ResultSetNames.IS_UNPLAINED);
+				boolean isUnplained = answererSessionModel.getIsUnplained();
 				
 				if(isUnplained){
 					countOfUnplanned ++;
 				} else {
 					JSONObject jo = new JSONObject();
-					jo.put("rowIndex", rowSet.getString(ResultSetNames.INDEX));
-					jo.put("sessionId", rowSet.getString(ResultSetNames.ANSWER_SESSION_ID));
-					jo.put("countryName", rowSet.getString(ResultSetNames.COUNTRY_NAME));
-					jo.put("ipAddress", rowSet.getString(ResultSetNames.CLIENT_IP));
-					jo.put("targetUrl", rowSet.getString(ResultSetNames.TARGET_URL));
-					jo.put("status", null == rowSet.getDate(ResultSetNames.FINISH_DATE) ? 0 : 1);
-					jo.put("startDate", formatter.format(account.addDateOffset(rowSet.getDate(ResultSetNames.INSERT_DATE))));
-					jo.put("finishDate", null == rowSet.getDate(ResultSetNames.FINISH_DATE) ? JSONObject.NULL : formatter.format(account.addDateOffset(rowSet.getDate(ResultSetNames.FINISH_DATE))));
+					jo.put("rowIndex", answererSessionModel.getIndex());
+					jo.put("sessionId", answererSessionModel.getAnswerSessionId());
+					jo.put("countryName", answererSessionModel.getCountryName());
+					jo.put("ipAddress", answererSessionModel.getClientIp());
+					jo.put("targetUrl", answererSessionModel.getTargetUrl());
+					jo.put("status", null == answererSessionModel.getFinishDate() ? 0 : 1);
+					jo.put("startDate", formatter.format(account.addDateOffset(answererSessionModel.getInsertDate())));
+					jo.put("finishDate", null == answererSessionModel.getFinishDate() ? JSONObject.NULL : formatter.format(account.addDateOffset(answererSessionModel.getFinishDate())));
 					/* jo.put("note", JSONHelper.getNullable(session.getComment())); */
 					/* jo.put("grade", JSONHelper.getNullable(session.getGrade())); */
 					
-					if(null != rowSet.getLong(ResultSetNames.TIME_TAKEN_SEC)){
-						jo.put("timeTaken", JSONHelper.getTimeSpanSec(rowSet.getLong(ResultSetNames.TIME_TAKEN_SEC)));
+					if(null != answererSessionModel.getTimeTakenSec()){
+						jo.put("timeTaken", JSONHelper.getTimeSpanSec(answererSessionModel.getTimeTakenSec()));
 					}
-					jo.put("id", rowSet.getLong(ResultSetNames.ID));
+					jo.put("id", answererSessionModel.getId());
 					//jo.put("starred", session.isStarred());
-					jo.put("collectorId", rowSet.getLong(ResultSetNames.COLLECTOR_ID));
-					jo.put("collectorName", rowSet.getString(ResultSetNames.COLLECTOR_NAME));
-					jo.put("collectorIsDeleted", !rowSet.getBoolean(ResultSetNames.IS_COLLECTOR_EXIST));
+					jo.put("collectorId", answererSessionModel.getCollectorId());
+					jo.put("collectorName", answererSessionModel.getCollectorName());
+					jo.put("collectorIsDeleted", !answererSessionModel.getIsCollectorExist());
 					ja.put(jo);
 					
-					if(!collectors.containsKey(rowSet.getLong(ResultSetNames.COLLECTOR_ID))){
-						collectors.put(rowSet.getLong(ResultSetNames.COLLECTOR_ID), rowSet.getString(ResultSetNames.COLLECTOR_NAME));
+					if(!collectors.containsKey(answererSessionModel.getCollectorId())){
+						collectors.put(answererSessionModel.getCollectorId(), answererSessionModel.getCollectorName());
 					}
 				}
 			}
@@ -327,7 +325,7 @@ public class ResponsesEntry extends Entry implements IPostmasterObject {
 		return output;
 	}
 	
-	public JSONObject getCountriesStatistics(JSONObject input) throws NullPointerException, ExecutionException, IOException, CDataGridException, JSONException{
+	public JSONObject getCountriesStatistics(JSONObject input) throws NullPointerException, ExecutionException, IOException, JSONException{
 		JSONObject output = null;
 		IOperationResult result = null;
 		IAccount account = null;
