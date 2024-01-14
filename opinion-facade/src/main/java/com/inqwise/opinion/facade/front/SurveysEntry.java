@@ -1,16 +1,14 @@
-package com.inqwise.opinion.opinion.facade.front;
+package com.inqwise.opinion.facade.front;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
-
-import net.casper.data.model.CDataGridException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.opinions.OpinionType;
 
 enum Status {
 	added, updated, deleted
@@ -24,7 +22,7 @@ public class SurveysEntry extends OpinionsEntry {
 	static ApplicationLog logger = ApplicationLog.getLogger(SurveysEntry.class);
 	
 	@Override
-	public JSONObject getList(JSONObject input) throws IOException, JSONException, CDataGridException, NullPointerException, ExecutionException {
+	public JSONObject getList(JSONObject input) throws IOException, JSONException, NullPointerException, ExecutionException {
 		return getMany(input, OpinionType.Survey.getValue());
 	}
 	

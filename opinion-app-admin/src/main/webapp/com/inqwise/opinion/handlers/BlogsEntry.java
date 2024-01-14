@@ -20,7 +20,7 @@ import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.IPostmasterContext;
 
 public class BlogsEntry extends Entry {
 	static ApplicationLog logger = ApplicationLog.getLogger(BlogsEntry.class);
