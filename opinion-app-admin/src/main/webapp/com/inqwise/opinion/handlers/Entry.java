@@ -1,7 +1,7 @@
 package com.inqwise.opinion.handlers;
 
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.IPostmasterObject;
 
 public abstract class Entry implements IPostmasterObject {
 	//static ApplicationLog logger = ApplicationLog.getLogger(Entry.class);

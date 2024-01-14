@@ -1,5 +1,6 @@
 package com.inqwise.opinion.common.collectors;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.json.JSONObject;
@@ -26,6 +27,7 @@ public class CollectorModel {
 	private Long cntFinishedOpinions;
 	private Date lastStartDate;
 	private Double avgTimeTakenSec;
+	private String closeMessage;
 
 	private CollectorModel(Builder builder) {
 		this.id = builder.id;
@@ -46,6 +48,7 @@ public class CollectorModel {
 		this.cntFinishedOpinions = builder.cntFinishedOpinions;
 		this.lastStartDate = builder.lastStartDate;
 		this.avgTimeTakenSec = builder.avgTimeTakenSec;
+		this.closeMessage = builder.closeMessage;
 	}
 
 	public static final class Keys{
@@ -67,6 +70,7 @@ public class CollectorModel {
 		public static final String CNT_FINISHED_OPINIONS = "cnt_finished_opinions";
 		public static final String LAST_START_DATE = "last_start_date";
 		public static final String AVG_TIME_TAKEN_SEC = "avg_time_taken_sec";
+		public static final String CLOSE_MESSAGE = "close_message";
 		
 		private Keys(Builder builder) {
 		}
@@ -109,6 +113,7 @@ public class CollectorModel {
 		cntFinishedOpinions = json.optLongObject(Keys.CNT_FINISHED_OPINIONS);
 		lastStartDate = (Date) json.opt(Keys.LAST_START_DATE);
 		avgTimeTakenSec = json.optDouble(Keys.AVG_TIME_TAKEN_SEC);
+		closeMessage = json.optString(Keys.CLOSE_MESSAGE);
 	}
 	
 	public Long getId() {
@@ -183,6 +188,10 @@ public class CollectorModel {
 		return avgTimeTakenSec;
 	}
 
+	public String getCloseMessage() {
+		return closeMessage;
+	}
+
 	public JSONObject toJson() {
 		var json = new JSONObject();
 		json.put(Keys.ID, id);
@@ -203,6 +212,7 @@ public class CollectorModel {
 		json.put(Keys.CNT_FINISHED_OPINIONS, cntFinishedOpinions);
 		json.put(Keys.LAST_START_DATE, lastStartDate.getTime());
 		json.put(Keys.AVG_TIME_TAKEN_SEC, avgTimeTakenSec);
+		json.put(Keys.CLOSE_MESSAGE, closeMessage);
 		return json;
 		
 
@@ -235,6 +245,7 @@ public class CollectorModel {
 		private Long cntFinishedOpinions;
 		private Date lastStartDate;
 		private Double avgTimeTakenSec;
+		private String closeMessage;
 
 		private Builder() {
 		}
@@ -258,6 +269,7 @@ public class CollectorModel {
 			this.cntFinishedOpinions = collectorModel.cntFinishedOpinions;
 			this.lastStartDate = collectorModel.lastStartDate;
 			this.avgTimeTakenSec = collectorModel.avgTimeTakenSec;
+			this.closeMessage = collectorModel.closeMessage;
 		}
 
 		public Builder withId(Long id) {
@@ -350,6 +362,11 @@ public class CollectorModel {
 			return this;
 		}
 
+		public Builder withCloseMessage(String closeMessage) {
+			this.closeMessage = closeMessage;
+			return this;
+		}
+
 		public CollectorModel build() {
 			return new CollectorModel(this);
 		}
@@ -364,7 +381,8 @@ public class CollectorModel {
 				.add("collectorStatusId", collectorStatusId).add("collectorSourceId", collectorSourceId)
 				.add("collectorSourceName", collectorSourceName).add("collectorSourceTypeId", collectorSourceTypeId)
 				.add("cntStartedOpinions", cntStartedOpinions).add("cntFinishedOpinions", cntFinishedOpinions)
-				.add("lastStartDate", lastStartDate).add("avgTimeTakenSec", avgTimeTakenSec).toString();
+				.add("lastStartDate", lastStartDate).add("avgTimeTakenSec", avgTimeTakenSec)
+				.add("closeMessage", closeMessage).toString();
 	}
 	
 }

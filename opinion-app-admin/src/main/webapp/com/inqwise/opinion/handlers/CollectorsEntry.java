@@ -18,16 +18,17 @@ import com.inqwise.opinion.common.collectors.CollectorModel;
 import com.inqwise.opinion.common.collectors.CollectorSourceType;
 import com.inqwise.opinion.common.collectors.CollectorStatus;
 import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.common.collectors.ICollector.IMessagesExtension;
 import com.inqwise.opinion.common.opinions.IOpinion;
 import com.inqwise.opinion.common.opinions.ISurvey;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.IProduct;
 import com.inqwise.opinion.library.common.accounts.AccountModel;
-import com.inqwise.opinion.library.common.accounts.IAccount;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
+import com.inqwise.opinion.library.common.pay.ChargeModel;
 import com.inqwise.opinion.library.common.pay.ChargeReferenceType;
 import com.inqwise.opinion.library.managers.AccountsManager;
 import com.inqwise.opinion.library.managers.ChargesManager;
@@ -35,10 +36,6 @@ import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
 import com.inqwise.opinion.managers.CollectorsManager;
 import com.inqwise.opinion.managers.OpinionsManager;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
 
 public class CollectorsEntry extends Entry {
 
@@ -48,7 +45,7 @@ public class CollectorsEntry extends Entry {
 		super(context);
 	}
 
-	public JSONObject getCollectors(JSONObject input) throws CDataGridException, JSONException{
+	public JSONObject getCollectors(JSONObject input) throws JSONException{
 		JSONObject output;
 		int top = JSONHelper.optInt(input, "top", 100);
 		Long opinionId = JSONHelper.optLong(input, "opinionId");
@@ -205,13 +202,14 @@ public class CollectorsEntry extends Entry {
 			}
 			
 			if (null == result && collector.getCollectorSourceType() == CollectorSourceType.BuyRespondents) {
-				CDataCacheContainer dataSet = ChargesManager.getChargesByReferenceId(null, collectorId, ChargeReferenceType.Collector.getValue());
-				CDataRowSet rowSet = dataSet.getAll();
-				if(rowSet.next()){
+				List<ChargeModel> list = ChargesManager.getChargesByReferenceId(null, collectorId, ChargeReferenceType.Collector.getValue());
+				if(list.size() > 0){
+					var firstModel = list.get(0);
 					JSONObject chargeJO = new JSONObject();
-					chargeJO.put("chargeId",rowSet.getLong("charge_id"));
+					chargeJO.put("chargeId",firstModel.getId());
+					
 					if(collector.getCollectorStatus() == CollectorStatus.PendingPayment){
-						chargeJO.put("amountDue", rowSet.getDouble("amount"));
+						chargeJO.put("amountDue", firstModel.getAmount());
 					}
 					output.put("charge", chargeJO);
 				}				
@@ -282,7 +280,7 @@ public class CollectorsEntry extends Entry {
 			
 			if(null == result){
 				Long collectorId = JSONHelper.optLong(input,
-						JsonNames.COLLECTOR_ID);
+						ICollector.JsonNames.COLLECTOR_ID);
 				BaseOperationResult deleteResult = CollectorsManager
 						.delete(collectorId, null, userId);
 				if (deleteResult.hasError()) {
