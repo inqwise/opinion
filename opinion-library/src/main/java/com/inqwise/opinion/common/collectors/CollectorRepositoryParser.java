@@ -25,6 +25,7 @@ public class CollectorRepositoryParser {
 				.withCntFinishedOpinions(json.optLongObject(ICollector.ResultSetNames.CNT_FINISHED_OPINIONS))
 				.withLastStartDate((Date) json.opt(ICollector.ResultSetNames.LAST_START_DATE))
 				.withAvgTimeTakenSec(json.optDoubleObject(ICollector.ResultSetNames.AVG_TIME_TAKEN_SEC))
+				.withCloseMessage(json.optString(ICollector.ResultSetNames.CLOSE_MESSAGE))
 				.build();
 	}
 	

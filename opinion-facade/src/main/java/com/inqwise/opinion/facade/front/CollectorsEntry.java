@@ -13,6 +13,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.IPostmasterObject;
+import com.inqwise.opinion.common.SurveyStatistics;
+import com.inqwise.opinion.common.collectors.CollectorModel;
+import com.inqwise.opinion.common.collectors.CollectorSourceType;
+import com.inqwise.opinion.common.collectors.CollectorStatus;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.common.collectors.ICollector.IMessagesExtension;
+import com.inqwise.opinion.common.collectors.ICollector.JsonNames;
+import com.inqwise.opinion.common.emails.ICollectLinkEmailData;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.ISurvey;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
@@ -27,19 +39,6 @@ import com.inqwise.opinion.library.common.users.IUser;
 import com.inqwise.opinion.library.managers.ChargesManager;
 import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.common.IPostmasterObject;
-import com.inqwise.opinion.common.SurveyStatistics;
-import com.inqwise.opinion.common.collectors.CollectorSourceType;
-import com.inqwise.opinion.common.collectors.CollectorStatus;
-import com.inqwise.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.common.collectors.ICollector.IMessagesExtension;
-import com.inqwise.opinion.common.collectors.ICollector.JsonNames;
-import com.inqwise.opinion.common.collectors.ICollector.ResultSetNames;
-import com.inqwise.opinion.common.emails.ICollectLinkEmailData;
-import com.inqwise.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.common.opinions.ISurvey;
-import com.inqwise.opinion.http.HttpClientSession;
 import com.inqwise.opinion.managers.CollectorsManager;
 import com.inqwise.opinion.managers.OpinionEmailsManager;
 import com.inqwise.opinion.managers.OpinionsManager;
@@ -406,37 +405,36 @@ public class CollectorsEntry extends Entry implements IPostmasterObject {
 			Date fromDate = JSONHelper.optDate(input, "fromDate");
 			Date toDate = JSONHelper.optDate(input, "toDate");
 			
-			CDataCacheContainer ds = CollectorsManager.getMeny(opinionId, account.getId(), false, top, fromDate, toDate, null, null);
+			List<CollectorModel> cList = CollectorsManager.getMeny(opinionId, account.getId(), false, top, fromDate, toDate, null, null);
 			JSONArray ja = new JSONArray();
-			CDataRowSet rowSet = ds.getAll();
 			Format formatter = new SimpleDateFormat(
 					"MMM dd, yyyy HH:mm:ss");
-			while(rowSet.next()){
+			for (var collectorModel : cList){
 				JSONObject jo = new JSONObject();
-				Long collectorId = rowSet.getLong(ResultSetNames.COLLECTOR_ID);
+				Long collectorId = collectorModel.getId();
 				jo.put(JsonNames.COLLECTOR_ID, collectorId);
-				jo.put(JsonNames.OPINION_ID, rowSet.getLong(ResultSetNames.OPINION_ID));
-				long actualAccountId = rowSet.getLong(ResultSetNames.ACCOUNT_ID);
-				jo.put(JsonNames.COLLECTOR_UUID, rowSet.getString(ResultSetNames.COLLECTOR_UUID));
-				jo.put(JsonNames.NAME, rowSet.getString(ResultSetNames.COLLECTOR_NAME));
-				Integer statusId = rowSet.getInt(ResultSetNames.COLLECTOR_STATUS_ID);
+				jo.put(JsonNames.OPINION_ID, collectorModel.getOpinionId());
+				long actualAccountId = collectorModel.getAccountId();
+				jo.put(JsonNames.COLLECTOR_UUID, collectorModel.getCollectorUuid());
+				jo.put(JsonNames.NAME, collectorModel.getCollectorName());
+				Integer statusId = collectorModel.getCollectorStatusId();
 				jo.put(JsonNames.STATUS_ID, statusId);
-				jo.put(JsonNames.SOURCE_TYPE_ID, rowSet.getInt(ResultSetNames.COLLECTOR_SOURCE_TYPE_ID));
+				jo.put(JsonNames.SOURCE_TYPE_ID, collectorModel.getCollectorSourceTypeId());
 
-				long cntStarted = rowSet.getLong(ResultSetNames.CNT_STARTED_OPINIONS);
-				long cntCompleted = rowSet.getLong(ResultSetNames.CNT_FINISHED_OPINIONS);
+				long cntStarted = collectorModel.getCntStartedOpinions();
+				long cntCompleted = collectorModel.getCntFinishedOpinions();
 				jo.put(JsonNames.STARTED_RESPONSES, cntStarted);
 				jo.put(JsonNames.FINISHED_RESPONSES, cntCompleted);
 				jo.put(JsonNames.PARTIAL_RESPONSES, cntStarted - cntCompleted);
 				jo.put(JsonNames.COMPLETION_RATE, (cntStarted > 0 ? Math.round((cntCompleted * 1d / cntStarted * 1d) * 100.0) : 0));
 				
-				if(null != rowSet.getDate(ResultSetNames.LAST_START_DATE)){
-					jo.put(JsonNames.LAST_RESPONSE_DATE, formatter.format(rowSet.getDate(ResultSetNames.LAST_START_DATE)));
+				if(null != collectorModel.getLastStartDate()){
+					jo.put(JsonNames.LAST_RESPONSE_DATE, formatter.format(collectorModel.getLastStartDate()));
 				}
-				jo.put(JsonNames.CLOSE_MESSAGE, rowSet.getString(ResultSetNames.CLOSE_MESSAGE));
+				jo.put(JsonNames.CLOSE_MESSAGE, collectorModel.getCloseMessage());
 				
-				if(null != rowSet.getDouble(ICollector.ResultSetNames.AVG_TIME_TAKEN_SEC)){
-					jo.put(ICollector.JsonNames.TIME_TAKEN, JSONHelper.getTimeSpanSec(Math.round(rowSet.getDouble(ICollector.ResultSetNames.AVG_TIME_TAKEN_SEC))));
+				if(null != collectorModel.getAvgTimeTakenSec()){
+					jo.put(ICollector.JsonNames.TIME_TAKEN, JSONHelper.getTimeSpanSec(Math.round(collectorModel.getAvgTimeTakenSec())));
 				}
 				
 				if (statusId == CollectorStatus.PendingPayment.getValue()) {

@@ -2,8 +2,6 @@ package com.inqwise.opinion.jobs;
 
 import java.util.UUID;
 
-import org.json.JSONArray;
-
 import com.inqwise.opinion.automation.common.jobs.IJobExecutorCallback;
 import com.inqwise.opinion.automation.common.jobs.Job;
 import com.inqwise.opinion.automation.common.jobs.JobSettings;
