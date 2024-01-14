@@ -13,13 +13,13 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.google.common.collect.Lists;
 import com.inqwise.opinion.automation.EventsServiceClient;
 import com.inqwise.opinion.automation.common.events.ChargeStatusChangedEventArgs;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.DateConverter;
+import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.accounts.IAccountView;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
@@ -236,11 +236,13 @@ public class ChargesManager {
 		return result;
 	}
 	
-	public static JSONArray getChargesByReferenceId(Long accountId,
+	public static List<ChargeModel> getChargesByReferenceId(Long accountId,
 			long referenceId, int referenceTypeId) {
 		
 		try {
-			return ChargesDataAccess.getChargesByReferenceId(accountId, referenceId, referenceTypeId);
+			var arr = ChargesDataAccess
+					.getChargesByReferenceId(accountId, referenceId, referenceTypeId);
+			return JSONHelper.toListOfModel(arr, new ChargeRepositoryParser()::parse);
 		} catch (DAOException e) {
 			throw new Error(e);
 		}
@@ -249,13 +251,10 @@ public class ChargesManager {
 	public static BaseOperationResult cancelOrder(long collectorId, int referenceTypeId, Long accountId, long userId) {
 		BaseOperationResult result = new BaseOperationResult();
 		try{
-			JSONArray arr = getChargesByReferenceId(accountId, collectorId, referenceTypeId);
-			for (int i = 0; i < arr.length(); i++) {
-				var json = arr.getJSONObject(i);
-				long chargeId = json.getLong("charge_id");
-				ChargeStatus status = ChargeStatus.fromInt(json.getInt("status_id"));
-				if(status == ChargeStatus.Unpaid){
-					BaseOperationResult deleteResult = deleteCharge(chargeId, userId, accountId);
+			var list = getChargesByReferenceId(accountId, collectorId, referenceTypeId);
+			for (var model : list) {
+				if(model.getStatus() == ChargeStatus.Unpaid){
+					BaseOperationResult deleteResult = deleteCharge(model.getId(), userId, accountId);
 					if(deleteResult.hasError() && !result.hasError()){
 						result.setError(deleteResult);
 					}

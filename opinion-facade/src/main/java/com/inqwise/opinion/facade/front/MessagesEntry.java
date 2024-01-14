@@ -1,13 +1,9 @@
-package com.inqwise.opinion.opinion.facade.front;
+package com.inqwise.opinion.facade.front;
 
 import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,8 +16,8 @@ import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.managers.MessagesManager;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.IPostmasterObject;
 
 public class MessagesEntry extends Entry implements IPostmasterObject {
 
@@ -30,7 +26,7 @@ public class MessagesEntry extends Entry implements IPostmasterObject {
 		super(context);
 	}
 	
-	public JSONObject getList(JSONObject input) throws JSONException, CDataGridException, IOException{
+	public JSONObject getList(JSONObject input) throws JSONException, IOException{
 		JSONObject output = null;
 		IOperationResult result = null;
 		Long userId = null;

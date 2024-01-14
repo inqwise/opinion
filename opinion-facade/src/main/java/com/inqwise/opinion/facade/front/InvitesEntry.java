@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.facade.front;
+package com.inqwise.opinion.facade.front;
 
 import java.util.Date;
 import java.util.UUID;
@@ -24,8 +24,8 @@ import com.inqwise.opinion.library.common.invites.IInviteCreateRequest;
 import com.inqwise.opinion.library.common.invites.IInviteSettingsChangeRequest;
 import com.inqwise.opinion.library.managers.InvitesManager;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.IPostmasterObject;
 
 public class InvitesEntry extends Entry implements IPostmasterObject {
 

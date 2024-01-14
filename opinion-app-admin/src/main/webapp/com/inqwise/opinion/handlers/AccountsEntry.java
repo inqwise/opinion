@@ -68,7 +68,7 @@ public class AccountsEntry extends Entry {
 		super(context);
 	}
 
-	public JSONObject getAccounts(JSONObject input) throws JSONException, CDataGridException {
+	public JSONObject getAccounts(JSONObject input) throws JSONException {
 		JSONObject output;
 		int top = JSONHelper.optInt(input, "top", 100);
 		int productId = JSONHelper.optInt(input, "productId", 1);

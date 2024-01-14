@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.facade.front;
+package com.inqwise.opinion.facade.front;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

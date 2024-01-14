@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.facade.front;
+package com.inqwise.opinion.facade.front;
 
 import java.io.IOException;
 import java.text.Format;
@@ -14,6 +14,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.inqwise.opinion.common.AccountOpinionInfo;
+import com.inqwise.opinion.common.IOpinionAccount;
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.IPostmasterObject;
+import com.inqwise.opinion.common.charts.ActivityChartDataItem;
+import com.inqwise.opinion.common.charts.TimePointRange;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.IOpinion.JsonNames;
+import com.inqwise.opinion.common.opinions.IOpinion.ResultSetNames;
+import com.inqwise.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.common.opinions.OpinionsOrderBy;
+import com.inqwise.opinion.entities.OpinionEntity;
+import com.inqwise.opinion.http.HttpClientSession;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
@@ -24,28 +38,10 @@ import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.users.IUser;
 import com.inqwise.opinion.library.managers.UsersManager;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.opinion.common.AccountOpinionInfo;
-import com.inqwise.opinion.opinion.common.IOpinionAccount;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
-import com.inqwise.opinion.opinion.common.charts.ActivityChartDataItem;
-import com.inqwise.opinion.opinion.common.charts.TimePointRange;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion.JsonNames;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion.ResultSetNames;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
-import com.inqwise.opinion.opinion.common.opinions.OpinionsOrderBy;
-import com.inqwise.opinion.opinion.entities.OpinionEntity;
-import com.inqwise.opinion.opinion.http.HttpClientSession;
-import com.inqwise.opinion.opinion.managers.AccountsManager;
-import com.inqwise.opinion.opinion.managers.ChartsManager;
-import com.inqwise.opinion.opinion.managers.CollectorsManager;
-import com.inqwise.opinion.opinion.managers.OpinionsManager;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
+import com.inqwise.opinion.managers.AccountsManager;
+import com.inqwise.opinion.managers.ChartsManager;
+import com.inqwise.opinion.managers.CollectorsManager;
+import com.inqwise.opinion.managers.OpinionsManager;
 
 public class OpinionsEntry extends Entry implements IPostmasterObject {
 
@@ -58,14 +54,14 @@ public class OpinionsEntry extends Entry implements IPostmasterObject {
 		super(context);
 	}
 	
-	public JSONObject getList(JSONObject input) throws IOException, JSONException, CDataGridException, NullPointerException, ExecutionException {
+	public JSONObject getList(JSONObject input) throws IOException, JSONException, NullPointerException, ExecutionException {
 
 		Integer opinionTypeId = JSONHelper.optInt(input, IOpinion.JsonNames.OPINION_TYPE_ID);
 		return getMany(input, opinionTypeId);
 	}
 
 	protected JSONObject getMany(JSONObject input, Integer opinionTypeId)
-			throws IOException, CDataGridException, JSONException, NullPointerException, ExecutionException {
+			throws IOException, JSONException, NullPointerException, ExecutionException {
 		JSONObject output = null;
 		IOperationResult result = null;
 		IAccount account = null;
@@ -129,7 +125,7 @@ public class OpinionsEntry extends Entry implements IPostmasterObject {
 		return output;
 	}
 	
-	public JSONObject getDetails(JSONObject input) throws IOException, JSONException, CDataGridException, NullPointerException, ExecutionException {
+	public JSONObject getDetails(JSONObject input) throws IOException, JSONException, NullPointerException, ExecutionException {
 
 		//StopWatch sw = new StopWatch();
 		//sw.start();
@@ -208,12 +204,10 @@ public class OpinionsEntry extends Entry implements IPostmasterObject {
 		
 		Long collectorId = null;
 		if (null == result) {
-			CDataCacheContainer collectorsSet = CollectorsManager.getMeny(opinion.getId(), account.getId(), false, 2, null, null, null, null);
+			var list = CollectorsManager.getMeny(opinion.getId(), account.getId(), false, 2, null, null, null, null);
 			
-			if(collectorsSet.size() == 1){
-				CDataRowSet rows = collectorsSet.getAll();
-				rows.first();
-				collectorId = rows.getLong(ICollector.ResultSetNames.COLLECTOR_ID);
+			if(list.size() == 1){
+				collectorId = list.get(0).getId();
 			}
 		}
 

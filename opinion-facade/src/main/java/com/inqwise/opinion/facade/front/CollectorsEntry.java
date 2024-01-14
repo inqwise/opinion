@@ -316,11 +316,12 @@ public class CollectorsEntry extends Entry implements IPostmasterObject {
 		}
 		
 		if (null == result && collector.getCollectorStatus() == CollectorStatus.PendingPayment) {
-			JSONArray arr = ChargesManager.getChargesByReferenceId(account.getId(), collectorId, ChargeReferenceType.Collector.getValue());
-			if(rowSet.next()){
+			var list = ChargesManager.getChargesByReferenceId(account.getId(), collectorId, ChargeReferenceType.Collector.getValue());
+			if(list.size() == 1) {
+				var model = list.get(0);
 				JSONObject chargeJO = new JSONObject();
-				chargeJO.put("chargeId",rowSet.getLong("charge_id"));
-				chargeJO.put("amountDue", rowSet.getDouble("amount"));
+				chargeJO.put("chargeId", model.getId());
+				chargeJO.put("amountDue", model.getAmount());
 				output.put("charge", chargeJO);
 			}				
 		}
@@ -439,14 +440,13 @@ public class CollectorsEntry extends Entry implements IPostmasterObject {
 				}
 				
 				if (statusId == CollectorStatus.PendingPayment.getValue()) {
-					CDataCacheContainer dataSet = ChargesManager.getChargesByReferenceId(actualAccountId, collectorId, ChargeReferenceType.Collector.getValue());
-					CDataRowSet chargesRowSet = dataSet.getAll();
-					if(chargesRowSet.next()){
+					var list = ChargesManager.getChargesByReferenceId(actualAccountId, collectorId, ChargeReferenceType.Collector.getValue());
+					list.stream().findFirst().ifPresent(model -> {
 						JSONObject chargeJO = new JSONObject();
-						chargeJO.put(ICharge.JsonNames.CHARGE_ID,chargesRowSet.getLong(ICharge.ResultSetNames.CHARGE_ID));
-						chargeJO.put(ICharge.JsonNames.AMOUNT_DUE, chargesRowSet.getDouble(ICharge.ResultSetNames.AMOUNT));
+						chargeJO.put(ICharge.JsonNames.CHARGE_ID, model.getId());
+						chargeJO.put(ICharge.JsonNames.AMOUNT_DUE, model.getAmount());
 						jo.put("charge", chargeJO);
-					}				
+					});
 				}
 				
 				ja.put(jo);
@@ -460,7 +460,7 @@ public class CollectorsEntry extends Entry implements IPostmasterObject {
 		return output;
 	}
 	
-	public JSONObject getCollectorSettings(JSONObject input) throws CDataGridException, JSONException, IOException, NullPointerException, ExecutionException {
+	public JSONObject getCollectorSettings(JSONObject input) throws JSONException, IOException, NullPointerException, ExecutionException {
 
 		return getCollectorDetails(input);
 	}
