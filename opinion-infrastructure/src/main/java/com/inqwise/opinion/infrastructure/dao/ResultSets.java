@@ -9,7 +9,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ResultSets {
-	
 	public static JSONArray parse(Connection connection, ResultSet resultSet){
 		
 		
@@ -27,9 +26,4 @@ public class ResultSets {
 		return new JSONArray(list);
 		
 	}
-	
-	
-	//JSONArray result = ResultSets.parse(connection, resultSet);
-
-
 }
