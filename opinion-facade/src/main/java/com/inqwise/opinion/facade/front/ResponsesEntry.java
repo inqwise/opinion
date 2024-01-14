@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.inqwise.opinion.common.AnswererSessionModel;
+import com.inqwise.opinion.common.CountriesStatisticsModel;
 import com.inqwise.opinion.common.IAnswererSession;
 import com.inqwise.opinion.common.IPostmasterContext;
 import com.inqwise.opinion.common.IPostmasterObject;
@@ -196,7 +197,6 @@ public class ResponsesEntry extends Entry implements IPostmasterObject {
 			
 			boolean includePartialAnswers = includePartial;
 			boolean includePartialStatistics = includePartial;
-			Long sheetId = JSONHelper.optLong(input, "sheetId");
 			
 			OperationResult<List<IAnalizeControl>> controlsResult = ResultsManager
 					.getAnalizeControls(opinionId, account.getId(), answererSessionId, collectorId, includePartialAnswers, includePartialStatistics, true);
@@ -347,25 +347,24 @@ public class ResponsesEntry extends Entry implements IPostmasterObject {
 		}
 		
 		if(null == result){
-			CDataCacheContainer opinionsDataSet = ResultsManager.getCountriesStatistics(opinionId, account.getId(), account.removeDateOffset(from), account.removeDateOffset(to), collectorId, includePartial);
-			CDataRowSet rowSet = opinionsDataSet.getAll();
+			List<CountriesStatisticsModel> countriesStatisticsList = ResultsManager.getCountriesStatistics(opinionId, account.getId(), account.removeDateOffset(from), account.removeDateOffset(to), collectorId, includePartial);
 			JSONArray ja = new JSONArray();
 			
-			while(rowSet.next()){
+			for(var countriesStatisticsModel : countriesStatisticsList){
 				JSONObject item = new JSONObject();
-				Integer countryId = (rowSet.getInt("country_id"));
+				Integer countryId = (countriesStatisticsModel.getCountryId());
 				
 				if(null == countryId){
 					item.put("countryName", "Other");
 					item.put("iso2", "oo");
 				} else {
 					item.put("countryId", countryId);
-					item.put("countryName", rowSet.getString("country_name"));
-					item.put("iso2", rowSet.getString("iso2").toLowerCase());
+					item.put("countryName", countriesStatisticsModel.getCountryName());
+					item.put("iso2", countriesStatisticsModel.getIso2());
 				}
-				Long timeTakenSec = rowSet.getLong("time_taken_sec");
-				Long cntStarted = rowSet.getLong("started");
-				Long cntCompleted = rowSet.getLong("completed");
+				Long timeTakenSec = countriesStatisticsModel.getTimeTakenSec();
+				Long cntStarted = countriesStatisticsModel.getCntStarted();
+				Long cntCompleted = countriesStatisticsModel.getCntCompleted();
 				Long cntPartial = cntStarted - cntCompleted;
 				item.put("started", cntStarted);
 				item.put("completed", cntCompleted);

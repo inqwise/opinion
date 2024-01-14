@@ -36,10 +36,6 @@ import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
 import com.inqwise.opinion.managers.CollectorsManager;
 import com.inqwise.opinion.managers.OpinionsManager;
 
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
-
 public class CollectorsEntry extends Entry {
 
 	static ApplicationLog logger = ApplicationLog.getLogger(CollectorsEntry.class);
@@ -48,7 +44,7 @@ public class CollectorsEntry extends Entry {
 		super(context);
 	}
 
-	public JSONObject getCollectors(JSONObject input) throws CDataGridException, JSONException{
+	public JSONObject getCollectors(JSONObject input) throws JSONException{
 		JSONObject output;
 		int top = JSONHelper.optInt(input, "top", 100);
 		Long opinionId = JSONHelper.optLong(input, "opinionId");
@@ -282,7 +278,7 @@ public class CollectorsEntry extends Entry {
 			
 			if(null == result){
 				Long collectorId = JSONHelper.optLong(input,
-						JsonNames.COLLECTOR_ID);
+						ICollector.JsonNames.COLLECTOR_ID);
 				BaseOperationResult deleteResult = CollectorsManager
 						.delete(collectorId, null, userId);
 				if (deleteResult.hasError()) {

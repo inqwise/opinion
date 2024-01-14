@@ -1,9 +1,9 @@
 package com.inqwise.opinion.library.common.accounts;
 
-import java.util.Collection;
 import java.util.Date;
 
 import org.json.JSONObject;
+
 import com.google.common.base.MoreObjects;
 
 public class AccountModel {

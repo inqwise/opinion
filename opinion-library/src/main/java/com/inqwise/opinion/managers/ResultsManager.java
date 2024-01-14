@@ -8,11 +8,14 @@ import java.util.UUID;
 
 import org.json.JSONArray;
 
+import com.inqwise.opinion.common.CountriesStatisticsModel;
+import com.inqwise.opinion.common.CountriesStatisticsRepositoryParser;
 import com.inqwise.opinion.common.analizeResults.IAnalizeControl;
 import com.inqwise.opinion.dao.Results;
 import com.inqwise.opinion.entities.analizeResults.AnalizeControlEntity;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
+import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 
@@ -85,9 +88,12 @@ public class ResultsManager {
 		return result;
 	}
 	
-	public static JSONArray getCountriesStatistics(long opinionId, Long accountId, Date from, Date to, Long collectorId, boolean includePartial){
+	public static List<CountriesStatisticsModel> getCountriesStatistics(long opinionId, Long accountId, Date from, Date to, Long collectorId, boolean includePartial){
 		try{
-			return Results.getCountriesStatistics(opinionId, accountId, from, to, collectorId, includePartial);
+			var arr = Results.getCountriesStatistics(opinionId, accountId, from, to, collectorId, includePartial);
+			var toList = JSONHelper.toListOfModel(arr, new CountriesStatisticsRepositoryParser()::parse);
+			return toList;
+			
 		} catch (DAOException ex){
 			throw new Error(ex);
 		}
