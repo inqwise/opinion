@@ -1,11 +1,7 @@
-package com.inqwise.opinion.opinion.facade.front;
+package com.inqwise.opinion.facade.front;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,13 +14,13 @@ import com.inqwise.opinion.library.common.accounts.IAccount;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
-import com.inqwise.opinion.opinion.common.ITheme;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
-import com.inqwise.opinion.opinion.managers.OpinionsManager;
-import com.inqwise.opinion.opinion.managers.ThemesManager;
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.IPostmasterObject;
+import com.inqwise.opinion.common.ITheme;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.OpinionType;
+import com.inqwise.opinion.managers.OpinionsManager;
+import com.inqwise.opinion.managers.ThemesManager;
 
 public class ThemesEntry extends Entry implements IPostmasterObject {
 
@@ -34,7 +30,7 @@ public class ThemesEntry extends Entry implements IPostmasterObject {
 		super(context);
 	}
 	
-	public JSONObject getThemes(JSONObject input) throws JSONException, CDataGridException, IOException, NullPointerException, ExecutionException {
+	public JSONObject getThemes(JSONObject input) throws JSONException, IOException, NullPointerException, ExecutionException {
 		JSONObject output;
 		Long accountId = null;
 		IOperationResult result = validateSignIn();

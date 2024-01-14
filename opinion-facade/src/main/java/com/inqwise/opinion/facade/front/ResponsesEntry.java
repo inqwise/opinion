@@ -1,4 +1,4 @@
-package com.inqwise.opinion.opinion.facade.front;
+package com.inqwise.opinion.facade.front;
 
 import java.io.IOException;
 import java.text.Format;
@@ -9,10 +9,6 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicLong;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,16 +21,16 @@ import com.inqwise.opinion.library.common.accounts.IAccount;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.IAnswererSession;
-import com.inqwise.opinion.opinion.common.IAnswererSession.ResultSetNames;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
-import com.inqwise.opinion.opinion.common.SurveyStatistics;
-import com.inqwise.opinion.opinion.common.analizeResults.IAnalizeControl;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.managers.AnswerersSessionsManager;
-import com.inqwise.opinion.opinion.managers.OpinionsManager;
-import com.inqwise.opinion.opinion.managers.ResultsManager;
+import com.inqwise.opinion.common.IAnswererSession;
+import com.inqwise.opinion.common.IAnswererSession.ResultSetNames;
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.IPostmasterObject;
+import com.inqwise.opinion.common.SurveyStatistics;
+import com.inqwise.opinion.common.analizeResults.IAnalizeControl;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.managers.AnswerersSessionsManager;
+import com.inqwise.opinion.managers.OpinionsManager;
+import com.inqwise.opinion.managers.ResultsManager;
 
 public class ResponsesEntry extends Entry implements IPostmasterObject {
 	static ApplicationLog logger = ApplicationLog.getLogger(ResponsesEntry.class);
@@ -45,7 +41,7 @@ public class ResponsesEntry extends Entry implements IPostmasterObject {
 		super(context);
 	}
 	
-	public JSONObject getResponses(JSONObject input) throws IOException, JSONException, NullPointerException, ExecutionException, CDataGridException {
+	public JSONObject getResponses(JSONObject input) throws IOException, JSONException, NullPointerException, ExecutionException {
 		JSONObject output = new JSONObject();
 		IOperationResult result = validateSignIn();
 		IAccount account = null;
@@ -327,7 +323,7 @@ public class ResponsesEntry extends Entry implements IPostmasterObject {
 		return output;
 	}
 	
-	public JSONObject getCountriesStatistics(JSONObject input) throws NullPointerException, ExecutionException, IOException, CDataGridException, JSONException{
+	public JSONObject getCountriesStatistics(JSONObject input) throws NullPointerException, ExecutionException, IOException, JSONException{
 		JSONObject output = null;
 		IOperationResult result = null;
 		IAccount account = null;

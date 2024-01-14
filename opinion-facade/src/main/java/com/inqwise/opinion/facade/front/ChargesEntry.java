@@ -9,20 +9,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.IPostmasterObject;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.accounts.IAccount;
-import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
-import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.pay.BillType;
 import com.inqwise.opinion.library.common.pay.ChargeStatus;
 import com.inqwise.opinion.library.common.pay.ICharge;
 import com.inqwise.opinion.library.managers.AccountsManager;
 import com.inqwise.opinion.library.managers.ChargesManager;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
 
 public class ChargesEntry extends Entry implements IPostmasterObject {
 
@@ -158,10 +156,10 @@ public class ChargesEntry extends Entry implements IPostmasterObject {
 				}
 				JSONObject jCharge = new JSONObject();
 				jCharge.put("chargeId", model.getId());
-				jCharge.put("statusId", chargeStatusId);
-				jCharge.put("name", rowSet.getString("charge_name"));
-				jCharge.put("description", rowSet.getString("charge_description"));
-				jCharge.put("chargeDate", JSONHelper.getDateFormat(account.addDateOffset(rowSet.getDate("insert_date")), "MMM dd, yyyy"));
+				jCharge.put("statusId", model.getStatus().getValue());
+				jCharge.put("name", model.getName());
+				jCharge.put("description", model.getDescription());
+				jCharge.put("chargeDate", JSONHelper.getDateFormat(account.addDateOffset(model.getCreateDate()), "MMM dd, yyyy"));
 				jCharge.put("amount", model.getAmount());
 				ja.put(jCharge);
 			}

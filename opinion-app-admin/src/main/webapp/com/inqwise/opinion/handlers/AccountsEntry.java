@@ -68,7 +68,7 @@ public class AccountsEntry extends Entry {
 		super(context);
 	}
 
-	public JSONObject getAccounts(JSONObject input) throws JSONException, CDataGridException {
+	public JSONObject getAccounts(JSONObject input) throws JSONException {
 		JSONObject output;
 		int top = JSONHelper.optInt(input, "top", 100);
 		int productId = JSONHelper.optInt(input, "productId", 1);
@@ -136,7 +136,7 @@ public class AccountsEntry extends Entry {
 		return output;
 	}
 	
-	public JSONObject getTransactions(JSONObject input) throws IOException, CDataGridException, JSONException{
+	public JSONObject getTransactions(JSONObject input) throws IOException, JSONException{
 		JSONObject output;
 		IOperationResult result = null;
 		long accountId = input.getLong("accountId");

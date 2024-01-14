@@ -1,13 +1,9 @@
-package com.inqwise.opinion.opinion.facade.front;
+package com.inqwise.opinion.facade.front;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,8 +20,8 @@ import com.inqwise.opinion.library.common.pay.InvoiceItemType;
 import com.inqwise.opinion.library.common.pay.InvoiceStatus;
 import com.inqwise.opinion.library.managers.AccountsManager;
 import com.inqwise.opinion.library.managers.InvoicesManager;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.IPostmasterObject;
 
 public class InvoicesEntry extends Entry implements IPostmasterObject {
 
@@ -34,7 +30,7 @@ public class InvoicesEntry extends Entry implements IPostmasterObject {
 		super(context);
 	}
 
-	public JSONObject getInvoiceDetails(JSONObject input) throws IOException, JSONException, CDataGridException, NullPointerException, ExecutionException{
+	public JSONObject getInvoiceDetails(JSONObject input) throws IOException, JSONException, NullPointerException, ExecutionException{
 		JSONObject output = null;
 		IOperationResult result = validateSignIn();
 		
