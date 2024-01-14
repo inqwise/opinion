@@ -51,8 +51,8 @@ import com.inqwise.opinion.library.managers.ParametersManager;
 import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.library.managers.ServicePackagesManager;
 import com.inqwise.opinion.library.systemFramework.GeoIpManager;
-import com.inqwise.opinion.opinion.common.IOpinionAccount;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.IOpinionAccount;
+import com.inqwise.opinion.common.IPostmasterContext;
 
 import net.casper.data.model.CDataCacheContainer;
 import net.casper.data.model.CDataGridException;
@@ -136,7 +136,7 @@ public class AccountsEntry extends Entry {
 		return output;
 	}
 	
-	public JSONObject getTransactions(JSONObject input) throws IOException, CDataGridException, JSONException{
+	public JSONObject getTransactions(JSONObject input) throws IOException, JSONException{
 		JSONObject output;
 		IOperationResult result = null;
 		long accountId = input.getLong("accountId");
@@ -795,7 +795,7 @@ public class AccountsEntry extends Entry {
 		}
 		
 		if(null == result){
-			OperationResult<IOpinionAccount> settingsResult = com.inqwise.opinion.opinion.managers.AccountsManager.getOpinionAccount(accountId, servicePackageId);
+			OperationResult<IOpinionAccount> settingsResult = com.inqwise.opinion.managers.AccountsManager.getOpinionAccount(accountId, servicePackageId);
 			if(!settingsResult.hasError()){
 				
 				IOpinionAccount settings = settingsResult.getValue();
@@ -943,7 +943,7 @@ public class AccountsEntry extends Entry {
 					if(null == servicePackageId){
 						results.add(new BaseOperationResult(ErrorCode.ArgumentMandatory, "packageId"));
 					} else {
-						results.add(com.inqwise.opinion.opinion.managers.AccountsManager.changeSessionsBalance(accountId, servicePackageId, amount, unlimitedBalance));
+						results.add(com.inqwise.opinion.managers.AccountsManager.changeSessionsBalance(accountId, servicePackageId, amount, unlimitedBalance));
 					}
 				}
 			}
