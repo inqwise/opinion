@@ -2,6 +2,7 @@ package com.inqwise.opinion.facade.front;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -12,6 +13,7 @@ import org.json.JSONObject;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
+import com.inqwise.opinion.library.common.InvoicesModel;
 import com.inqwise.opinion.library.common.accounts.IAccount;
 import com.inqwise.opinion.library.common.accounts.IAccountBusinessDetails;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
@@ -175,7 +177,7 @@ public class InvoicesEntry extends Entry implements IPostmasterObject {
 		return ja;
 	}
 	
-	public JSONObject getInvoices(JSONObject input) throws IOException, CDataGridException, JSONException, NullPointerException, ExecutionException{
+	public JSONObject getInvoices(JSONObject input) throws IOException, JSONException, NullPointerException, ExecutionException{
 		JSONObject output;
 		IOperationResult result = validateSignIn();
 		IAccount account = null;
@@ -191,19 +193,19 @@ public class InvoicesEntry extends Entry implements IPostmasterObject {
 		if(null == result){
 			int top = JSONHelper.optInt(input, "top", 100);
 			
-			CDataCacheContainer ds = InvoicesManager.getInvoices(top, account.getId(), InvoiceStatus.Open.getValue(), false);
-			CDataRowSet rowSet = ds.getAll();
+			List<InvoicesModel> list = InvoicesManager.getInvoices(top, account.getId(), InvoiceStatus.Open.getValue(), false);
+			
 			JSONArray ja = new JSONArray();
-			while(rowSet.next()){
+			for(var invoicesModel : list){
 				JSONObject jo = new JSONObject();
-				jo.put("invoiceId", rowSet.getLong("invoice_id"));
-				jo.put("modifyDate", JSONHelper.getDateFormat(account.addDateOffset(rowSet.getDate("modify_date")), "MMM dd, yyyy"));
-				jo.put("statusId", rowSet.getInt("invoice_status_id"));
-				jo.put("invoiceDate", JSONHelper.getDateFormat(account.addDateOffset(rowSet.getDate("invoice_date")), "MMM dd, yyyy"));
-				jo.put("insertDate", JSONHelper.getDateFormat(account.addDateOffset(rowSet.getDate("insert_date")), "MMM dd, yyyy"));
-				jo.put("fromDate", JSONHelper.getDateFormat(account.addDateOffset(rowSet.getDate("invoice_from_date")), "MMM dd, yyyy"));
-				jo.put("toDate", JSONHelper.getDateFormat(account.addDateOffset(rowSet.getDate("invoice_to_date")), "MMM dd, yyyy"));
-				jo.put("amount", rowSet.getDouble("amount"));
+				jo.put("invoiceId", invoicesModel.getInvoiceId());
+				jo.put("modifyDate", JSONHelper.getDateFormat(account.addDateOffset(invoicesModel.getModifyDate()), "MMM dd, yyyy"));
+				jo.put("statusId", invoicesModel.getInvoiceStatusId());
+				jo.put("invoiceDate", JSONHelper.getDateFormat(account.addDateOffset(invoicesModel.getInvoiceDate()), "MMM dd, yyyy"));
+				jo.put("insertDate", JSONHelper.getDateFormat(account.addDateOffset(invoicesModel.getInsertDate()), "MMM dd, yyyy"));
+				jo.put("fromDate", JSONHelper.getDateFormat(account.addDateOffset(invoicesModel.getInvoiceFromDate()), "MMM dd, yyyy"));
+				jo.put("toDate", JSONHelper.getDateFormat(account.addDateOffset(invoicesModel.getInvoiceToDate()), "MMM dd, yyyy"));
+				jo.put("amount", invoicesModel.getAmount());
 				ja.put(jo);
 			}
 			

@@ -1,6 +1,7 @@
 package com.inqwise.opinion.library.managers;
 
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -9,6 +10,9 @@ import org.json.JSONArray;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
+import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
+import com.inqwise.opinion.library.common.InvoicesModel;
+import com.inqwise.opinion.library.common.InvoicesRepositoryParser;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
@@ -103,11 +107,11 @@ public class InvoicesManager {
 		return result;
 	}
 
-	public static JSONArray getInvoices(int top, Long accountId,
-			Integer invoiceStatusId, boolean includeDue) {
-		
+	public static List<InvoicesModel> getInvoices(int top, Long accountId,Integer invoiceStatusId, boolean includeDue) {
 		try {
-			return InvoicesDataAccess.getInvoices(top, accountId, invoiceStatusId);
+			var arr = InvoicesDataAccess.getInvoices(top, accountId, invoiceStatusId);
+			var toList = JSONHelper.toListOfModel(arr, new InvoicesRepositoryParser()::parse);
+			return toList;
 		} catch (DAOException e) {
 			throw new Error(e);
 		}

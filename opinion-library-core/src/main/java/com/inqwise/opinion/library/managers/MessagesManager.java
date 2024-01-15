@@ -2,6 +2,7 @@ package com.inqwise.opinion.library.managers;
 
 import java.sql.ResultSet;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.json.JSONArray;
@@ -9,6 +10,9 @@ import org.json.JSONArray;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
+import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
+import com.inqwise.opinion.library.common.MessagesModel;
+import com.inqwise.opinion.library.common.MessagesRepositoryParser;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
@@ -92,9 +96,11 @@ public final class MessagesManager {
 		return result;
 	}
 	
-	public static JSONArray getMessages(Long userId, Date fromModifyDate, Date toModifyDate, boolean includeClosed, boolean includeNotActivated, int top, boolean includeExcluded){
+	public static List<MessagesModel> getMessages(Long userId, Date fromModifyDate, Date toModifyDate, boolean includeClosed, boolean includeNotActivated, int top, boolean includeExcluded){
 		try {
-			return MessagesDataAccess.getMessages(userId, fromModifyDate, toModifyDate, includeClosed, includeNotActivated, top, includeExcluded);
+			var arr = MessagesDataAccess.getMessages(userId, fromModifyDate, toModifyDate, includeClosed, includeNotActivated, top, includeExcluded);
+			var toList = JSONHelper.toListOfModel(arr, new MessagesRepositoryParser()::parse);
+			return toList;
 		} catch (DAOException e) {
 			throw new Error(e);
 		}
