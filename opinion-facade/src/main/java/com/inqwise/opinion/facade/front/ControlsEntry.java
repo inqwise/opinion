@@ -11,13 +11,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.inqwise.opinion.infrastructure.common.IOperationResult;
-import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
-import com.inqwise.opinion.library.common.accounts.IAccount;
-import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
-import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
-import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.common.ControlType;
 import com.inqwise.opinion.common.IControl;
 import com.inqwise.opinion.common.IControl.JsonNames;
@@ -33,7 +26,13 @@ import com.inqwise.opinion.common.opinions.IOpinion;
 import com.inqwise.opinion.common.sheet.ISheet;
 import com.inqwise.opinion.common.sheet.ISheetRequest;
 import com.inqwise.opinion.common.sheet.StartSheetIndexData;
-import com.inqwise.opinion.http.HttpClientSession;
+import com.inqwise.opinion.infrastructure.common.IOperationResult;
+import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
+import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
+import com.inqwise.opinion.library.common.accounts.IAccount;
+import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
+import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
+import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.managers.ControlsManager;
 import com.inqwise.opinion.managers.OpinionsManager;
 import com.inqwise.opinion.managers.SheetsManager;
@@ -521,15 +520,15 @@ public class ControlsEntry extends Entry implements IPostmasterObject {
 		BaseOperationResult result = null;
 		try {
 			final Long controlId = JSONHelper.optLong(input, "controlId", parentControlId);
-			final String text = input.getString(com.inqwise.opinion.opinion.common.IOption.JsonNames.TEXT);
+			final String text = input.getString(com.inqwise.opinion.common.IOption.JsonNames.TEXT);
 			final String value = JSONHelper.optString(input,
-					com.inqwise.opinion.opinion.common.IOption.JsonNames.VALUE, text, "");
+					com.inqwise.opinion.common.IOption.JsonNames.VALUE, text, "");
 			final Integer orderId = input.getInt("orderId"); // null - to the
 			// end
 			final Long translationId = JSONHelper.optLong(input,
-					com.inqwise.opinion.opinion.common.IOption.JsonNames.TRANSLATION_ID, IOpinion.DEFAULT_TRANSLATION_ID);
-			final String link = JSONHelper.optStringTrim(input, com.inqwise.opinion.opinion.common.IOption.JsonNames.LINK);
-			final Integer linkTypeId = JSONHelper.optInt(input, com.inqwise.opinion.opinion.common.IOption.JsonNames.LINK_TYPE_ID, (null == link ? null : 0));
+					com.inqwise.opinion.common.IOption.JsonNames.TRANSLATION_ID, IOpinion.DEFAULT_TRANSLATION_ID);
+			final String link = JSONHelper.optStringTrim(input, com.inqwise.opinion.common.IOption.JsonNames.LINK);
+			final Integer linkTypeId = JSONHelper.optInt(input, com.inqwise.opinion.common.IOption.JsonNames.LINK_TYPE_ID, (null == link ? null : 0));
 			
 
 			IOptionRequest createRequest = new IOptionRequest() {
@@ -567,19 +566,19 @@ public class ControlsEntry extends Entry implements IPostmasterObject {
 				@Override
 				public String getAdditionalDetailsTitle() {
 					return JSONHelper.optString(input,
-							com.inqwise.opinion.opinion.common.IOption.JsonNames.ADDITIONAL_DETAILS_TITLE, null, "");
+							com.inqwise.opinion.common.IOption.JsonNames.ADDITIONAL_DETAILS_TITLE, null, "");
 				}
 
 				@Override
 				public Boolean getIsEnableAdditionalDetails() {
 					return JSONHelper.optBoolean(input,
-							com.inqwise.opinion.opinion.common.IOption.JsonNames.IS_ENABLE_ADDITIONAL_DETAILS);
+							com.inqwise.opinion.common.IOption.JsonNames.IS_ENABLE_ADDITIONAL_DETAILS);
 				}
 
 				@Override
 				public Integer getOptionKindId() {
 					return JSONHelper.optInt(input,
-							com.inqwise.opinion.opinion.common.IOption.JsonNames.OPTION_KIND_ID, OptionKind.Simple
+							com.inqwise.opinion.common.IOption.JsonNames.OPTION_KIND_ID, OptionKind.Simple
 									.getValue());
 				}
 
@@ -619,18 +618,18 @@ public class ControlsEntry extends Entry implements IPostmasterObject {
 		BaseOperationResult result;
 
 		try {
-			Long optionId = input.getLong(com.inqwise.opinion.opinion.common.IOption.JsonNames.OPTION_ID);
-			String text = input.getString(com.inqwise.opinion.opinion.common.IOption.JsonNames.TEXT);
-			String value = JSONHelper.optString(input, com.inqwise.opinion.opinion.common.IOption.JsonNames.VALUE,
+			Long optionId = input.getLong(com.inqwise.opinion.common.IOption.JsonNames.OPTION_ID);
+			String text = input.getString(com.inqwise.opinion.common.IOption.JsonNames.TEXT);
+			String value = JSONHelper.optString(input, com.inqwise.opinion.common.IOption.JsonNames.VALUE,
 					null, "");
 			Boolean isEnableAdditionalDetails = JSONHelper.optBoolean(input,
-					com.inqwise.opinion.opinion.common.IOption.JsonNames.IS_ENABLE_ADDITIONAL_DETAILS);
+					com.inqwise.opinion.common.IOption.JsonNames.IS_ENABLE_ADDITIONAL_DETAILS);
 			String additionalDetailsTitle = JSONHelper.optString(input,
-					com.inqwise.opinion.opinion.common.IOption.JsonNames.ADDITIONAL_DETAILS_TITLE, null, "");
+					com.inqwise.opinion.common.IOption.JsonNames.ADDITIONAL_DETAILS_TITLE, null, "");
 			Long translationId = JSONHelper.optLong(input,
-					com.inqwise.opinion.opinion.common.IOption.JsonNames.TRANSLATION_ID, 0L);
-			String link = JSONHelper.optStringTrim(input, com.inqwise.opinion.opinion.common.IOption.JsonNames.LINK);
-			Integer linkTypeId = JSONHelper.optInt(input, com.inqwise.opinion.opinion.common.IOption.JsonNames.LINK_TYPE_ID, (null == link ? null : 0));
+					com.inqwise.opinion.common.IOption.JsonNames.TRANSLATION_ID, 0L);
+			String link = JSONHelper.optStringTrim(input, com.inqwise.opinion.common.IOption.JsonNames.LINK);
+			Integer linkTypeId = JSONHelper.optInt(input, com.inqwise.opinion.common.IOption.JsonNames.LINK_TYPE_ID, (null == link ? null : 0));
 			
 			result = OpinionsManager.updateOption(optionId, text, value,
 					translationId, accountId, isEnableAdditionalDetails,
@@ -649,7 +648,7 @@ public class ControlsEntry extends Entry implements IPostmasterObject {
 		BaseOperationResult result;
 
 		try {
-			Long optionId = input.getLong(com.inqwise.opinion.opinion.common.IOption.JsonNames.OPTION_ID);
+			Long optionId = input.getLong(com.inqwise.opinion.common.IOption.JsonNames.OPTION_ID);
 			result = OpinionsManager.deleteOption(optionId, accountId, userId);
 		} catch (Throwable t) {
 			UUID errorId = logger.error(t,

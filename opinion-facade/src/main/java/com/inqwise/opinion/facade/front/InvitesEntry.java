@@ -4,15 +4,12 @@ import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
-
-import org.json.JSONArray;
+import org.apache.commons.lang3.NotImplementedException;
 import org.json.JSONObject;
 
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.IPostmasterObject;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
-import com.inqwise.opinion.infrastructure.systemFramework.DateConverter;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.IProduct;
 import com.inqwise.opinion.library.common.accounts.IAccount;
@@ -24,8 +21,6 @@ import com.inqwise.opinion.library.common.invites.IInviteCreateRequest;
 import com.inqwise.opinion.library.common.invites.IInviteSettingsChangeRequest;
 import com.inqwise.opinion.library.managers.InvitesManager;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.common.IPostmasterObject;
 
 public class InvitesEntry extends Entry implements IPostmasterObject {
 
@@ -180,40 +175,41 @@ public class InvitesEntry extends Entry implements IPostmasterObject {
 		return output;
 	}
 	
-	public JSONObject getInvites(JSONObject input) throws NullPointerException, ExecutionException, CDataGridException{
-		JSONObject output = null;
-		IOperationResult result = validateSignIn();
-		
-		IAccount account = null;
-		if(null == result) {
-			OperationResult<IAccount> accountResult = getAccount();
-			if(accountResult.hasError()){
-				result = accountResult;
-			} else {
-				account = accountResult.getValue();
-			}
-		}
-		
-		if (null == result){
-			JSONArray ja = new JSONArray();
-			CDataCacheContainer invitesContainer = InvitesManager.getInvites(account.getId());
-			CDataRowSet rowSet = invitesContainer.getAll();
-			while(rowSet.next()){
-				JSONObject jo = new JSONObject();
-				jo.put(IInvite.JsonNames.INVITE_ID, rowSet.getLong(IInvite.ResultSetNames.INVITE_ID));
-				jo.put(IInvite.JsonNames.INVITE_NAME, rowSet.getString(IInvite.ResultSetNames.INVITE_NAME));
-				jo.put(IInvite.JsonNames.INVITE_EMAIL, rowSet.getString(IInvite.ResultSetNames.INVITE_EMAIL));
-				jo.put(IInvite.JsonNames.INVITE_DATE, DateConverter.getDateFormat(account.addDateOffset(rowSet.getDate(IInvite.ResultSetNames.INVITE_DATE)), "MMM dd, yyyy"));
-				jo.put(IInvite.JsonNames.EXTERNAL_ID, rowSet.getString(IInvite.ResultSetNames.EXTERNAL_ID));
-				ja.put(jo);
-			}
-			
-			output = new JSONObject().put("list", ja);
-		} else {
-			output = result.toJson();
-		}
-		
-		return output;
+	public JSONObject getInvites(JSONObject input) throws NullPointerException, ExecutionException{
+//		JSONObject output = null;
+//		IOperationResult result = validateSignIn();
+//		
+//		IAccount account = null;
+//		if(null == result) {
+//			OperationResult<IAccount> accountResult = getAccount();
+//			if(accountResult.hasError()){
+//				result = accountResult;
+//			} else {
+//				account = accountResult.getValue();
+//			}
+//		}
+//		
+//		if (null == result){
+//			JSONArray ja = new JSONArray();
+//			CDataCacheContainer invitesContainer = InvitesManager.getInvites(account.getId());
+//			CDataRowSet rowSet = invitesContainer.getAll();
+//			while(rowSet.next()){
+//				JSONObject jo = new JSONObject();
+//				jo.put(IInvite.JsonNames.INVITE_ID, rowSet.getLong(IInvite.ResultSetNames.INVITE_ID));
+//				jo.put(IInvite.JsonNames.INVITE_NAME, rowSet.getString(IInvite.ResultSetNames.INVITE_NAME));
+//				jo.put(IInvite.JsonNames.INVITE_EMAIL, rowSet.getString(IInvite.ResultSetNames.INVITE_EMAIL));
+//				jo.put(IInvite.JsonNames.INVITE_DATE, DateConverter.getDateFormat(account.addDateOffset(rowSet.getDate(IInvite.ResultSetNames.INVITE_DATE)), "MMM dd, yyyy"));
+//				jo.put(IInvite.JsonNames.EXTERNAL_ID, rowSet.getString(IInvite.ResultSetNames.EXTERNAL_ID));
+//				ja.put(jo);
+//			}
+//			
+//			output = new JSONObject().put("list", ja);
+//		} else {
+//			output = result.toJson();
+//		}
+//		
+//		return output;
+		throw new NotImplementedException("getInvites");
 	}
 
 	private OperationResult<Long> createInvite(final long accountId, final JSONObject input, final Integer accountMaxUsers, final int accountProductId) {
