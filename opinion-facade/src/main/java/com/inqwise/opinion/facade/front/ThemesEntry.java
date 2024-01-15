@@ -1,6 +1,7 @@
 package com.inqwise.opinion.facade.front;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
@@ -17,6 +18,7 @@ import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.common.IPostmasterContext;
 import com.inqwise.opinion.common.IPostmasterObject;
 import com.inqwise.opinion.common.ITheme;
+import com.inqwise.opinion.common.ThemesModel;
 import com.inqwise.opinion.common.opinions.IOpinion;
 import com.inqwise.opinion.common.opinions.OpinionType;
 import com.inqwise.opinion.managers.OpinionsManager;
@@ -50,15 +52,13 @@ public class ThemesEntry extends Entry implements IPostmasterObject {
 			Integer top = JSONHelper.optInt(input, "top");
 			int opinionTypeId = JSONHelper.optInt(input, "opinionTypeId", OpinionType.Survey.getValue());
 		
-			CDataCacheContainer ds = ThemesManager.getMeny(accountId, top, opinionTypeId);
-		
-			CDataRowSet rowSet = ds.getAll();
-			JSONArray themesJa = new JSONArray();
+			List<ThemesModel> list = ThemesManager.getMeny(accountId, top, opinionTypeId);	
 			
-			while(rowSet.next()){
-				JSONObject themeJo = new JSONObject().put(ITheme.JsonNames.ID, rowSet.getInt(ITheme.ResultSetNames.THEME_ID));
-				themeJo.put(ITheme.JsonNames.NAME, rowSet.getString(ITheme.ResultSetNames.NAME));
-				themeJo.put(ITheme.JsonNames.IS_TEMPLATE, rowSet.getBoolean(ITheme.ResultSetNames.IS_TEMPLATE));
+			JSONArray themesJa = new JSONArray();
+			for(var themesModel : list){
+				JSONObject themeJo = new JSONObject().put(ITheme.JsonNames.ID, themesModel.getThemeId());
+				themeJo.put(ITheme.JsonNames.NAME, themesModel.getName());
+				themeJo.put(ITheme.JsonNames.IS_TEMPLATE, themesModel.getIsTemplate());
 				themesJa.put(themeJo);
 			}
 			

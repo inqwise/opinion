@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,6 +13,7 @@ import org.json.JSONObject;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
+import com.inqwise.opinion.library.common.MessagesModel;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
@@ -45,16 +47,17 @@ public class MessagesEntry extends Entry implements IPostmasterObject {
 		}
 		
 		if(null == result) {
-			CDataCacheContainer messagesDataSet = MessagesManager.getMessages(userId, from, to, includeClosed, includeNotActive, top, false);
-			CDataRowSet rowSet = messagesDataSet.getAll();
+			
+			List<MessagesModel> list = MessagesManager.getMessages(userId, from, to, includeClosed, includeNotActive, top, false);
+			
 			Format formatter = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss");
 			JSONArray ja = new JSONArray();
-			while(rowSet.next()){
+			for(var messagesModel : list){
 				JSONObject item = new JSONObject();
-				item.put("id", rowSet.getLong("message_id"));
-				item.put("name", rowSet.getString("message_name"));
-				item.put("content", rowSet.getString("message_content"));
-				item.put("publishDate", formatter.format(rowSet.getDate("activate_date")));
+				item.put("id", messagesModel.getMessageId());
+				item.put("name", messagesModel.getMessageName());
+				item.put("content", messagesModel.getMessageContent());
+				item.put("publishDate", formatter.format(messagesModel.getActivateDate()));
 								
 				ja.put(item);
 			}

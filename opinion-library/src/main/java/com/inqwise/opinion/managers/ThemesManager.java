@@ -1,18 +1,20 @@
 package com.inqwise.opinion.managers;
 
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.UUID;
-
-import org.json.JSONArray;
 
 import com.inqwise.opinion.common.ITheme;
 import com.inqwise.opinion.common.OutputMode;
+import com.inqwise.opinion.common.ThemesModel;
+import com.inqwise.opinion.common.ThemesRepositoryParser;
 import com.inqwise.opinion.common.opinions.IOpinion;
 import com.inqwise.opinion.dao.ThemesDataAccess;
 import com.inqwise.opinion.entities.ThemeEntity;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
+import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
@@ -23,9 +25,11 @@ import com.inqwise.opinion.library.dao.DAOBase;
 public class ThemesManager {
 	public static ApplicationLog logger = ApplicationLog.getLogger(ThemesManager.class);
 	
-	public static JSONArray getMeny(long accountId, Integer top, int opinionTypeId) {
+	public static List<ThemesModel> getMeny(long accountId, Integer top, int opinionTypeId) {
 		try {
-			return ThemesDataAccess.getThemes(accountId, top, opinionTypeId);
+			var arr = ThemesDataAccess.getThemes(accountId, top, opinionTypeId);
+			var toList = JSONHelper.toListOfModel(arr, new ThemesRepositoryParser()::parse);
+			return toList;
 		} catch (DAOException e) {
 			throw new Error(e);
 		}

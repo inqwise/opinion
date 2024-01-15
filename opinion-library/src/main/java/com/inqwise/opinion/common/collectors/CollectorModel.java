@@ -1,6 +1,5 @@
 package com.inqwise.opinion.common.collectors;
 
-import java.util.Collection;
 import java.util.Date;
 
 import org.json.JSONObject;
@@ -214,8 +213,6 @@ public class CollectorModel {
 		json.put(Keys.AVG_TIME_TAKEN_SEC, avgTimeTakenSec);
 		json.put(Keys.CLOSE_MESSAGE, closeMessage);
 		return json;
-		
-
 	}
 	
 	public static Builder builder() {
