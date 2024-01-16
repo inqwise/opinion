@@ -14,6 +14,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.servicePackage.IOpinionServicePackageSettingsUpdateRequest;
+import com.inqwise.opinion.common.servicePackage.IServicePackageSettings;
 import com.inqwise.opinion.infrastructure.common.BulkOperationResults;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
@@ -30,10 +33,7 @@ import com.inqwise.opinion.library.common.servicePackages.IServicePackageUpdateR
 import com.inqwise.opinion.library.managers.ParametersManager;
 import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.library.managers.ServicePackagesManager;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.common.servicePackage.IOpinionServicePackageSettingsUpdateRequest;
-import com.inqwise.opinion.opinion.common.servicePackage.IServicePackageSettings;
-import com.inqwise.opinion.opinion.managers.OpinionServicePackagesManager;
+import com.inqwise.opinion.managers.OpinionServicePackagesManager;
 
 public class ProductsEntry extends Entry {
 

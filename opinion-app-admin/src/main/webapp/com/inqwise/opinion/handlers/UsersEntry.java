@@ -13,10 +13,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.inqwise.opinion.common.IPostmasterContext;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.IProduct;
-import com.inqwise.opinion.library.common.UserOperationModel;
 import com.inqwise.opinion.library.common.accounts.IAccountView;
 import com.inqwise.opinion.library.common.emails.IPasswordChangedEmailData;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
@@ -33,7 +33,10 @@ import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.library.managers.UsersManager;
 import com.inqwise.opinion.library.managers.UsersOperationsManager;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.common.IPostmasterContext;
+
+import net.casper.data.model.CDataCacheContainer;
+import net.casper.data.model.CDataGridException;
+import net.casper.data.model.CDataRowSet;
 
 public class UsersEntry extends Entry {
 	private static final int DEFAULT_EXPIRATION_IN_DAYS = 30;
@@ -219,7 +222,7 @@ public class UsersEntry extends Entry {
 		return output;
 	}
 	
-	public JSONObject getHistory(JSONObject input) throws JSONException{
+	public JSONObject getHistory(JSONObject input) throws JSONException, CDataGridException{
 		JSONObject output;
 		Long userId = JSONHelper.optLong(input, "userId");
 		int top = JSONHelper.optInt(input, "top", 100);
@@ -233,31 +236,32 @@ public class UsersEntry extends Entry {
 			usersOperationsTypeIds = new Integer[] {usersOperationsTypeId};
 		}
 		
-		List<UserOperationModel> list = UsersOperationsManager.getUserOperations(top, userId, usersOperationsTypeIds, fromDate, toDate, productId);
+		CDataCacheContainer ds = UsersOperationsManager.getUserOperations(top, userId, usersOperationsTypeIds, fromDate, toDate, productId);
+		CDataRowSet rowSet = ds.getAll();
 		JSONArray ja = new JSONArray();
 		Format formatter = new SimpleDateFormat(
 				"MMM dd, yyyy HH:mm:ss");
-		for(var userOperationModel : list){
+		while(rowSet.next()){
 			JSONObject item = new JSONObject();
-			item.put("id", userOperationModel.getUsopId());
-			item.put("typeId", userOperationModel.getUsopTypeId());
-			item.put("typeName", userOperationModel.getUsopTypeValue());
+			item.put("id", rowSet.getLong("usop_id"));
+			item.put("typeId", rowSet.getInt("usop_type_id"));
+			item.put("typeName", rowSet.getString("usop_type_value"));
 			if(null == userId){
-				item.put("userName", userOperationModel.getUserName());
-				item.put("userId", userOperationModel.getUserId());
+				item.put("userName", rowSet.getString("user_name"));
+				item.put("userId", rowSet.getLong("user_id"));
 			}
-			item.put("clientIp", userOperationModel.getClientIp());
+			item.put("clientIp", rowSet.getString("client_ip"));
 			//item.put("geoCountryId", rowSet.getString("geo_country_id"));
 			//item.put("sessionId", rowSet.getString("session_id"));
 			if(null == productId){
-				item.put("sourceId", userOperationModel.getProductId());
+				item.put("sourceId", rowSet.getInt("product_id"));
 			}
 			//item.put("sourceName", rowSet.getString("product_name"));
-			item.put("insertDate", formatter.format(userOperationModel.getInsertDate()));
+			item.put("insertDate", formatter.format(rowSet.getDate("insert_date")));
 			// item.put("comments", rowSet.getDate("comments"));
 			//item.put("referenceId", rowSet.getLong("reference_id"));
 			//item.put("backofficeUserId", rowSet.getLong("backoffice_user_id"));
-			item.put("countryName", userOperationModel.getCountryName());
+			item.put("countryName", rowSet.getString("country_name"));
 			ja.put(item);
 		}
 		

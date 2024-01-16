@@ -20,6 +20,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.msgpack.MessagePack;
 
+import com.inqwise.opinion.common.ICollectorPostmasterContext;
+import com.inqwise.opinion.common.IHttpAnswererSession;
+import com.inqwise.opinion.common.IPostmasterObject;
+import com.inqwise.opinion.facade.collector.Entry;
+import com.inqwise.opinion.facade.collector.OpinionsEntry;
+import com.inqwise.opinion.facade.collector.ResponsesEntry;
+import com.inqwise.opinion.facade.collector.SurveysEntry;
+import com.inqwise.opinion.http.HttpAnswererSession;
+import com.inqwise.opinion.http.HttpClientSession;
+import com.inqwise.opinion.http.HttpClientSessionUserArgs;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.EmailProvider;
 import com.inqwise.opinion.infrastructure.systemFramework.NetworkHelper;
@@ -27,16 +37,6 @@ import com.inqwise.opinion.infrastructure.systemFramework.cryptography.StringEnc
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.opinion.common.ICollectorPostmasterContext;
-import com.inqwise.opinion.opinion.common.IHttpAnswererSession;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
-import com.inqwise.opinion.opinion.facade.collector.Entry;
-import com.inqwise.opinion.opinion.facade.collector.OpinionsEntry;
-import com.inqwise.opinion.opinion.facade.collector.ResponsesEntry;
-import com.inqwise.opinion.opinion.facade.collector.SurveysEntry;
-import com.inqwise.opinion.opinion.http.HttpAnswererSession;
-import com.inqwise.opinion.opinion.http.HttpClientSession;
-import com.inqwise.opinion.opinion.http.HttpClientSessionUserArgs;
 
 public class DataPostmasterDescryptor implements ICollectorPostmasterContext {
 

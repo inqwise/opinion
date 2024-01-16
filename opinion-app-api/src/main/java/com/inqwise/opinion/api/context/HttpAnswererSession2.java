@@ -11,11 +11,11 @@ import org.json.JSONObject;
 
 import com.inqwise.opinion.api.common.AnswererSessionArgs;
 import com.inqwise.opinion.api.dao.cache.AnswerersSessionsCacheAccess;
+import com.inqwise.opinion.common.IHttpAnswererSession;
 import com.inqwise.opinion.infrastructure.common.ICookie;
 import com.inqwise.opinion.infrastructure.common.ICookies;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.cryptography.StringEncrypter;
-import com.inqwise.opinion.opinion.common.IHttpAnswererSession;
 
 public class HttpAnswererSession2 implements IHttpAnswererSession {
 	

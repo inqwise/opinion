@@ -23,16 +23,12 @@ import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.DateConverter;
 import com.inqwise.opinion.infrastructure.systemFramework.GeoIpManager;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
-import com.inqwise.opinion.library.common.AccountOperationModel;
-import com.inqwise.opinion.library.common.InvoiceItemModel;
-import com.inqwise.opinion.library.common.InvoiceModel;
 import com.inqwise.opinion.library.common.accounts.AccountsOperationsType;
 import com.inqwise.opinion.library.common.accounts.IAccountBusinessDetails;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.pay.BillType;
-import com.inqwise.opinion.library.common.pay.ChargeModel;
 import com.inqwise.opinion.library.common.pay.ChargeStatus;
 import com.inqwise.opinion.library.common.pay.IInvoice;
 import com.inqwise.opinion.library.common.pay.IInvoiceCreateRequest;
@@ -46,6 +42,10 @@ import com.inqwise.opinion.library.managers.ChargesManager;
 import com.inqwise.opinion.library.managers.InvoicesManager;
 import com.inqwise.opinion.library.managers.ProductsManager;
 
+import net.casper.data.model.CDataCacheContainer;
+import net.casper.data.model.CDataGridException;
+import net.casper.data.model.CDataRowSet;
+
 public class InvoicesEntry extends Entry {
 
 	private static final List<Integer> DRAFT_ACCOUNT_OPERATIONS_TYPE_IDS = Arrays.asList(AccountsOperationsType.Fund.getValue(), AccountsOperationsType.Refund.getValue());
@@ -57,7 +57,7 @@ public class InvoicesEntry extends Entry {
 		super(context);
 	}
 
-	public JSONObject getInvoiceDetails(JSONObject input) throws IOException, JSONException{
+	public JSONObject getInvoiceDetails(JSONObject input) throws IOException, JSONException, CDataGridException{
 		JSONObject output;
 		long invoiceId = input.getLong("invoiceId");
 		OperationResult<IInvoice> invoiceResult = InvoicesManager.getInvoice(invoiceId, null, null);
@@ -97,7 +97,7 @@ public class InvoicesEntry extends Entry {
 				output.put("charges", getCharges(invoice));
 				output.put("transactions", getTransactions(invoice, fromDate, toDate));
 			} else {
-				Map<InvoiceItemType, List<InvoiceItemModel>> invoiceItems = InvoicesManager.getInvoiceItems(invoiceId);
+				Map<InvoiceItemType, CDataCacheContainer> invoiceItems = InvoicesManager.getInvoiceItems(invoiceId);
 				output.put("charges", getCharges(invoiceItems));
 				output.put("transactions", getTransactions(invoiceItems, invoice.getTotalCredit(), invoice.getTotalDebit()));
 			}
@@ -106,7 +106,7 @@ public class InvoicesEntry extends Entry {
 		return output;
 	}
 	
-	private JSONObject getTransactions(IInvoice invoice, Date fromDate, Date toDate) throws JSONException {
+	private JSONObject getTransactions(IInvoice invoice, Date fromDate, Date toDate) throws JSONException, CDataGridException {
 		
 		if(null == fromDate || invoice.getStatus() == InvoiceStatus.Open){
 			fromDate = invoice.getInvoiceFromDate();
@@ -119,10 +119,10 @@ public class InvoicesEntry extends Entry {
 		toDate = DateConverter.shiftToTheEndOfTheDay(toDate);
 		MutableDouble totalCredit = new MutableDouble();
 		MutableDouble totalDebit = new MutableDouble();
- 		
-		List<InvoiceItemModel> list = AccountsOperationsManager.getAccountOperations(DRAFT_MAX_INVOICE_ITEMS, invoice.getForAccountId(),DRAFT_ACCOUNT_OPERATIONS_TYPE_IDS,null, null, fromDate, toDate, true);
-		
-		JSONArray ja = getTransactionsList(list, totalCredit, totalDebit);
+ 		CDataCacheContainer ds = AccountsOperationsManager.getAccountOperations(DRAFT_MAX_INVOICE_ITEMS, invoice.getForAccountId(),
+				DRAFT_ACCOUNT_OPERATIONS_TYPE_IDS,
+				null, null, fromDate, toDate, true);
+		JSONArray ja = getTransactionsList(ds, totalCredit, totalDebit);
 		JSONObject output = new JSONObject();
 		output.put("list", ja);
 		output.put("totalDebit", BigDecimal.valueOf(totalDebit.doubleValue()).setScale(2, RoundingMode.HALF_UP));
@@ -131,7 +131,7 @@ public class InvoicesEntry extends Entry {
 		return output;
 	}
 
-	private JSONObject getCharges(IInvoice invoice) throws JSONException {
+	private JSONObject getCharges(IInvoice invoice) throws CDataGridException, JSONException {
 		return ChargesEntry.getCharges(DRAFT_MAX_INVOICE_ITEMS, invoice.getForAccountId(), invoice.getId(), null, DRAFT_CHARGES_STATUS_IDS, false, true, false, BillType.Invoice.getValue(), null);
 	}
 	
@@ -282,32 +282,31 @@ public class InvoicesEntry extends Entry {
 		});
 	}
 	
-	public JSONObject getInvoices(JSONObject input) throws IOException, JSONException{
+	public JSONObject getInvoices(JSONObject input) throws IOException, CDataGridException, JSONException{
 		JSONObject output;
 		Long accountId = JSONHelper.optLong(input, "accountId");
 		int top = JSONHelper.optInt(input, "top", 100);
 		boolean includeDue = input.optBoolean("includeDue");
 		
 		Integer statusId = JSONHelper.optInt(input, "statusId");
-		
-		List<InvoiceModel> list = InvoicesManager.getInvoices(top, accountId, statusId, includeDue);
-
+		CDataCacheContainer ds = InvoicesManager.getInvoices(top, accountId, statusId, includeDue);
+		CDataRowSet rowSet = ds.getAll();
 		JSONArray ja = new JSONArray();
-		for(var invoiceModel : list){
+		while(rowSet.next()){
 			JSONObject jo = new JSONObject();
-			jo.put("invoiceId", invoiceModel.getInvoiceId());
-			jo.put("modifyDate", JSONHelper.getDateFormat(invoiceModel.getModifyDate(), "MMM dd, yyyy"));
-			jo.put("statusId", invoiceModel.getInvoiceStatusId());
+			jo.put("invoiceId", rowSet.getLong("invoice_id"));
+			jo.put("modifyDate", JSONHelper.getDateFormat(rowSet.getDate("modify_date"), "MMM dd, yyyy"));
+			jo.put("statusId", rowSet.getInt("invoice_status_id"));
 			
 			if(null == accountId){
-				jo.put("accountId", invoiceModel.getAccountId());
-				jo.put("accountName", invoiceModel.getAccountName());
+				jo.put("accountId", rowSet.getLong("for_account_id"));
+				jo.put("accountName", rowSet.getString("account_name"));
 			}
-			jo.put("invoiceDate", JSONHelper.getDateFormat(invoiceModel.getInvoiceDate(), "MMM dd, yyyy"));
-			jo.put("fromDate", JSONHelper.getDateFormat(invoiceModel.getInvoiceFromDate(), "MMM dd, yyyy"));
-			jo.put("toDate", JSONHelper.getDateFormat(invoiceModel.getInvoiceToDate(), "MMM dd, yyyy"));
-			jo.put("insertDate", JSONHelper.getDateFormat(invoiceModel.getInsertDate(), "MMM dd, yyyy"));
-			jo.put("amount", invoiceModel.getAmount());
+			jo.put("invoiceDate", JSONHelper.getDateFormat(rowSet.getDate("invoice_date"), "MMM dd, yyyy"));
+			jo.put("fromDate", JSONHelper.getDateFormat(rowSet.getDate("invoice_from_date"), "MMM dd, yyyy"));
+			jo.put("toDate", JSONHelper.getDateFormat(rowSet.getDate("invoice_to_date"), "MMM dd, yyyy"));
+			jo.put("insertDate", JSONHelper.getDateFormat(rowSet.getDate("insert_date"), "MMM dd, yyyy"));
+			jo.put("amount", rowSet.getDouble("amount"));
 			ja.put(jo);
 		}
 		
@@ -354,7 +353,7 @@ public class InvoicesEntry extends Entry {
 		return output;
 	}
 	
-	public JSONObject updateInvoice(final JSONObject input) throws JSONException, IOException{
+	public JSONObject updateInvoice(final JSONObject input) throws JSONException, IOException, CDataGridException{
 		
 		IOperationResult result = null;
 		JSONObject output;
@@ -466,7 +465,7 @@ public class InvoicesEntry extends Entry {
 	}
 
 	private BaseOperationResult completeInvoiceGeneration(long invoiceId,
-			Date fromDate, Date toDate) throws IOException {
+			Date fromDate, Date toDate) throws CDataGridException, IOException {
 		
 		BaseOperationResult result = null;
 		IInvoice invoice = null;
@@ -478,22 +477,25 @@ public class InvoicesEntry extends Entry {
 		}
 		
 		if(null == result){
-			List<ChargeModel> chargeList = ChargesManager.getCharges(DRAFT_MAX_INVOICE_ITEMS, invoice.getForAccountId(), invoiceId, BillType.Invoice.getValue(), null, DRAFT_CHARGES_STATUS_IDS, false, true, null);
+			CDataRowSet chargesRowSet = ChargesManager.getCharges(DRAFT_MAX_INVOICE_ITEMS, invoice.getForAccountId(), invoiceId, BillType.Invoice.getValue(), null, DRAFT_CHARGES_STATUS_IDS, false, true, null);
 			
-			List<AccountOperationModel> accountOperationList = AccountsOperationsManager.getAccountOperations(DRAFT_MAX_INVOICE_ITEMS, invoice.getForAccountId(),DRAFT_ACCOUNT_OPERATIONS_TYPE_IDS,null, null, fromDate, toDate, true);
+			CDataCacheContainer acountOperationsDs = AccountsOperationsManager.getAccountOperations(DRAFT_MAX_INVOICE_ITEMS, invoice.getForAccountId(),
+					DRAFT_ACCOUNT_OPERATIONS_TYPE_IDS,
+					null, null, fromDate, toDate, true);
+			CDataRowSet accountOperationsRowSet = acountOperationsDs.getAll();
 			
 			double totalCredit = 0.0;
 			double totalDebit = 0.0;
 			
 			//Charges
 			List<Long> chargeIds = new ArrayList<Long>();
-			for(var chargeModel : chargeList){
-				chargeIds.add(chargeModel.getId());
+			while(chargesRowSet.next()){
+				chargeIds.add(chargesRowSet.getLong("charge_id"));
 			}
 			
 			//AccountOperations
 			List<Long> accountOperationsIds = new ArrayList<Long>();
-			for(var accountOperationModel : accountOperationList) {
+			while (accountOperationsRowSet.next()) {
 				accountOperationsIds.add(accountOperationsRowSet.getLong("accop_id"));
 				Double amount = accountOperationsRowSet.getDouble("amount");
 				if(null !=  amount){
@@ -587,21 +589,22 @@ public class InvoicesEntry extends Entry {
 	}
 	
 	private JSONObject getCharges(
-			Map<InvoiceItemType, List<InvoiceItemModel>> invoiceItems) throws JSONException {
+			Map<InvoiceItemType, CDataCacheContainer> invoiceItems) throws CDataGridException, JSONException {
 		JSONObject output = new JSONObject();
 		JSONArray ja = new JSONArray();
-		List<InvoiceItemModel> chargeslist = invoiceItems.get(InvoiceItemType.Charge);
-		if(null != chargeslist){
-			for(var invoiceItemModel : chargeslist){
-				Long chargeId = invoiceItemModel.getChargeId();
-				BigDecimal amount = BigDecimal.valueOf(invoiceItemModel.getAmount());
-				int chargeStatusId = invoiceItemModel.getChargeStatusId();
+		CDataCacheContainer chargesDs = invoiceItems.get(InvoiceItemType.Charge);
+		if(null != chargesDs){
+			CDataRowSet rowSet = chargesDs.getAll();
+			while(rowSet.next()){
+				Long chargeId = rowSet.getLong("charge_id");
+				BigDecimal amount = BigDecimal.valueOf(rowSet.getDouble("amount"));
+				int chargeStatusId = rowSet.getInt("charge_status_id");
 				JSONObject jCharge = new JSONObject();
 				jCharge.put("chargeId", chargeId);
 				jCharge.put("statusId", chargeStatusId);
-				jCharge.put("name", invoiceItemModel.getChargeName());
-				jCharge.put("description", invoiceItemModel.getChargeDescription());
-				jCharge.put("chargeDate", JSONHelper.getDateFormat(invoiceItemModel.getInsertDate(), "MMM dd, yyyy"));
+				jCharge.put("name", rowSet.getString("charge_name"));
+				jCharge.put("description", rowSet.getString("charge_description"));
+				jCharge.put("chargeDate", JSONHelper.getDateFormat(rowSet.getDate("insert_date"), "MMM dd, yyyy"));
 				jCharge.put("amount", amount);
 				ja.put(jCharge);
 			}
@@ -611,13 +614,13 @@ public class InvoicesEntry extends Entry {
 	}
 	
 	private JSONObject getTransactions(
-			Map<InvoiceItemType, List<InvoiceItemModel>> invoiceItems, Double totalCredit, Double totalDebit) throws JSONException {
+			Map<InvoiceItemType, CDataCacheContainer> invoiceItems, Double totalCredit, Double totalDebit) throws CDataGridException, JSONException {
 		
 		JSONArray ja;
-		List<InvoiceItemModel> transactionslist = invoiceItems.get(InvoiceItemType.AccountOperation);
+		CDataCacheContainer transactionsDs = invoiceItems.get(InvoiceItemType.AccountOperation);
 		
-		if(null != transactionslist){
-			ja = getTransactionsList(transactionslist, null, null);
+		if(null != transactionsDs){
+			ja = getTransactionsList(transactionsDs, null, null);
 		} else {
 			ja = new JSONArray();
 		}
@@ -631,15 +634,16 @@ public class InvoicesEntry extends Entry {
 		return output;
 	}
 	
-	public JSONArray getTransactionsList(List<InvoiceItemModel> list, MutableDouble totalCredit, MutableDouble totalDebit)
-			throws JSONException {
-		
+	public JSONArray getTransactionsList(CDataCacheContainer ds, MutableDouble totalCredit, MutableDouble totalDebit)
+			throws CDataGridException, JSONException {
 		JSONArray ja = new JSONArray();
-		for(var invoiceItemModel : list){
+		CDataRowSet rowSet = ds.getAll();
+		
+		while(rowSet.next()){
 			JSONObject jTransaction = new JSONObject();
-			jTransaction.put("transactionId", invoiceItemModel.getAccopId());
-			jTransaction.put("typeId", invoiceItemModel.getAccopTypeId());
-			Double amount = invoiceItemModel.getAmount();
+			jTransaction.put("transactionId", rowSet.getLong("accop_id"));
+			jTransaction.put("typeId", rowSet.getInt("accop_type_id"));
+			Double amount = rowSet.getDouble("amount");
 			if(null !=  amount){
 				jTransaction.put("amount", amount);
 				if(amount < 0)
@@ -662,12 +666,12 @@ public class InvoicesEntry extends Entry {
 					jTransaction.put("credit", 0);
 				}
 			}
-			jTransaction.put("balance", invoiceItemModel.getBalance());
-			jTransaction.put("modifyDate", JSONHelper.getDateFormat(invoiceItemModel.getModifyDate(), "MMM dd, yyyy"));
-			jTransaction.put("referenceId", invoiceItemModel.getReferenceId());
-			jTransaction.put("comments", invoiceItemModel.getComments());
-			jTransaction.put("creditCard", invoiceItemModel.getCreditCardNumber());
-			jTransaction.put("creditCardTypeId", invoiceItemModel.getCreditCardTypeId());
+			jTransaction.put("balance", rowSet.getDouble("balance"));
+			jTransaction.put("modifyDate", JSONHelper.getDateFormat(rowSet.getDate("modify_date"), "MMM dd, yyyy"));
+			jTransaction.put("referenceId", rowSet.getLong("reference_id"));
+			jTransaction.put("comments", rowSet.getString("comments"));
+			jTransaction.put("creditCard", rowSet.getString("credit_card_number"));
+			jTransaction.put("creditCardTypeId", rowSet.getInt("credit_card_type_id"));
 			
 			ja.put(jTransaction);
 			

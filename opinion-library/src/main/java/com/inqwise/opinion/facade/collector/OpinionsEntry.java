@@ -11,13 +11,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
-import com.inqwise.opinion.library.common.IProduct;
-import com.inqwise.opinion.library.common.accounts.IAccount;
-import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
-import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
-import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.library.managers.ProductsManager;
+import com.google.common.base.Charsets;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hasher;
+import com.google.common.hash.Hashing;
 import com.inqwise.opinion.common.GuidType;
 import com.inqwise.opinion.common.IAnswererSession;
 import com.inqwise.opinion.common.ICollectorPostmasterContext;
@@ -47,6 +45,13 @@ import com.inqwise.opinion.common.sheet.ISheet;
 import com.inqwise.opinion.common.sheet.StartSheetIndexData;
 import com.inqwise.opinion.entities.ServicePackageSettingsEntity;
 import com.inqwise.opinion.http.HttpClientSession;
+import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
+import com.inqwise.opinion.library.common.IProduct;
+import com.inqwise.opinion.library.common.accounts.IAccount;
+import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
+import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
+import com.inqwise.opinion.library.common.errorHandle.OperationResult;
+import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.managers.AccountsManager;
 import com.inqwise.opinion.managers.AnswerersSessionsManager;
 import com.inqwise.opinion.managers.CollectorsManager;
@@ -55,11 +60,6 @@ import com.inqwise.opinion.managers.OpinionsManager;
 import com.inqwise.opinion.managers.ResponsesManager;
 import com.inqwise.opinion.managers.SheetsManager;
 import com.inqwise.opinion.managers.ThemesManager;
-import com.google.common.base.Charsets;
-import com.google.common.hash.HashCode;
-import com.google.common.hash.HashFunction;
-import com.google.common.hash.Hasher;
-import com.google.common.hash.Hashing;
 
 public class OpinionsEntry extends Entry implements IPostmasterObject {
 	

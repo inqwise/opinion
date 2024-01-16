@@ -10,11 +10,11 @@ import com.inqwise.opinion.cms.common.kb.IArticle;
 import com.inqwise.opinion.cms.common.kb.ITopic;
 import com.inqwise.opinion.cms.managers.ArticleManager;
 import com.inqwise.opinion.cms.managers.TopicManager;
+import com.inqwise.opinion.common.IPostmasterContext;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
 
 public class KnowledgeBaseEntry extends Entry {
 

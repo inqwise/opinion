@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.inqwise.opinion.common.IPostmasterContext;
 import com.inqwise.opinion.handlers.descriptors.DataPostmasterDescryptorBase;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.Convert;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
 
 public abstract class HandlerBase extends HttpServlet {
 

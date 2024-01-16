@@ -5,6 +5,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,10 +16,10 @@ import com.inqwise.opinion.automation.common.errorHandle.AutomationBaseOperation
 import com.inqwise.opinion.automation.common.errorHandle.AutomationOperationResult;
 import com.inqwise.opinion.automation.common.eventTypes.EventType;
 import com.inqwise.opinion.automation.common.jobs.JobSettings;
+import com.inqwise.opinion.common.IPostmasterContext;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
 
 public class ControlEntry extends Entry {
 

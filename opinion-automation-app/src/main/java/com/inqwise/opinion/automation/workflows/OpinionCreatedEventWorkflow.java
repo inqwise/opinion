@@ -6,12 +6,12 @@ import com.inqwise.opinion.automation.common.errorHandle.AutomationBaseOperation
 import com.inqwise.opinion.automation.common.eventTypes.EventType;
 import com.inqwise.opinion.automation.common.events.OpinionCreatedEventArgs;
 import com.inqwise.opinion.automation.managers.EventTypesManager;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.OpinionType;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.library.common.accounts.IAccount;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
-import com.inqwise.opinion.opinion.managers.OpinionsManager;
+import com.inqwise.opinion.managers.OpinionsManager;
 
 public class OpinionCreatedEventWorkflow extends Workflow<OpinionCreatedEventArgs> {
 
