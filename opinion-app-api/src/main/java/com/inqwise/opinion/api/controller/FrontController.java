@@ -13,14 +13,13 @@ import org.restexpress.Request;
 import org.restexpress.Response;
 import org.restexpress.exception.BadRequestException;
 
-import com.inqwise.opinion.api.context.CollectorContext;
 import com.inqwise.opinion.api.context.Cookies;
 import com.inqwise.opinion.api.context.FrontContext;
+import com.inqwise.opinion.http.HttpClientSession;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.Convert;
 import com.inqwise.opinion.infrastructure.systemFramework.NetworkHelper;
 import com.inqwise.opinion.library.common.accounts.IAccount;
-import com.inqwise.opinion.opinion.http.HttpClientSession;
 
 public class FrontController {
 	static ApplicationLog logger = ApplicationLog.getLogger(FrontController.class);

@@ -14,20 +14,20 @@ import org.msgpack.MessagePack;
 import org.restexpress.Request;
 import org.restexpress.Response;
 
+import com.inqwise.opinion.common.ICollectorPostmasterContext;
+import com.inqwise.opinion.common.IHttpAnswererSession;
+import com.inqwise.opinion.common.IPostmasterObject;
+import com.inqwise.opinion.facade.collector.Entry;
+import com.inqwise.opinion.facade.collector.OpinionsEntry;
+import com.inqwise.opinion.facade.collector.ResponsesEntry;
+import com.inqwise.opinion.facade.collector.SurveysEntry;
+import com.inqwise.opinion.http.HttpClientSession;
+import com.inqwise.opinion.http.HttpClientSessionUserArgs;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.NetworkHelper;
 import com.inqwise.opinion.infrastructure.systemFramework.cryptography.StringEncrypter;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
-import com.inqwise.opinion.opinion.common.ICollectorPostmasterContext;
-import com.inqwise.opinion.opinion.common.IHttpAnswererSession;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
-import com.inqwise.opinion.opinion.facade.collector.Entry;
-import com.inqwise.opinion.opinion.facade.collector.OpinionsEntry;
-import com.inqwise.opinion.opinion.facade.collector.ResponsesEntry;
-import com.inqwise.opinion.opinion.facade.collector.SurveysEntry;
-import com.inqwise.opinion.opinion.http.HttpClientSession;
-import com.inqwise.opinion.opinion.http.HttpClientSessionUserArgs;
 
 public class CollectorContext implements ICollectorPostmasterContext {
 

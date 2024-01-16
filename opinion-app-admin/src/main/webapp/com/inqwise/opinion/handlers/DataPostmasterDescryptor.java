@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.inqwise.opinion.common.IPostmasterObject;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.IProduct;
 import com.inqwise.opinion.library.common.ISession;
@@ -21,7 +22,6 @@ import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.library.managers.UsersManager;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
 
 public class DataPostmasterDescryptor extends DataPostmasterDescryptorBase {
 

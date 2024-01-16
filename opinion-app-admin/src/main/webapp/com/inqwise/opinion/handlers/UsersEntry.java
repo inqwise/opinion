@@ -9,14 +9,11 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.inqwise.opinion.common.IPostmasterContext;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.IProduct;
@@ -36,7 +33,10 @@ import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.library.managers.UsersManager;
 import com.inqwise.opinion.library.managers.UsersOperationsManager;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
+
+import net.casper.data.model.CDataCacheContainer;
+import net.casper.data.model.CDataGridException;
+import net.casper.data.model.CDataRowSet;
 
 public class UsersEntry extends Entry {
 	private static final int DEFAULT_EXPIRATION_IN_DAYS = 30;

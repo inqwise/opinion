@@ -8,8 +8,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.inqwise.opinion.common.IPostmasterContext;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
+import com.inqwise.opinion.infrastructure.systemFramework.GeoIpManager;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
@@ -20,8 +22,6 @@ import com.inqwise.opinion.library.common.pay.ICharge;
 import com.inqwise.opinion.library.managers.AccountsManager;
 import com.inqwise.opinion.library.managers.ChargesManager;
 import com.inqwise.opinion.library.managers.ProductsManager;
-import com.inqwise.opinion.library.systemFramework.GeoIpManager;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
 
 public class ChargesEntry extends Entry {
 	static ApplicationLog logger = ApplicationLog.getLogger(ChargesEntry.class);

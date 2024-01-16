@@ -9,13 +9,13 @@ import java.util.UUID;
 import org.apache.commons.codec.binary.Base64;
 import org.msgpack.MessagePack;
 
+import com.inqwise.opinion.http.HttpClientSession;
+import com.inqwise.opinion.http.HttpClientSessionUserArgs;
 import com.inqwise.opinion.infrastructure.common.ICookie;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.cryptography.StringEncrypter;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.opinion.http.HttpClientSession;
-import com.inqwise.opinion.opinion.http.HttpClientSessionUserArgs;
 
 public class ClientSessionDescryptor2 {
 	static ApplicationLog logger = ApplicationLog

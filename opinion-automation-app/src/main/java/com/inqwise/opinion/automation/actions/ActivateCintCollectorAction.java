@@ -2,27 +2,27 @@ package com.inqwise.opinion.automation.actions;
 
 import java.util.UUID;
 
-import com.cint.CintApiService;
-import com.cint.OrderChangeStatusRequest;
-import com.cint.OrderDetailsRequest;
-import com.cint.common.IOrder;
-import com.cint.common.OrderEventType;
-import com.cint.common.errorHandle.CintBaseOperationResult;
-import com.cint.common.errorHandle.CintOperationResult;
 import com.inqwise.opinion.automation.common.ChargePostPayActionArgs;
 import com.inqwise.opinion.automation.common.IEventAction;
 import com.inqwise.opinion.automation.common.errorHandle.AutomationBaseOperationResult;
 import com.inqwise.opinion.automation.common.eventTypes.EventType;
 import com.inqwise.opinion.automation.managers.EventTypesManager;
+import com.inqwise.opinion.cint.CintApiService;
+import com.inqwise.opinion.cint.OrderChangeStatusRequest;
+import com.inqwise.opinion.cint.OrderDetailsRequest;
+import com.inqwise.opinion.cint.common.IOrder;
+import com.inqwise.opinion.cint.common.OrderEventType;
+import com.inqwise.opinion.cint.common.errorHandle.CintBaseOperationResult;
+import com.inqwise.opinion.cint.common.errorHandle.CintOperationResult;
+import com.inqwise.opinion.common.collectors.CollectorStatus;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.common.collectors.IPanelSurveysCollector;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.opinion.common.collectors.CollectorStatus;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.common.collectors.IPanelSurveysCollector;
-import com.inqwise.opinion.opinion.managers.CollectorsManager;
+import com.inqwise.opinion.managers.CollectorsManager;
 
 public class ActivateCintCollectorAction implements IEventAction {
 

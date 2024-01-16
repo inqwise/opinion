@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.inqwise.opinion.facade.front.ClientSessionDescryptor;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.NetworkHelper;
 import com.inqwise.opinion.library.common.IGateway;
@@ -27,7 +28,6 @@ import com.inqwise.opinion.library.common.users.IUser;
 import com.inqwise.opinion.library.managers.GatewaysManager;
 import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.library.managers.UsersManager;
-import com.inqwise.opinion.opinion.facade.front.ClientSessionDescryptor;
 
 public class SocialAuthLoginHandler extends HttpServlet {
 

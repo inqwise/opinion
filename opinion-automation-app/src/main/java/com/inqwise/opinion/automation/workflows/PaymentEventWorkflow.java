@@ -6,8 +6,6 @@ import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 
-import net.casper.data.model.CDataGridException;
-
 import com.inqwise.opinion.automation.actions.PayChargeAction;
 import com.inqwise.opinion.automation.common.ActionException;
 import com.inqwise.opinion.automation.common.FireEventArgs.ClientArgs;
@@ -22,6 +20,8 @@ import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.IProduct;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.managers.ProductsManager;
+
+import net.casper.data.model.CDataGridException;
 
 public class PaymentEventWorkflow extends Workflow<PaymentEventArgs> {
 

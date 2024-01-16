@@ -6,19 +6,17 @@ package com.inqwise.opinion.collector.handlers;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.inqwise.opinion.common.ITheme;
+import com.inqwise.opinion.common.OutputMode;
+import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.inqwise.opinion.opinion.common.ITheme;
-import com.inqwise.opinion.opinion.common.OutputMode;
-import com.inqwise.opinion.opinion.dao.ThemesDataAccess;
-import com.inqwise.opinion.opinion.managers.ThemesManager;
+import com.inqwise.opinion.managers.ThemesManager;
 
 /**
  * @author basil

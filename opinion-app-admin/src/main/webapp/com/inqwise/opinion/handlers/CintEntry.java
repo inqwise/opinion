@@ -3,13 +3,13 @@ package com.inqwise.opinion.handlers;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.cint.CintApiService;
-import com.cint.OrderDetailsRequest;
-import com.cint.common.IOrder;
-import com.cint.common.errorHandle.CintOperationResult;
+import com.inqwise.opinion.cint.CintApiService;
+import com.inqwise.opinion.cint.OrderDetailsRequest;
+import com.inqwise.opinion.cint.common.IOrder;
+import com.inqwise.opinion.cint.common.errorHandle.CintOperationResult;
+import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.IPostmasterObject;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
 
 public class CintEntry extends Entry implements IPostmasterObject {
 	

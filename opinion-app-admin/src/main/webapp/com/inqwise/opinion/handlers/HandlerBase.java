@@ -1,7 +1,6 @@
 package com.inqwise.opinion.handlers;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
@@ -13,18 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.inqwise.opinion.common.IPostmasterContext;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.inqwise.opinion.library.common.IProduct;
-import com.inqwise.opinion.library.common.accounts.IAccount;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
-import com.inqwise.opinion.library.common.errorHandle.OperationResult;
-import com.inqwise.opinion.library.common.users.IUser;
-import com.inqwise.opinion.library.managers.ProductsManager;
-import com.inqwise.opinion.library.managers.UsersManager;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.http.HttpClientSession;
 
 public abstract class HandlerBase extends HttpServlet {
 

@@ -55,7 +55,6 @@ import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.library.managers.ServicePackagesManager;
 
 import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
 import net.casper.data.model.CDataRowSet;
 
 public class AccountsEntry extends Entry {

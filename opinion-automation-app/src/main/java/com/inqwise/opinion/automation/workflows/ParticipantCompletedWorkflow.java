@@ -7,6 +7,10 @@ import com.inqwise.opinion.automation.common.errorHandle.AutomationBaseOperation
 import com.inqwise.opinion.automation.common.eventTypes.EventType;
 import com.inqwise.opinion.automation.common.events.ParticipantCompletedEventArgs;
 import com.inqwise.opinion.automation.managers.EventTypesManager;
+import com.inqwise.opinion.common.collectors.CollectorStatus;
+import com.inqwise.opinion.common.collectors.ICollector;
+import com.inqwise.opinion.common.opinions.IOpinion;
+import com.inqwise.opinion.common.opinions.OpinionType;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.IProduct;
@@ -15,14 +19,8 @@ import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.users.IUser;
 import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.library.managers.UsersManager;
-import com.inqwise.opinion.opinion.common.ResponseType;
-import com.inqwise.opinion.opinion.common.collectors.CollectorStatus;
-import com.inqwise.opinion.opinion.common.collectors.ICollector;
-import com.inqwise.opinion.opinion.common.opinions.IOpinion;
-import com.inqwise.opinion.opinion.common.opinions.OpinionType;
-import com.inqwise.opinion.opinion.managers.CollectorsManager;
-import com.inqwise.opinion.opinion.managers.OpinionsManager;
-import com.inqwise.opinion.opinion.managers.ResponsesManager;
+import com.inqwise.opinion.managers.CollectorsManager;
+import com.inqwise.opinion.managers.ResponsesManager;
 
 public class ParticipantCompletedWorkflow extends Workflow<ParticipantCompletedEventArgs>{
 
