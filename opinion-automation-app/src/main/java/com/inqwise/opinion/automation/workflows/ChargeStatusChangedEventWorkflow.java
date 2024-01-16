@@ -8,16 +8,10 @@ import java.util.UUID;
 
 import org.json.JSONObject;
 
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
-
 import com.inqwise.opinion.automation.actions.SendChargeStatusChangedSystemEventAction;
 import com.inqwise.opinion.automation.common.ActionException;
 import com.inqwise.opinion.automation.common.ChargePostPayActionArgs;
 import com.inqwise.opinion.automation.common.IEventAction;
-import com.inqwise.opinion.automation.common.IFireEventWorkflow;
-import com.inqwise.opinion.automation.common.FireEventArgs;
 import com.inqwise.opinion.automation.common.errorHandle.AutomationBaseOperationResult;
 import com.inqwise.opinion.automation.common.errorHandle.AutomationErrorCode;
 import com.inqwise.opinion.automation.common.errorHandle.AutomationOperationResult;
@@ -25,10 +19,8 @@ import com.inqwise.opinion.automation.common.events.ChargeStatusChangedEventArgs
 import com.inqwise.opinion.automation.managers.ActionsManager;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
-import com.inqwise.opinion.library.common.pay.BillType;
-import com.inqwise.opinion.library.common.pay.ChargeReferenceType;
+import com.inqwise.opinion.library.common.pay.ChargeModel;
 import com.inqwise.opinion.library.common.pay.ChargeStatus;
-import com.inqwise.opinion.library.common.pay.InvoiceStatus;
 import com.inqwise.opinion.library.common.servicePackages.IServicePackage;
 import com.inqwise.opinion.library.managers.ChargesManager;
 
@@ -87,17 +79,15 @@ public class ChargeStatusChangedEventWorkflow extends Workflow<ChargeStatusChang
 		return result;
 	}
 
-	public static void identifyPaidChargeActions(long chargeId, int sourceId, List<IEventAction> list) throws CDataGridException, ActionException {
-		CDataCacheContainer ds = ChargesManager.getPostPayActions(chargeId);
-		CDataRowSet rowSet = ds.getAll();
-		while(rowSet.next()){
+	public static void identifyPaidChargeActions(long chargeId, int sourceId, List<IEventAction> list) throws ActionException {
+		List<ChargeModel> chargeList = ChargesManager.getPostPayActions(chargeId);
+		for(var chargeModel : chargeList){
 			IEventAction action = identifyAction(rowSet, sourceId);
 			list.add(action);
 		}
 	}
 
-	private static IEventAction identifyAction(final CDataRowSet rowSet,
-			final int sourceId) throws CDataGridException, ActionException {
+	private static IEventAction identifyAction(final CDataRowSet rowSet,final int sourceId) throws ActionException {
 		
 		final long chargeId = rowSet.getLong("charge_id");
 		String postPayAction = rowSet.getString("post_pay_action");

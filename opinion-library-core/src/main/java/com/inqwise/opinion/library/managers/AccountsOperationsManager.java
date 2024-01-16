@@ -5,11 +5,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.json.JSONArray;
-
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
+import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
+import com.inqwise.opinion.library.common.AccountOperationModel;
+import com.inqwise.opinion.library.common.AccountOperationRepositoryParser;
 import com.inqwise.opinion.library.common.accounts.IAccountOperation;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
@@ -19,12 +20,12 @@ import com.inqwise.opinion.library.entities.accounts.AccountOperationEntity;
 public class AccountsOperationsManager {
 	static ApplicationLog logger = ApplicationLog.getLogger(AccountsOperationsManager.class);
 	
-	public static JSONArray getAccountOperations(int top, long accountId,
-			List<Integer> accountsOperationsTypeIds, Long referenceId, Integer referenceTypeId, Date fromDate, Date toDate, Boolean monetary) {
+	public static List<AccountOperationModel> getAccountOperations(int top, long accountId,List<Integer> accountsOperationsTypeIds, Long referenceId, Integer referenceTypeId, Date fromDate, Date toDate, Boolean monetary) {
 		
 		try {
-			return AccountsOperationsDataAccess.getAccountOperations(top, accountId,
-					accountsOperationsTypeIds, referenceId, referenceTypeId, fromDate, toDate, monetary);
+			var arr = AccountsOperationsDataAccess.getAccountOperations(top, accountId,accountsOperationsTypeIds, referenceId, referenceTypeId, fromDate, toDate, monetary);
+			var toList = JSONHelper.toListOfModel(arr, new AccountOperationRepositoryParser()::parse);
+			return toList;
 		} catch (DAOException e) {
 			throw new Error(e);
 		}

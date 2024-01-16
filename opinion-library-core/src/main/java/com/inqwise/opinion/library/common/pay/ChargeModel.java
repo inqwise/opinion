@@ -14,6 +14,8 @@ public class ChargeModel {
 	private String name;
 	private String description;
 	private Date createDate;
+	private Long accountId;
+	private String accountName;
 
 	private ChargeModel(Builder builder) {
 		this.id = builder.id;
@@ -22,6 +24,8 @@ public class ChargeModel {
 		this.name = builder.name;
 		this.description = builder.description;
 		this.createDate = builder.createDate;
+		this.accountId = builder.accountId;
+		this.accountName = builder.accountName;
 	}
 
 	public static final class Keys {
@@ -31,6 +35,8 @@ public class ChargeModel {
 		public static final String NAME = "name";
 		public static final String DESCRIPTION = "description";
 		public static final String CREATE_DATE = "create_date";
+		public static final String ACCOUNT_ID = "account_id";
+		public static final String ACCOUNT_NAME = "account_name";
 	}  
 	
 	public ChargeModel(JSONObject json) {
@@ -43,6 +49,8 @@ public class ChargeModel {
 		name = json.optString(Keys.NAME);
 		description = json.optString(Keys.DESCRIPTION);
 		createDate = new Date(json.getLong(Keys.CREATE_DATE));
+		accountId = json.optLongObject(Keys.ACCOUNT_ID);
+		accountName = json.optString(Keys.ACCOUNT_NAME);
 	}
 	
 	public Long getId() {
@@ -57,17 +65,6 @@ public class ChargeModel {
 		return amount;
 	}
 	
-	public JSONObject toJson() {
-		var json = new JSONObject();
-		json.put(Keys.ID, id);
-		if(null != status) {
-			json.put(Keys.STATUS_ID, status.getValue());
-		}
-		
-		json.put(Keys.AMOUNT, amount);
-		return json;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -79,6 +76,28 @@ public class ChargeModel {
 	public Date getCreateDate() {
 		return createDate;
 	}
+	
+	public Long getAccountId() {
+		return accountId;
+	}
+
+	public String getAccountName() {
+		return accountName;
+	}
+
+	public JSONObject toJson() {
+		var json = new JSONObject();
+		json.put(Keys.ID, id);
+		if(null != status) {
+			json.put(Keys.STATUS_ID, status.getValue());
+		}
+		
+		json.put(Keys.AMOUNT, amount);
+		json.put(Keys.ACCOUNT_ID, accountId);
+		json.put(Keys.ACCOUNT_NAME, accountName);
+		return json;
+	}
+
 
 	public static Builder builder() {
 		return new Builder();
@@ -95,6 +114,8 @@ public class ChargeModel {
 		private String name;
 		private String description;
 		private Date createDate;
+		private Long accountId;
+		private String accountName;
 
 		private Builder() {
 		}
@@ -106,6 +127,8 @@ public class ChargeModel {
 			this.name = chargeModel.name;
 			this.description = chargeModel.description;
 			this.createDate = chargeModel.createDate;
+			this.accountId = chargeModel.accountId;
+			this.accountName = chargeModel.accountName;
 		}
 
 		public Builder withId(Long id) {
@@ -138,6 +161,16 @@ public class ChargeModel {
 			return this;
 		}
 
+		public Builder withAccountId(Long accountId) {
+			this.accountId = accountId;
+			return this;
+		}
+
+		public Builder withAccountName(String accountName) {
+			this.accountName = accountName;
+			return this;
+		}
+
 		public ChargeModel build() {
 			return new ChargeModel(this);
 		}
@@ -146,6 +179,8 @@ public class ChargeModel {
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this).add("id", id).add("status", status).add("amount", amount)
-				.add("name", name).add("description", description).add("createDate", createDate).toString();
+				.add("name", name).add("description", description).add("createDate", createDate)
+				.add("accountId", accountId).add("accountName", accountName).toString();
 	}
+
 }

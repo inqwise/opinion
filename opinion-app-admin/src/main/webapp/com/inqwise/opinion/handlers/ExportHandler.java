@@ -157,7 +157,7 @@ public class ExportHandler extends HandlerBase {
 
 	private byte[] exportParticipants(JSONObject input,
 			IPostmasterContext context, long opinionId, boolean isRtl, boolean zipped)
-			throws CDataGridException, IOException {
+			throws IOException {
 		byte[] output;
 		List<Long> sessionIds = JSONHelper.toListOfLong(JSONHelper.optJsonArray(input, "sessionIds")); 
 		Long[] sessionsArr = null == sessionIds ? null : (Long[]) sessionIds.toArray(new Long[sessionIds.size()]);
