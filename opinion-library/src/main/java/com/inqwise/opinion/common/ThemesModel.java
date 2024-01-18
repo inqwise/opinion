@@ -17,7 +17,6 @@ public class ThemesModel {
 	}	
 	
 	public static final class Keys{
-
 		public static final String THEME_ID = "theme_id";
 		public static final String NAME = "name";
 		public static final String IS_TEMPLATE = "is_template";

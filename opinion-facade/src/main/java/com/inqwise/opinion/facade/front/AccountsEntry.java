@@ -23,6 +23,8 @@ import com.inqwise.opinion.infrastructure.systemFramework.DateConverter;
 import com.inqwise.opinion.infrastructure.systemFramework.GeoIpManager;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.IProduct;
+import com.inqwise.opinion.library.common.InvoiceModel;
+import com.inqwise.opinion.library.common.accounts.AccountOperationModel;
 import com.inqwise.opinion.library.common.accounts.AccountOperationsReferenceType;
 import com.inqwise.opinion.library.common.accounts.AccountsOperationsType;
 import com.inqwise.opinion.library.common.accounts.IAccount;
@@ -223,33 +225,29 @@ public class AccountsEntry extends Entry implements IPostmasterObject {
 		}
 		
 		if (null == result) {
-			var rowSetArr = AccountsOperationsManager
-					.getAccountOperations(top, account.getId(),
-							accountOperationTypeIds, referenceId,
-							referenceTypeId, fromDate, toDate, true);
+			List<AccountOperationModel> accountOperationList = AccountsOperationsManager.getAccountOperations(top, account.getId(),accountOperationTypeIds, referenceId,referenceTypeId, fromDate, toDate, true);
 			JSONArray ja = new JSONArray();
-			JSONArray invoicesRowSetArr = null;
+			List<InvoiceModel> invoiceList = null;
 			TreeMap<Date, JSONObject> groupsMap = null;
 			BigDecimal groupDebit = null;
 			BigDecimal groupCredit = null;
 			if (null != groupBy) {
 				groupDebit = new BigDecimal(0.0);
 				groupCredit = new BigDecimal(0.0);
-				invoicesRowSetArr = InvoicesManager.getInvoices(top, account.getId(),
-						InvoiceStatus.Open.getValue(), false);
+				invoiceList = InvoicesManager.getInvoices(top, account.getId(),InvoiceStatus.Open.getValue(), false);
 				groupsMap = new TreeMap<>();
 			}
 			JSONObject lastFundJo = null;
 			BigDecimal totalDebit = new BigDecimal(0.0);
 			BigDecimal totalCredit = new BigDecimal(0.0);
-			for (int i = 0; i < rowSetArr.length(); i++) {
-				var json = ja.getJSONObject(i);
+			for (var operationModel : accountOperationList){
 				JSONObject jTransaction = new JSONObject();
 
-				jTransaction.put("transactionId", json.getLong("accop_id"));
-				Integer accountOperationTypeId = json.getInt("accop_type_id");
-				jTransaction.put("typeId", accountOperationTypeId);
-				Double amount = json.getDouble("amount");
+				jTransaction.put("transactionId", operationModel.getId());
+				if(null != operationModel.getType()) {
+					jTransaction.put("typeId", operationModel.getType().getValue());
+				}
+				Double amount = operationModel.getAmount();
 				if (null != amount) {
 					jTransaction.put("amount", amount);
 					if (amount < 0) {
@@ -269,16 +267,18 @@ public class AccountsEntry extends Entry implements IPostmasterObject {
 					jTransaction.put("debit", (amount < 0 ? -1.0 * amount : 0));
 					jTransaction.put("credit", (amount > 0 ? amount : 0));
 				}
-				Double balance = json.getDouble("balance");
+				Double balance = operationModel.getBalance();
 				jTransaction.put("balance", balance);
-				Date modifyDate = account.addDateOffset((Date)json.get("modify_date"));
+				Date modifyDate = account.addDateOffset(operationModel.getModifyDate());
 				jTransaction.put("modifyDate",	JSONHelper.getDateFormat(modifyDate, "MMM dd, yyyy"));
-				Long accountOperationReferenceId = json.getLong("reference_id");
+				Long accountOperationReferenceId = operationModel.getReferenceId();
 				jTransaction.put("referenceId", accountOperationReferenceId);
-				jTransaction.put("comments", json.getString("comments"));
-				jTransaction.put("creditCard",json.getString("credit_card_number"));
-				jTransaction.put("creditCardTypeId",json.getInt("credit_card_type_id"));
-				jTransaction.put("chargeDescription",json.getString("charge_description"));
+				jTransaction.put("comments", operationModel.getComments());
+				jTransaction.put("creditCard",operationModel.getCreditCardNumber());
+				if (null != operationModel.getCreditCardType()) {
+					jTransaction.put("creditCardTypeId", operationModel.getCreditCardType().getValue());
+				}
+				jTransaction.put("chargeDescription",operationModel.getChargeDescription());
 
 				if (null == groupsMap) {
 					ja.put(jTransaction);
@@ -314,20 +314,18 @@ public class AccountsEntry extends Entry implements IPostmasterObject {
 				}
 
 				if (null == lastFundJo
-						&& json.getInt("accop_type_id") == AccountsOperationsType.Fund.getValue()) {
+						&& AccountsOperationsType.Fund == operationModel.getType()) {
 					lastFundJo = jTransaction;
 				}
 			}
 			
 			if(null != groupBy){
-				for (int i = 0; i < invoicesRowSetArr.length(); i++) {
-					var json = invoicesRowSetArr.getJSONObject(i);
+				for (var invoiceModel : invoiceList) {
 					JSONObject jInvoice = new JSONObject();
-					jInvoice.put("invoiceId",json.getString("invoice_id"));
+					jInvoice.put("invoiceId",invoiceModel.getInvoiceId());
 
 					Date groupDate = DateConverter
-							.shiftToTheEndOfTheMonth(account.addDateOffset((Date)json
-									.get("invoice_to_date")));
+							.shiftToTheEndOfTheMonth(account.addDateOffset((Date)invoiceModel.getInvoiceToDate()));
 					JSONObject jGroup = groupsMap.get(groupDate);
 					if (null == jGroup) {
 						jGroup = createJGroup(groupDate);

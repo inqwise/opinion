@@ -5,18 +5,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.json.JSONArray;
-
+import com.google.common.collect.Maps;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
-import com.inqwise.opinion.library.common.InvoicesModel;
+import com.inqwise.opinion.library.common.InvoiceItemModel;
+import com.inqwise.opinion.library.common.InvoiceModel;
 import com.inqwise.opinion.library.common.InvoicesRepositoryParser;
+import com.inqwise.opinion.library.common.accounts.AccountOperationRepositoryParser;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.pay.BillType;
+import com.inqwise.opinion.library.common.pay.ChargeRepositoryParser;
 import com.inqwise.opinion.library.common.pay.IInvoice;
 import com.inqwise.opinion.library.common.pay.IInvoiceCreateRequest;
 import com.inqwise.opinion.library.common.pay.IOpenInvoiceRequest;
@@ -107,7 +109,7 @@ public class InvoicesManager {
 		return result;
 	}
 
-	public static List<InvoicesModel> getInvoices(int top, Long accountId,Integer invoiceStatusId, boolean includeDue) {
+	public static List<InvoiceModel> getInvoices(int top, Long accountId,Integer invoiceStatusId, boolean includeDue) {
 		try {
 			var arr = InvoicesDataAccess.getInvoices(top, accountId, invoiceStatusId);
 			var toList = JSONHelper.toListOfModel(arr, new InvoicesRepositoryParser()::parse);
@@ -144,9 +146,28 @@ public class InvoicesManager {
 		return result;
 	}
 	
-	public static Map<InvoiceItemType, JSONArray> getInvoiceItems(long invoiceId){
+	public static Map<InvoiceItemType, List<? extends InvoiceItemModel>> getInvoiceItems(long invoiceId){
 		try {
-			return InvoicesDataAccess.getInvoiceItems(invoiceId, BillType.Invoice.getValue());
+			Map<InvoiceItemType, List<? extends InvoiceItemModel>> resultMap = Maps.newHashMap();
+			
+			var map = InvoicesDataAccess.getInvoiceItems(invoiceId, BillType.Invoice.getValue());
+			for (var mapItem : map.entrySet()) {
+				List<? extends InvoiceItemModel> toList;
+				switch (mapItem.getKey()) {
+				case AccountOperation: 
+					toList = JSONHelper.toListOfModel(mapItem.getValue(), new AccountOperationRepositoryParser()::parse);
+					break;
+				case Charge:
+					toList = JSONHelper.toListOfModel(mapItem.getValue(), new ChargeRepositoryParser()::parse);
+					break;
+				default:
+					throw new IllegalArgumentException("Unexpected value: " + mapItem.getKey());
+				}
+		
+				resultMap.put(mapItem.getKey(), toList);
+				
+			}
+			return resultMap;
 		} catch (DAOException e) {
 			throw new Error(e);
 		}

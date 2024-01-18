@@ -13,9 +13,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.commons.lang3.StringUtils;
-import org.jooq.impl.DSL;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import com.inqwise.opinion.common.ParentType;
 import com.inqwise.opinion.common.analizeResults.IAnalizeControl;

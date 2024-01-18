@@ -94,9 +94,9 @@ public class OpinionsEntry extends Entry implements IPostmasterObject {
 			for(var opinionModel : list){
 				JSONObject item = new JSONObject();
 				
-				item.put(IOpinion.JsonNames.OPINION_ID, opinionModel.getOpinionId());
+				item.put(IOpinion.JsonNames.OPINION_ID, opinionModel.getId());
 				if(null == opinionTypeId){
-					item.put(IOpinion.JsonNames.OPINION_TYPE_ID, opinionModel.getOpinionTypeId());
+					item.put(IOpinion.JsonNames.OPINION_TYPE_ID, opinionModel.getType());
 				}
 				item.put(IOpinion.JsonNames.NAME, opinionModel.getName());
 				item.put(IOpinion.JsonNames.MODIFY_DATE, formatter.format(opinionModel.getModifyDate()));
@@ -106,7 +106,7 @@ public class OpinionsEntry extends Entry implements IPostmasterObject {
 				item.put(IOpinion.JsonNames.CNT_FINISHED_OPINIONS, cntCompleted);
 				item.put(IOpinion.JsonNames.CNT_PARTIAL_OPINIONS, cntStarted - cntCompleted);
 				item.put(IOpinion.JsonNames.COMPLETION_RATE, (cntStarted > 0 ? Math.round((cntCompleted * 1d / cntStarted * 1d) * 100.0) : 0));
-				item.put(IOpinion.JsonNames.PREVIEW_URL, String.format(OpinionEntity.PREVIEW_URL_FORMAT, ApplicationConfiguration.Opinion.Collector.getUrl(), opinionModel.getOpinionTypeId(), opinionModel.getGuid()));
+				item.put(IOpinion.JsonNames.PREVIEW_URL, String.format(OpinionEntity.PREVIEW_URL_FORMAT, ApplicationConfiguration.Opinion.Collector.getUrl(), opinionModel.getType().getValue(), opinionModel.getGuid()));
 				if(null != opinionModel.getLastStartDate()){
 					item.put(IOpinion.JsonNames.LAST_RESPONSE_DATE, formatter.format(opinionModel.getLastStartDate()));
 				}

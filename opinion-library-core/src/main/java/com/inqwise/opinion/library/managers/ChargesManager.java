@@ -206,9 +206,11 @@ public class ChargesManager {
 		}
 	}
 	
-	public static JSONArray getPostPayActions(Long chargeId){
+	public static List<ChargeModel> getPostPayActions(Long chargeId){
 		try {
-			return ChargesDataAccess.getPostPayActions(chargeId, null, null);
+			var arr = ChargesDataAccess.getPostPayActions(chargeId, null, null);
+			var toList = JSONHelper.toListOfModel(arr, new ChargeRepositoryParser()::parse);
+			return toList;
 		} catch (DAOException e) {
 			throw new Error(e);
 		}

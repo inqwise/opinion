@@ -19,13 +19,10 @@ import com.inqwise.opinion.automation.common.events.ChargeStatusChangedEventArgs
 import com.inqwise.opinion.automation.managers.ActionsManager;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
+import com.inqwise.opinion.library.common.pay.ChargeModel;
 import com.inqwise.opinion.library.common.pay.ChargeStatus;
 import com.inqwise.opinion.library.common.servicePackages.IServicePackage;
 import com.inqwise.opinion.library.managers.ChargesManager;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
 
 public class ChargeStatusChangedEventWorkflow extends Workflow<ChargeStatusChangedEventArgs> {
 
@@ -82,23 +79,21 @@ public class ChargeStatusChangedEventWorkflow extends Workflow<ChargeStatusChang
 		return result;
 	}
 
-	public static void identifyPaidChargeActions(long chargeId, int sourceId, List<IEventAction> list) throws CDataGridException, ActionException {
-		CDataCacheContainer ds = ChargesManager.getPostPayActions(chargeId);
-		CDataRowSet rowSet = ds.getAll();
-		while(rowSet.next()){
-			IEventAction action = identifyAction(rowSet, sourceId);
+	public static void identifyPaidChargeActions(long chargeId, int sourceId, List<IEventAction> list) throws ActionException {
+		List<ChargeModel> chargeList = ChargesManager.getPostPayActions(chargeId);
+		for(var chargeModel : chargeList){
+			IEventAction action = identifyAction(chargeModel, sourceId);
 			list.add(action);
 		}
 	}
 
-	private static IEventAction identifyAction(final CDataRowSet rowSet,
-			final int sourceId) throws CDataGridException, ActionException {
+	private static IEventAction identifyAction(final ChargeModel chargeModel,final int sourceId) throws ActionException {
 		
-		final long chargeId = rowSet.getLong("charge_id");
-		String postPayAction = rowSet.getString("post_pay_action");
-		final Integer referenceTypeId = rowSet.getInt("reference_type_id");
-		final Long referenceId = rowSet.getLong("reference_id");
-		String strPostPayActionData = rowSet.getString("post_pay_action_data");
+		final long chargeId = chargeModel.getId();
+		String postPayAction = chargeModel.getPostPayAction();
+		final Integer referenceTypeId = chargeModel.getReferenceType().getValue();
+		final Long referenceId = chargeModel.getReferenceId();
+		String strPostPayActionData = chargeModel.getPostPayActionData();
 		JSONObject postPayActionData = null;
 		try {
 			postPayActionData = (null == strPostPayActionData ? null : new JSONObject(strPostPayActionData));

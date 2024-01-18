@@ -4,23 +4,20 @@ import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.inqwise.opinion.common.IPostmasterContext;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
+import com.inqwise.opinion.library.common.MessagesModel;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.managers.MessagesManager;
-import com.inqwise.opinion.opinion.common.IPostmasterContext;
-import com.inqwise.opinion.opinion.managers.OpinionsManager;
 
 public class MessagesEntry extends Entry {
 static ApplicationLog logger = ApplicationLog.getLogger(MessagesEntry.class);
@@ -29,7 +26,7 @@ static ApplicationLog logger = ApplicationLog.getLogger(MessagesEntry.class);
 		super(context);
 	}
 	
-	public JSONObject getList(JSONObject input) throws JSONException, CDataGridException{
+	public JSONObject getList(JSONObject input) throws JSONException{
 		JSONObject output;
 		Long userId = JSONHelper.optLong(input, "userId");
 		int top = JSONHelper.optInt(input, "top", 100);
@@ -38,28 +35,27 @@ static ApplicationLog logger = ApplicationLog.getLogger(MessagesEntry.class);
 		boolean includeClosed = JSONHelper.optBoolean(input, "includeClosed", true);
 		boolean includeNotActive = JSONHelper.optBoolean(input, "includeUnpublished", true);
 		
-		CDataCacheContainer messagesDataSet = MessagesManager.getMessages(userId, from, to, includeClosed, includeNotActive, top, true);
-		CDataRowSet rowSet = messagesDataSet.getAll();
+		List<MessagesModel> list = MessagesManager.getMessages(userId, from, to, includeClosed, includeNotActive, top, true);
 		Format formatter = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss");
 		JSONArray ja = new JSONArray();
-		while(rowSet.next()){
+		for(var messagesModel : list){
 			JSONObject item = new JSONObject();
-			item.put("id", rowSet.getLong("message_id"));
-			item.put("name", rowSet.getString("message_name"));
-			item.put("content", rowSet.getString("message_content"));
-			item.put("userId", rowSet.getLong("user_id"));
-			item.put("userName", rowSet.getString("user_name"));
-			item.put("modifyDate", formatter.format(rowSet.getDate("modify_date")));
-			if(null != rowSet.getObject("close_date")){
-				item.put("closeDate", formatter.format(rowSet.getDate("close_date")));
+			item.put("id", messagesModel.getMessageId());
+			item.put("name", messagesModel.getMessageName());
+			item.put("content", messagesModel.getMessageContent());
+			item.put("userId", messagesModel.getUserId());
+			item.put("userName", messagesModel.getUserName());
+			item.put("modifyDate", formatter.format(messagesModel.getModifyDate()));
+			if(null != messagesModel.getCloseDate()){
+				item.put("closeDate", formatter.format(messagesModel.getCloseDate()));
 			}
 			
-			if(null != rowSet.getObject("activate_date")){
-				item.put("publishDate", formatter.format(rowSet.getDate("activate_date")));
+			if(null != messagesModel.getActivateDate()){
+				item.put("publishDate", formatter.format(messagesModel.getActivateDate()));
 			}
 			
-			if(null != rowSet.getObject("exclude_date")){
-				item.put("excludeDate", formatter.format(rowSet.getDate("exclude_date")));
+			if(null != messagesModel.getExcludeDate()){
+				item.put("excludeDate", formatter.format(messagesModel.getExcludeDate()));
 			}
 			
 			ja.put(item);

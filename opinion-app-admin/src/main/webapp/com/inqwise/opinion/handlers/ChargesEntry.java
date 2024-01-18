@@ -16,6 +16,7 @@ import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.pay.BillType;
+import com.inqwise.opinion.library.common.pay.ChargeModel;
 import com.inqwise.opinion.library.common.pay.ChargeStatus;
 import com.inqwise.opinion.library.common.pay.ICancelChargeRequest;
 import com.inqwise.opinion.library.common.pay.ICharge;
@@ -92,7 +93,7 @@ public class ChargesEntry extends Entry {
 		return ChargesManager.cancelCharge(request);
 	}
 	
-	public JSONObject getCharges(JSONObject input) throws JSONException, CDataGridException{
+	public JSONObject getCharges(JSONObject input) throws JSONException{
 		
 		IOperationResult result = null;
 		JSONObject output;
@@ -161,7 +162,7 @@ public class ChargesEntry extends Entry {
 			Long billId, Integer statusId, List<Integer> statusIds,
 			boolean includeExpired, Boolean invoiced,
 			boolean isCalculateAmounts, Integer billTypeId,
-			List<Long> chargesIds) throws CDataGridException, JSONException {
+			List<Long> chargesIds) throws JSONException {
 		
 		IOperationResult result = null;
 		JSONObject output;
@@ -177,29 +178,29 @@ public class ChargesEntry extends Entry {
 		
 		if(null == result){
 			
-			CDataRowSet rowSet = ChargesManager.getCharges(top, accountId, billId, billTypeId,
+			List<ChargeModel> list = ChargesManager.getCharges(top, accountId, billId, billTypeId,
 					statusId, statusIds, includeExpired, invoiced, chargesIds);
 			
 			
 			JSONArray ja = new JSONArray();
 			BigDecimal totalAmountDue = BigDecimal.ZERO;
-			while(rowSet.next()){
-				Long chargeId = rowSet.getLong("charge_id");
-				BigDecimal amount = BigDecimal.valueOf(rowSet.getDouble("amount"));
-				int chargeStatusId = rowSet.getInt("charge_status_id");
+			for(var chargeModel : list){
+				Long chargeId = chargeModel.getId();
+				BigDecimal amount = BigDecimal.valueOf(chargeModel.getAmount());
+				int chargeStatusId = chargeModel.getStatus().getValue();
 				if(isCalculateAmounts && chargeStatusId == ChargeStatus.Unpaid.getValue()){
 					totalAmountDue = totalAmountDue.add(amount);
 				}
 				JSONObject jCharge = new JSONObject();
 				jCharge.put("chargeId", chargeId);
 				jCharge.put("statusId", chargeStatusId);
-				jCharge.put("name", rowSet.getString("charge_name"));
-				jCharge.put("description", rowSet.getString("charge_description"));
-				jCharge.put("chargeDate", JSONHelper.getDateFormat(rowSet.getDate("insert_date"), "MMM dd, yyyy"));
+				jCharge.put("name", chargeModel.getName());
+				jCharge.put("description", chargeModel.getDescription());
+				jCharge.put("chargeDate", JSONHelper.getDateFormat(chargeModel.getCreateDate(), "MMM dd, yyyy"));
 				jCharge.put("amount", amount);
 				if(null == accountId){
-					jCharge.put("accountId", rowSet.getLong("for_account_id"));
-					jCharge.put("accountName", rowSet.getString("account_name"));
+					jCharge.put("accountId", chargeModel.getAccountId());
+					jCharge.put("accountName", chargeModel.getAccountName());
 				}
 				ja.put(jCharge);
 			}

@@ -13,10 +13,13 @@ import org.json.JSONObject;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
-import com.inqwise.opinion.library.common.InvoicesModel;
+import com.inqwise.opinion.library.common.InvoiceItemModel;
+import com.inqwise.opinion.library.common.InvoiceModel;
+import com.inqwise.opinion.library.common.accounts.AccountOperationModel;
 import com.inqwise.opinion.library.common.accounts.IAccount;
 import com.inqwise.opinion.library.common.accounts.IAccountBusinessDetails;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
+import com.inqwise.opinion.library.common.pay.ChargeModel;
 import com.inqwise.opinion.library.common.pay.IInvoice;
 import com.inqwise.opinion.library.common.pay.InvoiceItemType;
 import com.inqwise.opinion.library.common.pay.InvoiceStatus;
@@ -83,7 +86,7 @@ public class InvoicesEntry extends Entry implements IPostmasterObject {
 			output.put("countryName", JSONHelper.getNullable(invoice.getCompanyName()));
 			output.put("stateName", JSONHelper.getNullable(invoice.getStateName()));
 			
-			Map<InvoiceItemType, CDataCacheContainer> invoiceItems = InvoicesManager.getInvoiceItems(invoiceId);
+			var invoiceItems = InvoicesManager.getInvoiceItems(invoiceId);
 			output.put("charges", getCharges(invoiceItems, account));
 			output.put("transactions", getTransactions(invoiceItems, invoice.getTotalCredit(), invoice.getTotalDebit(), account));
 		} else {
@@ -94,10 +97,10 @@ public class InvoicesEntry extends Entry implements IPostmasterObject {
 	}
 	
 	private JSONObject getTransactions(
-			Map<InvoiceItemType, CDataCacheContainer> invoiceItems, Double totalCredit, Double totalDebit, IAccount account) throws CDataGridException, JSONException {
+			Map<InvoiceItemType, List<? extends InvoiceItemModel>> invoiceItems, Double totalCredit, Double totalDebit, IAccount account) throws JSONException {
 		
 		JSONArray ja;
-		CDataCacheContainer transactionsDs = invoiceItems.get(InvoiceItemType.AccountOperation);
+		var transactionsDs = invoiceItems.get(InvoiceItemType.AccountOperation);
 		if(null != transactionsDs){
 			ja = getTransactionsList(transactionsDs, account);
 		} else {
@@ -113,22 +116,22 @@ public class InvoicesEntry extends Entry implements IPostmasterObject {
 	}
 
 	private JSONObject getCharges(
-			Map<InvoiceItemType, CDataCacheContainer> invoiceItems, IAccount account) throws CDataGridException, JSONException {
+			Map<InvoiceItemType, List<? extends InvoiceItemModel>> invoiceItems, IAccount account) throws JSONException {
 		JSONObject output = new JSONObject();
 		JSONArray ja = new JSONArray();
-		CDataCacheContainer chargesDs = invoiceItems.get(InvoiceItemType.Charge);
-		if(null != chargesDs){
-			CDataRowSet rowSet = chargesDs.getAll();
-			while(rowSet.next()){
-				Long chargeId = rowSet.getLong("charge_id");
-				BigDecimal amount = BigDecimal.valueOf(rowSet.getDouble("amount"));
-				int chargeStatusId = rowSet.getInt("charge_status_id");
+		var list = invoiceItems.get(InvoiceItemType.Charge);
+		if(null != list){
+			for(var invoiceItemModel : list){
+				var chargeModel = (ChargeModel)invoiceItemModel;
+				Long chargeId = chargeModel.getId();
+				BigDecimal amount = BigDecimal.valueOf(chargeModel.getAmount());
+	
 				JSONObject jCharge = new JSONObject();
 				jCharge.put("chargeId", chargeId);
-				jCharge.put("statusId", chargeStatusId);
-				jCharge.put("name", rowSet.getString("charge_name"));
-				jCharge.put("description", rowSet.getString("charge_description"));
-				jCharge.put("chargeDate", JSONHelper.getDateFormat(account.addDateOffset(rowSet.getDate("insert_date")), "MMM dd, yyyy"));
+				jCharge.put("statusId", chargeModel.getStatus().getValue());
+				jCharge.put("name", chargeModel.getName());
+				jCharge.put("description", chargeModel.getDescription());
+				jCharge.put("chargeDate", JSONHelper.getDateFormat(account.addDateOffset(chargeModel.getCreateDate()), "MMM dd, yyyy"));
 				jCharge.put("amount", amount);
 				ja.put(jCharge);
 			}
@@ -137,16 +140,16 @@ public class InvoicesEntry extends Entry implements IPostmasterObject {
 		return output;
 	}
 
-	public JSONArray getTransactionsList(CDataCacheContainer ds, IAccount account)
-			throws CDataGridException, JSONException {
+	public JSONArray getTransactionsList(List<? extends InvoiceItemModel> list, IAccount account)
+			throws JSONException {
 		JSONArray ja = new JSONArray();
-		CDataRowSet rowSet = ds.getAll();
 		
-		while(rowSet.next()){
+		for(var invoiceItemModel : list){
+			var operationModel = (AccountOperationModel)invoiceItemModel;
 			JSONObject jTransaction = new JSONObject();
-			jTransaction.put("transactionId", rowSet.getLong("accop_id"));
-			jTransaction.put("typeId", rowSet.getInt("accop_type_id"));
-			Double amount = rowSet.getDouble("amount");
+			jTransaction.put("transactionId", operationModel.getId());
+			jTransaction.put("typeId", operationModel.getType().getValue());
+			Double amount = operationModel.getAmount();
 			if(null !=  amount){
 				jTransaction.put("amount", amount);
 				if(amount < 0)
@@ -164,12 +167,12 @@ public class InvoicesEntry extends Entry implements IPostmasterObject {
 				}
 			}
 			
-			jTransaction.put("balance", rowSet.getDouble("balance"));
-			jTransaction.put("modifyDate", JSONHelper.getDateFormat(account.addDateOffset(rowSet.getDate("modify_date")), "MMM dd, yyyy"));
-			jTransaction.put("referenceId", rowSet.getLong("reference_id"));
-			jTransaction.put("comments", rowSet.getString("comments"));
-			jTransaction.put("creditCard", rowSet.getString("credit_card_number"));
-			jTransaction.put("creditCardTypeId", rowSet.getInt("credit_card_type_id"));
+			jTransaction.put("balance", operationModel.getBalance());
+			jTransaction.put("modifyDate", JSONHelper.getDateFormat(account.addDateOffset(operationModel.getModifyDate()), "MMM dd, yyyy"));
+			jTransaction.put("referenceId", operationModel.getReferenceId());
+			jTransaction.put("comments", operationModel.getComments());
+			jTransaction.put("creditCard", operationModel.getCreditCardNumber());
+			jTransaction.put("creditCardTypeId", operationModel.getCreditCardType().getValue());
 			
 			ja.put(jTransaction);
 			
@@ -193,7 +196,7 @@ public class InvoicesEntry extends Entry implements IPostmasterObject {
 		if(null == result){
 			int top = JSONHelper.optInt(input, "top", 100);
 			
-			List<InvoicesModel> list = InvoicesManager.getInvoices(top, account.getId(), InvoiceStatus.Open.getValue(), false);
+			List<InvoiceModel> list = InvoicesManager.getInvoices(top, account.getId(), InvoiceStatus.Open.getValue(), false);
 			
 			JSONArray ja = new JSONArray();
 			for(var invoicesModel : list){

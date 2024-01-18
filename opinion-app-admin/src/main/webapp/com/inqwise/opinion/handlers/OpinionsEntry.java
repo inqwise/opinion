@@ -19,6 +19,7 @@ import com.inqwise.opinion.common.IPostmasterContext;
 import com.inqwise.opinion.common.opinions.IOpinion;
 import com.inqwise.opinion.common.opinions.IOpinionTemplate;
 import com.inqwise.opinion.common.opinions.ISurvey;
+import com.inqwise.opinion.common.opinions.OpinionModel;
 import com.inqwise.opinion.common.opinions.OpinionType;
 import com.inqwise.opinion.common.opinions.OpinionsOrderBy;
 import com.inqwise.opinion.http.HttpClientSession;
@@ -37,10 +38,6 @@ import com.inqwise.opinion.library.managers.UsersManager;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
 import com.inqwise.opinion.managers.OpinionsManager;
 
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataGridException;
-import net.casper.data.model.CDataRowSet;
-
 public class OpinionsEntry extends Entry {
 
 	static ApplicationLog logger = ApplicationLog.getLogger(OpinionsEntry.class);
@@ -49,7 +46,7 @@ public class OpinionsEntry extends Entry {
 		super(context);
 	}
 
-	public JSONObject getList(JSONObject input) throws JSONException, CDataGridException{
+	public JSONObject getList(JSONObject input) throws JSONException{
 		
 		JSONObject output;
 		Long accountId = JSONHelper.optLong(input, "accountId");
@@ -62,29 +59,28 @@ public class OpinionsEntry extends Entry {
 			surveysByAccountId = new LinkedHashMap<>();
 		}
 		
-		CDataCacheContainer opinionsDataSet = OpinionsManager.getOpinions(accountId, top, from, to, opinionTypeId, IOpinion.DEFAULT_TRANSLATION_ID, OpinionsOrderBy.ModifyDate);
-		CDataRowSet rowSet = opinionsDataSet.getAll();
+		List<OpinionModel> list = OpinionsManager.getOpinions(accountId, top, from, to, opinionTypeId, IOpinion.DEFAULT_TRANSLATION_ID, OpinionsOrderBy.ModifyDate);
 		Format formatter = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss");
 		JSONArray ja = new JSONArray();
-		while(rowSet.next()){
+		for(var opinionModel : list){
 			JSONObject item = new JSONObject();
 			
-			item.put(IOpinion.JsonNames.OPINION_ID, rowSet.getLong(IOpinion.ResultSetNames.OPINION_ID));
-			item.put(IOpinion.JsonNames.NAME, rowSet.getString(IOpinion.ResultSetNames.NAME));
-			item.put(IOpinion.JsonNames.MODIFY_DATE, formatter.format(rowSet.getDate(IOpinion.ResultSetNames.MODIFY_DATE)));
-			long cntStarted = rowSet.getLong(ResultSetNames.CNT_STARTED_OPINIONS);
-			long cntCompleted = rowSet.getLong(ResultSetNames.CNT_FINISHED_OPINIONS);
+			item.put(IOpinion.JsonNames.OPINION_ID, opinionModel.getId());
+			item.put(IOpinion.JsonNames.NAME, opinionModel.getName());
+			item.put(IOpinion.JsonNames.MODIFY_DATE, formatter.format(opinionModel.getModifyDate()));
+			long cntStarted = opinionModel.getCntStartedOpinions();
+			long cntCompleted = opinionModel.getCntFinishedOpinions();
 			item.put(IOpinion.JsonNames.CNT_STARTED_OPINIONS, cntStarted);
 			item.put(IOpinion.JsonNames.CNT_FINISHED_OPINIONS, cntCompleted);
 			item.put(IOpinion.JsonNames.CNT_PARTIAL_OPINIONS, cntStarted - cntCompleted);
 			item.put(IOpinion.JsonNames.COMPLETION_RATE, (cntStarted > 0 ? Math.round((cntCompleted * 1d / cntStarted * 1d) * 100.0) : 0));
-			Long actualAccountId = rowSet.getLong(IOpinion.ResultSetNames.ACCOUNT_ID);
+			Long actualAccountId = opinionModel.getAccountId();
 			item.put(IOpinion.JsonNames.ACCOUNT_ID, actualAccountId);
-			item.put(IOpinion.JsonNames.PREVIEW_URL, String.format(ISurvey.PREVIEW_URL_FORMAT, ApplicationConfiguration.Opinion.Collector.getUrl(), opinionTypeId, rowSet.getString(IOpinion.ResultSetNames.GUID)));
-			if(null != rowSet.getDouble(IOpinion.ResultSetNames.AVG_TIME_TAKEN_SEC)){
-				item.put(IOpinion.JsonNames.TIME_TAKEN, JSONHelper.getTimeSpanSec(Math.round(rowSet.getDouble(IOpinion.ResultSetNames.AVG_TIME_TAKEN_SEC))));
+			item.put(IOpinion.JsonNames.PREVIEW_URL, String.format(ISurvey.PREVIEW_URL_FORMAT, ApplicationConfiguration.Opinion.Collector.getUrl(), opinionTypeId, opinionModel.getGuid()));
+			if(null != opinionModel.getAvgTimeTakenSec()){
+				item.put(IOpinion.JsonNames.TIME_TAKEN, JSONHelper.getTimeSpanSec(Math.round(opinionModel.getAvgTimeTakenSec())));
 			}
-			item.put(IOpinion.JsonNames.COUNT_CONTROLS, rowSet.getInt(IOpinion.ResultSetNames.COUNT_CONTROLS));
+			item.put(IOpinion.JsonNames.COUNT_CONTROLS, opinionModel.getCountControls());
 			ja.put(item);
 			
 			// Collect accountIds with referenced JsonObjects for later use
