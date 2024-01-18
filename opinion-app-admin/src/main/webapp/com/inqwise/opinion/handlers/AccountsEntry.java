@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.JSONObject; 
 
 import com.inqwise.opinion.common.IOpinionAccount;
 import com.inqwise.opinion.common.IPostmasterContext;
@@ -29,7 +29,9 @@ import com.inqwise.opinion.infrastructure.systemFramework.DateConverter;
 import com.inqwise.opinion.infrastructure.systemFramework.GeoIpManager;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.IProduct;
+import com.inqwise.opinion.library.common.InvoiceModel;
 import com.inqwise.opinion.library.common.accounts.AccountModel;
+import com.inqwise.opinion.library.common.accounts.AccountOperationModel;
 import com.inqwise.opinion.library.common.accounts.AccountOperationsReferenceType;
 import com.inqwise.opinion.library.common.accounts.AccountsOperationsType;
 import com.inqwise.opinion.library.common.accounts.IAccount;
@@ -53,9 +55,6 @@ import com.inqwise.opinion.library.managers.InvoicesManager;
 import com.inqwise.opinion.library.managers.ParametersManager;
 import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.library.managers.ServicePackagesManager;
-
-import net.casper.data.model.CDataCacheContainer;
-import net.casper.data.model.CDataRowSet;
 
 public class AccountsEntry extends Entry {
 
@@ -157,21 +156,16 @@ public class AccountsEntry extends Entry {
 		result = BaseOperationResult.validateWithoutLog(null == groupBy || groupBy.equalsIgnoreCase("month"), ErrorCode.ArgumentWrong, "groupBy");
 		
 		if (null == result) {
-			CDataCacheContainer ds = AccountsOperationsManager
-					.getAccountOperations(top, accountId,
-							accountOperationTypeIds, referenceId,
-							referenceTypeId, fromDate, toDate, true);
+			List<AccountOperationModel> accountOperationList = AccountsOperationsManager.getAccountOperations(top, accountId,accountOperationTypeIds, referenceId,referenceTypeId, fromDate, toDate, true);
 			JSONArray ja = new JSONArray();
-			CDataRowSet rowSet = ds.getAll();
-			CDataRowSet invoicesRowSet = null;
 			TreeMap<Date, JSONObject> groupsMap = null;
 			BigDecimal groupDebit = null;
 			BigDecimal groupCredit = null;
+			List<InvoiceModel> invoiceList = null;
 			if (null != groupBy) {
 				groupDebit = new BigDecimal(0.0);
 				groupCredit = new BigDecimal(0.0);
-				invoicesRowSet = InvoicesManager.getInvoices(top, accountId,
-						InvoiceStatus.Open.getValue(), false).getAll(null, true);
+				invoiceList = InvoicesManager.getInvoices(top, accountId,InvoiceStatus.Open.getValue(), false);
 				groupsMap = new TreeMap<>();
 			}
 		
@@ -179,13 +173,12 @@ public class AccountsEntry extends Entry {
 			BigDecimal totalDebit = BigDecimal.ZERO;
 			BigDecimal totalCredit = BigDecimal.ZERO;
 		
-			while(rowSet.next()){
+			for(var accountOperationModel : accountOperationList){
 				JSONObject jTransaction = new JSONObject();
-				jTransaction.put("transactionId", rowSet.getLong("accop_id"));
-				Integer accountOperationTypeId = rowSet.getInt("accop_type_id");
-				jTransaction.put("typeId", accountOperationTypeId);
-				jTransaction.put("userId", rowSet.getLong("user_id"));
-				Double amount = rowSet.getDouble("amount");
+				jTransaction.put("transactionId", accountOperationModel.getId());
+				jTransaction.put("typeId", accountOperationModel.getType().getValue());
+				jTransaction.put("userId", accountOperationModel.getUserId());
+				Double amount = accountOperationModel.getAmount();
 				if(null !=  amount){
 					jTransaction.put("amount", amount);
 					if (amount < 0) {
@@ -203,16 +196,16 @@ public class AccountsEntry extends Entry {
 						jTransaction.put("credit", 0);
 					}
 				}
-				Double balance = rowSet.getDouble("balance");
+				Double balance = accountOperationModel.getBalance();
 				jTransaction.put("balance", balance);
-				Date modifyDate = rowSet.getDate("modify_date");
+				Date modifyDate = accountOperationModel.getModifyDate();
 				jTransaction.put("modifyDate",	JSONHelper.getDateFormat(modifyDate, "MMM dd, yyyy"));
-				Long accountOperationReferenceId = rowSet.getLong("reference_id");
+				Long accountOperationReferenceId = accountOperationModel.getReferenceId();
 				jTransaction.put("referenceId", accountOperationReferenceId);
-				jTransaction.put("comments", rowSet.getString("comments"));
-				jTransaction.put("creditCard",rowSet.getString("credit_card_number"));
-				jTransaction.put("creditCardTypeId",rowSet.getInt("credit_card_type_id"));
-				jTransaction.put("chargeDescription",rowSet.getString("charge_description"));
+				jTransaction.put("comments", accountOperationModel.getComments());
+				jTransaction.put("creditCard",accountOperationModel.getCreditCardNumber());
+				jTransaction.put("creditCardTypeId",accountOperationModel.getCreditCardType());
+				jTransaction.put("chargeDescription",accountOperationModel.getChargeDescription());
 
 				if (null == groupsMap) {
 					ja.put(jTransaction);
@@ -248,19 +241,16 @@ public class AccountsEntry extends Entry {
 				}
 
 				if (null == lastFundJo
-						&& rowSet.getInt("accop_type_id") == AccountsOperationsType.Fund.getValue()) {
+						&& accountOperationModel.getType() == AccountsOperationsType.Fund) {
 					lastFundJo = jTransaction;
 				}
 			}
-			
-			if(null != invoicesRowSet){
-				while (invoicesRowSet.next()) {
+			if(null != invoiceList){
+				for(var invoiceModel : invoiceList) {
 					JSONObject jInvoice = new JSONObject();
-					jInvoice.put("invoiceId",invoicesRowSet.getString("invoice_id"));
+					jInvoice.put("invoiceId",invoiceModel.getInvoiceId());
 	
-					Date groupDate = DateConverter
-							.shiftToTheEndOfTheMonth(invoicesRowSet
-									.getDate("invoice_to_date"));
+					Date groupDate = DateConverter.shiftToTheEndOfTheMonth(invoiceModel.getInvoiceToDate());
 					JSONObject jGroup = groupsMap.get(groupDate);
 					if (null == jGroup) {
 						jGroup = createJGroup(groupDate);
@@ -965,7 +955,7 @@ public class AccountsEntry extends Entry {
 		int servicePackageId = input.getInt("packageId");
 		
 		if(amount != 0 || null != unlimitedBalance){
-			result = com.inqwise.opinion.opinion.managers.AccountsManager.changeSessionsBalance(accountId, servicePackageId, amount, unlimitedBalance);
+			result = com.inqwise.opinion.managers.AccountsManager.changeSessionsBalance(accountId, servicePackageId, amount, unlimitedBalance);
 		} else {
 			result = new OperationResult<Long>(ErrorCode.ArgumentWrong);
 		}

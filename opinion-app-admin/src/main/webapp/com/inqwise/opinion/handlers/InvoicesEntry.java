@@ -23,9 +23,9 @@ import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.DateConverter;
 import com.inqwise.opinion.infrastructure.systemFramework.GeoIpManager;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
-import com.inqwise.opinion.library.common.AccountOperationModel;
 import com.inqwise.opinion.library.common.InvoiceItemModel;
 import com.inqwise.opinion.library.common.InvoiceModel;
+import com.inqwise.opinion.library.common.accounts.AccountOperationModel;
 import com.inqwise.opinion.library.common.accounts.AccountsOperationsType;
 import com.inqwise.opinion.library.common.accounts.IAccountBusinessDetails;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
@@ -97,7 +97,7 @@ public class InvoicesEntry extends Entry {
 				output.put("charges", getCharges(invoice));
 				output.put("transactions", getTransactions(invoice, fromDate, toDate));
 			} else {
-				Map<InvoiceItemType, List<InvoiceItemModel>> invoiceItems = InvoicesManager.getInvoiceItems(invoiceId);
+				Map<InvoiceItemType, List<? extends InvoiceItemModel>> invoiceItems = InvoicesManager.getInvoiceItems(invoiceId);
 				output.put("charges", getCharges(invoiceItems));
 				output.put("transactions", getTransactions(invoiceItems, invoice.getTotalCredit(), invoice.getTotalDebit()));
 			}
@@ -120,7 +120,7 @@ public class InvoicesEntry extends Entry {
 		MutableDouble totalCredit = new MutableDouble();
 		MutableDouble totalDebit = new MutableDouble();
  		
-		List<InvoiceItemModel> list = AccountsOperationsManager.getAccountOperations(DRAFT_MAX_INVOICE_ITEMS, invoice.getForAccountId(),DRAFT_ACCOUNT_OPERATIONS_TYPE_IDS,null, null, fromDate, toDate, true);
+		List<AccountOperationModel> list = AccountsOperationsManager.getAccountOperations(DRAFT_MAX_INVOICE_ITEMS, invoice.getForAccountId(),DRAFT_ACCOUNT_OPERATIONS_TYPE_IDS,null, null, fromDate, toDate, true);
 		
 		JSONArray ja = getTransactionsList(list, totalCredit, totalDebit);
 		JSONObject output = new JSONObject();
@@ -494,8 +494,8 @@ public class InvoicesEntry extends Entry {
 			//AccountOperations
 			List<Long> accountOperationsIds = new ArrayList<Long>();
 			for(var accountOperationModel : accountOperationList) {
-				accountOperationsIds.add(accountOperationsRowSet.getLong("accop_id"));
-				Double amount = accountOperationsRowSet.getDouble("amount");
+				accountOperationsIds.add(accountOperationModel.getId());
+				Double amount = accountOperationModel.getAmount();
 				if(null !=  amount){
 					if(amount < 0)
 					{
@@ -587,21 +587,21 @@ public class InvoicesEntry extends Entry {
 	}
 	
 	private JSONObject getCharges(
-			Map<InvoiceItemType, List<InvoiceItemModel>> invoiceItems) throws JSONException {
+			Map<InvoiceItemType, List<? extends InvoiceItemModel>> invoiceItems) throws JSONException {
 		JSONObject output = new JSONObject();
 		JSONArray ja = new JSONArray();
-		List<InvoiceItemModel> chargeslist = invoiceItems.get(InvoiceItemType.Charge);
-		if(null != chargeslist){
-			for(var invoiceItemModel : chargeslist){
-				Long chargeId = invoiceItemModel.getChargeId();
-				BigDecimal amount = BigDecimal.valueOf(invoiceItemModel.getAmount());
-				int chargeStatusId = invoiceItemModel.getChargeStatusId();
+		var list = invoiceItems.get(InvoiceItemType.Charge);
+		if(null != list){
+			for(var invoiceItemModel : list){
+				var chargeModel = (ChargeModel)invoiceItemModel;
+				Long chargeId = chargeModel.getId();
+				BigDecimal amount = BigDecimal.valueOf(chargeModel.getAmount());
 				JSONObject jCharge = new JSONObject();
 				jCharge.put("chargeId", chargeId);
-				jCharge.put("statusId", chargeStatusId);
-				jCharge.put("name", invoiceItemModel.getChargeName());
-				jCharge.put("description", invoiceItemModel.getChargeDescription());
-				jCharge.put("chargeDate", JSONHelper.getDateFormat(invoiceItemModel.getInsertDate(), "MMM dd, yyyy"));
+				jCharge.put("statusId", chargeModel.getStatus().getValue());
+				jCharge.put("name", chargeModel.getName());
+				jCharge.put("description", chargeModel.getDescription());
+				jCharge.put("chargeDate", JSONHelper.getDateFormat(chargeModel.getCreateDate(), "MMM dd, yyyy"));
 				jCharge.put("amount", amount);
 				ja.put(jCharge);
 			}
@@ -611,10 +611,10 @@ public class InvoicesEntry extends Entry {
 	}
 	
 	private JSONObject getTransactions(
-			Map<InvoiceItemType, List<InvoiceItemModel>> invoiceItems, Double totalCredit, Double totalDebit) throws JSONException {
+			Map<InvoiceItemType, List<? extends InvoiceItemModel>> invoiceItems, Double totalCredit, Double totalDebit) throws JSONException {
 		
 		JSONArray ja;
-		List<InvoiceItemModel> transactionslist = invoiceItems.get(InvoiceItemType.AccountOperation);
+		var transactionslist = invoiceItems.get(InvoiceItemType.AccountOperation);
 		
 		if(null != transactionslist){
 			ja = getTransactionsList(transactionslist, null, null);
@@ -631,15 +631,16 @@ public class InvoicesEntry extends Entry {
 		return output;
 	}
 	
-	public JSONArray getTransactionsList(List<InvoiceItemModel> list, MutableDouble totalCredit, MutableDouble totalDebit)
+	public JSONArray getTransactionsList(List<? extends InvoiceItemModel> list, MutableDouble totalCredit, MutableDouble totalDebit)
 			throws JSONException {
 		
 		JSONArray ja = new JSONArray();
 		for(var invoiceItemModel : list){
+			var operationModel = (AccountOperationModel)invoiceItemModel;
 			JSONObject jTransaction = new JSONObject();
-			jTransaction.put("transactionId", invoiceItemModel.getAccopId());
-			jTransaction.put("typeId", invoiceItemModel.getAccopTypeId());
-			Double amount = invoiceItemModel.getAmount();
+			jTransaction.put("transactionId", operationModel.getId());
+			jTransaction.put("typeId", operationModel.getType());
+			Double amount = operationModel.getAmount();
 			if(null !=  amount){
 				jTransaction.put("amount", amount);
 				if(amount < 0)
@@ -662,12 +663,12 @@ public class InvoicesEntry extends Entry {
 					jTransaction.put("credit", 0);
 				}
 			}
-			jTransaction.put("balance", invoiceItemModel.getBalance());
-			jTransaction.put("modifyDate", JSONHelper.getDateFormat(invoiceItemModel.getModifyDate(), "MMM dd, yyyy"));
-			jTransaction.put("referenceId", invoiceItemModel.getReferenceId());
-			jTransaction.put("comments", invoiceItemModel.getComments());
-			jTransaction.put("creditCard", invoiceItemModel.getCreditCardNumber());
-			jTransaction.put("creditCardTypeId", invoiceItemModel.getCreditCardTypeId());
+			jTransaction.put("balance", operationModel.getBalance());
+			jTransaction.put("modifyDate", JSONHelper.getDateFormat(operationModel.getModifyDate(), "MMM dd, yyyy"));
+			jTransaction.put("referenceId", operationModel.getReferenceId());
+			jTransaction.put("comments", operationModel.getComments());
+			jTransaction.put("creditCard", operationModel.getCreditCardNumber());
+			jTransaction.put("creditCardTypeId", operationModel.getCreditCardType());
 			
 			ja.put(jTransaction);
 			

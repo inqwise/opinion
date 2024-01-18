@@ -11,13 +11,14 @@ import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.InvoiceItemModel;
-import com.inqwise.opinion.library.common.InvoiceItemRepositoryParser;
 import com.inqwise.opinion.library.common.InvoiceModel;
 import com.inqwise.opinion.library.common.InvoicesRepositoryParser;
+import com.inqwise.opinion.library.common.accounts.AccountOperationRepositoryParser;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.pay.BillType;
+import com.inqwise.opinion.library.common.pay.ChargeRepositoryParser;
 import com.inqwise.opinion.library.common.pay.IInvoice;
 import com.inqwise.opinion.library.common.pay.IInvoiceCreateRequest;
 import com.inqwise.opinion.library.common.pay.IOpenInvoiceRequest;
@@ -145,13 +146,24 @@ public class InvoicesManager {
 		return result;
 	}
 	
-	public static Map<InvoiceItemType, List<InvoiceItemModel>> getInvoiceItems(long invoiceId){
+	public static Map<InvoiceItemType, List<? extends InvoiceItemModel>> getInvoiceItems(long invoiceId){
 		try {
-			Map<InvoiceItemType, List<InvoiceItemModel>> resultMap = Maps.newHashMap();
+			Map<InvoiceItemType, List<? extends InvoiceItemModel>> resultMap = Maps.newHashMap();
 			
 			var map = InvoicesDataAccess.getInvoiceItems(invoiceId, BillType.Invoice.getValue());
 			for (var mapItem : map.entrySet()) {
-				var toList = JSONHelper.toListOfModel(mapItem.getValue(), new InvoiceItemRepositoryParser()::parse);
+				List<? extends InvoiceItemModel> toList;
+				switch (mapItem.getKey()) {
+				case AccountOperation: 
+					toList = JSONHelper.toListOfModel(mapItem.getValue(), new AccountOperationRepositoryParser()::parse);
+					break;
+				case Charge:
+					toList = JSONHelper.toListOfModel(mapItem.getValue(), new ChargeRepositoryParser()::parse);
+					break;
+				default:
+					throw new IllegalArgumentException("Unexpected value: " + mapItem.getKey());
+				}
+		
 				resultMap.put(mapItem.getKey(), toList);
 				
 			}

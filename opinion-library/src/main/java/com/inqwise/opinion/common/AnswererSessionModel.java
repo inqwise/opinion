@@ -63,8 +63,17 @@ public class AnswererSessionModel {
 		countryName = json.optString(Keys.COUNTRY_NAME);
 		clientIp = json.optString(Keys.CLIENT_IP);
 		targetUrl = json.optString(Keys.TARGET_URL);
-		finishDate = (Date) json.opt(Keys.FINISH_DATE);
-		insertDate = (Date) json.opt(Keys.INSERT_DATE);
+		
+		var finishDateInMs = json.optLongObject(Keys.FINISH_DATE);
+		if(null != finishDateInMs) {
+			finishDate = new Date(finishDateInMs);
+		}
+		
+		var insertDateInMs = json.optLongObject(Keys.INSERT_DATE);
+		if(null != insertDateInMs) {
+			insertDate = new Date(insertDateInMs);
+		}
+		
 		timeTakenSec = json.optLongObject(Keys.TIME_TAKEN_SEC);
 		collectorId = json.optLongObject(Keys.COLLECTOR_ID);
 		id = json.optLongObject(Keys.ID);

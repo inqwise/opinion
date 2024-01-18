@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 
-import org.json.JSONArray;
-
 import com.inqwise.opinion.common.CountriesStatisticsModel;
 import com.inqwise.opinion.common.CountriesStatisticsRepositoryParser;
+import com.inqwise.opinion.common.ResultModel;
+import com.inqwise.opinion.common.ResultRepositoryParser;
 import com.inqwise.opinion.common.analizeResults.IAnalizeControl;
 import com.inqwise.opinion.dao.Results;
 import com.inqwise.opinion.entities.analizeResults.AnalizeControlEntity;
@@ -68,9 +68,11 @@ public class ResultsManager {
 		return AnalizeControlEntity.getAnalizeControls(opinionId, accountId, null, answererSessionId, collectorId, includePartialAnswers, includePartialStatistics, includeAttributeControl);
 	}
 	
-	public static JSONArray getAllResults(long opinionId, Long accountId, Long[] sessionIds, boolean includePartial, TreeMap<Long, Integer> headerIdsMap) {
+	public static List<ResultModel> getAllResults(long opinionId, Long accountId, Long[] sessionIds, boolean includePartial, TreeMap<Long, Integer> headerIdsMap) {
 		try{
-			return Results.getAllResults(opinionId, accountId, sessionIds, includePartial, headerIdsMap);
+			var arr = Results.getAllResults(opinionId, accountId, sessionIds, includePartial, headerIdsMap);
+			var toList = JSONHelper.toListOfModel(arr, new ResultRepositoryParser()::parse);
+			return toList;
 		} catch (DAOException ex){
 			throw new Error(ex);
 		}

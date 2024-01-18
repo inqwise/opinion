@@ -8,8 +8,8 @@ import com.google.common.base.MoreObjects;
 
 public class OpinionModel {
 	
-	private Long opinionId;
-	private Integer opinionTypeId;
+	private Long id;
+	private OpinionType type;
 	private String name;
 	private Date modifyDate;
 	private Long cntStartedOpinions;
@@ -17,10 +17,12 @@ public class OpinionModel {
 	private String guid;
 	private Date lastStartDate;
 	private Double avgTimeTakenSec;
+	private Long accountId;
+	private Integer countControls;
 
 	private OpinionModel(Builder builder) {
-		this.opinionId = builder.opinionId;
-		this.opinionTypeId = builder.opinionTypeId;
+		this.id = builder.opinionId;
+		this.type = builder.type;
 		this.name = builder.name;
 		this.modifyDate = builder.modifyDate;
 		this.cntStartedOpinions = builder.cntStartedOpinions;
@@ -28,12 +30,14 @@ public class OpinionModel {
 		this.guid = builder.guid;
 		this.lastStartDate = builder.lastStartDate;
 		this.avgTimeTakenSec = builder.avgTimeTakenSec;
+		this.accountId = builder.accountId;
+		this.countControls = builder.countControls;
 	}
 
 	public static final class Keys{
 
-		public static final String OPINION_ID = "opinion_id";
-		public static final String OPINION_TYPE_ID = "opinion_type_id";
+		public static final String OPINION_ID = "id";
+		public static final String TYPE_ID = "type_id";
 		public static final String NAME = "name";
 		public static final String MODIFY_DATE = "modify_date";
 		public static final String CNT_STARTED_OPINIONS = "cnt_started_opinions";
@@ -41,27 +45,43 @@ public class OpinionModel {
 		public static final String GUID = "guid";
 		public static final String LAST_START_DATE = "last_start_date";
 		public static final String AVG_TIME_TAKEN_SEC = "avg_time_taken_sec";
+		public static final String ACCOUNT_ID = "account_id";
+		public static final String COUNT_CONTROLS = "count_controls";
 		
 	}
 
 	public OpinionModel(JSONObject json) {
-		opinionId = json.optLongObject(Keys.OPINION_ID);
-		opinionTypeId = json.optIntegerObject(Keys.OPINION_TYPE_ID);
+		id = json.optLongObject(Keys.OPINION_ID);
+		
+		var typeId = json.optIntegerObject(Keys.TYPE_ID);
+		if(null != typeId) {
+			type = OpinionType.fromInt(typeId);
+		}
 		name = json.optString(Keys.NAME);
-		modifyDate = (Date) json.opt(Keys.MODIFY_DATE);
+		
+		var modifyDateInMs = json.optLongObject(Keys.MODIFY_DATE);
+		if(null != modifyDateInMs) {
+			modifyDate = new Date(modifyDateInMs);
+		}
 		cntStartedOpinions = json.optLongObject(Keys.CNT_STARTED_OPINIONS);
 		cntFinishedOpinions = json.optLongObject(Keys.CNT_FINISHED_OPINIONS);
 		guid = json.optString(Keys.GUID);
-		lastStartDate = (Date) json.opt(Keys.LAST_START_DATE);
+		
+		var lastStartDateInMs = json.optLongObject(Keys.LAST_START_DATE);
+		if(null != lastStartDateInMs) {
+			lastStartDate = new Date(lastStartDateInMs);
+		}
 		avgTimeTakenSec = json.optDoubleObject(Keys.AVG_TIME_TAKEN_SEC);
+		accountId = json.optLongObject(Keys.ACCOUNT_ID);
+		countControls = json.optIntegerObject(Keys.COUNT_CONTROLS);
 	}
 	
-	public Long getOpinionId() {
-		return opinionId;
+	public Long getId() {
+		return id;
 	}
 
-	public Integer getOpinionTypeId() {
-		return opinionTypeId;
+	public OpinionType getType() {
+		return type;
 	}
 
 	public String getName() {
@@ -92,10 +112,18 @@ public class OpinionModel {
 		return avgTimeTakenSec;
 	}
 
+	public Long getAccountId() {
+		return accountId;
+	}
+
+	public Integer getCountControls() {
+		return countControls;
+	}
+
 	public JSONObject toJson() {
 		var json = new JSONObject();
-		json.put(Keys.OPINION_ID, opinionId);
-		json.put(Keys.OPINION_TYPE_ID, opinionTypeId);
+		json.put(Keys.OPINION_ID, id);
+		json.put(Keys.TYPE_ID, type);
 		json.put(Keys.NAME, name);
 		json.put(Keys.MODIFY_DATE, modifyDate);
 		json.put(Keys.CNT_STARTED_OPINIONS, cntStartedOpinions);
@@ -103,6 +131,8 @@ public class OpinionModel {
 		json.put(Keys.GUID, guid);
 		json.put(Keys.LAST_START_DATE, lastStartDate);
 		json.put(Keys.AVG_TIME_TAKEN_SEC, avgTimeTakenSec);
+		json.put(Keys.ACCOUNT_ID, accountId);
+		json.put(Keys.COUNT_CONTROLS, countControls);
 		return json;
 	}
 	
@@ -116,7 +146,7 @@ public class OpinionModel {
 
 	public static final class Builder {
 		private Long opinionId;
-		private Integer opinionTypeId;
+		private OpinionType type;
 		private String name;
 		private Date modifyDate;
 		private Long cntStartedOpinions;
@@ -124,13 +154,15 @@ public class OpinionModel {
 		private String guid;
 		private Date lastStartDate;
 		private Double avgTimeTakenSec;
+		private Long accountId;
+		private Integer countControls;
 
 		private Builder() {
 		}
 
 		private Builder(OpinionModel opinionModel) {
-			this.opinionId = opinionModel.opinionId;
-			this.opinionTypeId = opinionModel.opinionTypeId;
+			this.opinionId = opinionModel.id;
+			this.type = opinionModel.type;
 			this.name = opinionModel.name;
 			this.modifyDate = opinionModel.modifyDate;
 			this.cntStartedOpinions = opinionModel.cntStartedOpinions;
@@ -138,6 +170,8 @@ public class OpinionModel {
 			this.guid = opinionModel.guid;
 			this.lastStartDate = opinionModel.lastStartDate;
 			this.avgTimeTakenSec = opinionModel.avgTimeTakenSec;
+			this.accountId = opinionModel.accountId;
+			this.countControls = opinionModel.countControls;
 		}
 
 		public Builder withOpinionId(Long opinionId) {
@@ -145,8 +179,8 @@ public class OpinionModel {
 			return this;
 		}
 
-		public Builder withOpinionTypeId(Integer opinionTypeId) {
-			this.opinionTypeId = opinionTypeId;
+		public Builder withType(OpinionType type) {
+			this.type = type;
 			return this;
 		}
 
@@ -185,6 +219,16 @@ public class OpinionModel {
 			return this;
 		}
 
+		public Builder withAccountId(Long accountId) {
+			this.accountId = accountId;
+			return this;
+		}
+
+		public Builder withCountControls(Integer countControls) {
+			this.countControls = countControls;
+			return this;
+		}
+
 		public OpinionModel build() {
 			return new OpinionModel(this);
 		}
@@ -192,10 +236,11 @@ public class OpinionModel {
 
 	@Override
 	public String toString() {
-		return MoreObjects.toStringHelper(this).add("opinionId", opinionId).add("opinionTypeId", opinionTypeId)
-				.add("name", name).add("modifyDate", modifyDate).add("cntStartedOpinions", cntStartedOpinions)
+		return MoreObjects.toStringHelper(this).add("opinionId", id).add("type", type).add("name", name)
+				.add("modifyDate", modifyDate).add("cntStartedOpinions", cntStartedOpinions)
 				.add("cntFinishedOpinions", cntFinishedOpinions).add("guid", guid).add("lastStartDate", lastStartDate)
-				.add("avgTimeTakenSec", avgTimeTakenSec).toString();
+				.add("avgTimeTakenSec", avgTimeTakenSec).add("accountId", accountId).add("countControls", countControls)
+				.toString();
 	}
 
 }

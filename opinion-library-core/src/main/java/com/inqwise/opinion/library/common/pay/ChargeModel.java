@@ -5,8 +5,9 @@ import java.util.Date;
 import org.json.JSONObject;
 
 import com.google.common.base.MoreObjects;
+import com.inqwise.opinion.library.common.InvoiceItemModel;
 
-public class ChargeModel {
+public class ChargeModel implements InvoiceItemModel {
 	
 	private Long id;
 	private ChargeStatus status;
@@ -16,6 +17,10 @@ public class ChargeModel {
 	private Date createDate;
 	private Long accountId;
 	private String accountName;
+	private String postPayAction;
+	private Long referenceId;
+	private String postPayActionData;
+	private ChargeReferenceType reference;
 
 	private ChargeModel(Builder builder) {
 		this.id = builder.id;
@@ -26,6 +31,10 @@ public class ChargeModel {
 		this.createDate = builder.createDate;
 		this.accountId = builder.accountId;
 		this.accountName = builder.accountName;
+		this.postPayAction = builder.postPayAction;
+		this.referenceId = builder.referenceId;
+		this.postPayActionData = builder.postPayActionData;
+		this.reference = builder.reference;
 	}
 
 	public static final class Keys {
@@ -37,10 +46,15 @@ public class ChargeModel {
 		public static final String CREATE_DATE = "create_date";
 		public static final String ACCOUNT_ID = "account_id";
 		public static final String ACCOUNT_NAME = "account_name";
+		public static final String POST_PAY_ACTION = "post_pay_action";
+		public static final String REFERENCE_TYPE = "reference_type";
+		public static final String REFERENCE_ID = "reference_id";
+		public static final String POST_PAY_ACTION_DATA = "post_pay_action_data";
 	}  
 	
 	public ChargeModel(JSONObject json) {
 		id = json.optLong(Keys.ID);
+		
 		var statusId = json.optIntegerObject(Keys.STATUS_ID);
 		if(null != statusId) {
 			status = ChargeStatus.fromInt(statusId);
@@ -51,6 +65,14 @@ public class ChargeModel {
 		createDate = new Date(json.getLong(Keys.CREATE_DATE));
 		accountId = json.optLongObject(Keys.ACCOUNT_ID);
 		accountName = json.optString(Keys.ACCOUNT_NAME);
+		postPayAction = json.optString(Keys.POST_PAY_ACTION);
+		
+		var referenceType = json.optIntegerObject(Keys.REFERENCE_TYPE);
+		if(null != referenceType) {
+			reference = ChargeReferenceType.fromInt(referenceType);
+		}
+		referenceId = json.optLongObject(Keys.REFERENCE_ID);
+		postPayActionData = json.optString(Keys.POST_PAY_ACTION_DATA);
 	}
 	
 	public Long getId() {
@@ -85,9 +107,26 @@ public class ChargeModel {
 		return accountName;
 	}
 
+	public String getPostPayAction() {
+		return postPayAction;
+	}
+
+	public ChargeReferenceType getReferenceType() {
+		return reference;
+	}
+
+	public Long getReferenceId() {
+		return referenceId;
+	}
+
+	public String getPostPayActionData() {
+		return postPayActionData;
+	}
+
 	public JSONObject toJson() {
 		var json = new JSONObject();
 		json.put(Keys.ID, id);
+		
 		if(null != status) {
 			json.put(Keys.STATUS_ID, status.getValue());
 		}
@@ -95,6 +134,14 @@ public class ChargeModel {
 		json.put(Keys.AMOUNT, amount);
 		json.put(Keys.ACCOUNT_ID, accountId);
 		json.put(Keys.ACCOUNT_NAME, accountName);
+		json.put(Keys.POST_PAY_ACTION, postPayAction);
+		
+		if(null != reference) {
+			json.put(Keys.REFERENCE_TYPE, reference.getValue());
+		}
+		
+		json.put(Keys.REFERENCE_ID, referenceId);
+		json.put(Keys.POST_PAY_ACTION_DATA, postPayActionData);
 		return json;
 	}
 
@@ -116,6 +163,10 @@ public class ChargeModel {
 		private Date createDate;
 		private Long accountId;
 		private String accountName;
+		private String postPayAction;
+		private Long referenceId;
+		private String postPayActionData;
+		private ChargeReferenceType reference;
 
 		private Builder() {
 		}
@@ -129,6 +180,10 @@ public class ChargeModel {
 			this.createDate = chargeModel.createDate;
 			this.accountId = chargeModel.accountId;
 			this.accountName = chargeModel.accountName;
+			this.postPayAction = chargeModel.postPayAction;
+			this.referenceId = chargeModel.referenceId;
+			this.postPayActionData = chargeModel.postPayActionData;
+			this.reference = chargeModel.reference;
 		}
 
 		public Builder withId(Long id) {
@@ -171,6 +226,26 @@ public class ChargeModel {
 			return this;
 		}
 
+		public Builder withPostPayAction(String postPayAction) {
+			this.postPayAction = postPayAction;
+			return this;
+		}
+
+		public Builder withReferenceId(Long referenceId) {
+			this.referenceId = referenceId;
+			return this;
+		}
+
+		public Builder withPostPayActionData(String postPayActionData) {
+			this.postPayActionData = postPayActionData;
+			return this;
+		}
+
+		public Builder withReference(ChargeReferenceType reference) {
+			this.reference = reference;
+			return this;
+		}
+
 		public ChargeModel build() {
 			return new ChargeModel(this);
 		}
@@ -180,7 +255,9 @@ public class ChargeModel {
 	public String toString() {
 		return MoreObjects.toStringHelper(this).add("id", id).add("status", status).add("amount", amount)
 				.add("name", name).add("description", description).add("createDate", createDate)
-				.add("accountId", accountId).add("accountName", accountName).toString();
+				.add("accountId", accountId).add("accountName", accountName).add("postPayAction", postPayAction)
+				.add("referenceId", referenceId).add("postPayActionData", postPayActionData).add("reference", reference)
+				.toString();
 	}
 
 }

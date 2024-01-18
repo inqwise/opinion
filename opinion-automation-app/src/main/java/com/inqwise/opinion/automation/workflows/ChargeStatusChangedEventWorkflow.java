@@ -82,18 +82,18 @@ public class ChargeStatusChangedEventWorkflow extends Workflow<ChargeStatusChang
 	public static void identifyPaidChargeActions(long chargeId, int sourceId, List<IEventAction> list) throws ActionException {
 		List<ChargeModel> chargeList = ChargesManager.getPostPayActions(chargeId);
 		for(var chargeModel : chargeList){
-			IEventAction action = identifyAction(rowSet, sourceId);
+			IEventAction action = identifyAction(chargeModel, sourceId);
 			list.add(action);
 		}
 	}
 
-	private static IEventAction identifyAction(final CDataRowSet rowSet,final int sourceId) throws ActionException {
+	private static IEventAction identifyAction(final ChargeModel chargeModel,final int sourceId) throws ActionException {
 		
-		final long chargeId = rowSet.getLong("charge_id");
-		String postPayAction = rowSet.getString("post_pay_action");
-		final Integer referenceTypeId = rowSet.getInt("reference_type_id");
-		final Long referenceId = rowSet.getLong("reference_id");
-		String strPostPayActionData = rowSet.getString("post_pay_action_data");
+		final long chargeId = chargeModel.getId();
+		String postPayAction = chargeModel.getPostPayAction();
+		final Integer referenceTypeId = chargeModel.getReferenceType().getValue();
+		final Long referenceId = chargeModel.getReferenceId();
+		String strPostPayActionData = chargeModel.getPostPayActionData();
 		JSONObject postPayActionData = null;
 		try {
 			postPayActionData = (null == strPostPayActionData ? null : new JSONObject(strPostPayActionData));

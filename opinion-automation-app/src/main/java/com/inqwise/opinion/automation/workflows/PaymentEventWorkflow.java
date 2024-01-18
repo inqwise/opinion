@@ -21,8 +21,6 @@ import com.inqwise.opinion.library.common.IProduct;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.managers.ProductsManager;
 
-import net.casper.data.model.CDataGridException;
-
 public class PaymentEventWorkflow extends Workflow<PaymentEventArgs> {
 
 	ApplicationLog logger = ApplicationLog.getLogger(PaymentEventWorkflow.class);
@@ -41,7 +39,7 @@ public class PaymentEventWorkflow extends Workflow<PaymentEventArgs> {
 		return AutomationBaseOperationResult.Ok;
 	}
 
-	private void processActivateActions(List<Long> chargesIds, int sourceId) throws CDataGridException, ActionException {
+	private void processActivateActions(List<Long> chargesIds, int sourceId) throws ActionException {
 		if(null != chargesIds) {
 			List<IEventAction> actions = new ArrayList<IEventAction>();
 			for (long chargeId : chargesIds) {

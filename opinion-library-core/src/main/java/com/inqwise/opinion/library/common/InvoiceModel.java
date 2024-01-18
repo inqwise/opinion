@@ -18,6 +18,14 @@ public class InvoiceModel {
 	private Double amount;
 	private Long accountId;
 	private String accountName;
+	private Long accopId;
+	private Integer accopTypeId;
+	private Double balance;
+	private Long referenceId;
+	private String comments;
+	private String creditCardNumber;
+	private Integer creditCardTypeId;
+	private String chargeDescription;
 
 	private InvoiceModel(Builder builder) {
 		this.invoiceId = builder.invoiceId;
@@ -30,6 +38,14 @@ public class InvoiceModel {
 		this.amount = builder.amount;
 		this.accountId = builder.accountId;
 		this.accountName = builder.accountName;
+		this.accopId = builder.accopId;
+		this.accopTypeId = builder.accopTypeId;
+		this.balance = builder.balance;
+		this.referenceId = builder.referenceId;
+		this.comments = builder.comments;
+		this.creditCardNumber = builder.creditCardNumber;
+		this.creditCardTypeId = builder.creditCardTypeId;
+		this.chargeDescription = builder.chargeDescription;
 	}
 
 	public static final class Keys{
@@ -44,6 +60,14 @@ public class InvoiceModel {
 		public static final String AMOUNT = "amount";
 		public static final String ACCOUNT_ID = "account_id";
 		public static final String ACCOUNT_NAME = "account_name";
+		public static final String ACCOP_ID = "accop_id";
+		public static final String ACCOP_TYPE_ID = "accop_type_id";
+		public static final String BALANCE = "balance";
+		public static final String REFERENCE_ID = "reference_id";
+		public static final String COMMENTS = "comments";
+		public static final String CREDIT_CARD_NUMBER = "credit_card_number";
+		public static final String CREDIT_CARD_TYPE_ID = "credit_card_type_id";
+		public static final String CHARGE_DESCRIPTION = "charge_description";
 	}
 	
 	public InvoiceModel(JSONObject json) {
@@ -57,6 +81,14 @@ public class InvoiceModel {
 		amount = json.optDoubleObject(Keys.AMOUNT);
 		accountId = json.optLongObject(Keys.ACCOUNT_ID);
 		accountName = json.optString(Keys.ACCOUNT_NAME);
+		accopId = json.optLongObject(Keys.ACCOP_ID);
+		accopTypeId = json.optIntegerObject(Keys.ACCOP_TYPE_ID);
+		balance = json.optDoubleObject(Keys.BALANCE);
+		referenceId = json.optLongObject(Keys.REFERENCE_ID);
+		comments = json.optString(Keys.COMMENTS);
+		creditCardNumber = json.optString(Keys.CREDIT_CARD_NUMBER);
+		creditCardTypeId = json.optIntegerObject(Keys.CREDIT_CARD_TYPE_ID);
+		chargeDescription = json.optString(Keys.CHARGE_DESCRIPTION);
 	}
 
 	public Long getInvoiceId() {
@@ -99,6 +131,38 @@ public class InvoiceModel {
 		return accountName;
 	}
 
+	public Long getAccopId() {
+		return accopId;
+	}
+
+	public Integer getAcoopTypeId() {
+		return accopTypeId;
+	}
+
+	public Double getBalance() {
+		return balance;
+	}
+
+	public Long getReferenceId() {
+		return referenceId;
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public String getCreditCardNumber() {
+		return creditCardNumber;
+	}
+
+	public Integer getCreditCardTypeId() {
+		return creditCardTypeId;
+	}
+
+	public String getChargeDescription() {
+		return chargeDescription;
+	}
+
 	public JSONObject toJson() {
 		var json = new JSONObject();
 		json.put(Keys.INVOICE_ID, invoiceId);
@@ -111,6 +175,14 @@ public class InvoiceModel {
 		json.put(Keys.AMOUNT, amount);
 		json.put(Keys.ACCOUNT_ID, accountId);
 		json.put(Keys.ACCOUNT_NAME, accountName);
+		json.put(Keys.ACCOP_ID, accopId);
+		json.put(Keys.ACCOP_TYPE_ID, accopTypeId);
+		json.put(Keys.BALANCE, balance);
+		json.put(Keys.REFERENCE_ID, referenceId);
+		json.put(Keys.COMMENTS, comments);
+		json.put(Keys.CREDIT_CARD_NUMBER, creditCardNumber);
+		json.put(Keys.CREDIT_CARD_TYPE_ID, creditCardTypeId);
+		json.put(Keys.CHARGE_DESCRIPTION, chargeDescription);
 		return json;
 	}
 
@@ -133,6 +205,14 @@ public class InvoiceModel {
 		private Double amount;
 		private Long accountId;
 		private String accountName;
+		private Long accopId;
+		private Integer accopTypeId;
+		private Double balance;
+		private Long referenceId;
+		private String comments;
+		private String creditCardNumber;
+		private Integer creditCardTypeId;
+		private String chargeDescription;
 
 		private Builder() {
 		}
@@ -148,6 +228,14 @@ public class InvoiceModel {
 			this.amount = invoiceModel.amount;
 			this.accountId = invoiceModel.accountId;
 			this.accountName = invoiceModel.accountName;
+			this.accopId = invoiceModel.accopId;
+			this.accopTypeId = invoiceModel.accopTypeId;
+			this.balance = invoiceModel.balance;
+			this.referenceId = invoiceModel.referenceId;
+			this.comments = invoiceModel.comments;
+			this.creditCardNumber = invoiceModel.creditCardNumber;
+			this.creditCardTypeId = invoiceModel.creditCardTypeId;
+			this.chargeDescription = invoiceModel.chargeDescription;
 		}
 
 		public Builder withInvoiceId(Long invoiceId) {
@@ -200,6 +288,46 @@ public class InvoiceModel {
 			return this;
 		}
 
+		public Builder withAccopId(Long accopId) {
+			this.accopId = accopId;
+			return this;
+		}
+
+		public Builder withAccopTypeId(Integer accopTypeId) {
+			this.accopTypeId = accopTypeId;
+			return this;
+		}
+
+		public Builder withBalance(Double balance) {
+			this.balance = balance;
+			return this;
+		}
+
+		public Builder withReferenceId(Long referenceId) {
+			this.referenceId = referenceId;
+			return this;
+		}
+
+		public Builder withComments(String comments) {
+			this.comments = comments;
+			return this;
+		}
+
+		public Builder withCreditCardNumber(String creditCardNumber) {
+			this.creditCardNumber = creditCardNumber;
+			return this;
+		}
+
+		public Builder withCreditCardTypeId(Integer creditCardTypeId) {
+			this.creditCardTypeId = creditCardTypeId;
+			return this;
+		}
+
+		public Builder withChargeDescription(String chargeDescription) {
+			this.chargeDescription = chargeDescription;
+			return this;
+		}
+
 		public InvoiceModel build() {
 			return new InvoiceModel(this);
 		}
@@ -210,7 +338,10 @@ public class InvoiceModel {
 		return MoreObjects.toStringHelper(this).add("invoiceId", invoiceId).add("modifyDate", modifyDate)
 				.add("invoiceStatusId", invoiceStatusId).add("invoiceDate", invoiceDate).add("insertDate", insertDate)
 				.add("invoiceFromDate", invoiceFromDate).add("invoiceToDate", invoiceToDate).add("amount", amount)
-				.add("accountId", accountId).add("accountName", accountName).toString();
+				.add("accountId", accountId).add("accountName", accountName).add("accopId", accopId)
+				.add("accopTypeId", accopTypeId).add("balance", balance).add("referenceId", referenceId)
+				.add("comments", comments).add("creditCardNumber", creditCardNumber)
+				.add("creditCardTypeId", creditCardTypeId).add("chargeDescription", chargeDescription).toString();
 	}
 
 }

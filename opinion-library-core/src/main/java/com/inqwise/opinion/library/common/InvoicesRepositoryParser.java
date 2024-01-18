@@ -18,6 +18,14 @@ public class InvoicesRepositoryParser {
 				.withAmount(json.optDoubleObject("amount"))
 				.withAccountId(json.optLongObject("for_account_id"))
 				.withAccountName(json.optString("account_name"))
+				.withAccopId(json.optLongObject("accop_id"))
+				.withAccopTypeId(json.optIntegerObject("accop_type_id"))
+				.withBalance(json.optDoubleObject("balance"))
+				.withReferenceId(json.optLongObject("reference_id"))
+				.withComments(json.optString("comments"))
+				.withCreditCardNumber(json.optString("credit_card_number"))
+				.withCreditCardTypeId(json.optIntegerObject("credit_card_type_id"))
+				.withChargeDescription(json.optString("charge_description"))
 				.build();	
 	}
 }

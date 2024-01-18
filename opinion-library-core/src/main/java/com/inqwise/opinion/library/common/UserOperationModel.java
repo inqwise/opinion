@@ -8,63 +8,60 @@ import com.google.common.base.MoreObjects;
 
 public class UserOperationModel {
 
-	private Long usopId;
-	private Integer usopTypeId;
-	private String usopTypeValue;
-	private String userName;
+	private Long id;
+	private UserOperationType type;
 	private Long userId;
 	private String clientIp;
 	private Integer productId;
 	private Date insertDate;
 	private String countryName;
+	private String userName;
 
 	private UserOperationModel(Builder builder) {
-		this.usopId = builder.usopId;
-		this.usopTypeId = builder.usopTypeId;
-		this.usopTypeValue = builder.usopTypeValue;
-		this.userName = builder.userName;
+		this.id = builder.id;
+		this.type = builder.type;
 		this.userId = builder.userId;
 		this.clientIp = builder.clientIp;
 		this.productId = builder.productId;
 		this.insertDate = builder.insertDate;
 		this.countryName = builder.countryName;
+		this.userName = builder.userName;
 	}
-	
+
 	public static final class Keys{
 
-		public static final String USOP_ID = "usop_id";
-		public static final String USOP_TYPE_ID = "usop_type_id";
-		public static final String USOP_TYPE_VALUE = "usop_type_value";
+		public static final String ID = "usop_id";
 		public static final String USER_NAME = "user_name";
 		public static final String USER_ID = "user_id";
 		public static final String CLIENT_IP = "client_ip";
 		public static final String PRODUCT_ID = "product_id";
 		public static final String INSERT_DATE = "insert_date";
 		public static final String COUNTRY_NAME = "country_name";
+		public static final String TYPE = "type";
 	}
 	
 	public UserOperationModel(JSONObject json) {
-		usopId = json.optLongObject(Keys.USOP_ID);
-		usopTypeId = json.optIntegerObject(Keys.USOP_TYPE_ID);
-		usopTypeValue = json.optString(Keys.USOP_TYPE_VALUE);
+		id = json.optLongObject(Keys.ID);
+		type = new UserOperationType(json.getJSONObject(Keys.TYPE));
 		userName = json.optString(Keys.USER_NAME);
 		userId = json.optLongObject(Keys.USER_ID);
 		clientIp = json.optString(Keys.CLIENT_IP);
 		productId = json.optIntegerObject(Keys.PRODUCT_ID);
-		insertDate = (Date) json.opt(Keys.INSERT_DATE);
+		
+		var insertDateInMs = json.optLongObject(Keys.INSERT_DATE);
+		if(null != insertDateInMs) {
+			insertDate = new Date(insertDateInMs);
+		}
+		
 		countryName = json.optString(Keys.COUNTRY_NAME);
 	}
 	
-	public Long getUsopId() {
-		return usopId;
+	public Long getId() {
+		return id;
 	}
 	
-	public Integer getUsopTypeId() {
-		return usopTypeId;
-	}
-	
-	public String getUsopTypeValue() {
-		return usopTypeValue;
+	public UserOperationType getType() {
+		return type;
 	}
 	
 	public String getUserName() {
@@ -93,9 +90,7 @@ public class UserOperationModel {
 
 	public JSONObject toJson() {
 		var json = new JSONObject();
-		json.put(Keys.USOP_ID, usopId);
-		json.put(Keys.USOP_TYPE_ID, usopTypeId);
-		json.put(Keys.USOP_TYPE_VALUE, usopTypeValue);
+		json.put(Keys.ID, id);
 		json.put(Keys.USER_NAME, userName);
 		json.put(Keys.USER_ID, userId);
 		json.put(Keys.CLIENT_IP, clientIp);
@@ -114,48 +109,36 @@ public class UserOperationModel {
 	}
 
 	public static final class Builder {
-		private Long usopId;
-		private Integer usopTypeId;
-		private String usopTypeValue;
-		private String userName;
+		private Long id;
+		private UserOperationType type;
 		private Long userId;
 		private String clientIp;
 		private Integer productId;
 		private Date insertDate;
 		private String countryName;
+		private String userName;
 
 		private Builder() {
 		}
 
 		private Builder(UserOperationModel userOperationModel) {
-			this.usopId = userOperationModel.usopId;
-			this.usopTypeId = userOperationModel.usopTypeId;
-			this.usopTypeValue = userOperationModel.usopTypeValue;
-			this.userName = userOperationModel.userName;
+			this.id = userOperationModel.id;
+			this.type = userOperationModel.type;
 			this.userId = userOperationModel.userId;
 			this.clientIp = userOperationModel.clientIp;
 			this.productId = userOperationModel.productId;
 			this.insertDate = userOperationModel.insertDate;
 			this.countryName = userOperationModel.countryName;
+			this.userName = userOperationModel.userName;
 		}
 
-		public Builder withUsopId(Long usopId) {
-			this.usopId = usopId;
+		public Builder withId(Long id) {
+			this.id = id;
 			return this;
 		}
 
-		public Builder withUsopTypeId(Integer usopTypeId) {
-			this.usopTypeId = usopTypeId;
-			return this;
-		}
-
-		public Builder withUsopTypeValue(String usopTypeValue) {
-			this.usopTypeValue = usopTypeValue;
-			return this;
-		}
-
-		public Builder withUserName(String userName) {
-			this.userName = userName;
+		public Builder withType(UserOperationType type) {
+			this.type = type;
 			return this;
 		}
 
@@ -184,6 +167,11 @@ public class UserOperationModel {
 			return this;
 		}
 
+		public Builder withUserName(String userName) {
+			this.userName = userName;
+			return this;
+		}
+
 		public UserOperationModel build() {
 			return new UserOperationModel(this);
 		}
@@ -191,10 +179,9 @@ public class UserOperationModel {
 
 	@Override
 	public String toString() {
-		return MoreObjects.toStringHelper(this).add("usopId", usopId).add("usopTypeId", usopTypeId)
-				.add("usopTypeValue", usopTypeValue).add("userName", userName).add("userId", userId)
+		return MoreObjects.toStringHelper(this).add("id", id).add("type", type).add("userId", userId)
 				.add("clientIp", clientIp).add("productId", productId).add("insertDate", insertDate)
-				.add("countryName", countryName).toString();
+				.add("countryName", countryName).add("userName", userName).toString();
 	}
-
+	
 }
