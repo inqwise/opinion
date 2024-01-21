@@ -46,6 +46,7 @@ import org.supercsv.prefs.CsvPreference;
 
 import com.inqwise.opinion.common.ExportType;
 import com.inqwise.opinion.common.IPostmasterContext;
+import com.inqwise.opinion.common.ResultModel;
 import com.inqwise.opinion.common.opinions.IOpinion;
 import com.inqwise.opinion.facade.front.MSExcelUtil;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
@@ -179,12 +180,11 @@ public class ExportHandler extends HandlerBase {
 		
 		TreeMap <Long, Integer> headerIdsMap = new TreeMap<>();
 		
-		CDataCacheContainer ds = ResultsManager.getAllResults(opinionId, account.getId(), sessionsArr, includePartial, headerIdsMap);
+		List<ResultModel> resultList = ResultsManager.getAllResults(opinionId, account.getId(), sessionsArr, includePartial, headerIdsMap);
 		
 		String[] dynamicColumnsHeader = new String[headerIdsMap.size()];
 		
 		
-		CDataRowSet rows = ds.getAll();
 		List<Map<String, Object>> list = new ArrayList<>();
 		Map<String, Object> dict = null;
 		LinkedHashMap<String, CellProcessor> headerSet = new LinkedHashMap<>();
@@ -199,8 +199,8 @@ public class ExportHandler extends HandlerBase {
 		}
 		
 		String participantGuid = null;
-		while(rows.next()){
-			String currentParticipantGuid = rows.getString("answer_session_id");
+		for(var resultModel : resultList){
+			String currentParticipantGuid = resultModel.getAnswerSessionId();
 			if(null == dict || (!participantGuid.equals(currentParticipantGuid))){
 				dict = new LinkedHashMap<String, Object>();
 				participantGuid = currentParticipantGuid;
@@ -208,9 +208,9 @@ public class ExportHandler extends HandlerBase {
 				
 				// Add required columns:
 				dict.put(PARTICIPANT_COLUMN_NAME, currentParticipantGuid);
-				dict.put(COLLECTOR_COLUMN_NAME, rows.getString("collector_name") + " #" + rows.getLong("collector_id"));
-				dict.put(PARTICIPANT_INSERT_DATE_COLUMN_NAME, account.addDateOffset(rows.getDate("participant_insert_date")));
-				String clientIp = rows.getString("client_ip");
+				dict.put(COLLECTOR_COLUMN_NAME, resultModel.getCollectorName() + " #" + resultModel.getCollectorId());
+				dict.put(PARTICIPANT_INSERT_DATE_COLUMN_NAME, account.addDateOffset(resultModel.getParticipantInsertDate()));
+				String clientIp = resultModel.getClientIp();
 				String countryName = null;
 				try{
 					countryName = GeoIpManager.getInstance().getCountryName(clientIp);
@@ -220,14 +220,14 @@ public class ExportHandler extends HandlerBase {
 				dict.put(CLIENT_IP_COLUMN_NAME, clientIp);
 				dict.put(CLIENT_COUNTRY_COLUMN_NAME, countryName);
 				if(includePartial){ 
-					dict.put(COMPLETED_COLUMN_NAME, rows.getBoolean("is_completed"));
+					dict.put(COMPLETED_COLUMN_NAME, resultModel.getIsCompleted());
 				}
 			}
-			String columnPrefix = rows.getString("control_key");
+			String columnPrefix = resultModel.getControlKey();
 			if(null == columnPrefix){
-				columnPrefix = rows.getString("control_content");
+				columnPrefix = resultModel.getControlContent();
 			}
-			Long controlId = rows.getLong("control_id");
+			Long controlId = resultModel.getControlId();
 			String columnName = columnPrefix + " #" + controlId;
 			
 			Integer index = headerIdsMap.get(controlId);
@@ -236,7 +236,7 @@ public class ExportHandler extends HandlerBase {
 					dynamicColumnsHeader[index] = columnName;
 				}
 				
-				dict.put(columnName, rows.getString("answer_value"));
+				dict.put(columnName, resultModel.getAnswerValue());
 			}
 		}
 		
