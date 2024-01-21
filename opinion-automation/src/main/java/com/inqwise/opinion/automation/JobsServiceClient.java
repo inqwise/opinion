@@ -2,11 +2,8 @@ package com.inqwise.opinion.automation;
 
 import java.net.MalformedURLException;
 import java.rmi.ConnectException;
-import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 
 import com.inqwise.opinion.automation.common.errorHandle.AutomationBaseOperationResult;
 import com.inqwise.opinion.automation.common.errorHandle.AutomationOperationResult;

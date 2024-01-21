@@ -24,8 +24,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +38,22 @@ import com.inqwise.opinion.cms.common.blog.IPost;
 import com.inqwise.opinion.cms.common.faq.IFaq;
 import com.inqwise.opinion.cms.managers.BlogManager;
 import com.inqwise.opinion.cms.managers.FaqsManager;
+import com.inqwise.opinion.common.IPostmasterObject;
+import com.inqwise.opinion.facade.front.AccountsEntry;
+import com.inqwise.opinion.facade.front.ChargesEntry;
+import com.inqwise.opinion.facade.front.CintEntry;
+import com.inqwise.opinion.facade.front.CollectorsEntry;
+import com.inqwise.opinion.facade.front.ControlsEntry;
+import com.inqwise.opinion.facade.front.Entry;
+import com.inqwise.opinion.facade.front.InvoicesEntry;
+import com.inqwise.opinion.facade.front.MessagesEntry;
+import com.inqwise.opinion.facade.front.OpinionsEntry;
+import com.inqwise.opinion.facade.front.PaymentsEntry;
+import com.inqwise.opinion.facade.front.ProductsEntry;
+import com.inqwise.opinion.facade.front.ResponsesEntry;
+import com.inqwise.opinion.facade.front.ThemesEntry;
+import com.inqwise.opinion.facade.front.UsersEntry;
+import com.inqwise.opinion.http.HttpClientSession;
 import com.inqwise.opinion.infrastructure.systemFramework.EmailProvider;
 import com.inqwise.opinion.infrastructure.systemFramework.GeoIpManager;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
@@ -68,23 +84,7 @@ import com.inqwise.opinion.library.managers.ParametersManager;
 import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.library.managers.UsersManager;
 import com.inqwise.opinion.library.systemFramework.ApplicationConfiguration;
-import com.inqwise.opinion.opinion.common.IPostmasterObject;
-import com.inqwise.opinion.opinion.facade.front.AccountsEntry;
-import com.inqwise.opinion.opinion.facade.front.ChargesEntry;
-import com.inqwise.opinion.opinion.facade.front.CintEntry;
-import com.inqwise.opinion.opinion.facade.front.CollectorsEntry;
-import com.inqwise.opinion.opinion.facade.front.ControlsEntry;
-import com.inqwise.opinion.opinion.facade.front.Entry;
-import com.inqwise.opinion.opinion.facade.front.InvoicesEntry;
-import com.inqwise.opinion.opinion.facade.front.MessagesEntry;
-import com.inqwise.opinion.opinion.facade.front.OpinionsEntry;
-import com.inqwise.opinion.opinion.facade.front.PaymentsEntry;
-import com.inqwise.opinion.opinion.facade.front.ProductsEntry;
-import com.inqwise.opinion.opinion.facade.front.ResponsesEntry;
-import com.inqwise.opinion.opinion.facade.front.ThemesEntry;
-import com.inqwise.opinion.opinion.facade.front.UsersEntry;
-import com.inqwise.opinion.opinion.http.HttpClientSession;
-import com.inqwise.opinion.opinion.systemFramework.TimeZones;
+import com.inqwise.opinion.systemFramework.TimeZones;
 
 public class DataPostmasterDescryptor extends DataPostmasterDescryptorBase {
 
@@ -585,7 +585,7 @@ public class DataPostmasterDescryptor extends DataPostmasterDescryptorBase {
 	public JSONObject getMonthNames(JSONObject input) throws JSONException {
 		String culture = JSONHelper.optString(input, "culture", "int_US");
 		Boolean isShortNames = JSONHelper.optBoolean(input, "isShort", true);
-		Locale locale = new Locale(culture);
+		Locale locale = Locale.of(culture);
 		String[] names;
 		if (isShortNames) {
 			names = DateFormatSymbols.getInstance(locale).getShortMonths();
@@ -598,7 +598,7 @@ public class DataPostmasterDescryptor extends DataPostmasterDescryptorBase {
 
 	public JSONObject getTimeZones(JSONObject input) throws JSONException {
 		String culture = JSONHelper.optString(input, "culture", "int_US");
-		Locale locale = new Locale(culture);
+		Locale locale = Locale.of(culture);
 		JSONArray ja = new JSONArray();
 		for (TimeZone timeZone : TimeZones.getTimeZones()) {
 			String value = timeZone.getID();

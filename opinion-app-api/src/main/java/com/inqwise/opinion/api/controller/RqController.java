@@ -4,11 +4,10 @@ import java.net.URLDecoder;
 import java.util.Map;
 
 import org.json.JSONObject;
-
-import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
 import org.restexpress.Request;
 import org.restexpress.Response;
+
+import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 
 public class RqController {
 	static ApplicationLog logger = ApplicationLog.getLogger(RqController.class);

@@ -1,4 +1,4 @@
-package com.inqwie.opinion.api;
+package com.inqwise.opinion.api;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;

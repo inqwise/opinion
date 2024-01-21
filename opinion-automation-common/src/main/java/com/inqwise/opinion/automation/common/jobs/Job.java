@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import com.inqwise.opinion.automation.common.errorHandle.AutomationBaseOperationResult;
 import com.inqwise.opinion.automation.common.errorHandle.AutomationErrorCode;
-import com.inqwise.opinion.automation.common.jobs.JobSettings;
 import com.inqwise.opinion.infrastructure.common.IOperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;

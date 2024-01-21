@@ -5,10 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
+
+import jakarta.xml.bind.annotation.XmlType;
 
 @XmlType
 public class EventType implements Serializable {

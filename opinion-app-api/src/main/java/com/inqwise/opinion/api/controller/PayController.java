@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang3.NotImplementedException;
-import org.jboss.netty.handler.codec.http.HttpResponseStatus;
 import org.restexpress.Request;
 import org.restexpress.Response;
 
@@ -23,6 +22,8 @@ import com.inqwise.opinion.payments.common.IPayActionResponse;
 import com.inqwise.opinion.payments.common.PayActionTypes;
 import com.inqwise.opinion.payments.common.PayProcessorTypes;
 import com.inqwise.opinion.payments.common.errorHandle.PayOperationResult;
+
+import io.netty.handler.codec.http.HttpResponseStatus;
 
 public class PayController {
 	enum PayControllerAction {

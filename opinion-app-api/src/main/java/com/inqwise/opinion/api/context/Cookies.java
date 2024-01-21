@@ -1,30 +1,25 @@
 package com.inqwise.opinion.api.context;
 
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.COOKIE;
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.SET_COOKIE;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.jboss.netty.handler.codec.http.Cookie;
-import org.jboss.netty.handler.codec.http.CookieDecoder;
-import org.jboss.netty.handler.codec.http.CookieEncoder;
-import org.jboss.netty.handler.codec.http.DefaultCookie;
-import org.json.CookieList;
-import org.json.JSONObject;
 import org.restexpress.Request;
 import org.restexpress.Response;
 
 import com.inqwise.opinion.infrastructure.common.ICookie;
 import com.inqwise.opinion.infrastructure.common.ICookies;
-import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
+
+import io.netty.handler.codec.http.cookie.Cookie;
+import io.netty.handler.codec.http.cookie.DefaultCookie;
+import io.netty.handler.codec.http.cookie.ServerCookieDecoder;
+import io.netty.handler.codec.http.cookie.ServerCookieEncoder;
+
 
 public class Cookies implements ICookies {
 	
@@ -33,26 +28,25 @@ public class Cookies implements ICookies {
 	private Response response;
 	private String path = "/";
 	
-	private static final CookieDecoder decoder = new CookieDecoder();
+	private static final ServerCookieDecoder decoder = ServerCookieDecoder.STRICT;
 	//private CookieEncoder encoder = new CookieEncoder(true);
 	
 	private String encode(String key, String value){
-		CookieEncoder encoder = new CookieEncoder(true);
-		encoder.addCookie(key, value);
-		return encoder.encode();
+		var encoder = ServerCookieEncoder.STRICT;
+		//encoder.addCookie(key, value);
+		return encoder.encode(key, value);
 	}
 	
 	private String encode(Cookie cookie){
-		CookieEncoder encoder = new CookieEncoder(true);
-		encoder.addCookie(cookie);
-		return encoder.encode();
+		ServerCookieEncoder encoder = ServerCookieEncoder.STRICT;
+		return encoder.encode(cookie);
 	}
 	
 	private Set<Cookie> decode(String cookieString){
-		Set<Cookie> cookies = new HashSet<Cookie>(decoder.decode(cookieString));
-		for (Cookie cookie: cookies) {
-			cookie.setDiscard(true);
-		}
+		Set<Cookie> cookies = decoder.decode(cookieString);
+//		for (Cookie cookie: cookies) {
+//			cookie.setDiscard(true);
+//		}
 		
 		return cookies;
 	}

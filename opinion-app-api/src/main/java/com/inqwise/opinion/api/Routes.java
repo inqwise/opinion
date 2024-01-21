@@ -1,6 +1,5 @@
-package com.inqwie.opinion.api;
+package com.inqwise.opinion.api;
 
-import org.jboss.netty.handler.codec.http.HttpMethod;
 import org.restexpress.RestExpress;
 
 import com.inqwise.opinion.api.controller.CollectorController;

@@ -1,4 +1,4 @@
-package com.inqwie.opinion.api;
+package com.inqwise.opinion.api;
 
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 

@@ -1,10 +1,6 @@
 package com.inqwise.opinion.automation.common.events;
 
 import java.io.Serializable;
-import java.util.UUID;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
 
 import com.inqwise.opinion.automation.common.FireEventArgs;
 

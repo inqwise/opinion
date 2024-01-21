@@ -8,7 +8,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 import org.apache.commons.lang3.StringUtils;
@@ -34,9 +33,9 @@ public class HtmltoTestHandler extends HttpServlet{
 		try {
 			ServletOutputStream outStream = response.getOutputStream();
 			URL url = new URL("http://localhost:9999/ws/htmlto?wsdl");
-	        QName qname = new QName("http://services.htmlto.opinion.com/", "HtmlConverterService");
-	 
-	        Service service = Service.create(url, qname);
+	        QName qname = new QName("", "", "HtmlConverterService", "http://services.htmlto.opinion.com/");
+	        
+	        Service service = Service.create(url, javax.xml.namespace.QName.valueOf(name));
 	        HtmlConverterService converterService = service.getPort(HtmlConverterService.class);
 	        
 			byte[] file = converterService.convert(documentContent, toType);

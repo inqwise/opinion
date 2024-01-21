@@ -1,21 +1,7 @@
 package com.inqwise.opinion.automation;
 
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-
 import com.inqwise.opinion.automation.common.errorHandle.AutomationBaseOperationResult;
-import com.inqwise.opinion.automation.common.errorHandle.AutomationOperationResult;
 import com.inqwise.opinion.automation.common.events.ChargeStatusChangedEventArgs;
-import com.inqwise.opinion.automation.common.events.PaymentEventArgs;
-import com.inqwise.opinion.automation.common.events.RegistrationEventArgs;
-import com.inqwise.opinion.automation.common.jobs.JobSettings;
 
 public class Test {
 	public static void main(String[] args) {

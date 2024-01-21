@@ -3,13 +3,13 @@ package com.inqwise.opinion.automation;
 import java.io.ByteArrayOutputStream;
 import java.io.StringReader;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
-
 import com.inqwise.opinion.automation.common.errorHandle.AutomationOperationResult;
 import com.inqwise.opinion.automation.common.jobs.JobSettings;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 public class AutomationOperationResultAdapter extends XmlAdapter<String, AutomationOperationResult<?>>{
 

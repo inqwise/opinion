@@ -1,9 +1,5 @@
 package com.inqwise.opinion.automation.common.events;
 
-import java.util.UUID;
-
-import javax.xml.bind.annotation.XmlType;
-
 import com.inqwise.opinion.automation.common.FireEventArgs;
 
 public class PayProcessorTxnCompletedEventArgs extends FireEventArgs {

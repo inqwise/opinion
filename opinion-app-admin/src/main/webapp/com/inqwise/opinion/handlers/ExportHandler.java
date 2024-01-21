@@ -10,8 +10,6 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -26,18 +24,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.supercsv.cellprocessor.Optional;
@@ -61,7 +58,7 @@ import com.inqwise.opinion.managers.ResultsManager;
 
 public class ExportHandler extends HandlerBase {
 
-	private static final Format formatter = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss");
+	//private static final Format formatter = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss");
 	private static final short maxColumnWidth = MSExcelUtil.pixel2WidthUnits(250);
 	
 	
@@ -314,90 +311,90 @@ public class ExportHandler extends HandlerBase {
 		}
 		
 		byte[] output;
-		SXSSFWorkbook wb = new SXSSFWorkbook(100); // keep 100 rows in memory, exceeding rows will be flushed to disk
-		
-		CreationHelper cHelper = wb.getCreationHelper();
-		Sheet sh = wb.createSheet("Overall Results");
-		sh.setRightToLeft(isRtl);
-		
-		int rownum = 0;
-		sh.setRepeatingRows(new CellRangeAddress(0, 0, 0, 0));
-		// Create header
-		Row row = sh.createRow(rownum++);
-				
-		CellStyle cs = wb.createCellStyle();
-		Font f = wb.createFont();
-		f.setFontHeightInPoints((short) 12);
-		f.setColor( IndexedColors.BLACK.getIndex() );
-		f.setBoldweight(Font.BOLDWEIGHT_BOLD);
-		
-		// Set cell style and formatting
-		cs.setFont(f);
-		//cs.setFillBackgroundColor(HSSFColor.GREY_25_PERCENT.index);
-		cs.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);
-		cs.setFillPattern(XSSFCellStyle.SOLID_FOREGROUND);
-		
-		for(int cellnum = 0; cellnum < header.length; cellnum++){
-			String columnName = StringEscapeUtils.escapeHtml4(header[cellnum]);
+		try(SXSSFWorkbook wb = new SXSSFWorkbook(100)){ // keep 100 rows in memory, exceeding rows will be flushed to disk
+			CreationHelper cHelper = wb.getCreationHelper();
+			Sheet sh = wb.createSheet("Overall Results");
+			sh.setRightToLeft(isRtl);
 			
-			Cell cell = row.createCell(cellnum);
-			cell.setCellStyle(cs);
-			cell.setCellValue(columnName);
-			sh.autoSizeColumn(cellnum, true);
+			int rownum = 0;
+			sh.setRepeatingRows(new CellRangeAddress(0, 0, 0, 0));
+			// Create header
+			Row row = sh.createRow(rownum++);
+					
+			CellStyle cs = wb.createCellStyle();
+			Font f = wb.createFont();
+			f.setFontHeightInPoints((short) 12);
+			f.setColor( IndexedColors.BLACK.getIndex() );
+			f.setBold(true);
 			
-			if(sh.getColumnWidth(cellnum) > maxColumnWidth){
-				sh.setColumnWidth(cellnum, maxColumnWidth);
-				
-			}
-		}
-
-		for (Map<String, Object> dataRow : dataRows) {
-			row = sh.createRow(rownum++);
+			// Set cell style and formatting
+			cs.setFont(f);
+			cs.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+			cs.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 			
 			for(int cellnum = 0; cellnum < header.length; cellnum++){
-				String columnName = header[cellnum];
+				String columnName = StringEscapeUtils.escapeHtml4(header[cellnum]);
 				
 				Cell cell = row.createCell(cellnum);
-				Object cellObject = dataRow.get(columnName);
-				if(null != cellObject){
-					if(cellObject instanceof Date){
-						CellStyle cellStyle = wb.createCellStyle();
-						cellStyle.setDataFormat(cHelper.createDataFormat().getFormat("m/d/yyyy"));
-						cell.setCellValue((Date)cellObject);
-						cell.setCellStyle(cellStyle);
-					} else if(cellObject instanceof Double){
-						cell.setCellValue((Double)cellObject);
-					} else {
-						cell.setCellValue(cHelper.createRichTextString(cellObject.toString()));
+				cell.setCellStyle(cs);
+				cell.setCellValue(columnName);
+				sh.autoSizeColumn(cellnum, true);
+				
+				if(sh.getColumnWidth(cellnum) > maxColumnWidth){
+					sh.setColumnWidth(cellnum, maxColumnWidth);
+					
+				}
+			}
+	
+			for (Map<String, Object> dataRow : dataRows) {
+				row = sh.createRow(rownum++);
+				
+				for(int cellnum = 0; cellnum < header.length; cellnum++){
+					String columnName = header[cellnum];
+					
+					Cell cell = row.createCell(cellnum);
+					Object cellObject = dataRow.get(columnName);
+					if(null != cellObject){
+						if(cellObject instanceof Date){
+							CellStyle cellStyle = wb.createCellStyle();
+							cellStyle.setDataFormat(cHelper.createDataFormat().getFormat("m/d/yyyy"));
+							cell.setCellValue((Date)cellObject);
+							cell.setCellStyle(cellStyle);
+						} else if(cellObject instanceof Double){
+							cell.setCellValue((Double)cellObject);
+						} else {
+							cell.setCellValue(cHelper.createRichTextString(cellObject.toString()));
+						}
 					}
 				}
 			}
+			
+			sh.setAutoFilter(new CellRangeAddress(0, rownum, 0, header.length-1));
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			OutputStream out = null;
+			
+			if(zipped){
+				ZipOutputStream zos = new ZipOutputStream(baos);
+				ZipEntry ze = new ZipEntry(fileName + ".xlsx");
+	    		zos.putNextEntry(ze);
+	    		out = zos;
+			} else {
+				out = baos;
+			}
+			
+			try{
+				wb.write(out);
+			} finally {
+				out.close();
+			}
+			
+			
+			output = baos.toByteArray();
+			
+			
+			// dispose of temporary files backing this workbook on disk
+			wb.dispose();
 		}
-		
-		sh.setAutoFilter(new CellRangeAddress(0, rownum, 0, header.length-1));
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		OutputStream out = null;
-		
-		if(zipped){
-			ZipOutputStream zos = new ZipOutputStream(baos);
-			ZipEntry ze = new ZipEntry(fileName + ".xlsx");
-    		zos.putNextEntry(ze);
-    		out = zos;
-		} else {
-			out = baos;
-		}
-		
-		try{
-			wb.write(out);
-		} finally {
-			out.close();
-		}
-		
-		output = baos.toByteArray();
-		
-		
-		// dispose of temporary files backing this workbook on disk
-		wb.dispose();
 		
 		return output;
 	}
