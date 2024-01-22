@@ -7,18 +7,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import javax.naming.OperationNotSupportedException;
-import javax.servlet.http.HttpServletRequest;
 
-import org.brickred.socialauth.SocialAuthManager;
 import org.javatuples.KeyValue;
 import org.javatuples.Pair;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -30,7 +26,6 @@ import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.GeoIpManager;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
-import com.inqwise.opinion.library.actions.ExternalLoginAction;
 import com.inqwise.opinion.library.common.IProduct;
 import com.inqwise.opinion.library.common.ISession;
 import com.inqwise.opinion.library.common.accounts.IAccount;
@@ -41,7 +36,6 @@ import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.common.invites.IInvite;
 import com.inqwise.opinion.library.common.pay.ICharge;
 import com.inqwise.opinion.library.common.servicePackages.IServicePackage;
-import com.inqwise.opinion.library.common.users.ICompleteLoginResult;
 import com.inqwise.opinion.library.common.users.IRegisterDetails;
 import com.inqwise.opinion.library.common.users.IUser;
 import com.inqwise.opinion.library.common.users.IUserDetails;
@@ -183,71 +177,29 @@ public final class UsersManager {
 		return result;
 	}
 	
-	public static OperationResult<String> getLoginUrl(LoginProvider provider, String returnUrl, String clientIp, int sourceId, int productId, Long gatewayId, Integer servicePackageId, Integer countOfMonths, boolean isPersist, String inviteExternalId){
-		OperationResult<String> result = new OperationResult<String>();
-		try {
-			ExternalLoginAction loginAction = generateExternalLoginAction();
-			loginAction.setCountOfMonths(countOfMonths);
-			loginAction.setReturnUrl(returnUrl);
-			loginAction.setServicePackageId(servicePackageId);
-			loginAction.setIsPersistLogin(isPersist);
-			loginAction.setInviteExternalId(inviteExternalId);
-			result = loginAction.generateLoginUrl(provider, clientIp, sourceId, productId, gatewayId);
-			
-		} catch (Exception ex) {
-			UUID errorTicket = logger.error(ex, "getLoginUrl : unexpected error occured");
-			result.setError(ErrorCode.GeneralError, errorTicket);
-		}
-		
-		return result;
-	}
-
-	private static ExternalLoginAction generateExternalLoginAction() throws Exception {
-		ExternalLoginAction action = new ExternalLoginAction();
-		getExternalLoginActionsCache().put(action.getKey(), action);
-		
-		return action;
-	}
-
-	private static Cache<String, ExternalLoginAction> _externalLoginActionsCache;
-	private static Cache<String, ExternalLoginAction> getExternalLoginActionsCache(){
-		if(null == _externalLoginActionsCache){
-			synchronized (SocialAuthManager.class) {
-				if(null == _externalLoginActionsCache){
-					_externalLoginActionsCache = CacheBuilder.newBuilder().
-							maximumSize(100).
-							expireAfterWrite(5, TimeUnit.MINUTES).
-							build();
-				}
-			}
-		}
-		
-		return _externalLoginActionsCache;
-	}
-	
-	private static ExternalLoginAction getExternalLoginAction(String key){
-		return getExternalLoginAction(key, false);
-	}
-	
-	private static ExternalLoginAction getExternalLoginAction(String key, boolean invalidate) {
-		
-		Cache<String, ExternalLoginAction> externalLoginActionsCache = getExternalLoginActionsCache();
-		ExternalLoginAction result = externalLoginActionsCache.getIfPresent(key);
-		if(null != result){
-			externalLoginActionsCache.invalidate(key);
-		}
-		return result;
-	}
-	
-	private static ExternalLoginAction getOrAddExternalLoginAction(String key) throws ExecutionException {
-		
-		return getExternalLoginActionsCache().get(key, new Callable<ExternalLoginAction>() {
-
-			public ExternalLoginAction call() throws Exception {
-				return new ExternalLoginAction();
-			}
-		});
-	}
+//	private static ExternalLoginAction getExternalLoginAction(String key){
+//		return getExternalLoginAction(key, false);
+//	}
+//	
+//	private static ExternalLoginAction getExternalLoginAction(String key, boolean invalidate) {
+//		
+//		Cache<String, ExternalLoginAction> externalLoginActionsCache = getExternalLoginActionsCache();
+//		ExternalLoginAction result = externalLoginActionsCache.getIfPresent(key);
+//		if(null != result){
+//			externalLoginActionsCache.invalidate(key);
+//		}
+//		return result;
+//	}
+//	
+//	private static ExternalLoginAction getOrAddExternalLoginAction(String key) throws ExecutionException {
+//		
+//		return getExternalLoginActionsCache().get(key, new Callable<ExternalLoginAction>() {
+//
+//			public ExternalLoginAction call() throws Exception {
+//				return new ExternalLoginAction();
+//			}
+//		});
+//	}
 	
 	private static Object _usersByIdAndProductCacheLocker = new Object(); 
 	private static LoadingCache<Pair<Long, Integer>, OperationResult<IUser>> _usersByIdAndProductCache;
@@ -329,29 +281,29 @@ public final class UsersManager {
 		return result;
 	}
 	
-	public static OperationResult<ICompleteLoginResult> completeLogin(String key, HttpServletRequest request, String clientIp){
-		
-		OperationResult<ICompleteLoginResult> result = null;
-		try{
-			if(null == key){
-				result = new OperationResult<ICompleteLoginResult>(ErrorCode.ArgumentNull);
-			}
-			
-			if(null == result){
-				ExternalLoginAction action = getExternalLoginAction(key, true);
-				if(null == action){
-					result = new OperationResult<ICompleteLoginResult>(ErrorCode.NoResults);
-				} else {
-					result = action.completeLogin(request, clientIp);
-				}
-			}
-		} catch(Exception ex){
-			UUID errorTicket = logger.error(ex, "completeLogin: Failed to complete login");
-			result = new OperationResult<ICompleteLoginResult>(ErrorCode.GeneralError, errorTicket);
-		}
-		
-		return result;
-	}
+//	public static OperationResult<ICompleteLoginResult> completeLogin(String key, HttpServletRequest request, String clientIp){
+//		
+//		OperationResult<ICompleteLoginResult> result = null;
+//		try{
+//			if(null == key){
+//				result = new OperationResult<ICompleteLoginResult>(ErrorCode.ArgumentNull);
+//			}
+//			
+//			if(null == result){
+//				ExternalLoginAction action = getExternalLoginAction(key, true);
+//				if(null == action){
+//					result = new OperationResult<ICompleteLoginResult>(ErrorCode.NoResults);
+//				} else {
+//					result = action.completeLogin(request, clientIp);
+//				}
+//			}
+//		} catch(Exception ex){
+//			UUID errorTicket = logger.error(ex, "completeLogin: Failed to complete login");
+//			result = new OperationResult<ICompleteLoginResult>(ErrorCode.GeneralError, errorTicket);
+//		}
+//		
+//		return result;
+//	}
 
 	private static Object _usersByIdCacheLocker = new Object(); 
 	private static LoadingCache<Long, OperationResult<IUser>> _usersByIdCache;

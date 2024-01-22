@@ -49,7 +49,7 @@ public class Frontdoor extends HttpServlet {
 		}
 		
 		if(null == redirectUrl){
-			//Object originalUrlObj = request.getAttribute("javax.servlet.forward.request_uri");
+			//Object originalUrlObj = request.getAttribute("jakarta.servlet.forward.request_uri");
 			//if(null == originalUrlObj || !originalUrlObj.toString().endsWith("/logout")){
 				redirectUrl = Login(request, response, applicationUrl, returnUrl);
 			//} else {

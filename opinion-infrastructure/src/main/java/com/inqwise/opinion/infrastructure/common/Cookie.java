@@ -117,7 +117,7 @@ public class Cookie implements ICookie {
     }
 
     @Override
-    public Integer getMaxAge() {
+    public long getMaxAge() {
         return maxAge;
     }
 

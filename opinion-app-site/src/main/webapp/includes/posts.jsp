@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ page import="com.opinion.infrastructure.systemFramework.DateConverter" %>
-<%@ page import="com.opinion.cms.managers.BlogManager" %>
-<%@ page import="com.opinion.library.common.errorHandle.OperationResult" %>
-<%@ page import="com.opinion.cms.common.blog.IPost" %>
-<%@ page import="com.opinion.cms.common.ITag" %>
-<%@ page import="com.opinion.cms.common.ICategory" %>
-<%@ page import="com.opinion.cms.managers.TagsManager" %>
+<%@ page import="com.inqwise.opinion.infrastructure.systemFramework.DateConverter" %>
+<%@ page import="com.inqwise.opinion.cms.managers.BlogManager" %>
+<%@ page import="com.inqwise.opinion.library.common.errorHandle.OperationResult" %>
+<%@ page import="com.inqwise.opinion.cms.common.blog.IPost" %>
+<%@ page import="com.inqwise.opinion.cms.common.ITag" %>
+<%@ page import="com.inqwise.opinion.cms.common.ICategory" %>
+<%@ page import="com.inqwise.opinion.cms.managers.TagsManager" %>
 <%@ page import="org.apache.commons.lang3.time.DateUtils" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="java.util.List" %>
@@ -20,9 +20,9 @@
 <%@ page import="java.util.Hashtable" %>
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="java.text.ParseException" %>
-<%@page import="com.opinion.cms.common.IPage"%>
-<%@page import="com.opinion.cms.common.blog.Blogs"%>
-<%@page import="com.opinion.cms.managers.CategoriesManager"%>
+<%@page import="com.inqwise.opinion.cms.common.IPage"%>
+<%@page import="com.inqwise.opinion.cms.common.blog.Blogs"%>
+<%@page import="com.inqwise.opinion.cms.managers.CategoriesManager"%>
 
 <%
 	IPage p = (IPage)request.getAttribute(IPage.PAGE_OBJECT_ATTRIBUTE_NAME);

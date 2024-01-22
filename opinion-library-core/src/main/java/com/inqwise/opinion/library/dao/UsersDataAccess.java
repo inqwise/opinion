@@ -110,7 +110,8 @@ public final class UsersDataAccess extends DAOBase {
 												int productId, 
 												IResultSetCallback callback) throws DAOException{
 
-		Connection connection = null;
+		logger.debug("login");
+    	Connection connection = null;
 		CallableStatement call = null;
 		ResultSet resultSet = null;
 		

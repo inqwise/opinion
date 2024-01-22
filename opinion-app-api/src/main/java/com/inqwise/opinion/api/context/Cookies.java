@@ -15,6 +15,7 @@ import org.restexpress.Response;
 import com.inqwise.opinion.infrastructure.common.ICookie;
 import com.inqwise.opinion.infrastructure.common.ICookies;
 
+import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.cookie.Cookie;
 import io.netty.handler.codec.http.cookie.DefaultCookie;
 import io.netty.handler.codec.http.cookie.ServerCookieDecoder;
@@ -58,7 +59,7 @@ public class Cookies implements ICookies {
 	}
 	
 	private void initialize(){
-		String cookieString = request.getHeader(COOKIE);
+		String cookieString = request.getHeader(HttpHeaders.Names.COOKIE);
 		if (cookieString != null) {
 			cookies = decode(cookieString);
 		}
@@ -70,8 +71,8 @@ public class Cookies implements ICookies {
 	public void close(){
 		if (!cookies.isEmpty()) {
 			for (Cookie cookie: cookies) {
-				if(!cookie.isDiscard()){
-					response.addHeader(SET_COOKIE, encode(cookie));
+				if(cookie.maxAge() > 0){
+					response.addHeader(HttpHeaders.Names.SET_COOKIE, encode(cookie));
 				}
 			}
 		}
@@ -83,7 +84,7 @@ public class Cookies implements ICookies {
 	@Override
 	public String optString(String key) {
 		Cookie cookie = firstOrDefaultInternal(key);
-		if(null != cookie) return cookie.getValue();
+		if(null != cookie) return cookie.value();
 		
 		return null;
 	}
@@ -127,7 +128,7 @@ public class Cookies implements ICookies {
 		Iterator<Cookie> iterator = cookies.iterator();
 	    while(iterator.hasNext()) {
 	        Cookie cookie = iterator.next();
-	        if(null != name && cookie.getName().equalsIgnoreCase(name) && !cookie.getValue().equalsIgnoreCase("")){
+	        if(null != name && cookie.name().equalsIgnoreCase(name) && !cookie.value().equalsIgnoreCase("")){
 				return cookie;
 			}
 	    }
@@ -140,7 +141,7 @@ public class Cookies implements ICookies {
 		Iterator<Cookie> iterator = cookies.iterator();
 	    while(iterator.hasNext()) {
 	        Cookie cookie = iterator.next();
-			if(null != name && cookie.getName().equalsIgnoreCase(name) && !cookie.getValue().equalsIgnoreCase("")){
+			if(null != name && cookie.name().equalsIgnoreCase(name) && !cookie.value().equalsIgnoreCase("")){
 				list.add(cookie);
 			}
 		}

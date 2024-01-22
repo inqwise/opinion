@@ -283,7 +283,7 @@ public class DataPostmasterDescryptorBase extends ClientSessionDescryptor implem
 	@Override
 	public String getRequestUrl() {
 		String result;
-		Object obj = request.getAttribute("javax.servlet.forward.request_uri");
+		Object obj = request.getAttribute("jakarta.servlet.forward.request_uri");
 		if(null == obj){
 			result = request.getServletPath() + "?" + request.getQueryString();
 		} else {

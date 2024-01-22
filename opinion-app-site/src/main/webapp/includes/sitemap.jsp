@@ -1,5 +1,5 @@
-<%@ page import="com.opinion.library.systemFramework.ApplicationConfiguration" %>
-<%@ page import="com.opinion.cms.common.IPage" %>
+<%@ page import="com.inqwise.opinion.library.systemFramework.ApplicationConfiguration" %>
+<%@ page import="com.inqwise.opinion.cms.common.IPage" %>
 
 <%
 IPage p = (IPage)request.getAttribute(IPage.PAGE_OBJECT_ATTRIBUTE_NAME);

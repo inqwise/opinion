@@ -1,5 +1,5 @@
-<%@ page import="com.opinion.library.systemFramework.ApplicationConfiguration" %>
-<%@ page import="com.opinion.cms.common.IPage" %>
+<%@ page import="com.inqwise.opinion.library.systemFramework.ApplicationConfiguration" %>
+<%@ page import="com.inqwise.opinion.cms.common.IPage" %>
 
 <%@ page import="java.util.Locale" %>
 <%@ page import="org.xnap.commons.i18n.I18n" %>

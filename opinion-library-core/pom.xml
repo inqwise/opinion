@@ -29,14 +29,6 @@
 			<artifactId>ST4</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.brickred</groupId>
-			<artifactId>socialauth</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.openid4java</groupId>
 			<artifactId>openid4java</artifactId>
 		</dependency>
@@ -59,7 +51,11 @@
 			<artifactId>opinion-payments</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>

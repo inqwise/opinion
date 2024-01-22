@@ -7,7 +7,7 @@
   </welcome-file-list>
   <servlet>
     <servlet-name>DataPostmaster</servlet-name>
-    <servlet-class>com.opinion.handlers.DataPostmaster</servlet-class>
+    <servlet-class>com.inqwise.opinion.handlers.DataPostmaster</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DataPostmaster</servlet-name>
@@ -23,7 +23,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>Index</servlet-name>
-    <servlet-class>com.opinion.handlers.Index</servlet-class>
+    <servlet-class>com.inqwise.opinion.handlers.Index</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Index</servlet-name>
@@ -45,7 +45,7 @@
     <session-timeout>30</session-timeout>
   </session-config>
   <listener>
-    <listener-class>com.opinion.services.Initializer</listener-class>
+    <listener-class>com.inqwise.opinion.services.Initializer</listener-class>
   </listener>
   <!-- servlet>
     <servlet-name>PaypalIPN</servlet-name>
@@ -59,7 +59,7 @@
     <description></description>
     <display-name>Frontdoor</display-name>
     <servlet-name>Frontdoor</servlet-name>
-    <servlet-class>com.opinion.handlers.Frontdoor</servlet-class>
+    <servlet-class>com.inqwise.opinion.handlers.Frontdoor</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Frontdoor</servlet-name>
@@ -70,7 +70,7 @@
     <description></description>
     <display-name>Export</display-name>
     <servlet-name>Export</servlet-name>
-    <servlet-class>com.opinion.handlers.ExportHandler</servlet-class>
+    <servlet-class>com.inqwise.opinion.handlers.ExportHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Export</servlet-name>
@@ -81,7 +81,7 @@
     <description></description>
     <display-name>Import</display-name>
     <servlet-name>Import</servlet-name>
-    <servlet-class>com.opinion.handlers.ImportHandler</servlet-class>
+    <servlet-class>com.inqwise.opinion.handlers.ImportHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Import</servlet-name>
@@ -89,7 +89,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>SociaAuthLogin</servlet-name>
-    <servlet-class>com.opinion.handlers.SocialAuthLoginHandler</servlet-class>
+    <servlet-class>com.inqwise.opinion.handlers.SocialAuthLoginHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>SociaAuthLogin</servlet-name>
@@ -99,7 +99,7 @@
     <description></description>
     <display-name>Opinions</display-name>
     <servlet-name>Opinions</servlet-name>
-    <servlet-class>com.opinion.handlers.OpinionsHandler</servlet-class>
+    <servlet-class>com.inqwise.opinion.handlers.OpinionsHandler</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Opinions</servlet-name>

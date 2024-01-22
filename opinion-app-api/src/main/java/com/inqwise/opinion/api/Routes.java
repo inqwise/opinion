@@ -8,6 +8,8 @@ import com.inqwise.opinion.api.controller.FrontController;
 import com.inqwise.opinion.api.controller.PayController;
 import com.inqwise.opinion.api.controller.RqController;
 
+import io.netty.handler.codec.http.HttpMethod;
+
 public final class Routes {
 	public static void define(RestExpress server){
 		server.uri("/servlet/DataPostmaster/{lang}", RqController.getInstance())

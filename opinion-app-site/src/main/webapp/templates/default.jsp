@@ -2,14 +2,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
-<%@ page import="com.opinion.cms.common.IPage" %>
+<%@ page import="com.inqwise.opinion.cms.common.IPage" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.opinion.library.systemFramework.ApplicationConfiguration" %>
-<%@ page import="com.opinion.cms.common.IPage" %>
+<%@ page import="com.inqwise.opinion.library.systemFramework.ApplicationConfiguration" %>
+<%@ page import="com.inqwise.opinion.cms.common.IPage" %>
 <%@ page import="java.util.Calendar" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.opinion.cms.common.IStylesheet" %>
-<%@ page import="com.opinion.cms.common.IScript" %>
+<%@ page import="com.inqwise.opinion.cms.common.IStylesheet" %>
+<%@ page import="com.inqwise.opinion.cms.common.IScript" %>
 
 <%
 IPage p = (IPage)request.getAttribute("p");
@@ -48,7 +48,7 @@ int year = cal.get(Calendar.YEAR);
 		<link rel="shortcut icon" href="<%=applicationURL%>/favicon.ico" type="image/x-icon" />
 		<link rel="home" href="<%=applicationURL %>" />
 		<link rel="index" href="<%=applicationURL %>/sitemap.xml" />
-		<link rel="canonical" href="<%=applicationURL + request.getAttribute("javax.servlet.forward.request_uri") %>" />		
+		<link rel="canonical" href="<%=applicationURL + request.getAttribute("jakarta.servlet.forward.request_uri") %>" />		
 		<link rel="stylesheet" type="text/css" href="<%=applicationURL%>/css/global.css" />
 		<%
 			for(IStylesheet css : p.getCssList()){

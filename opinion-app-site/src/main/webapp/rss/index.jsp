@@ -8,19 +8,19 @@
 <%@ page import="java.util.Calendar" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Calendar" %>
-<%@ page import="org.apache.commons.lang3.StringEscapeUtils" %>
+<%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 
-<%@ page import="com.opinion.library.common.errorHandle.OperationResult"%>
+<%@ page import="com.inqwise.opinion.library.common.errorHandle.OperationResult"%>
 
-<%@ page import="com.opinion.cms.common.blog.IPost"%>
-<%@ page import="com.opinion.cms.managers.BlogManager"%>
+<%@ page import="com.inqwise.opinion.cms.common.blog.IPost"%>
+<%@ page import="com.inqwise.opinion.cms.managers.BlogManager"%>
 <%@ page import="java.text.DateFormat"%>
 
 
-<%@page import="com.opinion.cms.common.ILanguage"%>
-<%@page import="com.opinion.cms.managers.LanguagesManager"%>
-<%@page import="com.opinion.cms.CmsSystem"%>
-<%@page import="com.opinion.cms.common.blog.Blogs"%>
+<%@page import="com.inqwise.opinion.cms.common.ILanguage"%>
+<%@page import="com.inqwise.opinion.cms.managers.LanguagesManager"%>
+<%@page import="com.inqwise.opinion.cms.CmsSystem"%>
+<%@page import="com.inqwise.opinion.cms.common.blog.Blogs"%>
 
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <%

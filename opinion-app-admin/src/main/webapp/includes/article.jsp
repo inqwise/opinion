@@ -8,7 +8,7 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.Calendar" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="com.opinion.cms.common.IPage" %>
+<%@ page import="com.inqwise.opinion.cms.common.IPage" %>
 <%
 	
 	String articleId = request.getParameter("article_id");

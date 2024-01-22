@@ -1,18 +1,18 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ page import="com.opinion.infrastructure.systemFramework.DateConverter" %>
+<%@ page import="com.inqwise.opinion.infrastructure.systemFramework.DateConverter" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.net.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.Calendar" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="com.opinion.cms.common.IPage" %>
+<%@ page import="com.inqwise.opinion.cms.common.IPage" %>
 
-<%@page import="com.opinion.library.common.errorHandle.OperationResult"%>
-<%@page import="com.opinion.library.managers.CountriesManager"%>
-<%@page import="com.opinion.library.common.countries.ITimeZone"%>
+<%@page import="com.inqwise.opinion.library.common.errorHandle.OperationResult"%>
+<%@page import="com.inqwise.opinion.library.managers.CountriesManager"%>
+<%@page import="com.inqwise.opinion.library.common.countries.ITimeZone"%>
 
 <%
 	IPage p = (IPage)request.getAttribute(IPage.PAGE_OBJECT_ATTRIBUTE_NAME);

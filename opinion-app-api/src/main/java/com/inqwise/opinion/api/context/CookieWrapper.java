@@ -1,9 +1,8 @@
 package com.inqwise.opinion.api.context;
 
-import org.jboss.netty.handler.codec.http.Cookie;
-import org.jboss.netty.handler.codec.http.DefaultCookie;
-
 import com.inqwise.opinion.infrastructure.common.ICookie;
+
+import io.netty.handler.codec.http.cookie.Cookie;
 
 public class CookieWrapper implements ICookie {
 	private Cookie cookie;
@@ -14,22 +13,22 @@ public class CookieWrapper implements ICookie {
 
 	@Override
 	public String getDomain() {
-		return cookie.getDomain();
+		return cookie.domain();
 	}
 
 	@Override
 	public String getName() {
-		return cookie.getName();
+		return cookie.name();
 	}
 
 	@Override
 	public String getPath() {
-		return cookie.getPath();
+		return cookie.path();
 	}
 
 	@Override
 	public String getValue() {
-		return cookie.getValue();
+		return cookie.value();
 	}
 
 	@Override
@@ -38,16 +37,16 @@ public class CookieWrapper implements ICookie {
 	}
 
 	@Override
-	public Integer getMaxAge() {
-		return cookie.getMaxAge();
+	public long getMaxAge() {
+		return cookie.maxAge();
 	}
 
 	@Override
 	public void setValue(String value) {
 		cookie.setValue(value);
-		if(cookie.isDiscard()){
-			cookie.setDiscard(false);
-		}
+//		if(cookie.isDiscard()){
+//			cookie.setDiscard(false);
+//		}
 	}
 	
 	@Override

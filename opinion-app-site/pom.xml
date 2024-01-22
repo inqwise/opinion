@@ -13,11 +13,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.github.jsimone</groupId>
-			<artifactId>webapp-runner</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.tuckey</groupId>
 			<artifactId>urlrewritefilter</artifactId>
 		</dependency>
@@ -46,24 +41,22 @@
 			<artifactId>commons-text</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.liferay</groupId>
-			<artifactId>org.apache.commons.fileupload</artifactId>
-			<version>1.2.2.LIFERAY-PATCHED-1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode.gettext-commons</groupId>
-			<artifactId>gettext-commons</artifactId>
-			<version>0.9.8</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.zxing</groupId>
-			<artifactId>core</artifactId>
-			<version>3.3.3</version>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.mchange</groupId>
 			<artifactId>mchange-commons-java</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.gettext-commons</groupId>
+			<artifactId>gettext-commons</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.inqwise.opinion</groupId>
@@ -85,24 +78,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<version>2.3</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>com.github.jsimone</groupId>
-									<artifactId>webapp-runner</artifactId>
-									<version>${webapp.version}</version>
-									<destFileName>webapp-runner.jar</destFileName>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

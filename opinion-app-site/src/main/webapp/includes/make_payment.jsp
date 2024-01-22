@@ -5,13 +5,13 @@
 <%@ page import="java.net.*" %>
 <%@ page import="java.util.*" %>
 
-<%@ page import="com.opinion.cms.common.IPage" %>
-<%@ page import="com.opinion.library.systemFramework.ApplicationConfiguration" %>
+<%@ page import="com.inqwise.opinion.cms.common.IPage" %>
+<%@ page import="com.inqwise.opinion.library.systemFramework.ApplicationConfiguration" %>
 
-<%@ page import="com.opinion.library.common.errorHandle.OperationResult" %>
-<%@ page import="com.opinion.library.common.countries.ICountry" %>
-<%@ page import="com.opinion.library.managers.CountriesManager" %>
-<%@ page import="com.opinion.library.common.countries.IStateProvince" %>
+<%@ page import="com.inqwise.opinion.library.common.errorHandle.OperationResult" %>
+<%@ page import="com.inqwise.opinion.library.common.countries.ICountry" %>
+<%@ page import="com.inqwise.opinion.library.managers.CountriesManager" %>
+<%@ page import="com.inqwise.opinion.library.common.countries.IStateProvince" %>
 
 <%
 	IPage p = (IPage)request.getAttribute(IPage.PAGE_OBJECT_ATTRIBUTE_NAME);

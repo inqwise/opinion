@@ -15,11 +15,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.ArrayUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.msgpack.MessagePack;
 
 import com.inqwise.opinion.common.IPostmasterContext;
 import com.inqwise.opinion.http.HttpClientSession;
@@ -117,15 +115,13 @@ public class DataPostmasterDescryptorBase implements IPostmasterContext {
 		}
 		
 		try {
-			String decryptedUserArgsBase64 = (null == encryptedUserArgs) ? null : desEncrypter.decrypt(encryptedUserArgs.replaceAll(" ", "+"));
-			if(null == decryptedUserArgsBase64) {
+			String decryptedUserArgsStr = (null == encryptedUserArgs) ? null : desEncrypter.decrypt(encryptedUserArgs.replaceAll(" ", "+"));
+			if(null == decryptedUserArgsStr) {
 				return new HttpClientSession(ErrorCode.NotSignedIn, "Not signed in");
 			} else {
-				HttpClientSessionUserArgs userArgs = null;
-				MessagePack msgpack = new MessagePack();
-				 // Deserialize
-				userArgs = msgpack.read(Base64.decodeBase64(decryptedUserArgsBase64), HttpClientSessionUserArgs.class);
 				
+				 // Deserialize
+				var userArgs = new HttpClientSessionUserArgs(new JSONObject(decryptedUserArgsStr));
 				return new HttpClientSession( sessionId, userArgs.getUserId(),
 						clientIp, userArgs.getProductId(), userArgs.getClientIp());
 			}
@@ -229,14 +225,14 @@ public class DataPostmasterDescryptorBase implements IPostmasterContext {
 	}
 	
 	public void addUserIdToSession(Long userId, int productId, String clientIp, boolean isPersist) throws IOException{
-		HttpClientSessionUserArgs userArgs = new HttpClientSessionUserArgs(userId, productId, clientIp);
+		var userArgs = HttpClientSessionUserArgs.builder()
+				.withUserId(userId)
+				.withProductId(productId)
+				.withClientIp(clientIp)
+				.build();
 		
-		MessagePack msgpack = new MessagePack();
 		 // Serialize
-        byte[] bytes = msgpack.write(userArgs);
-        String base64 = Base64.encodeBase64String(bytes);
-        
-		addToSession(UNIQUE_ID_COOKIE_KEY, base64, true, isPersist);
+		addToSession(UNIQUE_ID_COOKIE_KEY, userArgs.toJson().toString(), true, isPersist);
 	}
 	
 	public void addSessionIdToSession(UUID sessionId, boolean isPersist){

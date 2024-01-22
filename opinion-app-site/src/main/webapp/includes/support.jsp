@@ -1,16 +1,16 @@
 
 
-<%@page import="com.opinion.library.common.errorHandle.OperationResult"%>
+<%@page import="com.inqwise.opinion.library.common.errorHandle.OperationResult"%>
 <%@page import="java.util.List"%>
-<%@page import="com.opinion.cms.common.faq.IFaq"%>
-<%@page import="com.opinion.cms.managers.FaqsManager"%>
+<%@page import="com.inqwise.opinion.cms.common.faq.IFaq"%>
+<%@page import="com.inqwise.opinion.cms.managers.FaqsManager"%>
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="org.apache.commons.lang3.StringEscapeUtils" %>
 <%@page import="java.util.Hashtable"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Enumeration"%>
-<%@page import="com.opinion.cms.common.IPage"%>
+<%@page import="com.inqwise.opinion.cms.common.IPage"%>
 
 <%
 	IPage p = (IPage)request.getAttribute(IPage.PAGE_OBJECT_ATTRIBUTE_NAME);

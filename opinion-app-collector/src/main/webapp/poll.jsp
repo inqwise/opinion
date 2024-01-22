@@ -1,7 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ page import="java.net.*" %>
-<%@ page import="com.opinion.library.systemFramework.ApplicationConfiguration"%>
+<%@ page import="com.inqwise.opinion.library.systemFramework.ApplicationConfiguration"%>
 
 <%
 

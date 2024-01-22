@@ -5,8 +5,8 @@
 <%@ page import="java.net.*" %>
 <%@ page import="java.util.*" %>
 
-<%@ page import="com.opinion.cms.common.IPage" %>
-<%@ page import="com.opinion.library.systemFramework.ApplicationConfiguration" %>
+<%@ page import="com.inqwise.opinion.cms.common.IPage" %>
+<%@ page import="com.inqwise.opinion.library.systemFramework.ApplicationConfiguration" %>
 
 <%
 	IPage p = (IPage)request.getAttribute(IPage.PAGE_OBJECT_ATTRIBUTE_NAME);

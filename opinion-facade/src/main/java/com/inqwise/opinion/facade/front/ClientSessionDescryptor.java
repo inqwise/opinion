@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
+import org.json.JSONObject;
 import org.msgpack.MessagePack;
 
 import com.inqwise.opinion.http.HttpClientSession;
@@ -66,23 +67,17 @@ public class ClientSessionDescryptor {
 			if(null == encryptedUserArgs){ 
 				return new HttpClientSession(ErrorCode.NotSignedIn, "Not signed in");
 			} else {
-				String decryptedUserArgsBase64 = (null == encryptedUserArgs) ? null : desEncrypter.decrypt(encryptedUserArgs.replaceAll(" ", "+"));
-				if(null == decryptedUserArgsBase64) {
+				String decryptedUserArgsStr = (null == encryptedUserArgs) ? null : desEncrypter.decrypt(encryptedUserArgs.replaceAll(" ", "+"));
+				if(null == decryptedUserArgsStr) {
 					return new HttpClientSession(ErrorCode.NotSignedIn, "Not signed in");
 				} else {
-					HttpClientSessionUserArgs userArgs = null;
-					MessagePack msgpack = new MessagePack();
-					 // Deserialize
-					
-					userArgs = msgpack.read(Base64.decodeBase64(decryptedUserArgsBase64), HttpClientSessionUserArgs.class);
+					// Deserialize
+					var userArgs = new HttpClientSessionUserArgs(new JSONObject(decryptedUserArgsStr));
 					
 					return new HttpClientSession( sessionId, userArgs.getUserId(),
 							clientIp, userArgs.getProductId(), userArgs.getClientIp());
 				}
 			}
-			
-			
-			
 		} catch (Exception t) {
 			UUID errorId = logger.error(t, "getSession() : Unexpected error occured.");
 			return new HttpClientSession(errorId, t.toString());
@@ -107,14 +102,16 @@ public class ClientSessionDescryptor {
 	}
 	
 	public static void addUserIdToSession(Long userId, int productId, String clientIp, boolean untilEndSession, HttpServletResponse response) throws IOException{
-		HttpClientSessionUserArgs userArgs = new HttpClientSessionUserArgs(userId, productId, clientIp);
+		var userArgs = HttpClientSessionUserArgs
+				.builder()
+				.withClientIp(clientIp)
+				.withProductId(productId)
+				.withUserId(userId)
+				.build();
 		
-		MessagePack msgpack = new MessagePack();
 		 // Serialize
-        byte[] bytes = msgpack.write(userArgs);
-        String base64 = Base64.encodeBase64String(bytes);
         
-		addToSession(UNIQUE_ID_COOKIE_KEY, base64, true, untilEndSession, response);
+		addToSession(UNIQUE_ID_COOKIE_KEY, userArgs.toJson().toString(), true, untilEndSession, response);
 	}
 	
 	public static void addSessionIdToSession(UUID sessionId, boolean isPersist, HttpServletResponse response){

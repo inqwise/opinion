@@ -313,8 +313,6 @@ public class DataPostmasterDescryptor extends DataPostmasterDescryptorBase {
 		JSONObject output = new JSONObject();
 		BaseOperationResult result = null;
 
-		LoginProvider provider = LoginProvider.fromInt(input.optInt("providerId", LoginProvider.Inqwise.getValue()));
-
 		String clientIp = getClientIp();
 		boolean isPersist = input.getBoolean("isPersist");
 
@@ -324,27 +322,10 @@ public class DataPostmasterDescryptor extends DataPostmasterDescryptorBase {
 		}
 
 		if (null == result) {
-			if (LoginProvider.Inqwise == provider) {
-				String email = input.getString("email");
-				String password = input.getString("password");
-				String newPassword = StringUtils.trimToNull(JSONHelper.optString(input, "newPassword"));
-				login(output, email, password, newPassword, clientIp, isPersist, product);
-			} else {
-				String returnUrl = JSONHelper.optStringTrim(input, "returnUrl");
-				Integer servicePackageId = JSONHelper.optInt(input, "planId", 1);
-				Integer countOfMonths = JSONHelper.optInt(input, "countOfMonths", 1);
-				String inviteExternalId = JSONHelper.optStringTrim(input, "inviteId");
-				String loginUrl;
-				OperationResult<String> urlResult = UsersManager.getLoginUrl(provider, returnUrl, clientIp,
-						product.getId(), product.getId(), getGatewayId(), servicePackageId, countOfMonths, isPersist,
-						inviteExternalId);
-				if (urlResult.hasError()) {
-					result = urlResult;
-				} else {
-					loginUrl = urlResult.getValue();
-					output.put("loginUrl", loginUrl);
-				}
-			}
+			String email = input.getString("email");
+			String password = input.getString("password");
+			String newPassword = StringUtils.trimToNull(JSONHelper.optString(input, "newPassword"));
+			login(output, email, password, newPassword, clientIp, isPersist, product);
 		}
 
 		if (null != result) {
@@ -585,7 +566,7 @@ public class DataPostmasterDescryptor extends DataPostmasterDescryptorBase {
 	public JSONObject getMonthNames(JSONObject input) throws JSONException {
 		String culture = JSONHelper.optString(input, "culture", "int_US");
 		Boolean isShortNames = JSONHelper.optBoolean(input, "isShort", true);
-		Locale locale = Locale.of(culture);
+		Locale locale = new Locale(culture);
 		String[] names;
 		if (isShortNames) {
 			names = DateFormatSymbols.getInstance(locale).getShortMonths();
@@ -598,7 +579,7 @@ public class DataPostmasterDescryptor extends DataPostmasterDescryptorBase {
 
 	public JSONObject getTimeZones(JSONObject input) throws JSONException {
 		String culture = JSONHelper.optString(input, "culture", "int_US");
-		Locale locale = Locale.of(culture);
+		Locale locale = new Locale(culture);
 		JSONArray ja = new JSONArray();
 		for (TimeZone timeZone : TimeZones.getTimeZones()) {
 			String value = timeZone.getID();

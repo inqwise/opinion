@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 
-<%@ page import="com.opinion.cms.CmsSystem" %>
-<%@ page import="com.opinion.cms.common.ILanguage" %>
-<%@ page import="com.opinion.cms.managers.LanguagesManager" %>
-<%@ page import="com.opinion.library.common.errorHandle.OperationResult" %>
+<%@ page import="com.inqwise.opinion.cms.CmsSystem" %>
+<%@ page import="com.inqwise.opinion.cms.common.ILanguage" %>
+<%@ page import="com.inqwise.opinion.cms.managers.LanguagesManager" %>
+<%@ page import="com.inqwise.opinion.library.common.errorHandle.OperationResult" %>
 
 <%@ page import="java.util.Calendar" %>
 <%@ page import="java.net.URL" %>

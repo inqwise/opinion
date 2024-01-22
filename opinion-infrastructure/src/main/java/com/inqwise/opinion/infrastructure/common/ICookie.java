@@ -33,7 +33,7 @@ public interface ICookie {
 	
 	String getDomain();
 
-	Integer getMaxAge();
+	long getMaxAge();
 
 	String getName();
 

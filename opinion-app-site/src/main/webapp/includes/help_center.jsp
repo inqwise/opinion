@@ -1,17 +1,17 @@
-<%@page import="com.opinion.library.common.errorHandle.OperationResult"%>
+<%@page import="com.inqwise.opinion.library.common.errorHandle.OperationResult"%>
 <%@page import="java.util.List"%>
 
-<%@ page import="com.opinion.cms.common.kb.IArticle" %>
-<%@ page import="com.opinion.cms.common.kb.ITopic" %>
-<%@ page import="com.opinion.cms.managers.ArticleManager" %>
-<%@ page import="com.opinion.cms.managers.TopicManager" %>
+<%@ page import="com.inqwise.opinion.cms.common.kb.IArticle" %>
+<%@ page import="com.inqwise.opinion.cms.common.kb.ITopic" %>
+<%@ page import="com.inqwise.opinion.cms.managers.ArticleManager" %>
+<%@ page import="com.inqwise.opinion.cms.managers.TopicManager" %>
 
-<%@page import="com.opinion.cms.common.faq.IFaq"%>
-<%@page import="com.opinion.cms.managers.FaqsManager"%>
+<%@page import="com.inqwise.opinion.cms.common.faq.IFaq"%>
+<%@page import="com.inqwise.opinion.cms.managers.FaqsManager"%>
 
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@page import="java.net.URLEncoder"%>
-<%@page import="com.opinion.cms.common.IPage"%>
+<%@page import="com.inqwise.opinion.cms.common.IPage"%>
 
 <%
 	IPage p = (IPage)request.getAttribute(IPage.PAGE_OBJECT_ATTRIBUTE_NAME);

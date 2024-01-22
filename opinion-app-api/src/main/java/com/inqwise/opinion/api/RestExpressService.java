@@ -1,27 +1,15 @@
 package com.inqwise.opinion.api;
 
-import java.net.InetSocketAddress;
-import java.util.concurrent.TimeUnit;
-
-import javax.xml.bind.ValidationException;
-
 import org.json.JSONException;
-import org.restexpress.Request;
-import org.restexpress.Response;
 import org.restexpress.RestExpress;
 import org.restexpress.exception.BadRequestException;
 import org.restexpress.pipeline.SimpleConsoleLogMessageObserver;
-import org.restexpress.response.ResponseWrapper;
 import org.restexpress.serialization.DefaultSerializationProvider;
-import org.restexpress.serialization.NullSerializationProvider;
-import org.restexpress.serialization.SerializationProcessor;
-import org.restexpress.serialization.SerializationProvider;
-import org.restexpress.serialization.SerializationSettings;
 
-import com.codahale.metrics.MetricFilter;
-import com.codahale.metrics.graphite.GraphiteReporter;
 import com.inqwise.opinion.api.systemFramework.ApplicationConfiguration;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
+
+import jakarta.xml.bind.ValidationException;
 
 public final class RestExpressService {
 	

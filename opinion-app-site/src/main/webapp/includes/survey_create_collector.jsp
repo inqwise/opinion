@@ -1,13 +1,13 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@page import="com.opinion.library.systemFramework.ApplicationConfiguration.Opinion.Collector"%>
+<%@page import="com.inqwise.opinion.library.systemFramework.ApplicationConfiguration.Opinion.Collector"%>
 
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.net.*" %>
 
-<%@ page import="com.opinion.cms.common.IPage" %>
+<%@ page import="com.inqwise.opinion.cms.common.IPage" %>
 
 <%
 	String opinionId = request.getParameter("opinion_id");
