@@ -25,7 +25,7 @@
 		<listener-class>com.inqwise.opinion.services.Initializer</listener-class>
 	</listener>
 
-	<!--filter>
+	<filter>
 		<filter-name>UrlRewriteFilter</filter-name>
 		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
 		<init-param>
@@ -36,7 +36,7 @@
 	<filter-mapping>
 		<filter-name>UrlRewriteFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping-->
+	</filter-mapping>
 
 	<servlet>
 		<servlet-name>Cms</servlet-name>

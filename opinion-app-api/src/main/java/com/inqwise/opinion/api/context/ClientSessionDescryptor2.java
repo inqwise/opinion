@@ -6,8 +6,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
-import org.apache.commons.codec.binary.Base64;
-import org.msgpack.MessagePack;
+import org.json.JSONObject;
 
 import com.inqwise.opinion.http.HttpClientSession;
 import com.inqwise.opinion.http.HttpClientSessionUserArgs;
@@ -43,14 +42,12 @@ public class ClientSessionDescryptor2 {
 		}
 		
 		try {
-			String decryptedUserArgsBase64 = (null == encryptedUserArgs) ? null : desEncrypter.decrypt(encryptedUserArgs.replaceAll(" ", "+"));
-			if(null == decryptedUserArgsBase64) {
+			String decryptedUserArgsJsonStr = (null == encryptedUserArgs) ? null : desEncrypter.decrypt(encryptedUserArgs.replaceAll(" ", "+"));
+			if(null == decryptedUserArgsJsonStr) {
 				return new HttpClientSession(ErrorCode.NotSignedIn, "Not signed in");
 			} else {
-				HttpClientSessionUserArgs userArgs = null;
-				MessagePack msgpack = new MessagePack();
-				 // Deserialize
-				userArgs = msgpack.read(Base64.decodeBase64(decryptedUserArgsBase64), HttpClientSessionUserArgs.class);
+				// Deserialize
+				var userArgs = new HttpClientSessionUserArgs(new JSONObject(decryptedUserArgsJsonStr));
 				
 				return new HttpClientSession( sessionId, userArgs.getUserId(),
 						clientIp, userArgs.getProductId(), userArgs.getClientIp());
@@ -80,14 +77,13 @@ public class ClientSessionDescryptor2 {
 	
 	public static void addUserIdToSession(long userId, int productId, String clientIp, boolean untilEndSession, Cookies cookies) throws IOException{
 		
-		HttpClientSessionUserArgs userArgs = new HttpClientSessionUserArgs(userId, productId, clientIp);
+		var userArgs = HttpClientSessionUserArgs.builder()
+				.withClientIp(clientIp)
+				.withProductId(productId)
+				.withUserId(userId).build();
 		
-		MessagePack msgpack = new MessagePack();
 		 // Serialize
-        byte[] bytes = msgpack.write(userArgs);
-        String base64 = Base64.encodeBase64String(bytes);
-        
-		addToSession(UNIQUE_ID_COOKIE_KEY, base64, false, untilEndSession, cookies);
+		addToSession(UNIQUE_ID_COOKIE_KEY, userArgs.toJson().toString(), false, untilEndSession, cookies);
 	}
 	
 	public static void addSessionIdToSession(UUID sessionId, boolean isPersist, Cookies cookies) throws UnsupportedEncodingException{
