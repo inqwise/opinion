@@ -30,8 +30,8 @@ String opinionId = null;
 opinionId = request.getParameter("opinion_id");
 String collectorId = null;
 collectorId = request.getParameter("collector_id");
-String requestUrl = request.getAttribute("jakarta.servlet.forward.request_uri").toString();
-Object objQueryString = request.getAttribute("jakarta.servlet.forward.query_string");
+String requestUrl = request.getAttribute("javax.servlet.forward.request_uri").toString();
+Object objQueryString = request.getAttribute("javax.servlet.forward.query_string");
 String queryString = null;
 
 if(null != objQueryString){
