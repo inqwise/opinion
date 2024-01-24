@@ -39,7 +39,7 @@ String opinionId = null;
 opinionId = request.getParameter("opinion_id");
 String collectorId = null;
 collectorId = request.getParameter("collector_id");
-String requestUrl = request.getAttribute("jakarta.servlet.forward.request_uri").toString();
+String requestUrl = request.getAttribute("javax.servlet.forward.request_uri").toString();
 if(null != requestUrl){
 	requestUrl = URLEncoder.encode(p.getServerUrl() + requestUrl,"utf-8");
 }

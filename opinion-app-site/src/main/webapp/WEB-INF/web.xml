@@ -14,14 +14,6 @@
     <url-pattern>/servlet/DataPostmaster/*</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>QRCode</servlet-name>
-    <servlet-class>com.google.code.QRCode</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>QRCode</servlet-name>
-    <url-pattern>/servlet/QRCode</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <servlet-name>Index</servlet-name>
     <servlet-class>com.inqwise.opinion.handlers.Index</servlet-class>
   </servlet>
@@ -88,14 +80,6 @@
     <url-pattern>/servlet/import</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>SociaAuthLogin</servlet-name>
-    <servlet-class>com.inqwise.opinion.handlers.SocialAuthLoginHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>SociaAuthLogin</servlet-name>
-    <url-pattern>/socialAuthLogin/*</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <description></description>
     <display-name>Opinions</display-name>
     <servlet-name>Opinions</servlet-name>
@@ -145,15 +129,5 @@
 			<transport-guarantee>NONE</transport-guarantee>
 		</user-data-constraint>
 	</security-constraint>
-	
-	
-	<!-- 
-	<session-config>
-    	<cookie-config>
-        	<http-only>true</http-only>
-        	<secure>true</secure>
-    	</cookie-config>
-	</session-config>
-	 -->
   
 </web-app>
