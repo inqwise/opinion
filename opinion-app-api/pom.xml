@@ -43,6 +43,10 @@
 			<artifactId>RestExpress</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.codahale.metrics</groupId>
 			<artifactId>metrics-core</artifactId>
 		</dependency>
@@ -51,4 +55,10 @@
 			<artifactId>metrics-graphite</artifactId>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			
+		</plugins>
+		
+	</build>
 </project>
