@@ -42,7 +42,7 @@ public final class RestExpressService {
 	
 	public static RestExpress initializeServer()
 	{
-		RestExpress.setSerializationProvider(new DefaultSerializationProvider());
+		RestExpress.setDefaultSerializationProvider(new DefaultSerializationProvider());
 		RestExpress server = new RestExpress()
 				
 				.setName(ApplicationConfiguration.Service.getName())

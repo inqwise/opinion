@@ -72,6 +72,13 @@
 	</dependencies>
 
 	<build>
-		<sourceDirectory>src/main/webapp</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>${basedir}/src/main/webapp</directory>
+			</resource>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+			</resource>
+		</resources>
 	</build>
 </project>

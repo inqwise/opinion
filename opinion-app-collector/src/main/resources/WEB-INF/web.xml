@@ -11,8 +11,8 @@
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>DataPostmaster</servlet-name>
-		<!-- <servlet-class>com.opinion.handlers.DataPostmaster</servlet-class> -->
-		<servlet-class>com.opinion.collector.handlers.DataPostmaster</servlet-class>
+		<!-- <servlet-class>com.inqwise.opinion.handlers.DataPostmaster</servlet-class> -->
+		<servlet-class>com.inqwise.opinion.collector.handlers.DataPostmaster</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DataPostmaster</servlet-name>
@@ -20,8 +20,8 @@
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>ThemeGenerator</servlet-name>
-		<!-- <servlet-class>com.opinion.handlers.ThemeGenerator</servlet-class> -->
-		<servlet-class>com.opinion.collector.handlers.ThemeGenerator</servlet-class>
+		<!-- <servlet-class>com.inqwise.opinion.handlers.ThemeGenerator</servlet-class> -->
+		<servlet-class>com.inqwise.opinion.collector.handlers.ThemeGenerator</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ThemeGenerator</servlet-name>
@@ -43,7 +43,7 @@
 	
 	<servlet>
       <servlet-name>Counter</servlet-name>
-      <servlet-class>com.opinion.collector.handlers.CountersHandler</servlet-class>
+      <servlet-class>com.inqwise.opinion.collector.handlers.CountersHandler</servlet-class>
     </servlet>
     <servlet-mapping>
       <servlet-name>Counter</servlet-name>
