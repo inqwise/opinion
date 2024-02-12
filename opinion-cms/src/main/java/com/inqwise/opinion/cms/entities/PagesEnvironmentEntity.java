@@ -14,9 +14,11 @@ import com.inqwise.opinion.cms.common.IPage;
 import com.inqwise.opinion.cms.common.IPagesEnvironment;
 import com.inqwise.opinion.cms.common.IPagesManager;
 import com.inqwise.opinion.cms.common.IPortal;
+import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 
 public class PagesEnvironmentEntity implements IPagesEnvironment {
+	static ApplicationLog logger = ApplicationLog.getLogger(PagesEnvironmentEntity.class);
 	private URL absoluteURL;
 	private URL absoluteSecureURL;
 	private URL applicationURL;
@@ -35,8 +37,12 @@ public class PagesEnvironmentEntity implements IPagesEnvironment {
 	public PagesEnvironmentEntity(HttpServletRequest request, HttpServletResponse response, ILanguage language, IPortal portal, IPagesManager pagesManager) throws MalformedURLException {
 		this.setLanguage(language);
 		
+		logger.debug("ServerPort: %s", request.getServerPort());
+		
 		setAbsoluteURL(ArrayUtils.contains(DEFAULT_PORTS, request.getServerPort()) ? new URL(request.getScheme(), request.getServerName(), request.getContextPath() + "/" + language.getAdaptedCultureCode()) : new URL(request.getScheme(), request.getServerName(), request.getServerPort(), request.getContextPath() + "/" + language.getAdaptedCultureCode()));
-		setAbsoluteSecureURL(ArrayUtils.contains(DEFAULT_PORTS, request.getServerPort()) ? new URL("https", request.getServerName(), request.getContextPath() + "/" + language.getAdaptedCultureCode()) : new URL("https", request.getServerName(), 8443, request.getContextPath() + "/" + language.getAdaptedCultureCode()));
+		setAbsoluteSecureURL(ArrayUtils.contains(DEFAULT_PORTS, request.getServerPort())
+				? new URL("https", request.getServerName(), request.getContextPath() + "/" + language.getAdaptedCultureCode()) 
+				: new URL("https", request.getServerName(), 8443, request.getContextPath() + "/" + language.getAdaptedCultureCode()));
   		
 		setApplicationURL(ArrayUtils.contains(DEFAULT_PORTS, request.getServerPort()) ? new URL(request.getScheme(), request.getServerName(), request.getContextPath()) : new URL(request.getScheme(), request.getServerName(), request.getServerPort(), request.getContextPath()));
 		setApplicationSecureURL(ArrayUtils.contains(DEFAULT_PORTS, request.getServerPort()) ? new URL("https", request.getServerName(), request.getContextPath()) : new URL("https", request.getServerName(), 8443, request.getContextPath()));

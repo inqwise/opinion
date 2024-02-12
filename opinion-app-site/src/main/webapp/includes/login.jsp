@@ -44,7 +44,7 @@ if(null == returnUrl){
 			<div class="params">
 				<div class="param-name"><span>* <%=i18n.tr("Password") %>:</span></div>
 				<div class="param-value">
-					<div><input id="input_password" type="password" maxlength="12" name="input-password" autocapitalize="off" /><a href="<%=absoluteSecureURL%>/forgot-password" title="<%=i18n.tr("Forgot your password?") %>" style="margin-left: 6px;"><%=i18n.tr("Forgot your password?") %></a></div>
+					<div><input id="input_password" type="password" maxlength="12" name="input-password" autocapitalize="off" /><a href="<%=absoluteURL%>/forgot-password" title="<%=i18n.tr("Forgot your password?") %>" style="margin-left: 6px;"><%=i18n.tr("Forgot your password?") %></a></div>
 					<div style="clear: both;"><label id="status_input_password"></label></div>
 				</div>
 			</div>
@@ -55,7 +55,7 @@ if(null == returnUrl){
 						<div class="row-choice" style="margin: 0 0 5px">
 							<label><span><input id="checkbox_keep_me_sign_in" type="checkbox" checked="checked" autocomplete="off" /></span><%=i18n.tr("Keep me signed in.<br/> (Clear the check box if you're on a shared computer.)") %></label>
 					    </div>
-					    <div><%=i18n.tr("Don't have an account?") %> <a href="<%=absoluteSecureURL%>/register?ref=login" title="<%=i18n.tr("Sign Up")%>"><%=i18n.tr("Sign Up") %></a></div>
+					    <div><%=i18n.tr("Don't have an account?") %> <a href="<%=absoluteURL%>/register?ref=login" title="<%=i18n.tr("Sign Up")%>"><%=i18n.tr("Sign Up") %></a></div>
 					</div>	
 				</div>
 			</div>
@@ -106,7 +106,7 @@ function errorMessenger(err) {
 			break;
 		case "PasswordExpiry" :
 			// do redirect to change password
-			location.href = "<%=absoluteSecureURL%>/change-password?email=" + $('#input_email').val();
+			location.href = "<%=absoluteURL%>/change-password?email=" + $('#input_email').val();
 			break;
 		case "GeneralError" :
 			$("<li>Login temporary is unavailable.</li>").appendTo('.error-message');
