@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-    <!DOCTYPE urlrewrite
-        PUBLIC "-//tuckey.org//DTD UrlRewrite 3.2//EN"
-        "http://www.tuckey.org/res/dtds/urlrewrite3.2.dtd">
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 5.0//EN"
+        "https://www.tuckey.org/res/dtds/urlrewrite5.0.dtd">
 
 <!--
 

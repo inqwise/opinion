@@ -52,6 +52,7 @@ public class DataPostmasterDescryptorBase extends ClientSessionDescryptor implem
 		this.request = request;
 		this.response = response;
 		this.accountId = Convert.toOptLong(request.getParameter(IAccount.JsonNames.ACCOUNT_ID));
+		this.context = context;
 	}
 
 	private String _clientIp; 

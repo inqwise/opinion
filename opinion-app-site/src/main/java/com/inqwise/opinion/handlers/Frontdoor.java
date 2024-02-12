@@ -37,6 +37,7 @@ public class Frontdoor extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.debug("doGet");
 		URL applicationUrl = ArrayUtils.contains(DEFAULT_PORTS, request.getServerPort()) ? new URL(request.getScheme(), request.getServerName(), request.getContextPath()) : new URL(request.getScheme(), request.getServerName(), request.getServerPort(), request.getContextPath());
 		String referer = StringUtils.trimToNull(request.getHeader("referer"));
 		String returnUrl = StringUtils.trimToNull(request.getParameter("input-return-url"));

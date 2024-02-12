@@ -102,10 +102,7 @@ public class RmiServicesFactory {
 		
 		logger.info("codebase: '%s'", System.getProperty("java.rmi.server.codebase"));
 		System.setProperty("java.security.policy", getLocationOfPolicyFile());
-		logger.info("policy: '%s'", System.getProperty("java.security.policy"));
-		if(System.getSecurityManager() == null) {            
-			System.setSecurityManager(new SecurityManager());
-		}        
+		logger.info("policy: '%s'", System.getProperty("java.security.policy"));      
 	}
 
 

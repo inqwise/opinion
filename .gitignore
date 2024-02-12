@@ -1,7 +1,8 @@
-target/
-.*
+/**/target/
+/**/.*
+/**/.*/
 !/.gitignore
-generated/
+/**/generated/
 !**/log4j2-test.xml
 config
 opinion-automation-app/queues

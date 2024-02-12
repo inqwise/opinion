@@ -30,7 +30,7 @@ public abstract class HandlerBase extends HttpServlet {
 	
 	protected void doRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		logger.debug("doRequest");
 		//response.setContentType("application/json;charset=UTF-8");
 		//response.setContentType(getContentType());
 		response.setCharacterEncoding("UTF-8");

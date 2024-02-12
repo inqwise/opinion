@@ -42,6 +42,7 @@ public class Index extends HttpServlet {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException{
+		logger.debug("doGet");
 		BaseOperationResult result = null;
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
