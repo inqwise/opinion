@@ -238,7 +238,6 @@ public class DataPostmasterDescryptor extends DataPostmasterDescryptorBase {
 
 	private void invokeMethods(Object actualObject, JSONObject source, JSONArray methodNames, String methodPath,
 			JSONObject output) throws JSONException {
-		logger.debug("invokeMethods(%s,%s,%s,%s,%s)");
 		try {
 			for (int i = 0; i < methodNames.length(); i++) {
 				String methodName = methodNames.optString(i);

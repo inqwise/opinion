@@ -33,7 +33,7 @@
 							<h2>Free</h2>
 							<div class="plan-price">$<span>0</span> /forever</div>
 							<div style="padding-bottom: 12px;">&nbsp;</div> <!-- No credit card required -->
-							<a class="button-white" href="<%=absoluteSecureURL %>/register?ref=pricing" title="Sign Up"><span>Sign Up</span></a>
+							<a class="button-white" href="<%=absoluteURL %>/register?ref=pricing" title="Sign Up"><span>Sign Up</span></a>
 						</div>
 					</td>
 					<td valign="top" class="plan">
@@ -42,7 +42,7 @@
 							<div class="plan-price">$<span>7.95</span> /mo</div>
 							<div style="padding-bottom: 12px;">&nbsp;</div>
 							<!-- <div style="padding-bottom: 12px;">or <strong>$79.00 /yr</strong></div> -->
-							<a class="button-yellow" href="<%=absoluteSecureURL %>/register?ref=pricing&amp;plan_id=3" title="Sign Up"><span>Sign Up</span></a>
+							<a class="button-yellow" href="<%=absoluteURL %>/register?ref=pricing&amp;plan_id=3" title="Sign Up"><span>Sign Up</span></a>
 						</div>
 					</td>
 				</tr>

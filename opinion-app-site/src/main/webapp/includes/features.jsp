@@ -24,7 +24,7 @@
 			<h3 class="ui-header-light">All the great survey software features behind Inqwise</h3>
 			<div style="padding-top: 12px;">
 				<p style="margin:0;">With user-friendly interface you can create even the most complex survey in minutes. Powerful survey software features help you gather the reliable data.<!-- <br><br> Sign up now, it's easy - and free! --></p>
-				<!-- <a href="<%=absoluteSecureURL %>/register?ref=features" title="Sign Up" class="button-yellow"><span>Sign Up</span></a> -->
+				<!-- <a href="<%=absoluteURL %>/register?ref=features" title="Sign Up" class="button-yellow"><span>Sign Up</span></a> -->
 			</div>
 		</div>
 		<div style="padding-top: 24px;">
@@ -114,7 +114,7 @@
 					<li>PRO account for as low as $7.95</li>
 				</ul>
 			</div>
-			<a class="button-yellow" title="Sign Up FREE" href="<%=absoluteSecureURL %>/register?ref=features"><span>Sign Up FREE</span></a>
+			<a class="button-yellow" title="Sign Up FREE" href="<%=absoluteURL %>/register?ref=features"><span>Sign Up FREE</span></a>
 		</div>
 		<div style="padding-top: 24px;">
 			<h3 class="ui-header">Have a question?</h3>

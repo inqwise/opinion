@@ -371,7 +371,7 @@ $(function() {
 					inviteId : inviteId,
 					success : function(data) {
 						clearErrors();
-						location.href = "<%=absoluteSecureURL %>/" + data.redirectUrl;
+						location.href = "<%=absoluteURL %>/" + data.redirectUrl;
 					},
 					error: function(error) {
 						loader.hide();
