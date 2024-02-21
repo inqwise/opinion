@@ -65,11 +65,11 @@ public class AccountsServicePackagesExpirationChecker extends Job {
 					if(!updateResult.hasError()){
 						logger.info("AccountsServicePackagesExpirationChecker : Downgraded account #%s servicePackageId to %s (default) by reason: Expiration", accountId, defaultServicePackage.getId());
 						// Send expiration email 
-						sendPackageExpiredEmail(currentServicePackage, owner, ApplicationConfiguration.Opinion.getSecureUrl());
+						sendPackageExpiredEmail(currentServicePackage, owner, ApplicationConfiguration.Opinion.getUrl());
 					}
 				} else {
 					// Send 1 Day before expiration reminder email
-					sendPackageOneDayBeforeExpirationEmail(currentServicePackage, owner, account.addDateOffset(expiryDate), account.getTimezoneOffset(), ApplicationConfiguration.Opinion.getSecureUrl());
+					sendPackageOneDayBeforeExpirationEmail(currentServicePackage, owner, account.addDateOffset(expiryDate), account.getTimezoneOffset(), ApplicationConfiguration.Opinion.getUrl());
 				}
 			}
 			result = BaseOperationResult.Ok;

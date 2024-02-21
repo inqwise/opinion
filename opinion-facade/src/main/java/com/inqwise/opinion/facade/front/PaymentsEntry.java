@@ -816,7 +816,7 @@ public class PaymentsEntry extends Entry implements IPostmasterObject{
 			
 			@Override
 			public String getReturnUrl() {
-				return ApplicationConfiguration.Opinion.getSecureUrl() + returnPath;
+				return ApplicationConfiguration.Opinion.getUrl() + returnPath;
 			}
 			
 			@Override
@@ -851,7 +851,7 @@ public class PaymentsEntry extends Entry implements IPostmasterObject{
 			
 			@Override
 			public String getCancelUrl() {
-				return ApplicationConfiguration.Opinion.getSecureUrl() + cancelPath;
+				return ApplicationConfiguration.Opinion.getUrl() + cancelPath;
 			}
 			
 			@Override
@@ -871,7 +871,7 @@ public class PaymentsEntry extends Entry implements IPostmasterObject{
 
 			@Override
 			public String getExpressCheckoutBaseUrl() {
-				return ApplicationConfiguration.Api.getSecureUrl() + "/pay/expresscheckout/";
+				return ApplicationConfiguration.Api.getUrl() + "/pay/expresscheckout/";
 			}
 
 			@Override

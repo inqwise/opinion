@@ -133,7 +133,7 @@ public class InvitesEntry extends Entry implements IPostmasterObject {
 				
 				@Override
 				public String getApplicationUrl() {
-					return ApplicationConfiguration.Opinion.getSecureUrl();
+					return ApplicationConfiguration.Opinion.getUrl();
 				}
 
 				@Override

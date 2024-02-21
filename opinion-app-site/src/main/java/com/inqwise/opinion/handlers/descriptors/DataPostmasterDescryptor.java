@@ -841,7 +841,7 @@ public class DataPostmasterDescryptor extends DataPostmasterDescryptorBase {
 			}
 
 			public String getResetPasswordLink() {
-				return ApplicationConfiguration.Opinion.getSecureUrl() + "/en-us/reset-password?reset_code="
+				return ApplicationConfiguration.Opinion.getUrl() + "/en-us/reset-password?reset_code="
 						+ encryptedValue + "&secret=2";
 			}
 

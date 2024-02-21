@@ -142,7 +142,7 @@ public class PayController {
 			
 			if(result.hasError()){
 				response.setResponseStatus(HttpResponseStatus.SEE_OTHER);
-				response.addLocationHeader(ApplicationConfiguration.Opinion.getSecureUrl() + "?error=" + URLEncoder.encode(result.toString(), "UTF8"));
+				response.addLocationHeader(ApplicationConfiguration.Opinion.getUrl() + "?error=" + URLEncoder.encode(result.toString(), "UTF8"));
 			} else {
 				IDoExpressCheckoutResponse tokenResponse = (IDoExpressCheckoutResponse) result.getValue();
 				response.setResponseStatus(HttpResponseStatus.SEE_OTHER);
@@ -151,7 +151,7 @@ public class PayController {
 		} catch (Throwable t){
 			UUID errorTicket = logger.error(t, "processExpressCheckout : unexpected error occured");
 			response.setResponseStatus(HttpResponseStatus.SEE_OTHER);
-			response.addLocationHeader(ApplicationConfiguration.Opinion.getSecureUrl() + "?errorId=" + errorTicket.toString());
+			response.addLocationHeader(ApplicationConfiguration.Opinion.getUrl() + "?errorId=" + errorTicket.toString());
 		}
 	}
 

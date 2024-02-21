@@ -113,7 +113,7 @@ int year = cal.get(Calendar.YEAR);
 						  				if("NoPackageSelected" == data.validateUser.error){
 											location.href = options.absoluteUrl + "/pricing";
 										} else {
-											location.href = options.absoluteSecureUrl + "/login";
+											location.href = options.absoluteUrl + "/login";
 										}
 						  			} else {
 						  				
@@ -122,7 +122,7 @@ int year = cal.get(Calendar.YEAR);
 									if(options.mustAuthenticated) {
 										userInfo = data.validateUser;
 									} else {
-										location.href = options.absoluteSecureUrl + "/dashboard";
+										location.href = options.absoluteUrl + "/dashboard";
 									}
 								}
 						  	},
@@ -175,7 +175,7 @@ int year = cal.get(Calendar.YEAR);
 							<div class="header-toolbar-right-side">
 								<div class="login-bar">
 									<ul class="lg">
-										<li class="first-item"><a href="<%=absoluteSecureURL%>/register" title="Create free account">Create free account</a></li><li class="last-item"><a href="<%=absoluteSecureURL%>/login" title="Sign in">Sign in</a></li>
+										<li class="first-item"><a href="<%=absoluteURL%>/register" title="Create free account">Create free account</a></li><li class="last-item"><a href="<%=absoluteURL%>/login" title="Sign in">Sign in</a></li>
 									</ul>
 								</div>
 							</div>

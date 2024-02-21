@@ -130,7 +130,7 @@ public final class ResponsesManager {
 
 				@Override
 				public String getUrl() {
-					return String.format("%s/en-us/surveys/%s/responses/%s", ApplicationConfiguration.Opinion.getSecureUrl(), collector.getOpinionId(), answerSessionId);
+					return String.format("%s/en-us/surveys/%s/responses/%s", ApplicationConfiguration.Opinion.getUrl(), collector.getOpinionId(), answerSessionId);
 				}
 
 				@Override

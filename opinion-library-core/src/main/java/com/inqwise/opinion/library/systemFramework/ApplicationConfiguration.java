@@ -75,10 +75,6 @@ public class ApplicationConfiguration extends BaseApplicationConfiguration {
 			return getValue(URL_KEY, true);
 		}
 		
-		public static String getSecureUrl(){ 	
-			return getValue(SECURE_URL_KEY, true);
-		}
-		
 		public static UUID getProductGuid(){
 			return UUID.fromString(getValue(PRODUCT_ID_KEY, true));
 		}
@@ -127,14 +123,9 @@ public class ApplicationConfiguration extends BaseApplicationConfiguration {
 	
 	public final static class Api{
 		private static final String URL_KEY = "api.url";
-		private static final String SECURE_URL_KEY = "api.secureUrl";
 		
 		public static String getUrl(){ 	
 			return getValue(URL_KEY, true);
-		}
-		
-		public static String getSecureUrl(){ 	
-			return getValue(SECURE_URL_KEY, true);
 		}
 	}
 }
