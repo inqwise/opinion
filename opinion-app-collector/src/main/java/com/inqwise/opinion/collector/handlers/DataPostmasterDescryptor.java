@@ -18,7 +18,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.msgpack.MessagePack;
 
 import com.inqwise.opinion.common.ICollectorPostmasterContext;
 import com.inqwise.opinion.common.IHttpAnswererSession;
@@ -198,9 +197,7 @@ public class DataPostmasterDescryptor implements ICollectorPostmasterContext {
 				return new HttpClientSession(ErrorCode.NotSignedIn, "Not signed in");
 			} else {
 				HttpClientSessionUserArgs userArgs = null;
-				MessagePack msgpack = new MessagePack();
-				 // Deserialize
-				userArgs = msgpack.read(Base64.decodeBase64(decryptedUserArgsBase64), HttpClientSessionUserArgs.class);
+				userArgs = new HttpClientSessionUserArgs(new JSONObject(decryptedUserArgsBase64));
 				
 				return new HttpClientSession( sessionId, userArgs.getUserId(),
 						clientIp, userArgs.getProductId(), userArgs.getClientIp());

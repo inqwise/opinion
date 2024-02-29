@@ -1,8 +1,11 @@
 package com.inqwise.opinion.http;
 
 import org.json.JSONObject;
+import org.msgpack.annotation.Message;
+
 import com.google.common.base.MoreObjects;
 
+@Message
 public class HttpClientSessionUserArgs {
 	private Long userId;
 	private String clientIp;

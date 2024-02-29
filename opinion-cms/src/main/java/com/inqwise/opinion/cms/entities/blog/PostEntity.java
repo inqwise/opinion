@@ -12,7 +12,9 @@ import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
+import com.inqwise.opinion.cms.common.blog.IComment;
 import com.inqwise.opinion.cms.common.blog.IPost;
+import com.inqwise.opinion.cms.dao.blog.CommentsDataAccess;
 import com.inqwise.opinion.cms.dao.blog.Posts;
 
 public class PostEntity implements IPost {
@@ -162,5 +164,4 @@ public class PostEntity implements IPost {
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
-
 }

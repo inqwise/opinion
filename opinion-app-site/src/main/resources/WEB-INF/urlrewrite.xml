@@ -83,12 +83,12 @@
     
     <rule>
     	<from>^/([a-z]{2}(-[a-z]{2})?)/logout$</from>
-    	<to>/logout.jsp?lang=$1</to>
+    	<to>/includes/logout.jsp?lang=$1</to>
     </rule>
     
     <rule>
     	<from>^/([a-z]{2}(-[a-z]{2})?)/logout/$</from>
-    	<to>/logout.jsp?lang=$1</to>
+    	<to>/includes/logout.jsp?lang=$1</to>
     </rule>
     
     <!-- 

@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import com.inqwise.opinion.cms.common.ICategory;
 import com.inqwise.opinion.cms.common.ITag;
 import com.inqwise.opinion.cms.common.blog.Blogs;
+import com.inqwise.opinion.cms.common.blog.IComment;
 import com.inqwise.opinion.cms.common.blog.IPost;
 import com.inqwise.opinion.cms.managers.BlogManager;
 import com.inqwise.opinion.cms.managers.CategoriesManager;
@@ -304,6 +305,28 @@ public class BlogsEntry extends Entry {
 		
 		if(null == result){
 			output = BaseOperationResult.JsonOk;
+		} else {
+			output = result.toJson();
+		}
+		
+		return output;
+	}
+	
+	public JSONObject getComments(JSONObject input) throws JSONException{
+		JSONObject output;
+		BaseOperationResult result = null;
+		int postId = input.getInt("postId");
+		
+		List<IComment> comments = null;
+		OperationResult<List<IComment>> commentsResult = BlogManager.getComments(postId);
+		if(commentsResult.hasError()){
+			result = commentsResult;
+		} else {
+			comments = commentsResult.getValue();
+		}
+		
+		if(null == result){
+			output = new JSONObject().put("list", new JSONArray(comments));
 		} else {
 			output = result.toJson();
 		}

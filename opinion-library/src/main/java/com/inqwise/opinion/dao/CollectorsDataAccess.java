@@ -21,6 +21,7 @@ import com.inqwise.opinion.infrastructure.dao.DAOUtil;
 import com.inqwise.opinion.infrastructure.dao.Database;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.dao.SqlParam;
+import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.ResultSetHelper;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
@@ -28,8 +29,11 @@ import com.inqwise.opinion.library.common.errorHandle.OperationResult;
 import com.inqwise.opinion.library.dao.DAOBase;
 import com.inqwise.opinion.library.dao.DAOFactory;
 import com.inqwise.opinion.library.dao.Databases;
+import com.inqwise.opinion.managers.CollectorsManager;
 
 public class CollectorsDataAccess extends DAOBase {
+	
+	public static ApplicationLog logger = ApplicationLog.getLogger(CollectorsDataAccess.class);
 
 	public static final String TRANSLATION_ID_PARAM = "$translation_id";
 	public static final String RESPONSE_QUOTA_PARAM = "$response_quota";
@@ -389,8 +393,9 @@ public class CollectorsDataAccess extends DAOBase {
 	        };
 			
 			Database factory = DAOFactory.getInstance(Databases.Opinion);
-        	call = factory.GetProcedureCall("getCollectors", params);     
-        	connection = call.getConnection();
+			call = factory.GetProcedureCall("getCollectors", params);     
+        	logger.debug("getCollectors.call= %s" , call);
+			connection = call.getConnection();
             resultSet = call.executeQuery();
             List<JSONObject> list = DSL.using(connection).fetch(resultSet)
         			.map(r -> {
