@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.inqwise.opinion.common.IPostmasterObject;
+import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.infrastructure.systemFramework.JSONHelper;
 import com.inqwise.opinion.library.common.IProduct;
 import com.inqwise.opinion.library.common.ISession;
@@ -24,6 +25,8 @@ import com.inqwise.opinion.library.managers.ProductsManager;
 import com.inqwise.opinion.library.managers.UsersManager;
 
 public class DataPostmasterDescryptor extends DataPostmasterDescryptorBase {
+	
+	static ApplicationLog logger = ApplicationLog.getLogger(DataPostmasterDescryptor.class);
 
 	private PrintWriter out = null;
 	public DataPostmasterDescryptor(PrintWriter out, HttpServletRequest request,
@@ -150,8 +153,17 @@ public class DataPostmasterDescryptor extends DataPostmasterDescryptorBase {
 		return _knowledgeBase;
 	}
 	
+	private PagesEntry _pages;
+	public PagesEntry getPages() {
+		if(null == _pages) {
+			_pages = new PagesEntry(this);
+		}
+		return _pages;
+	}
+	
 	private void invokeMethods(Object actualObject, JSONObject source, JSONArray methodNames, String methodPath, JSONObject output) throws JSONException
 	{
+	logger.debug("invokeMethods: actualObjest: %s, source: %s, methodNames: %s , methodPath: %s , output: %s",  actualObject, source, methodNames, methodPath, output);	
 		for (int i = 0; i < methodNames.length(); i++) {
 			BaseOperationResult result = null;
 			String methodName = methodNames.optString(i);

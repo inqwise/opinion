@@ -17,15 +17,18 @@ import com.inqwise.opinion.infrastructure.dao.Database;
 import com.inqwise.opinion.infrastructure.dao.IResultSetCallback;
 import com.inqwise.opinion.infrastructure.dao.ResultSets;
 import com.inqwise.opinion.infrastructure.dao.SqlParam;
+import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 import com.inqwise.opinion.library.common.accounts.IAccountBillingSettingsChangeRequest;
 import com.inqwise.opinion.library.common.accounts.IAccountBusinessDetailsChangeRequest;
 import com.inqwise.opinion.library.common.accounts.IAccountDetailsChangeRequest;
 import com.inqwise.opinion.library.common.accounts.IChangeBalanceRequest;
 import com.inqwise.opinion.library.common.errorHandle.ErrorCode;
 import com.inqwise.opinion.library.common.errorHandle.OperationResult;
+import com.inqwise.opinion.library.managers.AccountsManager;
+import com.mchange.v2.c3p0.impl.NewProxyCallableStatement;
 
 public class AccountsDataAccess {
-
+	static ApplicationLog logger = ApplicationLog.getLogger(AccountsDataAccess.class);
 	private static final String USER_ID_PARAM = "$user_id";
 	private static final String PRODUCT_ID_PARAM = "$product_id";
 	private static final String ACCOUNT_ID_PARAM = "$account_id";
@@ -115,6 +118,9 @@ public class AccountsDataAccess {
 			
 			Database factory = DAOFactory.getInstance(Databases.Office);
         	call = factory.GetProcedureCall("getAccount", params);
+        	if(call instanceof NewProxyCallableStatement) {
+        		logger.debug("query: %s", call);
+        	}
         	connection = call.getConnection();
             resultSet = call.executeQuery();
             callback.call(resultSet, 0);

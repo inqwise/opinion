@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 
 import com.inqwise.opinion.cms.CmsConfiguration;
 import com.inqwise.opinion.cms.common.IPageGeneratorCallback;
+import com.inqwise.opinion.cms.managers.PortalsManager;
 import com.inqwise.opinion.library.common.errorHandle.BaseOperationResult;
 import com.inqwise.opinion.infrastructure.dao.DAOException;
 import com.inqwise.opinion.infrastructure.dao.Database;
@@ -13,8 +14,12 @@ import com.inqwise.opinion.library.dao.DAOFactory;
 import com.inqwise.opinion.infrastructure.dao.DAOUtil;
 import com.inqwise.opinion.library.dao.Databases;
 import com.inqwise.opinion.infrastructure.dao.SqlParam;
+import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 
 public class PagesDataAccess {
+	
+	private static ApplicationLog logger = ApplicationLog.getLogger(PagesDataAccess.class);
+	
 	private static final String LANGUAGE_ID_PARAM = "$language_id";
 
 	private static final String PAGE_ID_PARAM = "$page_id";
@@ -38,7 +43,8 @@ public class PagesDataAccess {
 			
 			Database factory = DAOFactory.getInstance(CmsConfiguration.getDatabaseName());
 			call = factory.GetProcedureCall("getPages", params);
-            connection = call.getConnection();
+			logger.debug("call: %s" , call);
+			connection = call.getConnection();
             
             // page
             resultSet = call.executeQuery();

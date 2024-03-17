@@ -7,9 +7,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.codec.binary.Base64;
 import org.json.JSONObject;
-import org.msgpack.MessagePack;
 
 import com.inqwise.opinion.http.HttpClientSession;
 import com.inqwise.opinion.http.HttpClientSessionUserArgs;

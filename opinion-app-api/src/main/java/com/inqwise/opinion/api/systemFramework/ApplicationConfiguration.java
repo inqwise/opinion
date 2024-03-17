@@ -19,7 +19,7 @@ public class ApplicationConfiguration extends BaseApplicationConfiguration {
 		
 		private static final String PORT_KEY = "service.port";
 		public static int getPort() {
-			return Integer.parseInt(getValue(PORT_KEY, String.valueOf(RestExpress.DEFAULT_PORT)));
+			return Integer.parseInt(getValue(PORT_KEY, String.valueOf(8083)));
 		}
 		
 		private static final String NAME_KEY = "service.name";

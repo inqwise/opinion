@@ -7,12 +7,20 @@
 			</PatternLayout>
 			<!--PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %m%n"/-->
 		</Console>
-		<File name="File" fileName="target/test-logs/app-automation.log" immediateFlush="true" append="true">
+		<File name="File" fileName="target/logs/app-automation.log" immediateFlush="true" append="true">
 			<PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
 		</File>
 	</Appenders>
 	<Loggers>
 		<Logger name="com.mchange" level="warn" additivity="false">
+			<AppenderRef ref="Console"/>
+			<AppenderRef ref="File"/>
+		</Logger>
+		<Logger name="org.quartz" level="warn" additivity="false">
+			<AppenderRef ref="Console"/>
+			<AppenderRef ref="File"/>
+		</Logger>
+		<Logger name="com.npstrandberg" level="warn" additivity="false">
 			<AppenderRef ref="Console"/>
 			<AppenderRef ref="File"/>
 		</Logger>

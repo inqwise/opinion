@@ -3,6 +3,8 @@ package com.inqwise.opinion.cms.common.blog;
 import java.util.Date;
 import java.util.List;
 
+import org.json.JSONTokener;
+
 public interface IPost {
 
 	public abstract long getId();
@@ -20,5 +22,4 @@ public interface IPost {
 
 	public abstract int getCountOfComments();
 	public abstract Date getModifyDate();
-
 }

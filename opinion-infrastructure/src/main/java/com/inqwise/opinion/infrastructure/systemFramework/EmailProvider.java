@@ -1,21 +1,25 @@
 package com.inqwise.opinion.infrastructure.systemFramework;
 
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.PasswordAuthentication;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.inqwise.opinion.infrastructure.common.EmailProviderException;
-import com.inqwise.opinion.infrastructure.systemFramework.ApplicationLog;
 
 
 public final class EmailProvider {
@@ -29,6 +33,10 @@ public final class EmailProvider {
 	private boolean done = false;
 	private BlockingQueue<Message> queue = null;
 	private static EmailProvider instance = null;
+
+	private EmailProviderOptions options;
+
+	private ExecutorService service;
 	
 	public enum ContentType {
 
@@ -45,45 +53,62 @@ public final class EmailProvider {
 		}
 	}
 
-	protected void finalize() throws Throwable
-	{
-		finish();
-		super.finalize();
-	} 
-
-	public void finish(){
+	public void close(){
+		logger.info("close");
 		if(!done){
 			done = true;
 			if(null != queue){
 				try{
-					queue = null;
+					logger.debug("notify queue");
+					synchronized (queue) {
+						queue.notify();
+						try {
+							logger.debug("wait queue");
+							queue.wait(100000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+					logger.debug("Shutdown service");
+					service.shutdown();
+					try {
+						service.awaitTermination(100000, TimeUnit.MILLISECONDS);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				} catch (Throwable t){
 					logger.error(t, "finishThread() : put to queue null failed.");
 				}
 			}
 		}
+		
 	}
 	
-	private EmailProvider(){
+	private EmailProvider() {
+		this(EmailProviderOptions.builder()
+				.withUsername(BaseApplicationConfiguration.Email.getSmtpUsername())
+				.withPassword(BaseApplicationConfiguration.Email.getSmtpPassword())
+				.withIsAuthRequired(BaseApplicationConfiguration.Email.getIsAuthenticationRequired())
+				.withHost(BaseApplicationConfiguration.Email.getSmtpServer())
+				.withPort(BaseApplicationConfiguration.Email.getSmtpPort())
+				.withAuditEmail(BaseApplicationConfiguration.Email.getAuditEmail())
+				.build()
+				);
+	}
+	
+	protected EmailProvider(EmailProviderOptions options){
+		this.options = options;
 		try{
 			queue = new LinkedBlockingQueue<Message>();
-			Thread t = new Thread(new MailSender());
-			t.setPriority(Thread.MIN_PRIORITY);
-			t.start();
+			service = Executors.newSingleThreadExecutor();
+			service.execute(new MailSender());
 		} catch(Throwable t){
 			logger.error(t, "ctor() : start executeSend thread failed.");
 		}
 	}
 	
-	public static EmailProvider getInstance() {
+	public synchronized static EmailProvider getInstance() {
 		if(instance == null) {
-			instance = new EmailProvider();
-		} else if(instance.done){
-			try {
-				instance.finalize();
-			} catch (Throwable t) {
-				logger.error(t, "getInstance() : finilize failed.");
-			}
 			instance = new EmailProvider();
 		}
 		return instance;
@@ -95,9 +120,13 @@ public final class EmailProvider {
 
 		Properties props = new Properties();
 		props.setProperty(MAIL_SMTP_SUBMITTER, authenticator.getPasswordAuthentication().getUserName());
-		props.setProperty(MAIL_SMTP_AUTH, BaseApplicationConfiguration.Email.getIsAuthenticationRequired());
-		props.setProperty(MAIL_SMTP_HOST, BaseApplicationConfiguration.Email.getSmtpServer());
-		props.setProperty(MAIL_SMTP_PORT, BaseApplicationConfiguration.Email.getSmtpPort());
+		props.setProperty(MAIL_SMTP_AUTH, options.getIsAuthenticationRequired());
+		props.setProperty(MAIL_SMTP_HOST, options.getSmtpServer());
+		props.setProperty(MAIL_SMTP_PORT, options.getSmtpPort());
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.socketFactory.class",
+				"javax.net.ssl.SSLSocketFactory"); //SSL Factory Class
+		props.put("mail.smtp.socketFactory.port", options.getSmtpPort()); //SSL Port
 
 		return Session.getInstance(props, authenticator);
 	}
@@ -106,9 +135,7 @@ public final class EmailProvider {
 		private PasswordAuthentication authentication;
 
 		public Authenticator() {
-			String username = BaseApplicationConfiguration.Email.getSmtpUsername();
-			String password = BaseApplicationConfiguration.Email.getSmtpPassword();
-			authentication = new PasswordAuthentication(username, password);
+			authentication = new PasswordAuthentication(options.getUsername(), options.getPassword());
 		}
 
 		protected PasswordAuthentication getPasswordAuthentication() {
@@ -126,8 +153,9 @@ public final class EmailProvider {
 	
 	public void send(String from, String[] toArr, String subject, String content, ContentType contentType) throws EmailProviderException{
 		// Send Email
-		
+		logger.debug("send(%s,%s,%s,%s,%s)" , from, Arrays.toString(toArr),subject,content,contentType);
 		try{
+			Objects.requireNonNull(toArr, "toArr");
 			if(done){
 				throw new Exception("Unable to send mail when service is done.");
 			}
@@ -141,8 +169,7 @@ public final class EmailProvider {
 			InternetAddress addressFrom = new InternetAddress(from);
 			message.setFrom(addressFrom);
 			
-			
-			String auditEmail = BaseApplicationConfiguration.Email.getAuditEmail();
+			String auditEmail = options.getAuditEmail();
 			if(null != auditEmail){
 				InternetAddress auditAddressBcc = new InternetAddress(auditEmail);
 				message.addRecipient(Message.RecipientType.BCC, auditAddressBcc);
@@ -196,19 +223,19 @@ public final class EmailProvider {
 	
 	public class MailSender implements Runnable {
 		public void run(){
-			
+			logger.debug("MailSender started");
 			try {
-				while (!done) {
+				do {
 					Message message = queue.take();
 					if(null == message) {
 						synchronized (queue) {
-							while(queue.isEmpty()){
-								queue.wait();
-							}
+							queue.wait();
 						}
 					} else {
+						logger.debug("message received");
 						try{
 							Transport.send(message);
+							logger.debug("message has been sent");
 						} catch(Throwable t){
 							logger.error(t, "executeSend() : Failed to send email message.");
 							if(null != message){
@@ -216,7 +243,14 @@ public final class EmailProvider {
 							}
 						}
 					}
+				} while (!(done && (null == queue || queue.isEmpty())));
+				
+				synchronized (queue) {
+					queue.notify();
 				}
+				
+				logger.info("MailSender execution completed");
+				
 			} catch (InterruptedException ex) {
 				logger.error(ex, "executeSend() : INTERRUPTED");
 			} catch (Throwable t){

@@ -75,6 +75,8 @@ public final class RestExpressService {
 
 		mapExceptions(server);
 		server.bind();
+		
+		logger.info("API server started succesfully on 0.0.0.0:%s", ApplicationConfiguration.Service.getPort());
 		server.awaitShutdown();
 		
 		return server;

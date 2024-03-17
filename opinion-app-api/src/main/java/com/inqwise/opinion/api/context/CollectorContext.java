@@ -6,11 +6,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.UUID;
 
-import org.apache.commons.codec.binary.Base64;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.msgpack.MessagePack;
 import org.restexpress.Request;
 import org.restexpress.Response;
 
@@ -104,9 +102,7 @@ public class CollectorContext implements ICollectorPostmasterContext {
 					return new HttpClientSession(ErrorCode.NotSignedIn, "Not signed in");
 				} else {
 					HttpClientSessionUserArgs userArgs = null;
-					MessagePack msgpack = new MessagePack();
-					 // Deserialize
-					userArgs = msgpack.read(Base64.decodeBase64(decryptedUserArgsBase64), HttpClientSessionUserArgs.class);
+					userArgs = new HttpClientSessionUserArgs(new JSONObject(decryptedUserArgsBase64));
 					
 					return new HttpClientSession( sessionId, userArgs.getUserId(),
 							clientIp, userArgs.getProductId(), userArgs.getClientIp());
