@@ -9,8 +9,8 @@ public class EmailProviderTest {
 	@Test
 	void testSendEmail() throws EmailProviderException {
 		EmailProvider emailProvider = new EmailProvider(EmailProviderOptions.builder()
-				.withUsername("AKIASXBUGVZZV2YE4N7Z")
-				.withPassword("BD0BlO8KSLnJOllyUy3L7kKffiwc8wRLHiNCOSETU9OP")
+				.withUsername("")
+				.withPassword("")
 				.withIsAuthRequired("true")
 				.withHost("email-smtp.us-east-1.amazonaws.com")
 				.withPort("465")
