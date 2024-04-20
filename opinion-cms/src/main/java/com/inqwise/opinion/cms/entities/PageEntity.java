@@ -15,7 +15,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
 
 import com.inqwise.opinion.cms.common.IPage;
 import com.inqwise.opinion.cms.common.IPagesEnvironment;
@@ -341,5 +343,10 @@ public class PageEntity implements IPage  {
 		for (String key : keywords) {
 			addKeyword(key);
 		}
+	}
+
+	@Override
+	public JSONObject toJSON() {
+		throw new NotImplementedException("toJSON");
 	}
 }

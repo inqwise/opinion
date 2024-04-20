@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import javax.servlet.ServletException;
 
+import org.json.JSONObject;
+
 import com.inqwise.opinion.library.common.IProduct;
 
 public interface IPage {
@@ -47,4 +49,5 @@ public interface IPage {
 	public void addKeywords(Collection<String> keywords);
 	public void addKeyword(String keyword);
 	public abstract void setDescription(String description);
+	public JSONObject toJSON();
 }
